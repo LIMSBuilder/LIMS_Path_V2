@@ -399,6 +399,20 @@ jQuery(document).ready(function () {
     };
 
 
+    jQuery.fn.loadTemplate = function (path) {
+        var template = "";
+        $.ajax({
+            type: "GET",
+            url: path,
+            async: false,
+            success: function (data) {
+                template = data;
+            }
+        });
+        return template;
+    }
+
+
 });
 
 

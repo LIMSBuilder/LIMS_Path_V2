@@ -1,10 +1,10 @@
 <div class="row">
-    <div class="col-md-10">
-        <form class="form-horizontal form-bordered">
+    <div class="col-md-12">
+        <form class="form-horizontal form-bordered center-block">
             <div class="form-group">
                 <label class="col-sm-3 control-label">部门名称</label>
                 <div class="col-sm-6">
-                    <input type="text" placeholder="请输入部门名称" class="form-control">
+                    <input type="text" placeholder="请输入部门名称" value="{{name}}" class="form-control">
                 </div>
             </div>
 

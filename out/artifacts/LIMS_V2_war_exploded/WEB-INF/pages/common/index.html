@@ -136,8 +136,10 @@
                     </ul>
                 </li>
                 <li class="nav-parent"><a href=""><i class="fa fa-cogs"></i> <span>系统管理</span></a>
-                    <ul class="children">
-                        <li><a href="form-layouts.html"><i class="fa fa-caret-right"></i> 部门管理 </a></li>
+                    <ul class="children" data-icon="fa fa-cogs">
+                        <li><a href="javascript:;" class="nav-item" data-type="department" data-title="部门管理"
+                               data-desp="查看、编辑公司部门信息"><i
+                                class="fa fa-caret-right"></i> 部门管理 </a></li>
                         <li><a href="form-validation.html"><i class="fa fa-caret-right"></i> 角色管理</a></li>
                         <li><a href="form-validation.html"><i class="fa fa-caret-right"></i> 用户管理</a></li>
                         <li><a href="form-validation.html"><i class="fa fa-caret-right"></i> 公告管理</a></li>
@@ -420,7 +422,7 @@
         </div><!-- headerbar -->
 
         <div class="pageheader">
-            <h2><i class="fa fa-home"></i> 仪表盘 <span>Subtitle goes here...</span></h2>
+            <h2 id="title"><i class="fa fa-home"></i> 仪表盘 <span>Subtitle goes here...</span></h2>
             <div class="breadcrumb-wrapper">
                 <span class="label">当前位置:</span>
                 <ol class="breadcrumb">
@@ -756,6 +758,8 @@
 <script src="/assets/js/toggles.min.js"></script>
 <script src="/assets/js/retina.min.js"></script>
 <script src="/assets/js/jquery.cookies.js"></script>
+<script src="/assets/js/template.js"></script>
+
 
 <script src="/assets/js/jquery.pagination.js"></script>
 
@@ -767,39 +771,55 @@
 
 
 <script src="/assets/js/custom.js"></script>
-
-
 <script type="text/javascript">
     jQuery(document).ready(function () {
 
         "use strict";
+        jQuery('.nav-item').on('click', function () {
+            var title = jQuery(this).data("title");
+            var desp = jQuery(this).data("desp");
+            var icon = jQuery(this).parents('ul:eq(0)').data("icon");
+            jQuery('#title').html('<i class="' + icon + '"></i> ' + title + ' <span>' + desp + '</span>');
+            var type = jQuery(this).data('type');
+            if (type) {
+                jQuery.get("/" + type, function (obj) {
+                    var modal_tpl = template.compile(jQuery.fn.loadTemplate('/assets/template/items/' + type + '.tpl'));
+                    var modal_body = modal_tpl(obj.modal);
+                    obj.body = modal_body;
+                    var render = template.compile(jQuery.fn.loadTemplate('/assets/template/table.tpl'));
+                    var html = render(obj);
+                    $('#contentpanel').html(html);
 
 
-        jQuery.get("/assets/template/table.tpl", function (data) {
-            jQuery('#contentpanel').html(data);
+                    //绑定鼠标移入显示"操作"按钮
+                    jQuery('.table-hidaction tbody tr').hover(function () {
+                        jQuery(this).find('.table-action-hide a').animate({opacity: 1});
+                    }, function () {
+                        jQuery(this).find('.table-action-hide a').animate({opacity: 0});
+                    });
 
-            jQuery('.table-hidaction tbody tr').hover(function () {
-                jQuery(this).find('.table-action-hide a').animate({opacity: 1});
-            }, function () {
-                jQuery(this).find('.table-action-hide a').animate({opacity: 0});
-            });
-            jQuery("#serach").keyup(function () {
-                if (event.keyCode == 13) {
-                    var data = jQuery(this).val();
-                    console.log('按下回车了,数据为' + data);
-                }
-            });
-            $('.paging').pagination({
-                pageCount: 50,
-                coping: true,
-                homePage: '首页',
-                endPage: '末页',
-                prevContent: '上页',
-                nextContent: '下页',
-                callback: function (page) {
-                    console.log(page.getCurrent());
-                }
-            });
+                    //搜索框事件
+                    jQuery("#serach").keyup(function () {
+                        if (event.keyCode == 13) {
+                            var data = jQuery(this).val();
+                            console.log('按下回车了,数据为' + data);
+                        }
+                    });
+
+                    //页码事件
+                    $('.paging').pagination({
+                        pageCount: obj.pageCount,
+                        coping: true,
+                        homePage: '首页',
+                        endPage: '末页',
+                        prevContent: '上页',
+                        nextContent: '下页',
+                        callback: function (page) {
+                            console.log(page.getCurrent());
+                        }
+                    });
+                })
+            }
         });
 
         jQuery('#contentpanel').on('click', function (event) {
@@ -878,5 +898,6 @@
 
 </script>
 
+<script type="text/html" id="modal_body"></script>
 </body>
 </html>
