@@ -188,7 +188,7 @@ html[dir="rtl"] .select2-container .select2-choice > .select2-chosen {
 
 .select2-container .select2-choice .select2-arrow {
     display: inline-block;
-    width: 23px;
+    /*width: 23px;*/
     height: 100%;
     position: absolute;
     right: 0;

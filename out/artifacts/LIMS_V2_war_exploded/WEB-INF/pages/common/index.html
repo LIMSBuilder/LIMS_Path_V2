@@ -5,12 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="/assets//assets/images/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png">
 
     <title>实验室信息管理系统</title>
 
     <link href="/assets/css/style.default.css" rel="stylesheet">
 
+    <!--表格CSS-->
+    <link href="/assets/css/jquery.datatables.css" rel="stylesheet">
+    <!--分页-->
+    <link href="/assets/css/pagination.css" rel="stylesheet">
+    <!--弹出层-->
+    <link href="/assets/css/jquery.gritter.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="/assets/js/html5shiv.js"></script>
@@ -148,32 +154,32 @@
             </ul>
 
             <div class="infosummary">
-                <h5 class="sidebartitle">Information Summary</h5>
+                <h5 class="sidebartitle">信息概述</h5>
                 <ul>
                     <li>
                         <div class="datainfo">
-                            <span class="text-muted">Daily Traffic</span>
+                            <span class="text-muted">日均流量</span>
                             <h4>630, 201</h4>
                         </div>
                         <div id="sidebar-chart" class="chart"></div>
                     </li>
                     <li>
                         <div class="datainfo">
-                            <span class="text-muted">Average Users</span>
+                            <span class="text-muted">用户总数</span>
                             <h4>1, 332, 801</h4>
                         </div>
                         <div id="sidebar-chart2" class="chart"></div>
                     </li>
                     <li>
                         <div class="datainfo">
-                            <span class="text-muted">Disk Usage</span>
+                            <span class="text-muted">磁盘消耗</span>
                             <h4>82.2%</h4>
                         </div>
                         <div id="sidebar-chart3" class="chart"></div>
                     </li>
                     <li>
                         <div class="datainfo">
-                            <span class="text-muted">CPU Usage</span>
+                            <span class="text-muted">CPU利用率</span>
                             <h4>140.05 - 32</h4>
                         </div>
                         <div id="sidebar-chart4" class="chart"></div>
@@ -210,7 +216,7 @@
                                 <span class="badge">2</span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-head pull-right">
-                                <h5 class="title">2 Newly Registered Users</h5>
+                                <h5 class="title">公司有 2 位新成员</h5>
                                 <ul class="dropdown-list user-list">
                                     <li class="new">
                                         <div class="thumb"><a href=""><img src="/assets/images/photos/user1.png"
@@ -261,7 +267,7 @@
                                 <span class="badge">1</span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-head pull-right">
-                                <h5 class="title">You Have 1 New Message</h5>
+                                <h5 class="title">您有 1 条新消息</h5>
                                 <ul class="dropdown-list gen-list">
                                     <li class="new">
                                         <a href="">
@@ -326,7 +332,7 @@
                                 <span class="badge">5</span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-head pull-right">
-                                <h5 class="title">You Have 5 New Notifications</h5>
+                                <h5 class="title">您有 5 条新通知</h5>
                                 <ul class="dropdown-list gen-list">
                                     <li class="new">
                                         <a href="">
@@ -392,14 +398,14 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                 <img src="/assets/images/photos/loggeduser.png" alt=""/>
-                                John Doe
+                                瞿龙俊
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-                                <li><a href="profile.html"><i class="glyphicon glyphicon-user"></i> My Profile</a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Account Settings</a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> Help</a></li>
-                                <li><a href="signin.html"><i class="glyphicon glyphicon-log-out"></i> Log Out</a></li>
+                                <li><a href="profile.html"><i class="glyphicon glyphicon-user"></i> 个人资料卡</a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人中心</a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> 帮助</a></li>
+                                <li><a href="signin.html"><i class="glyphicon glyphicon-log-out"></i> 注销账户</a></li>
                             </ul>
                         </div>
                     </li>
@@ -424,8 +430,9 @@
             </div>
         </div>
 
-        <div class="contentpanel">
-            <!-- content goes here... -->
+        <div class="contentpanel" id="contentpanel">
+            <!-- 通过template进行渲染 -->
+
         </div>
 
     </div><!-- mainpanel -->
@@ -719,6 +726,25 @@
         </div><!-- tab-content -->
     </div><!-- rightpanel -->
 
+
+    <!-- 消息提示框 -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">确认执行操作</h4>
+                </div>
+                <div class="modal-body" id="msg_body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关 闭</button>
+                    <button type="button" class="btn btn-primary" id="check_true">确 认</button>
+                </div>
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div><!-- 消息提示框 -->
 </section>
 
 
@@ -731,8 +757,126 @@
 <script src="/assets/js/retina.min.js"></script>
 <script src="/assets/js/jquery.cookies.js"></script>
 
+<script src="/assets/js/jquery.pagination.js"></script>
+
+<script src="/assets/js/jquery.datatables.min.js"></script>
+<script src="/assets/js/select2.min.js"></script>
+
+<!--弹出层-->
+<script src="/assets/js/jquery.gritter.min.js"></script>
+
 
 <script src="/assets/js/custom.js"></script>
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        "use strict";
+
+
+        jQuery.get("/assets/template/table.tpl", function (data) {
+            jQuery('#contentpanel').html(data);
+
+            jQuery('.table-hidaction tbody tr').hover(function () {
+                jQuery(this).find('.table-action-hide a').animate({opacity: 1});
+            }, function () {
+                jQuery(this).find('.table-action-hide a').animate({opacity: 0});
+            });
+            jQuery("#serach").keyup(function () {
+                if (event.keyCode == 13) {
+                    var data = jQuery(this).val();
+                    console.log('按下回车了,数据为' + data);
+                }
+            });
+            $('.paging').pagination({
+                pageCount: 50,
+                coping: true,
+                homePage: '首页',
+                endPage: '末页',
+                prevContent: '上页',
+                nextContent: '下页',
+                callback: function (page) {
+                    console.log(page.getCurrent());
+                }
+            });
+        });
+
+        jQuery('#contentpanel').on('click', function (event) {
+            var target = jQuery(event.target);
+            if (target.hasClass('add_msg')) {
+                //新增对象提示
+                jQuery.fn.alert_msg('部门新增成功！');
+                $('#addDepart').modal('hide');
+            }
+            if (target.hasClass('select_all')) {
+                //选中全部
+                jQuery.fn.select_all('check', 'all');
+            }
+            if (target.hasClass('select_no')) {
+                //反向选择
+                jQuery.fn.select_all('check', 'toggle');
+            }
+            if (target.hasClass('run_all_select')) {
+                //启用所有选中对象
+                jQuery.fn.check_msg({
+                    msg: '是否<span style="color: #1CAF9A;">启用</span>所有选中的部门？',
+                    success: function () {
+                        jQuery.fn.alert_msg('所选部门启用成功！');
+                    }
+                });
+            }
+            if (target.hasClass('stop_all_select')) {
+                //停用所有选中对象
+                jQuery.fn.check_msg({
+                    msg: '是否<span style="color: #f0ad4e;">禁用</span>所有选中的部门？',
+                    success: function () {
+                        jQuery.fn.alert_msg('所选部门禁用成功！');
+                    }
+                });
+            }
+            if (target.hasClass('del_all_select')) {
+                //删除所有选中对象
+                jQuery.fn.check_msg({
+                    msg: '是否<span style="color: red;">删除</span>所有选中的部门？',
+                    success: function () {
+                        jQuery.fn.alert_msg('所选部门删除成功！');
+                    }
+                });
+            }
+            if (target.hasClass('edit_item')) {
+                console.log("编辑item");
+            }
+            if (target.hasClass('stop_item')) {
+                jQuery.fn.check_msg({
+                    msg: '是否<span style="color: #f0ad4e;">禁用</span>该部门？',
+                    success: function () {
+                        jQuery.fn.alert_msg('部门禁用成功！');
+                    }
+                });
+            }
+            if (target.hasClass('run_item')) {
+                jQuery.fn.check_msg({
+                    msg: '是否<span style="color: #1CAF9A;">启用</span>该部门？',
+                    success: function () {
+                        jQuery.fn.alert_msg('部门启用成功！');
+                    }
+                });
+            }
+            if (target.hasClass('del_item')) {
+                jQuery.fn.check_msg({
+                    msg: '是否<span style="color: red;">删除</span>该部门？',
+                    success: function () {
+                        jQuery.fn.alert_msg('该部门删除成功！');
+                    }
+                });
+            }
+        });
+
+
+    });
+
+</script>
 
 </body>
 </html>
