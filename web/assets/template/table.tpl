@@ -1,17 +1,22 @@
 <div class="row">
     <div class="col-md-9">
         <div class="btn-demo" id="toolbar">
-            <a class="btn btn-info-alt new_obj" data-toggle="modal" data-target=".bs-example-modal-lg">新
-                增</a>
-            <a class="btn btn-primary-alt select_all">全 选</a>
-            <a class="btn btn-default-alt select_no">反 选</a>
-            <a class="btn btn-success-alt run_all_select">启 用</a>
-            <a class="btn btn-warning-alt stop_all_select">禁 用</a>
-            <a class="btn btn-danger-alt del_all_select">删 除</a>
+            {{each toolbar as value index}}
+            {{if value=="new"}}<a class="btn btn-info-alt new_obj" data-toggle="modal"
+                                  data-target=".bs-example-modal-lg">新
+            增</a>{{/if}}
+            {{if value=="select_all"}}<a class="btn btn-primary-alt select_all">全 选</a>{{/if}}
+            {{if value=="select_toggle"}}<a class="btn btn-default-alt select_no">反 选</a>{{/if}}
+            {{if value=="run"}}<a class="btn btn-success-alt run_all_select">启 用</a>{{/if}}
+            {{if value=="stop"}}<a class="btn btn-warning-alt stop_all_select">禁 用</a>{{/if}}
+            {{if value=="delete"}} <a class="btn btn-danger-alt del_all_select">删 除</a>{{/if}}
+            {{/each}}
         </div>
     </div>
     <div class="col-md-3">
-        <input type="text" placeholder="搜索内容..." id="serach" class="form-control">
+        {{if hasSearch}}
+            <input type="text" placeholder="搜索内容..." id="serach" class="form-control">
+        {{/if}}
     </div>
 </div>
 <div class="row">
@@ -21,60 +26,52 @@
                 <thead>
                 <tr>
                 <tr>
+                    {{if hasSelect}}
                     <th class="text-center">
                         选择
                     </th>
-                    <th class="text-center">部门编号</th>
-                    <th class="text-center">部门名称</th>
-                    <th class="text-center">当前状态</th>
-                    <th class="text-center">部门人数</th>
+                    {{/if}}
+                    {{each ths as th index }}
+                    <th class="text-center">{{th}}</th>
+                    {{/each}}
+                    {{if th_opt}}
                     <th class="text-center">操作</th>
+                    {{/if}}
                 </tr>
                 </tr>
                 </thead>
                 <tbody>
+
+                {{each datas as data index}}
                 <tr>
+                    {{if hasSelect}}
                     <td class="text-center"><input type="checkbox" name="check"></td>
-                    <td class="text-center">1</td>
-                    <td class="text-center">部门1</td>
-                    <td class="text-center">
-                        <span class="label label-warning">禁用</span>
-                    </td>
-                    <td class="text-center">20</td>
+                    {{/if}}
+                    {{each data as value index}}
+
+                    <td class="text-center">{{#value}}</td>
+                    {{/each}}
+                    {{if th_opt}}
                     <td class="table-action-hide text-center">
-                        <a href="javascript:;" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-pencil edit_item"></i></a>
+                        {{each td_opt as opt index}}
+                        {{if opt=="edit"}}
+                        <a href="javascript:;" data-toggle="modal" data-target=".bs-example-modal-lg"><i
+                                class="fa fa-pencil edit_item"></i></a>
+                        {{/if}}
+                        {{if opt=="run"}}
                         <a href="javascript:;"><i class="fa fa-eye run_item"></i></a>
-                        <a href="javascript:;" class="delete-row"><i class="fa fa-trash-o del_item"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center"><input type="checkbox" name="check"></td>
-                    <td class="text-center">2</td>
-                    <td class="text-center">部门2</td>
-                    <td class="text-center">
-                        <span class="label label-warning">禁用</span>
-                    </td>
-                    <td class="text-center">15</td>
-                    <td class="table-action-hide text-center">
-                        <a href="javascript:;" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-pencil edit_item"></i></a>
-                        <a href="javascript:;"><i class="fa fa-eye run_item"></i></a>
-                        <a href="javascript:;" class="delete-row"><i class="fa fa-trash-o del_item"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center"><input type="checkbox" name="check"></td>
-                    <td class="text-center">3</td>
-                    <td class="text-center">部门3</td>
-                    <td class="text-center">
-                        <span class="label label-success">正常</span>
-                    </td>
-                    <td class="text-center">30</td>
-                    <td class="table-action-hide text-center">
-                        <a href="javascript:;" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-pencil edit_item"></i></a>
+                        {{/if}}
+                        {{if opt=="stop"}}
                         <a href="javascript:;"><i class="fa fa-eye-slash stop_item"></i></a>
+                        {{/if}}
+                        {{if opt=="delete"}}
                         <a href="javascript:;" class="delete-row"><i class="fa fa-trash-o del_item"></i></a>
+                        {{/if}}
+                        {{/each}}
                     </td>
+                    {{/if}}
                 </tr>
+                {{/each}}
                 </tbody>
             </table>
         </div><!-- table-responsive -->
@@ -97,12 +94,11 @@
                 <h4 class="modal-title">编辑部门信息</h4>
             </div>
             <div class="modal-body" id="modal_body">
-                <script type="text/javascript">
-                    jQuery.get("/assets/template/items/depart.tpl", function (data) {
-                        jQuery('#modal_body').html(data);
-                    });
-                </script>
+                {{#body}}
             </div>
         </div>
     </div>
 </div>
+
+
+
