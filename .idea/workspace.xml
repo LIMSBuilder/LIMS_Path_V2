@@ -2,107 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="20ae044c-4c25-41ff-ab00-28aaf995c514" name="默认的" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/images/error.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/images/photos/contract.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/images/photos/task.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/contact/controller/interfaces/BaseController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/contact/model/Department.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/contact/utils/ParaUtils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/contact/utils/RenderUtils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/setting.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/css/bootstrap-timepicker.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/css/bootstrap-wysihtml5.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/css/jquery.tagsinput.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/css/wysiwyg-color.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/js/bootstrap-timepicker.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/js/bootstrap-wizard.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/js/bootstrap-wysihtml5.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/js/chosen.jquery.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/js/jquery-ui-1.10.3.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/js/jquery.tagsinput.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/js/jquery.validate.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/js/messages_zh.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/js/vue-resource.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/js/vue.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/js/wysihtml5-0.3.0.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/contract_addItem.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/contract_create.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/contract_default.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/contract_list.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/contract_monitorType.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/contract_search_result.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/contract_template.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/contract_template_list.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/customer_select_list.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/customer_select_total.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/department_list.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/mail_folder.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/mail_list.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/mail_receiver_list.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/power.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/role_list.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/role_result.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/task_demo.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/task_receive_deaprt.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/task_search_list.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/user_info.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/json/user_list.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/compose.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/contract/change.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/contract/create.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/contract/draft.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/contract/preInfo.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/contract/search.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/email/email.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/personal/basicInfo.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/personal/changePwd.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/sample/create.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/compose.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/contract_change.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/contract_monitor_addItem.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/contract_select_list.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/contract_view.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/customer_select_list.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/department_addItem.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/mail_box.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/mail_folder_addItem.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/power.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/read.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/role_addItem.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/task_process_view.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/task_view.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/template_select_list.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/user_addItem.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/system/department.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/system/role.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/system/user.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/task/create.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/task/search.tpl" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/pages/common/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/pages/common/signin.html" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/web/WEB-INF/pages/common/index.html" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/web/WEB-INF/pages/common/signin.html" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/signin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/config/CommonConfig.class" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/config/CommonConfig.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/config/CommonRoutes.class" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/config/CommonRoutes.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/system/DepartmentController.class" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/system/DepartmentController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/config/CommonConfig.class" afterPath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/config/CommonConfig.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/config/CommonRoutes.class" afterPath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/config/CommonRoutes.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/system/DepartmentController.class" afterPath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/system/DepartmentController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/css/style.default.css" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/css/style.default.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/js/custom.js" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/js/custom.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/js/jquery.pagination.js" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/js/jquery.pagination.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/js/select2.min.js" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/js/select2.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/items/department.tpl" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/items/department.tpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/config/CommonConfig.java" afterPath="$PROJECT_DIR$/src/com/contact/config/CommonConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/config/CommonRoutes.java" afterPath="$PROJECT_DIR$/src/com/contact/config/CommonRoutes.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/system/DepartmentController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/system/DepartmentController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/css/style.default.css" afterPath="$PROJECT_DIR$/web/assets/css/style.default.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/js/custom.js" afterPath="$PROJECT_DIR$/web/assets/js/custom.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/js/jquery.pagination.js" afterPath="$PROJECT_DIR$/web/assets/js/jquery.pagination.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/js/select2.min.js" afterPath="$PROJECT_DIR$/web/assets/js/select2.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/items/department.tpl" afterPath="$PROJECT_DIR$/web/assets/template/items/department.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/utils/RenderUtils.java" afterPath="$PROJECT_DIR$/src/com/contact/utils/RenderUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/pages/index.html" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/subject/department_addItem.tpl" afterPath="$PROJECT_DIR$/web/assets/template/subject/department_addItem.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/system/department.tpl" afterPath="$PROJECT_DIR$/web/assets/template/system/department.tpl" />
     </list>
     <ignored path="LIMS_V2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -128,8 +32,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="183.07692">
-              <caret line="74" column="83" selection-start-line="74" selection-start-column="83" selection-end-line="74" selection-end-column="83" />
+            <state vertical-scroll-proportion="-63.73077">
+              <caret line="921" column="7" selection-start-line="921" selection-start-column="7" selection-end-line="921" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -138,28 +42,48 @@
       <file leaf-file-name="department.tpl" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/assets/template/system/department.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-20.576923">
-              <caret line="206" column="29" selection-start-line="206" selection-start-column="28" selection-end-line="206" selection-end-column="29" />
+            <state vertical-scroll-proportion="-7.5">
+              <caret line="99" column="28" selection-start-line="99" selection-start-column="28" selection-end-line="99" selection-end-column="28" />
               <folding>
-                <marker date="1477481407000" expanded="true" signature="5327:5342" placeholder="..." />
-                <marker date="1477481407000" expanded="true" signature="5640:5655" placeholder="..." />
-                <marker date="1477481407000" expanded="true" signature="5952:5963" placeholder="..." />
-                <marker date="1477481407000" expanded="true" signature="6262:6277" placeholder="..." />
-                <marker date="1477481407000" expanded="true" signature="6574:6589" placeholder="..." />
-                <marker date="1477481407000" expanded="true" signature="6911:6922" placeholder="..." />
+                <marker date="1477485262000" expanded="true" signature="6260:6275" placeholder="..." />
+                <marker date="1477485262000" expanded="true" signature="6573:6588" placeholder="..." />
+                <marker date="1477485262000" expanded="true" signature="6885:6896" placeholder="..." />
+                <marker date="1477485262000" expanded="true" signature="7195:7210" placeholder="..." />
+                <marker date="1477485262000" expanded="true" signature="7507:7522" placeholder="..." />
+                <marker date="1477485262000" expanded="true" signature="7844:7855" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DepartmentController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="department_addItem.tpl" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/assets/template/subject/department_addItem.tpl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.4792703">
+              <caret line="17" column="6" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DepartmentController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/contact/controller/system/DepartmentController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3418124">
-              <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="77" column="45" selection-start-line="77" selection-start-column="45" selection-end-line="77" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RenderUtils.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/contact/utils/RenderUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="15" column="66" selection-start-line="15" selection-start-column="66" selection-end-line="15" selection-end-column="66" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -221,7 +145,6 @@
         <option value="$PROJECT_DIR$/src/com/contact/controller/interface/BaseControl.kt" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/interfaces/BaseControl.kt" />
         <option value="$PROJECT_DIR$/src/com/contact/utils/JsonFactory.java" />
-        <option value="$PROJECT_DIR$/src/com/contact/utils/RenderUtils.java" />
         <option value="$PROJECT_DIR$/web/assets/template/items/department.tpl" />
         <option value="$PROJECT_DIR$/src/com/contact/config/CommonConfig.java" />
         <option value="$PROJECT_DIR$/web/assets/js/custom.js" />
@@ -229,11 +152,13 @@
         <option value="$PROJECT_DIR$/src/setting.properties" />
         <option value="$PROJECT_DIR$/web/WEB-INF/pages/common/index.html" />
         <option value="$PROJECT_DIR$/src/com/contact/config/CommonRoutes.java" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/pages/index.html" />
         <option value="$PROJECT_DIR$/web/assets/js/jquery.pagination.js" />
-        <option value="$PROJECT_DIR$/web/assets/template/system/department.tpl" />
         <option value="$PROJECT_DIR$/src/com/contact/utils/ParaUtils.java" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/system/DepartmentController.java" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/pages/index.html" />
+        <option value="$PROJECT_DIR$/src/com/contact/utils/RenderUtils.java" />
+        <option value="$PROJECT_DIR$/web/assets/template/system/department.tpl" />
+        <option value="$PROJECT_DIR$/web/assets/template/subject/department_addItem.tpl" />
       </list>
     </option>
   </component>
@@ -338,6 +263,94 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="template" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="template" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="subject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -954,12 +967,12 @@
       <workItem from="1476780893462" duration="1570000" />
       <workItem from="1477466233695" duration="4719000" />
       <workItem from="1477475357195" duration="37000" />
-      <workItem from="1477475451517" duration="5096000" />
+      <workItem from="1477475451517" duration="7994000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48310000" />
+    <option name="totallyTimeSpent" value="51208000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1018,7 +1031,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="13" />
+      <option name="time" value="14" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
@@ -1028,6 +1041,8 @@
         <watch expression="URLDecoder.decode(conditionArr[i], &quot;UTF-8&quot;)" language="JAVA" custom="" />
         <watch expression="condition" language="JAVA" custom="" />
         <watch expression="condition.toString()" language="JAVA" custom="" />
+        <watch expression="this" language="JAVA" custom="" />
+        <watch expression="this.getParaMap()" language="JAVA" custom="" />
       </configuration>
     </watches-manager>
   </component>
@@ -1049,12 +1064,12 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="188" column="54" selection-start-line="188" selection-start-column="54" selection-end-line="188" selection-end-column="54" />
           <folding>
-            <marker date="1477481407000" expanded="true" signature="5327:5342" placeholder="..." />
-            <marker date="1477481407000" expanded="true" signature="5640:5655" placeholder="..." />
-            <marker date="1477481407000" expanded="true" signature="5952:5963" placeholder="..." />
-            <marker date="1477481407000" expanded="true" signature="6262:6277" placeholder="..." />
-            <marker date="1477481407000" expanded="true" signature="6574:6589" placeholder="..." />
-            <marker date="1477481407000" expanded="true" signature="6911:6922" placeholder="..." />
+            <marker date="1477485262000" expanded="true" signature="6260:6275" placeholder="..." />
+            <marker date="1477485262000" expanded="true" signature="6573:6588" placeholder="..." />
+            <marker date="1477485262000" expanded="true" signature="6885:6896" placeholder="..." />
+            <marker date="1477485262000" expanded="true" signature="7195:7210" placeholder="..." />
+            <marker date="1477485262000" expanded="true" signature="7507:7522" placeholder="..." />
+            <marker date="1477485262000" expanded="true" signature="7844:7855" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1092,12 +1107,12 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="188" column="54" selection-start-line="188" selection-start-column="54" selection-end-line="188" selection-end-column="54" />
           <folding>
-            <marker date="1477481407000" expanded="true" signature="5327:5342" placeholder="..." />
-            <marker date="1477481407000" expanded="true" signature="5640:5655" placeholder="..." />
-            <marker date="1477481407000" expanded="true" signature="5952:5963" placeholder="..." />
-            <marker date="1477481407000" expanded="true" signature="6262:6277" placeholder="..." />
-            <marker date="1477481407000" expanded="true" signature="6574:6589" placeholder="..." />
-            <marker date="1477481407000" expanded="true" signature="6911:6922" placeholder="..." />
+            <marker date="1477485262000" expanded="true" signature="6260:6275" placeholder="..." />
+            <marker date="1477485262000" expanded="true" signature="6573:6588" placeholder="..." />
+            <marker date="1477485262000" expanded="true" signature="6885:6896" placeholder="..." />
+            <marker date="1477485262000" expanded="true" signature="7195:7210" placeholder="..." />
+            <marker date="1477485262000" expanded="true" signature="7507:7522" placeholder="..." />
+            <marker date="1477485262000" expanded="true" signature="7844:7855" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1182,13 +1197,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
           <caret line="582" column="19" selection-start-line="582" selection-start-column="19" selection-end-line="582" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/utils/RenderUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39534885">
-          <caret line="15" column="52" selection-start-line="15" selection-start-column="52" selection-end-line="15" selection-end-column="52" />
         </state>
       </provider>
     </entry>
@@ -1293,29 +1301,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="183.07692">
-          <caret line="74" column="83" selection-start-line="74" selection-start-column="83" selection-end-line="74" selection-end-column="83" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/template/system/department.tpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.576923">
-          <caret line="206" column="29" selection-start-line="206" selection-start-column="28" selection-end-line="206" selection-end-column="29" />
-          <folding>
-            <marker date="1477481407000" expanded="true" signature="5327:5342" placeholder="..." />
-            <marker date="1477481407000" expanded="true" signature="5640:5655" placeholder="..." />
-            <marker date="1477481407000" expanded="true" signature="5952:5963" placeholder="..." />
-            <marker date="1477481407000" expanded="true" signature="6262:6277" placeholder="..." />
-            <marker date="1477481407000" expanded="true" signature="6574:6589" placeholder="..." />
-            <marker date="1477481407000" expanded="true" signature="6911:6922" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/contact/utils/ParaUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1326,13 +1311,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/contact/utils/RenderUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="66" selection-start-line="15" selection-start-column="66" selection-end-line="15" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-63.73077">
+          <caret line="921" column="7" selection-start-line="921" selection-start-column="7" selection-end-line="921" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/contact/controller/system/DepartmentController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3418124">
-          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="77" column="45" selection-start-line="77" selection-start-column="45" selection-end-line="77" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/template/system/department.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.5">
+          <caret line="99" column="28" selection-start-line="99" selection-start-column="28" selection-end-line="99" selection-end-column="28" />
+          <folding>
+            <marker date="1477485262000" expanded="true" signature="6260:6275" placeholder="..." />
+            <marker date="1477485262000" expanded="true" signature="6573:6588" placeholder="..." />
+            <marker date="1477485262000" expanded="true" signature="6885:6896" placeholder="..." />
+            <marker date="1477485262000" expanded="true" signature="7195:7210" placeholder="..." />
+            <marker date="1477485262000" expanded="true" signature="7507:7522" placeholder="..." />
+            <marker date="1477485262000" expanded="true" signature="7844:7855" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/template/subject/department_addItem.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4792703">
+          <caret line="17" column="6" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
