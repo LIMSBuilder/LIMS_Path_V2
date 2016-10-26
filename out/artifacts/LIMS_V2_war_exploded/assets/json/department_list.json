@@ -1,0 +1,32 @@
+{
+  "currentPage": 1,
+  "totalPage": 20,
+  "rowCount": 5,
+  "results": [
+    {
+      "id": 1,
+      "name": "部门1",
+      "state": 0
+    },
+    {
+      "id": 2,
+      "name": "部门2",
+      "state": 1
+    },
+    {
+      "id": 3,
+      "name": "部门3",
+      "state": 0
+    },
+    {
+      "id": 4,
+      "name": "部门4",
+      "state": 0
+    },
+    {
+      "id": 5,
+      "name": "部门5",
+      "state": 1
+    }
+  ]
+}

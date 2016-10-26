@@ -1,0 +1,53 @@
+{
+  "currentPage": 1,
+  "totalPage": 20,
+  "rowCount": 5,
+  "isSearch": "",
+  "results": [
+    {
+      "id": 1,
+      "client_unit": "常州钟楼区环保局",
+      "client_address": "江苏省常州市钟楼区",
+      "client": "张三",
+      "client_code":212000,
+      "client_fax":"0519-83276724",
+      "client_tel":"12345678901"
+    },
+    {
+      "id": 2,
+      "client_unit": "常州新北区环保局",
+      "client_address": "江苏省常州市新北区",
+      "client": "李四",
+      "client_code":212000,
+      "client_fax":"0519-83276724",
+      "client_tel":"12345678901"
+    },
+    {
+      "id": 3,
+      "client_unit": "常州武进区环保局",
+      "client_address": "江苏省常州市武进区",
+      "client": "王五",
+      "client_code":212000,
+      "client_fax":"0519-83276724",
+      "client_tel":"12345678901"
+    },
+    {
+      "id": 4,
+      "client_unit": "常州戚墅堰环保局",
+      "client_address": "江苏省常州市戚墅堰",
+      "client": "赵六",
+      "client_code":212000,
+      "client_fax":"0519-83276724",
+      "client_tel":"12345678901"
+    },
+    {
+      "id": 5,
+      "client_unit": "常州镇江市环保局",
+      "client_address": "江苏省常州市镇江市",
+      "client": "胜七",
+      "client_code":212000,
+      "client_fax":"0519-83276724",
+      "client_tel":"12345678901"
+    }
+  ]
+}

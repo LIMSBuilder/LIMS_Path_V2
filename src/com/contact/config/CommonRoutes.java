@@ -11,7 +11,7 @@ public class CommonRoutes extends Routes {
 
     @Override
     public void config() {
-        add("/", SignController.class, "/common/");
-        add("/department", DepartmentController.class,"/system/");
+        add("/", SignController.class, "/");
+        add("/department", DepartmentController.class,"/");
     }
 }

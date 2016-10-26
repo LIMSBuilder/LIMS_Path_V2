@@ -11,6 +11,8 @@
 jQuery(document).ready(function () {
 
     "use strict";
+    var LIMS = window.LIMS = {};
+
 
     // Toggle Left Menu
     jQuery('.leftpanel .nav-parent > a').live('click', function () {
@@ -54,6 +56,8 @@ jQuery(document).ready(function () {
         if (docHeight > jQuery('.mainpanel').height())
             jQuery('.mainpanel').height(docHeight);
     }
+
+    window.adjustmainpanelheight = adjustmainpanelheight;
 
     adjustmainpanelheight();
 
@@ -363,12 +367,13 @@ jQuery(document).ready(function () {
     }
 
 
-    jQuery.fn.alert_msg = function (text) {
+    jQuery.fn.alert_msg = function (text, type) {
         jQuery.gritter.add({
-            title: "系统通知",
+            title: "执行结果",
             text: text,
+            //class_name: 'growl-' + (type == 'success' ? 'success' : 'danger'),
             class_name: 'growl-success',
-            image: '/assets/images/right.png',
+            image: '/assets/images/screen.png',
             sticky: false,
             time: ''
         });
@@ -383,6 +388,18 @@ jQuery(document).ready(function () {
 
             jQuery('#myModal').modal('hide');
         });
+    };
+
+    jQuery.fn.error_msg = function (text) {
+        jQuery.gritter.add({
+            title: "很抱歉",
+            text: text,
+            class_name: 'growl-danger',
+            image: '/assets/images/screen.png',
+            sticky: false,
+            time: ''
+        });
+        return false;
     };
 
     jQuery.fn.select_all = function (name, type) {
@@ -410,9 +427,40 @@ jQuery(document).ready(function () {
             }
         });
         return template;
-    }
+    };
+    jQuery.fn.codeState = function (code, opt) {
+        if (!code) return;
+        if (code == 200) {
+            opt[200] ? opt[200]() : jQuery.fn.alert_msg('操作成功！', 'success');
+        }
+        if (code == 500) {
+            if (opt[500] && typeof opt[500] == "string") {
+                jQuery.fn.alert_msg(opt[500], 'error');
+            } else {
+                opt[500] ? opt[500]() : jQuery.fn.alert_msg('目前已存在当前值,不能重复操作！', 'error');
+            }
+
+        }
+        if (code == 501) {
+            if (opt[501] && typeof opt[501] == "string") {
+                jQuery.fn.alert_msg(opt[501], 'error');
+            } else {
+                opt[501] ? opt[501]() : jQuery.fn.alert_msg('数据值不能为空,请检查后重新操作！', 'error');
+            }
+        }
+        if (code == 502) {
+            if (opt[502] && typeof opt[502] == "string") {
+                jQuery.fn.alert_msg(opt[502], 'error');
+            }
+            opt[502] ? opt[502]() : jQuery.fn.alert_msg('请求异常,请重新尝试操作！', 'error');
+        }
+    };
 
 
+    //执行自动调整高度,2秒执行一次 
+    setInterval(function () {
+        adjustmainpanelheight();
+    }, 2000);
 });
 
 

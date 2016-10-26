@@ -1,0 +1,102 @@
+{
+  "currentPage": 1,
+  "totalPage": 20,
+  "rowCount": 5,
+  "results": [
+    {
+      "id": 1,
+      "send": {
+        "id": 1,
+        "name": "张三",
+        "photo": ""
+      },
+      "receive": {
+        "id": 2,
+        "name": "李四",
+        "photo": ""
+      },
+      "content": "",
+      "title": "这是一份关于DEMO测试的内容标题",
+      "send_time": "2016-03-21 21:12",
+      "state": 0,
+      "belong": 0,
+      "read":0
+    },
+    {
+      "id": 2,
+      "send": {
+        "id": 1,
+        "name": "李四",
+        "photo": ""
+      },
+      "receive": {
+        "id": 2,
+        "name": "李四",
+        "photo": ""
+      },
+      "content": "",
+      "title": "这是一份关于DEMO测试的内容标题",
+      "send_time": "2016-03-21 21:12",
+      "state": 0,
+      "belong": 0,
+      "read":0
+    },
+    {
+      "id": 3,
+      "send": {
+        "id": 1,
+        "name": "张三",
+        "photo": ""
+      },
+      "receive": {
+        "id": 2,
+        "name": "李四",
+        "photo": ""
+      },
+      "content": "",
+      "title": "这是一份关于DEMO测试的内容标题",
+      "send_time": "2016-03-21 21:12",
+      "state": 0,
+      "belong": 0,
+      "read":1
+    },
+    {
+      "id": 4,
+      "send": {
+        "id": 1,
+        "name": "张三",
+        "photo": ""
+      },
+      "receive": {
+        "id": 2,
+        "name": "李四",
+        "photo": ""
+      },
+      "content": "",
+      "title": "这是一份关于DEMO测试的内容标题",
+      "send_time": "2016-03-21 21:12",
+      "state": 0,
+      "belong": 0,
+      "read":1
+    },
+    {
+      "id": 5,
+      "send": {
+        "id": 1,
+        "name": "张三",
+        "photo": ""
+      },
+      "receive": {
+        "id": 2,
+        "name": "李四",
+        "photo": ""
+      },
+      "content": "",
+      "title": "这是一份关于DEMO测试的内容标题",
+      "send_time": "2016-03-21 21:12",
+      "state": 0,
+      "belong": 0,
+      "read":0
+    }
+  ]
+}

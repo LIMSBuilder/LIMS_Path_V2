@@ -1,0 +1,87 @@
+{
+  "id": 1,
+  "identify": "2016-001",
+  "client_unit": "常州市水利局",
+  "project_name": "关于常州市xxx项目的测试",
+  "monitor_aim": "监测目的为xxxxxx",
+  "client_address": "江苏省常州市新北区环保一路二号",
+  "client_code": "212000",
+  "client": "张三",
+  "client_tel": "13521348212",
+  "monitor_way": 0,
+  "create_time": "2016-03-21",
+  "item_arr": [
+    {
+      "environment": 3,
+      "environment_text": "地点1,地点2",
+      "monitor_point": "1次/月份",
+      "monitor_item": 3,
+      "monitor_item_text": [
+        {
+          "id": 1,
+          "name": "废气项目1"
+        },
+        {
+          "id": 2,
+          "name": "废气项目2"
+        }
+      ],
+      "frequency": "1次/月份",
+      "other": "其他"
+    },
+    {
+      "environment": 3,
+      "environment_text": "地点13,地点23",
+      "monitor_point": "1次/月份",
+      "monitor_item": 3,
+      "monitor_item_text": [
+        {
+          "id": 1,
+          "name": "废气项目1"
+        },
+        {
+          "id": 2,
+          "name": "废气项目2"
+        }
+      ],
+      "frequency": "1次/月份",
+      "other": "其他"
+    },
+    {
+      "environment": 3,
+      "environment_text": "地点14,地点24",
+      "monitor_point": "1次/月份",
+      "monitor_item": 3,
+      "monitor_item_text": [
+        {
+          "id": 1,
+          "name": "废气项目1"
+        },
+        {
+          "id": 2,
+          "name": "废气项目2"
+        }
+      ],
+      "frequency": "1次/月份",
+      "other": "其他"
+    }
+  ],
+  "monitor_way_desp": "测试",
+  "receive_depart": "实验分析师",
+  "task_charge": "李四",
+  "task_assigned": "张三",
+  "task_assigned_date": "2016-03-21",
+  "report_edit": "赵六",
+  "report_edit_date": "2016-03-22",
+  "report_first_check": "赵四",
+  "report_first_check_date": "2016-03-23",
+  "report_second_check": "赵四2",
+  "report_second_check_date": "2016-03-24",
+  "report_sign_check": "赵四3",
+  "report_sign_check_date": "2016-03-25",
+  "report_receive_check": "赵四4",
+  "report_receive_check_date": "2016-03-26",
+  "report_save_check": "赵四5",
+  "report_save_check_date": "2016-03-27",
+  "other": "其他约定信息"
+}
