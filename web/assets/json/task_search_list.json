@@ -1,0 +1,375 @@
+{
+  "rowCount": 10,
+  "pageCount": 10,
+  "totalRowCount": 1370,
+  "searchCost": 0.13,
+  "currentPage": 1,
+  "searchCondition": [
+    "水质",
+    "常州环保局",
+    "监督监测",
+    "12/24/2016"
+  ],
+  "results": [
+    {
+      "id": 1,
+      "identify": "2016-001",
+      "client_unit": "常州市水利局",
+      "project_name": "关于常州市xxx项目的测试",
+      "monitor_aim": "监测目的为xxxxxx",
+      "client_address": "江苏省常州市新北区环保一路二号",
+      "client_code": "212000",
+      "client": "张三",
+      "client_tel": "13521348212",
+      "monitor_way": 0,
+      "create_time": "2016-03-21",
+      "item_arr": [
+        {
+          "environment": 3,
+          "environment_text": "地点1,地点2",
+          "monitor_point": "1次/月份",
+          "monitor_item": 3,
+          "monitor_item_text": [
+            {
+              "id": 1,
+              "name": "废气项目1"
+            },
+            {
+              "id": 2,
+              "name": "废气项目2"
+            }
+          ],
+          "frequency": "1次/月份",
+          "other": "其他"
+        },
+        {
+          "environment": 3,
+          "environment_text": "地点13,地点23",
+          "monitor_point": "1次/月份",
+          "monitor_item": 3,
+          "monitor_item_text": [
+            {
+              "id": 1,
+              "name": "废气项目1"
+            },
+            {
+              "id": 2,
+              "name": "废气项目2"
+            }
+          ],
+          "frequency": "1次/月份",
+          "other": "其他"
+        },
+        {
+          "environment": 3,
+          "environment_text": "地点14,地点24",
+          "monitor_point": "1次/月份",
+          "monitor_item": 3,
+          "monitor_item_text": [
+            {
+              "id": 1,
+              "name": "废气项目1"
+            },
+            {
+              "id": 2,
+              "name": "废气项目2"
+            }
+          ],
+          "frequency": "1次/月份",
+          "other": "其他"
+        }
+      ],
+      "monitor_way_desp": "测试",
+      "receive_depart": 2,
+      "other": "其他约定信息"
+    },
+    {
+      "id": 5,
+      "identify": "2016-005",
+      "client_unit": "常州市水利局",
+      "project_name": "关于常州市xxx项目的测试",
+      "monitor_aim": "监测目的为xxxxxx",
+      "client_address": "江苏省常州市新北区环保一路二号",
+      "client_code": "212000",
+      "client": "张三",
+      "client_tel": "13521348212",
+      "monitor_way": 0,
+      "create_time": "2016-03-21",
+      "item_arr": [
+        {
+          "environment": 3,
+          "environment_text": "地点1,地点2",
+          "monitor_point": "1次/月份",
+          "monitor_item": 3,
+          "monitor_item_text": [
+            {
+              "id": 1,
+              "name": "废气项目1"
+            },
+            {
+              "id": 2,
+              "name": "废气项目2"
+            }
+          ],
+          "frequency": "1次/月份",
+          "other": "其他"
+        },
+        {
+          "environment": 3,
+          "environment_text": "地点13,地点23",
+          "monitor_point": "1次/月份",
+          "monitor_item": 3,
+          "monitor_item_text": [
+            {
+              "id": 1,
+              "name": "废气项目1"
+            },
+            {
+              "id": 2,
+              "name": "废气项目2"
+            }
+          ],
+          "frequency": "1次/月份",
+          "other": "其他"
+        },
+        {
+          "environment": 3,
+          "environment_text": "地点14,地点24",
+          "monitor_point": "1次/月份",
+          "monitor_item": 3,
+          "monitor_item_text": [
+            {
+              "id": 1,
+              "name": "废气项目1"
+            },
+            {
+              "id": 2,
+              "name": "废气项目2"
+            }
+          ],
+          "frequency": "1次/月份",
+          "other": "其他"
+        }
+      ],
+      "monitor_way_desp": "测试",
+      "receive_depart": 2,
+      "other": "其他约定信息"
+    },
+    {
+      "id": 2,
+      "identify": "2016-002",
+      "client_unit": "常州市水利局",
+      "project_name": "关于常州市xxx项目的测试",
+      "monitor_aim": "监测目的为xxxxxx",
+      "client_address": "江苏省常州市新北区环保一路二号",
+      "client_code": "212000",
+      "client": "张三",
+      "client_tel": "13521348212",
+      "monitor_way": 0,
+      "create_time": "2016-03-21",
+      "item_arr": [
+        {
+          "environment": 3,
+          "environment_text": "地点1,地点2",
+          "monitor_point": "1次/月份",
+          "monitor_item": 3,
+          "monitor_item_text": [
+            {
+              "id": 1,
+              "name": "废气项目1"
+            },
+            {
+              "id": 2,
+              "name": "废气项目2"
+            }
+          ],
+          "frequency": "1次/月份",
+          "other": "其他"
+        },
+        {
+          "environment": 3,
+          "environment_text": "地点13,地点23",
+          "monitor_point": "1次/月份",
+          "monitor_item": 3,
+          "monitor_item_text": [
+            {
+              "id": 1,
+              "name": "废气项目1"
+            },
+            {
+              "id": 2,
+              "name": "废气项目2"
+            }
+          ],
+          "frequency": "1次/月份",
+          "other": "其他"
+        },
+        {
+          "environment": 3,
+          "environment_text": "地点14,地点24",
+          "monitor_point": "1次/月份",
+          "monitor_item": 3,
+          "monitor_item_text": [
+            {
+              "id": 1,
+              "name": "废气项目1"
+            },
+            {
+              "id": 2,
+              "name": "废气项目2"
+            }
+          ],
+          "frequency": "1次/月份",
+          "other": "其他"
+        }
+      ],
+      "monitor_way_desp": "测试",
+      "receive_depart": 2,
+      "other": "其他约定信息"
+    },
+    {
+      "id": 3,
+      "identify": "2016-003",
+      "client_unit": "常州市水利局",
+      "project_name": "关于常州市xxx项目的测试",
+      "monitor_aim": "监测目的为xxxxxx",
+      "client_address": "江苏省常州市新北区环保一路二号",
+      "client_code": "212000",
+      "client": "张三",
+      "client_tel": "13521348212",
+      "monitor_way": 0,
+      "create_time": "2016-03-21",
+      "item_arr": [
+        {
+          "environment": 3,
+          "environment_text": "地点1,地点2",
+          "monitor_point": "1次/月份",
+          "monitor_item": 3,
+          "monitor_item_text": [
+            {
+              "id": 1,
+              "name": "废气项目1"
+            },
+            {
+              "id": 2,
+              "name": "废气项目2"
+            }
+          ],
+          "frequency": "1次/月份",
+          "other": "其他"
+        },
+        {
+          "environment": 3,
+          "environment_text": "地点13,地点23",
+          "monitor_point": "1次/月份",
+          "monitor_item": 3,
+          "monitor_item_text": [
+            {
+              "id": 1,
+              "name": "废气项目1"
+            },
+            {
+              "id": 2,
+              "name": "废气项目2"
+            }
+          ],
+          "frequency": "1次/月份",
+          "other": "其他"
+        },
+        {
+          "environment": 3,
+          "environment_text": "地点14,地点24",
+          "monitor_point": "1次/月份",
+          "monitor_item": 3,
+          "monitor_item_text": [
+            {
+              "id": 1,
+              "name": "废气项目1"
+            },
+            {
+              "id": 2,
+              "name": "废气项目2"
+            }
+          ],
+          "frequency": "1次/月份",
+          "other": "其他"
+        }
+      ],
+      "monitor_way_desp": "测试",
+      "receive_depart": 2,
+      "other": "其他约定信息"
+    },
+    {
+      "id": 4,
+      "identify": "2016-004",
+      "client_unit": "常州市水利局",
+      "project_name": "关于常州市xxx项目的测试",
+      "monitor_aim": "监测目的为xxxxxx",
+      "client_address": "江苏省常州市新北区环保一路二号",
+      "client_code": "212000",
+      "client": "张三",
+      "create_time": "2016-03-21",
+      "client_tel": "13521348212",
+      "monitor_way": 0,
+      "item_arr": [
+        {
+          "environment": 3,
+          "environment_text": "地点1,地点2",
+          "monitor_point": "1次/月份",
+          "monitor_item": 3,
+          "monitor_item_text": [
+            {
+              "id": 1,
+              "name": "废气项目1"
+            },
+            {
+              "id": 2,
+              "name": "废气项目2"
+            }
+          ],
+          "frequency": "1次/月份",
+          "other": "其他"
+        },
+        {
+          "environment": 3,
+          "environment_text": "地点13,地点23",
+          "monitor_point": "1次/月份",
+          "monitor_item": 3,
+          "monitor_item_text": [
+            {
+              "id": 1,
+              "name": "废气项目1"
+            },
+            {
+              "id": 2,
+              "name": "废气项目2"
+            }
+          ],
+          "frequency": "1次/月份",
+          "other": "其他"
+        },
+        {
+          "environment": 3,
+          "environment_text": "地点14,地点24",
+          "monitor_point": "1次/月份",
+          "monitor_item": 3,
+          "monitor_item_text": [
+            {
+              "id": 1,
+              "name": "废气项目1"
+            },
+            {
+              "id": 2,
+              "name": "废气项目2"
+            }
+          ],
+          "frequency": "1次/月份",
+          "other": "其他"
+        }
+      ],
+      "monitor_way_desp": "测试",
+      "receive_depart": 2,
+      "other": "其他约定信息"
+    }
+  ]
+}

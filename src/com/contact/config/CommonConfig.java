@@ -1,5 +1,6 @@
 package com.contact.config;
 
+import com.contact.model.Department;
 import com.jfinal.config.*;
 import com.jfinal.kit.PathKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
@@ -44,11 +45,12 @@ public class CommonConfig extends JFinalConfig {
 
     @Override
     public void configPlugin(Plugins me) {
-        C3p0Plugin cp = new C3p0Plugin("jdbc:mysql://localhost/blog_db", "root", "admin");
+        C3p0Plugin cp = new C3p0Plugin("jdbc:mysql://localhost/lims", "root", "admin");
         me.add(cp);
         ActiveRecordPlugin arp = new ActiveRecordPlugin(cp);
         me.add(arp);
 //        arp.addMapping("blog_user", User.class);
+        arp.addMapping("db_department", Department.class);
 //        arp.addMapping("blog_admin", Admin.class);
 //        arp.addMapping("blog_category", Category.class);
 //        arp.addMapping("blog_tag", Tag.class);

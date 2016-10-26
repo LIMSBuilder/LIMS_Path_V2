@@ -1,0 +1,67 @@
+{
+  "currentPage": 1,
+  "totalPage": 20,
+  "rowCount": 5,
+  "results": [
+    {
+      "id": 1,
+      "username": "zhangsan",
+      "name": "张三",
+      "sex": "男",
+      "idCard": "320403203240543323",
+      "tel": "17714816345",
+      "belong_role": 3,
+      "belong_department": 1,
+      "role_name":"角色1",
+      "department_name":"部门1"
+    },
+    {
+      "id": 2,
+      "username": "lisi",
+      "name": "李四",
+      "sex": "女",
+      "idCard": "320403203240543323",
+      "tel": "17714816345",
+      "belong_role": 2,
+      "belong_department": 2,
+      "role_name":"角色2",
+      "department_name":"部门2"
+    },
+    {
+      "id": 3,
+      "username": "wangwu",
+      "name": "王五",
+      "sex": "男",
+      "idCard": "320403203240543323",
+      "tel": "17714816345",
+      "belong_role": 4,
+      "belong_department": 2,
+      "role_name":"角色3",
+      "department_name":"部门3"
+    },
+    {
+      "id": 4,
+      "username": "zhaoliu",
+      "name": "赵六",
+      "sex": "男",
+      "idCard": "320403203240543323",
+      "tel": "17714816345",
+      "belong_role": 1,
+      "belong_department": 3,
+      "role_name":"角色4",
+      "department_name":"部门4"
+    },
+    {
+      "id": 5,
+      "username": "ceshi",
+      "name": "测试",
+      "sex": "男",
+      "idCard": "320403203240543323",
+      "tel": "17714816345",
+      "belong_role": 2,
+      "belong_department": 1,
+      "role_name":"角色5",
+      "department_name":"部门5"
+    }
+  ]
+}

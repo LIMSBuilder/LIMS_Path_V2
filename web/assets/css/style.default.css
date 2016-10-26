@@ -2937,7 +2937,7 @@ div.error label.error:before {
 }
 
 .results-list .media-object {
-    width: 125px;
+    width: 86px;
     margin-right: 10px;
 }
 
@@ -4107,6 +4107,12 @@ div.error label.error:before {
 
 .inblock {
     display: inline-block;
+}
+
+.center-vertical {
+    position:relative;
+    top:50%;
+    transform:translateY(-50%);
 }
 
 

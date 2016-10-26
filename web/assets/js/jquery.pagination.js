@@ -108,6 +108,7 @@
 			html += opts.jump ? '<input type="text" class="'+opts.jumpIptCls+'"><a href="javascript:;" class="'+opts.jumpBtnCls+'">'+opts.jumpBtn+'</a>' : '';
 
 			$obj.empty().html(html);
+
 		};
 
 		//绑定事件
@@ -159,6 +160,7 @@
 		this.init = function(){
 			this.filling(opts.current);
 			this.eventBind();
+			//typeof opts.callback === 'function' && opts.callback(this);
 		};
 		this.init();
 	};
