@@ -69,6 +69,8 @@
         </div>
     </div>
 </div>
+
+
 <script type="text/javascript">
 
     var vue = new Vue({
@@ -80,7 +82,6 @@
             add_depart: function () {
                 var me = this;
                 var template = jQuery.fn.loadTemplate("/assets/template/subject/department_addItem.tpl");
-
                 Vue.component('depart_add_item', {
                     template: template,
                     data: function () {
@@ -90,8 +91,26 @@
                     },
                     methods: {
                         save: function () {
-                            var data = JSON.parse(JSON.stringify(this._data));
-                            jQuery.fn.alert_msg("部门信息保存成功!");
+                            var me = this;
+                            if (me.$get("name") == "") {
+                                jQuery.fn.error_msg("部门名称不能为空!");
+                                return;
+                            }
+
+                            me.$http.post("/department/add", me._data).then(function (response) {
+                                var data = response.data;
+                                if (data.code == "200") {
+                                    jQuery.fn.alert_msg("新部门创建成功!");
+                                }
+                                if (data.code == "502") {
+                                    jQuery.fn.error_msg("服务器数据异常!无法保存部门信息,请刷新后重新尝试。");
+                                }
+                                if (data.code == "503") {
+                                    jQuery.fn.error_msg("当前已经存在同名部门,请修改部门名称。");
+                                }
+                            }, function (response) {
+                                jQuery.fn.error_msg("服务器数据异常!无法保存部门信息,请刷新后重新尝试。");
+                            });
                         }
                     }
                 });

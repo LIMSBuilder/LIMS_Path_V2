@@ -16,9 +16,8 @@ import java.util.*;
  * Created by qulongjun on 2016/10/18.
  */
 public class DepartmentController extends Controller implements BaseController {
-    
-    public void list() {
 
+    public void list() {
         int rowCount = getParaToInt("rowCount");
         int currentPage = getParaToInt("currentPage");
         String condition_temp = getPara("condition");
@@ -74,17 +73,22 @@ public class DepartmentController extends Controller implements BaseController {
     @Override
     public void add() {
         String name = getPara("name");
-        if (name == null || name.equals("")) {
-            renderJson(RenderUtils.CODE_NOTEMPTY);
-            return;
-        }
-        if (Department.departmentDao.find("SELECT * FROM `db_department` WHERE name='" + name + "'").size() != 0) {
-            renderJson(RenderUtils.CODE_REPEAT);
-            return;
+        if (name != null) {
+            if (Department.departmentDao.find("SELECT * FROM `db_department` WHERE name='" + name + "'").size() != 0) {
+                renderJson(RenderUtils.CODE_REPEAT);
+                return;
+            }
+            Boolean result = new Department().set("name", name).set("state", 1).save();
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+        } else {
+            renderError(500);
         }
 
-        Boolean result = new Department().set("name", name).set("state", 1).save();
-        renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+//        if (name == null || name.equals("")) {
+//            renderJson(RenderUtils.CODE_NOTEMPTY);
+//            return;
+//        }
+
     }
 
     @Override

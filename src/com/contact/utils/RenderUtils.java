@@ -11,9 +11,9 @@ import java.util.Map;
 public class RenderUtils {
 
     public static final String CODE_SUCCESS = "{\"code\":200}";//成功
-    public static final String CODE_REPEAT = "{\"code\":500}";//重复
     public static final String CODE_NOTEMPTY = "{\"code\":501}";//不能为空
     public static final String CODE_ERROR = "{\"code\":502}";//数据库异常
+    public static final String CODE_REPEAT = "{\"code\":503}";//重复
 
     /**
      * 状态码返回
