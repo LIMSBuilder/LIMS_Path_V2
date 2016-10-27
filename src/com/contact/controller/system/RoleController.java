@@ -61,6 +61,20 @@ public class RoleController extends Controller {
         return json;
     }
 
+    /**
+     * 为单独的Role实体生成JSON
+     *
+     * @param role
+     * @return
+     */
+    public static Map toJsonSingle(Role role) {
+        Map<String, Object> depart = new HashMap<>();
+        depart.put("id", role.getInt("id"));
+        depart.put("name", role.get("name"));
+        depart.put("department", role.getDepartment());
+        return depart;
+    }
+
     public void add() {
         int department_id = getParaToInt("department_id");
         String name = getPara("name");
