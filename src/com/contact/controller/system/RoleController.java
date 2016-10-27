@@ -106,6 +106,19 @@ public class RoleController extends Controller {
         }
     }
 
+
+    public void getListByDepartment() {
+        int department_id = getParaToInt("department_id");
+        if (department_id != 0) {
+            List<Role> roleList = Role.roleDao.find("SELECT * FROM `db_role` WHERE department_id =" + department_id);
+            renderJson(toJson(roleList));
+        } else {
+            renderError(500);
+        }
+
+
+    }
+
     /**
      * 改变部门的状态信息
      * 0-正常
