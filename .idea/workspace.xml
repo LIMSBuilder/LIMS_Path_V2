@@ -2,15 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="20ae044c-4c25-41ff-ab00-28aaf995c514" name="默认的" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/system/user.tpl" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/system/user.tpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/system/RoleController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/system/RoleController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/system/UserController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/system/UserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/model/User.java" afterPath="$PROJECT_DIR$/src/com/contact/model/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/utils/ParaUtils.java" afterPath="$PROJECT_DIR$/src/com/contact/utils/ParaUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/utils/RenderUtils.java" afterPath="$PROJECT_DIR$/src/com/contact/utils/RenderUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/setting.properties" afterPath="$PROJECT_DIR$/src/setting.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/js/custom.js" afterPath="$PROJECT_DIR$/web/assets/js/custom.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/system/user.tpl" afterPath="$PROJECT_DIR$/web/assets/template/system/user.tpl" />
     </list>
     <ignored path="LIMS_V2.iws" />
@@ -37,13 +28,14 @@
       <file leaf-file-name="user.tpl" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/assets/template/system/user.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.6596774">
-              <caret line="184" column="60" selection-start-line="184" selection-start-column="60" selection-end-line="184" selection-end-column="60" />
+            <state vertical-scroll-proportion="0.38870966">
+              <caret line="364" column="69" selection-start-line="364" selection-start-column="69" selection-end-line="364" selection-end-column="69" />
               <folding>
-                <element signature="e#13311#13504#0" expanded="false" />
-                <element signature="e#14496#14512#0" expanded="false" />
-                <element signature="e#14553#16512#0" expanded="false" />
-                <element signature="e#16548#16784#0" expanded="false" />
+                <element signature="e#13244#13437#0" expanded="false" />
+                <element signature="e#13473#14393#0" expanded="false" />
+                <element signature="e#14429#14445#0" expanded="false" />
+                <element signature="e#14866#15102#0" expanded="false" />
+                <element signature="e#15161#17193#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -96,21 +88,11 @@
       <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/contact/controller/system/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.5471697">
+            <state vertical-scroll-proportion="-5.188679">
               <caret line="64" column="29" selection-start-line="64" selection-start-column="29" selection-end-line="64" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user_addItem.tpl" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/assets/template/subject/user_addItem.tpl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-28.423077">
-              <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -1108,12 +1090,12 @@
       <workItem from="1476780893462" duration="1570000" />
       <workItem from="1477466233695" duration="4719000" />
       <workItem from="1477475357195" duration="37000" />
-      <workItem from="1477475451517" duration="39215000" />
+      <workItem from="1477475451517" duration="40852000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="82429000" />
+    <option name="totallyTimeSpent" value="84066000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1470,14 +1452,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/template/subject/user_addItem.tpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-28.423077">
-          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/setting.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1572,9 +1546,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/template/subject/user_addItem.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3419355">
+          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/contact/controller/system/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.5471697">
+        <state vertical-scroll-proportion="-5.188679">
           <caret line="64" column="29" selection-start-line="64" selection-start-column="29" selection-end-line="64" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1584,13 +1566,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/system/user.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.6596774">
-          <caret line="184" column="60" selection-start-line="184" selection-start-column="60" selection-end-line="184" selection-end-column="60" />
+        <state vertical-scroll-proportion="0.38870966">
+          <caret line="364" column="69" selection-start-line="364" selection-start-column="69" selection-end-line="364" selection-end-column="69" />
           <folding>
-            <element signature="e#13311#13504#0" expanded="false" />
-            <element signature="e#14496#14512#0" expanded="false" />
-            <element signature="e#14553#16512#0" expanded="false" />
-            <element signature="e#16548#16784#0" expanded="false" />
+            <element signature="e#13244#13437#0" expanded="false" />
+            <element signature="e#13473#14393#0" expanded="false" />
+            <element signature="e#14429#14445#0" expanded="false" />
+            <element signature="e#14866#15102#0" expanded="false" />
+            <element signature="e#15161#17193#0" expanded="false" />
           </folding>
         </state>
       </provider>
