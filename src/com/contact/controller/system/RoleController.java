@@ -1,20 +1,18 @@
 package com.contact.controller.system;
 
 import com.contact.model.Department;
+import com.contact.model.Role;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
-import com.jfinal.kit.Prop;
-import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.Page;
 
 import java.util.*;
 
 /**
- * 部门管理COntroller
+ * 角色
  */
-public class DepartmentController extends Controller {
-
+public class RoleController extends Controller {
     /**
      * 列表展示
      */
@@ -26,23 +24,22 @@ public class DepartmentController extends Controller {
         if (rowCount == 0) {
             rowCount = ParaUtils.getRowCount();
         }
-        String paras = "WHERE state in (0,1) ";
+        String paras = "WHERE state = 0";
         Object[] keys = condition.keySet().toArray();
         for (int i = 0; i < keys.length; i++) {
             String key = (String) keys[i];
             Object value = condition.get(key);
-            paras += ("AND " + key + " like \"%" + value + "%\"");
+            paras += (" AND " + key + " like \"%" + value + "%\"");
         }
-        Page<Department> departmentPage = Department.departmentDao.paginate(currentPage, rowCount, "SELECT *", " FROM `db_department`" + paras);
-        List<Department> departmentList = departmentPage.getList();
-        Map results = toJson(departmentList);
+        Page<Role> rolePage = Role.roleDao.paginate(currentPage, rowCount, "SELECT *", " FROM `db_role`" + paras);
+        List<Role> roleList = rolePage.getList();
+        Map results = toJson(roleList);
         results.put("currentPage", currentPage);
-        results.put("totalPage", departmentPage.getTotalPage());
+        results.put("totalPage", rolePage.getTotalPage());
         results.put("rowCount", rowCount);
         results.put("condition", condition_temp);
         renderJson(results);
     }
-
 
     /**
      * 将查询结果生成JSON
@@ -50,42 +47,29 @@ public class DepartmentController extends Controller {
      * @param entityList
      * @return
      */
-    public Map toJson(List<Department> entityList) {
+    public Map toJson(List<Role> entityList) {
         Map<String, Object> json = new HashMap<>();
         List results = new ArrayList();
-        for (Department department : entityList) {
-            Map<String, Object> depart = new HashMap<>();
-            depart.put("id", department.getInt("id"));
-            depart.put("name", department.get("name"));
-            depart.put("state", department.getInt("state"));
-            results.add(depart);
+        for (Role role : entityList) {
+            Map<String, Object> roleList = new HashMap<>();
+            roleList.put("id", role.getInt("id"));
+            roleList.put("name", role.get("name"));
+            roleList.put("department", DepartmentController.toJsonSingle(role.getDepartment()));
+            results.add(roleList);
         }
         json.put("results", results);
         return json;
     }
 
-    /**
-     * 为单独的Department实体生成JSON
-     *
-     * @param department
-     * @return
-     */
-    public static Map toJsonSingle(Department department) {
-        Map<String, Object> depart = new HashMap<>();
-        depart.put("id", department.getInt("id"));
-        depart.put("name", department.get("name"));
-        depart.put("state", department.getInt("state"));
-        return depart;
-    }
-
     public void add() {
+        int department_id = getParaToInt("department_id");
         String name = getPara("name");
-        if (name != null) {
-            if (Department.departmentDao.find("SELECT * FROM `db_department` WHERE name='" + name + "'").size() != 0) {
+        if (name != null && department_id != 0) {
+            if (Role.roleDao.find("SELECT * FROM `db_role` WHERE name='" + name + "' AND department_id =" + department_id).size() != 0) {
                 renderJson(RenderUtils.CODE_REPEAT);
                 return;
             }
-            Boolean result = new Department().set("name", name).set("state", 1).save();
+            Boolean result = new Role().set("name", name).set("department_id", department_id).save();
             renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
         } else {
             renderError(500);
@@ -93,24 +77,22 @@ public class DepartmentController extends Controller {
     }
 
     /**
-     * 改变部门的状态信息
+     * 改变岗位的状态信息
      * 0-正常
-     * 1-禁用
-     * 2-删除
+     * 1-删除
      */
     public void changeStateAll() {
         Integer[] selected = getParaValuesToInt("selected[]");
         int type = getParaToInt("type");
         Boolean flag = true;
-        List<Department> errorRun = new LinkedList<>();
+        List<Role> errorRun = new LinkedList<>();
         for (int i = 0; i < selected.length; i++) {
             int id = selected[i];
-            Boolean result = Department.departmentDao.findById(id).set("state", type).update();
-            //System.out.println(result);
+            Boolean result = Role.roleDao.findById(id).set("state", type).update();
             if (!result) {
                 flag = false;
                 //部门启用失败
-                errorRun.add(Department.departmentDao.findById(id));
+                errorRun.add(Role.roleDao.findById(id));
             }
         }
         if (!flag) {
@@ -127,16 +109,15 @@ public class DepartmentController extends Controller {
     /**
      * 改变部门的状态信息
      * 0-正常
-     * 1-禁用
-     * 2-删除
+     * 1-删除
      */
     public void chagneState() {
         int id = getParaToInt("id");
         int type = getParaToInt("type");
         if (id != 0) {
-            Department department = Department.departmentDao.findById(id);
-            if (department != null) {
-                Boolean result = department.set("state", type).update();
+            Role role = Role.roleDao.findById(id);
+            if (role != null) {
+                Boolean result = role.set("state", type).update();
                 if (result)
                     renderJson(RenderUtils.CODE_SUCCESS);
                 else
@@ -150,23 +131,24 @@ public class DepartmentController extends Controller {
     }
 
     /**
-     * 改变部门信息
+     * 改变岗位信息
      */
     public void change() {
         int id = getParaToInt("id");
         String name = getPara("name");
-        if (id != 0 && name != null) {
-            if (Department.departmentDao.find("SELECT * FROM `db_department` WHERE name='" + name + "'").size() != 0) {
+        int department_id = getParaToInt("department_id");
+        if (id != 0 && name != null && department_id != 0) {
+            if (Role.roleDao.find("SELECT * FROM `db_role` WHERE name='" + name + "' AND department_id =" + department_id).size() != 0) {
                 renderJson(RenderUtils.CODE_REPEAT);
                 return;
             }
-            Department department = Department.departmentDao.findById(id);
-            if (department == null) {
+            Role role = Role.roleDao.findById(id);
+            if (role == null) {
                 //根据id找不到对象
                 renderJson(RenderUtils.CODE_EMPTY);
             } else {
                 //找到对象
-                Boolean result = department.set("name", name).update();
+                Boolean result = role.set("name", name).set("department_id", department_id).update();
                 if (result)
                     renderJson(RenderUtils.CODE_SUCCESS);
                 else
@@ -175,33 +157,6 @@ public class DepartmentController extends Controller {
         } else {
             renderError(500);
         }
-
     }
 
-
-    /**
-     * 分页
-     *
-     * @param pageCount
-     * @param rowCount
-     * @param statement
-     * @return
-     */
-    public static Page page(int pageCount, int rowCount, String statement) {
-        if (pageCount == 0) pageCount = 1;
-        if (rowCount == 0) {
-            Prop setting = PropKit.use("setting.properties");
-            rowCount = setting.getInt("rowCount");
-        }
-        if (statement.equals(""))
-            statement = " FROM `db_department` ";
-        Page<Department> departmentPage = Department.departmentDao.paginate(pageCount, rowCount, "SELECT *", " FROM `db_department`");
-        return departmentPage;
-    }
-
-
-    public void getList() {
-        List<Department> departmentList = Department.departmentDao.find("SELECT * FROM `db_department`");
-        renderJson(toJson(departmentList));
-    }
 }
