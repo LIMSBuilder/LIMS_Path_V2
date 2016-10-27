@@ -412,7 +412,6 @@ jQuery(document).ready(function () {
                 jQuery(oCheckbox).prop('checked', !jQuery(oCheckbox).prop('checked'));
             });
         }
-
     };
 
 
@@ -431,28 +430,42 @@ jQuery(document).ready(function () {
     jQuery.fn.codeState = function (code, opt) {
         if (!code) return;
         if (code == 200) {
-            opt[200] ? opt[200]() : jQuery.fn.alert_msg('操作成功！', 'success');
+            if (opt[200] && typeof opt[200] == "string") {
+                jQuery.fn.alert_msg(opt[200]);
+            } else {
+                if (opt[200] && typeof opt[200] == "function") {
+                    opt[200]();
+                } else {
+                    jQuery.fn.alert_msg('操作成功！');
+                }
+            }
         }
         if (code == 500) {
             if (opt[500] && typeof opt[500] == "string") {
-                jQuery.fn.alert_msg(opt[500], 'error');
+                jQuery.fn.error_msg(opt[500]);
             } else {
-                opt[500] ? opt[500]() : jQuery.fn.alert_msg('目前已存在当前值,不能重复操作！', 'error');
+                opt[500] ? opt[500]() : jQuery.fn.error_msg('服务器异常,请刷新后重新尝试！');
             }
 
         }
         if (code == 501) {
             if (opt[501] && typeof opt[501] == "string") {
-                jQuery.fn.alert_msg(opt[501], 'error');
+                jQuery.fn.error_msg(opt[501]);
             } else {
-                opt[501] ? opt[501]() : jQuery.fn.alert_msg('数据值不能为空,请检查后重新操作！', 'error');
+                opt[501] ? opt[501]() : jQuery.fn.error_msg('数据值不能为空,请检查后重新操作！');
             }
         }
         if (code == 502) {
             if (opt[502] && typeof opt[502] == "string") {
-                jQuery.fn.alert_msg(opt[502], 'error');
+                jQuery.fn.error_msg(opt[502]);
             }
-            opt[502] ? opt[502]() : jQuery.fn.alert_msg('请求异常,请重新尝试操作！', 'error');
+            opt[502] ? opt[502]() : jQuery.fn.error_msg('请求异常,请重新尝试操作！');
+        }
+        if (code == 503) {
+            if (opt[503] && typeof opt[503] == "string") {
+                jQuery.fn.error_msg(opt[503]);
+            }
+            opt[503] ? opt[503]() : jQuery.fn.error_msg('数据库中已存在当前值,不能重复操作！');
         }
     };
 
