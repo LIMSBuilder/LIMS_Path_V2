@@ -443,6 +443,7 @@ jQuery(document).ready(function () {
         if (code == 500) {
             if (opt[500] && typeof opt[500] == "string") {
                 jQuery.fn.error_msg(opt[500]);
+                return;
             } else {
                 opt[500] ? opt[500]() : jQuery.fn.error_msg('服务器异常,请刷新后重新尝试！');
             }
@@ -451,6 +452,7 @@ jQuery(document).ready(function () {
         if (code == 501) {
             if (opt[501] && typeof opt[501] == "string") {
                 jQuery.fn.error_msg(opt[501]);
+                return;
             } else {
                 opt[501] ? opt[501]() : jQuery.fn.error_msg('数据值不能为空,请检查后重新操作！');
             }
@@ -458,14 +460,23 @@ jQuery(document).ready(function () {
         if (code == 502) {
             if (opt[502] && typeof opt[502] == "string") {
                 jQuery.fn.error_msg(opt[502]);
+                return;
             }
             opt[502] ? opt[502]() : jQuery.fn.error_msg('请求异常,请重新尝试操作！');
         }
         if (code == 503) {
             if (opt[503] && typeof opt[503] == "string") {
                 jQuery.fn.error_msg(opt[503]);
+                return;
             }
             opt[503] ? opt[503]() : jQuery.fn.error_msg('数据库中已存在当前值,不能重复操作！');
+        }
+        if (code == 505) {
+            if (opt[505] && typeof opt[505] == "string") {
+                jQuery.fn.error_msg(opt[505]);
+                return;
+            }
+            opt[505] ? opt[505]() : jQuery.fn.error_msg('系统不允许您注册两次！');
         }
     };
 
