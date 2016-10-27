@@ -6,7 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by qulongjun on 2016/10/18.
+ * 200:服务器执行成功
+ * 500:服务器通用异常
+ * 501:数据不能为空
+ * 502:数据库操作异常
+ * 503:数据值不能重复
+ * 504:数据库无该条记录
  */
 public class RenderUtils {
 
@@ -14,7 +19,7 @@ public class RenderUtils {
     public static final String CODE_NOTEMPTY = "{\"code\":501}";//不能为空
     public static final String CODE_ERROR = "{\"code\":502}";//数据库异常
     public static final String CODE_REPEAT = "{\"code\":503}";//重复
-
+    public static final String CODE_EMPTY = "{\"code\":504}";//数据库无该条记录
     /**
      * 状态码返回
      *

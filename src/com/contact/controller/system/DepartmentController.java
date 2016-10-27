@@ -9,13 +9,14 @@ import com.jfinal.kit.JsonKit;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.Page;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.*;
 
 /**
  * Created by qulongjun on 2016/10/18.
  */
-public class DepartmentController extends Controller implements BaseController {
+public class DepartmentController extends Controller {
 
     public void list() {
         int rowCount = getParaToInt("rowCount");
@@ -25,19 +26,12 @@ public class DepartmentController extends Controller implements BaseController {
         if (rowCount == 0) {
             rowCount = ParaUtils.getRowCount();
         }
-        String paras = "";
+        String paras = "WHERE state in (0,1) ";
         Object[] keys = condition.keySet().toArray();
         for (int i = 0; i < keys.length; i++) {
-            if (i == 0) {
-                paras = " WHERE ";
-            }
             String key = (String) keys[i];
             Object value = condition.get(key);
-            if (i != keys.length - 1) {
-                paras += (key + " like \"%" + value + "%\" AND ");
-            } else {
-                paras += (key + " like \"%" + value + "%\"");
-            }
+            paras += ("AND " + key + " like \"%" + value + "%\"");
         }
         Page<Department> departmentPage = Department.departmentDao.paginate(currentPage, rowCount, "SELECT *", " FROM `db_department`" + paras);
         List<Department> departmentList = departmentPage.getList();
@@ -70,7 +64,6 @@ public class DepartmentController extends Controller implements BaseController {
         return json;
     }
 
-    @Override
     public void add() {
         String name = getPara("name");
         if (name != null) {
@@ -83,21 +76,78 @@ public class DepartmentController extends Controller implements BaseController {
         } else {
             renderError(500);
         }
-
-//        if (name == null || name.equals("")) {
-//            renderJson(RenderUtils.CODE_NOTEMPTY);
-//            return;
-//        }
-
     }
 
-    @Override
-    public void delete() {
-
+    /**
+     * 改变部门的状态信息
+     * 0-正常
+     * 1-禁用
+     * 2-删除
+     */
+    public void changeStateAll() {
+        Integer[] selected = getParaValuesToInt("selected[]");
+        int type = getParaToInt("type");
+        Boolean flag = true;
+        List<Department> errorRun = new LinkedList<>();
+        for (int i = 0; i < selected.length; i++) {
+            int id = selected[i];
+            Boolean result = Department.departmentDao.findById(id).set("state", type).update();
+            //System.out.println(result);
+            if (!result) {
+                flag = false;
+                //部门启用失败
+                errorRun.add(Department.departmentDao.findById(id));
+            }
+        }
+        if (!flag) {
+            //启用失败返回错误信息
+            Map results = toJson(errorRun);
+            results.put("code", "502");
+            renderJson(results);
+        } else {
+            //启用成功
+            renderJson(RenderUtils.CODE_SUCCESS);
+        }
     }
 
-    @Override
-    public void search() {
+    public void chagneState() {
+        int id = getParaToInt("id");
+        int type = getParaToInt("type");
+        if (id != 0) {
+            Department department = Department.departmentDao.findById(id);
+            if (department != null) {
+                Boolean result = department.set("state", type).update();
+                if (result)
+                    renderJson(RenderUtils.CODE_SUCCESS);
+                else
+                    renderJson(RenderUtils.CODE_ERROR);
+            } else {
+                renderJson(RenderUtils.CODE_EMPTY);
+            }
+        } else {
+            renderError(500);
+        }
+    }
+
+    public void change() {
+        int id = getParaToInt("id");
+        String name = getPara("name");
+        if (id != 0 && name != null) {
+            Department department = Department.departmentDao.findById(id);
+            if (department == null) {
+                //根据id找不到对象
+                renderJson(RenderUtils.CODE_EMPTY);
+            } else {
+                //找到对象
+                Boolean result = department.set("name", name).update();
+                if (result)
+                    renderJson(RenderUtils.CODE_SUCCESS);
+                else
+                    renderJson(RenderUtils.CODE_ERROR);
+            }
+        } else {
+            renderError(500);
+        }
 
     }
 
