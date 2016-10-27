@@ -133,7 +133,7 @@
                             </div>
                             <div class="col-md-7 pull-right">
                                 <div class="col-md-6">
-                                    <select class="select2 depart_change" data-placeholder="请选择部门...">
+                                    <select class="select2" id="depart_change" data-placeholder="请选择部门...">
                                         <option value=""></option>
                                         <template v-for="item in departments">
                                             <option value="{{item.id}}">{{item.name}}</option>
@@ -184,8 +184,7 @@
                                         <td>{{item.role.department.name}}</td>
                                         <td>{{item.role.name}}</td>
                                         <td class="table-action text-center">
-                                            <a href="javascript:;" data-toggle="modal"
-                                               data-target=".bs-example-modal-static"
+                                            <a href="javascript:;"
                                                @click="edit_user(item)"><i
                                                     class="fa fa-pencil"></i></a>
                                             <a href="javascript:;" class="delete-row"
@@ -242,7 +241,8 @@
             name: "",
             gender: "",
             idCard: "",
-            tel: ""
+            tel: "",
+            belong_department: 0
         },
         methods: {
             search: function (type) {
@@ -282,47 +282,14 @@
 
             },
             edit_user: function (data) {
-                var template = jQuery.fn.loadTemplate("/assets/template/subject/user_addItem.tpl");
-                Vue.component('edit_user_component' + data.id, {
-                    template: template,
-                    data: function () {
-                        return {
-                            departments: [],
-                            roles: [],
-                            username: data.username,
-                            name: data.name,
-                            sex: data.sex,
-                            idCard: data.idCard,
-                            tel: data.tel,
-                            belong_role: data.belong_role,
-                            belong_department: data.belong_department
-                        };
-                    },
-                    methods: {
-                        save: function () {
-                            var me = this;
-                            var data = JSON.parse(JSON.stringify(this._data));
-                            console.log(data);
-                            jQuery.fn.alert_msg("用户新增成功!");
-                            me.checked_power = [];
-                            jQuery("#custom_lg_modal").modal("hide");
-                        },
-                        clear: function () {
-                            var me = this;
-                            me.checked_power = [];
-                            jQuery('input[name=select_all]').prop("checked", false);
-                        }
-                    },
-                    ready: function () {
-                        var dom = jQuery(this.$el);
-                        dom.find('.select2').select2({
-                            width: '100%',
-                            minimumResultsForSearch: -1
-                        });
+                var me = this;
+                for (var key in data) {
+                    if (me[key] != undefined) {
+                        me.$set(key, data[key]);
                     }
-                });
-                LIMS.dialog.$set("title", "修改用户资料");
-                LIMS.dialog.currentView = 'edit_user_component' + data.id;
+                }
+                jQuery('a[href="#add"]').tab('show');
+                //jQuery("#depart_user_change").trigger("change");
             },
             init_pwd: function () {
                 jQuery.fn.check_msg({
@@ -394,8 +361,8 @@
                 jQuery.fn.error_msg("无法获取部门列表信息,请尝试刷新操作。");
             });
 
-            dom.find('.depart_change').on("change", function () {
-                var id = this.value;
+            dom.find('#depart_change').on("change", function () {
+                var id = this.value || jQuery("#depart_change").val();
                 me.$http.get("/role/getListByDepartment", {
                     params: {
                         department_id: id
@@ -410,7 +377,7 @@
 
 
             dom.find('#depart_user_change').on("change", function () {
-                var id = this.value;
+                var id = this.value || jQuery("#depart_user_change").val();
                 me.$http.get("/role/getListByDepartment", {
                     params: {
                         department_id: id
@@ -422,9 +389,7 @@
                     jQuery.fn.error_msg("无法获取岗位列表信息,请尝试刷新操作。");
                 });
             });
-
-
-            jQuery("#userAdd").validate({
+            dom.find("#userAdd").validate({
                 highlight: function (element) {
                     jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
                 },
@@ -432,32 +397,7 @@
                     jQuery(element).closest('.form-group').removeClass('has-error');
                 }
             });
-
-
-
-            me.load_list("",1);
-
-//            me.$http.get("/assets/json/user_list.json").then(function (response) {
-//                var data = response.data;
-//                me.$set("user_list", data.results);
-//                //页码事件
-//                jQuery('.paging').pagination({
-//                    pageCount: data.totalPage,
-//                    coping: true,
-//                    homePage: '首页',
-//                    endPage: '末页',
-//                    prevContent: '上页',
-//                    nextContent: '下页',
-//                    current: data.currentPage,
-//                    callback: function (page) {
-//                        console.log(page.getCurrent());
-//                    }
-//                });
-//            }, function (response) {
-//
-//            });
-
-
+            me.load_list("", 1);
         }
     });
 
