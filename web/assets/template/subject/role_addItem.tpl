@@ -2,9 +2,9 @@
     <div class="col-md-12">
         <form class="form-horizontal">
             <div class="form-group">
-                <label class="col-sm-2 control-label">角色名称</label>
+                <label class="col-sm-2 control-label">岗位名称</label>
                 <div class="col-sm-9">
-                    <input type="text" v-model="name" placeholder="请输入部门名称" class="form-control">
+                    <input type="text" v-model="name" placeholder="请输入岗位名称" class="form-control">
                 </div>
             </div>
             <div class="form-group">

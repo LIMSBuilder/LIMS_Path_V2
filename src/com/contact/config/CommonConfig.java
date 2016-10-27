@@ -1,6 +1,7 @@
 package com.contact.config;
 
 import com.contact.model.Department;
+import com.contact.model.Role;
 import com.jfinal.config.*;
 import com.jfinal.kit.PathKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
@@ -49,15 +50,8 @@ public class CommonConfig extends JFinalConfig {
         me.add(cp);
         ActiveRecordPlugin arp = new ActiveRecordPlugin(cp);
         me.add(arp);
-//        arp.addMapping("blog_user", User.class);
         arp.addMapping("db_department", Department.class);
-//        arp.addMapping("blog_admin", Admin.class);
-//        arp.addMapping("blog_category", Category.class);
-//        arp.addMapping("blog_tag", Tag.class);
-//        arp.addMapping("blog_article", Blog.class);
-//        arp.addMapping("blog_article_tag", Blog_Tag.class);
-//        arp.addMapping("blog_comment", Blog_Comment.class);
-//        arp.addMapping("blog_resume", Resume.class);
+        arp.addMapping("db_role", Role.class);
     }
 
     @Override

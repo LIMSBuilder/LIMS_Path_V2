@@ -3,26 +3,37 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-9">
-                        <div class="btn-demo" id="toolbar">
-                            <div class="col-sm-3">
-                                <select class="select2" id="depart_change" data-placeholder="请选择部门...">
-                                    <option value=""></option>
-                                    <template v-for="item in departments">
-                                        <option value="{{item.id}}">{{item.name}}</option>
-                                    </template>
-                                </select>
-                            </div>
+                    <div class="col-md-12">
+                        <div class="btn-demo">
                             <a class="btn btn-info-alt" data-toggle="modal"
                                data-target=".bs-example-modal-static" @click="add_role">新
                                 增</a>
-                            <a class="btn btn-success-alt " @click="run_role">启 用</a>
-                            <a class="btn btn-warning-alt stop_all_select" @click="stop_role">禁 用</a>
+                            <a class="btn btn-primary-alt" @click="select_all">全 选</a>
+                            <a class="btn btn-default-alt select_no" @click="convert_all">反 选</a>
+                            <a class="btn btn-success-alt" data-toggle="modal"
+                               data-target=".bs-example-modal-static" @click="power_role">权限控制</a>
                             <a class="btn btn-danger-alt del_all_select" @click="del_role">删 除</a>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" placeholder="搜索角色..." id="serach" class="form-control">
+                        <div class="form-group">
+                            <select class="select2" id="depart_change" data-placeholder="请选择部门...">
+                                <option value=""></option>
+                                <option value="0">全部</option>
+                                <template v-for="item in departments">
+                                    <option value="{{item.id}}">{{item.name}}</option>
+                                </template>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3 pull-right">
+                        <div class="form-group">
+                            <input type="text" @keyup.enter="search" placeholder="搜索角色..." v-model="search_key"
+                                   id="serach"
+                                   class="form-control">
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -31,41 +42,31 @@
                             <table class="table table-info  mb30 text-center">
                                 <thead>
                                 <tr>
+                                    <th class="text-center"></th>
                                     <th class="text-center">角色名称</th>
-                                    <th class="text-center">当前状态</th>
                                     <th class="text-center">所属部门</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <template v-for="item in  results">
-                                    <template v-for="(index,roles) in item.role">
-                                        <tr>
-                                            <td>{{roles.name}}</td>
-                                            <td class="text-center" v-if="roles.state==0"><span
-                                                    class="label label-success">正常</span></td>
-                                            <td class="text-center" v-if="roles.state==1"><span
-                                                    class="label label-danger">禁用</span></td>
-                                            <td>{{item.name}}</td>
-                                            <td class="table-action text-center">
-                                                <a href="javascript:;" data-toggle="modal"
-                                                   data-target=".bs-example-modal-static"
-                                                   @click="edit_item(roles,item)"><i
-                                                        class="fa fa-pencil"></i></a>
-                                                <a href="javascript:;" data-toggle="modal"
-                                                   data-target=".bs-example-modal-lg"
-                                                   @click="power_item(roles)"><i
-                                                        class="fa fa-sign-in"></i></a>
-                                                <a href="javascript:;" v-if="roles.state==1" @click="run_item(roles)"><i
-                                                        class="fa fa-eye "></i></a>
-                                                <a href="javascript:;" v-if="roles.state==0"
-                                                   @click="stop_item(roles)"><i
-                                                        class="fa fa-eye-slash "></i></a>
-                                                <a href="javascript:;" class="delete-row" @click="del_item(roles)"><i
-                                                        class="fa fa-trash-o "></i></a>
-                                            </td>
-                                        </tr>
-                                    </template>
+                                    <tr>
+                                        <td><input value="{{item.id}}" name="role_check" type="checkbox"></td>
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.department.name}}</td>
+                                        <td class="table-action text-center">
+                                            <a href="javascript:;" data-toggle="modal"
+                                               data-target=".bs-example-modal-static"
+                                               @click="edit_item(item)"><i
+                                                    class="fa fa-pencil"></i></a>
+                                            <a href="javascript:;" data-toggle="modal"
+                                               data-target=".bs-example-modal-lg"
+                                               @click="power_item(roles)"><i
+                                                    class="fa fa-sign-in"></i></a>
+                                            <a href="javascript:;" class="delete-row" @click="del_item(item)"><i
+                                                    class="fa fa-trash-o "></i></a>
+                                        </td>
+                                    </tr>
                                 </template>
                                 </tbody>
                             </table>
@@ -83,7 +84,8 @@
         el: "#contentpanel",
         data: {
             results: [],
-            departments: []
+            departments: [],
+            search_key: ""
         },
         methods: {
             add_role: function () {
@@ -100,11 +102,25 @@
                     },
                     methods: {
                         save: function () {
-                            var that = this;
-                            var data = JSON.parse(JSON.stringify(this._data));
-                            this.belong_depart = jQuery('#choose_depart').val();
-                            jQuery.fn.alert_msg("角色信息保存成功!");
-                            this.name = "";
+                            var outer = this;
+                            var data = {
+                                department_id: jQuery('#choose_depart').val(),
+                                name: outer.name
+                            };
+                            me.$http.post("/role/add", data).then(function (response) {
+                                var data = response.data;
+                                jQuery.fn.codeState(data.code, {
+                                    200: function () {
+                                        var currentPage = parseInt(jQuery('.paging span').html());
+                                        var condition = me.search_key == "" ? "" : "name=" + encodeURI(outer.search_key);
+                                        me.load_list(condition, currentPage);
+                                        jQuery.fn.alert_msg("岗位创建成功!");
+                                        outer.$set("name", "");
+                                    }
+                                });
+                            }, function (response) {
+                                jQuery.fn.error_msg("服务器数据异常!无法保存岗位信息,请刷新后重新尝试。");
+                            });
                         }
                     },
                     ready: function () {
@@ -115,58 +131,76 @@
                         });
                     }
                 });
-                LIMS.dialog.$set('title', '创建角色');
+                LIMS.dialog.$set('title', '创建岗位');
                 LIMS.dialog.currentView = 'depart_add_item';
             },
-            run_role: function (data) {
-                jQuery.fn.check_msg({
-                    msg: '是否<span style="color: #1CAF9A;">启用</span>所有选中的角色？',
-                    success: function () {
-                        jQuery.fn.alert_msg('所选角色启用成功！');
-                    }
-                });
-            },
-            stop_role: function (data) {
-                jQuery.fn.check_msg({
-                    msg: '是否<span style="color: #f0ad4e;">禁用</span>所有选中的角色？',
-                    success: function () {
-                        jQuery.fn.alert_msg('所选角色禁用成功！');
-                    }
-                });
+            power_role: function () {
+
             },
             del_role: function (data) {
-                jQuery.fn.check_msg({
-                    msg: '是否<span style="color: red;">删除</span>所有选中的角色？',
-                    success: function () {
-                        jQuery.fn.alert_msg('所选角色删除成功！');
-                    }
+                var me = this;
+                var selected = [];
+                var oCheck = jQuery('input[name=role_check]:checked');
+                if (oCheck.length == 0) {
+                    jQuery.fn.error_msg('至少需要选择一个岗位！');
+                    return;
+                }
+                oCheck.each(function (index, item) {
+                    selected.push(item.value);
                 });
-            },
-            run_item: function (data) {
                 jQuery.fn.check_msg({
-                    msg: '是否启用【<span style="color: #1CAF9A;">' + data.name + '</span>】？',
+                    msg: '是否<span style="color: red;">删除</span>所有选中的岗位？',
                     success: function () {
-                        jQuery.fn.alert_msg('角色启用成功！');
-                    }
-                });
-            },
-            stop_item: function (data) {
-                jQuery.fn.check_msg({
-                    msg: '是否禁用【<span style="color: #f0ad4e;">' + data.name + '</span>】？，该角色的员工将无法登陆！',
-                    success: function () {
-                        jQuery.fn.alert_msg('角色禁用成功！');
+                        me.$http.post("/role/changeStateAll", {
+                            selected: selected,
+                            type: 1
+                        }).then(function (response) {
+                            var data = response.data;
+                            if (data.code == "200") {
+                                var currentPage = parseInt(jQuery('.paging span').html());
+                                var condition = me.search_key == "" ? "" : "name=" + encodeURI(me.search_key);
+                                me.load_list(condition, currentPage);
+                                jQuery.fn.alert_msg('所选岗位删除成功！');
+                            }
+                            if (data.code == "503") {
+                                var results = data.results;
+                                var error_msg = "";
+                                for (var i = 0; i < results.length; i++) {
+                                    error_msg += results[i].name + ",";
+                                }
+                                jQuery.fn.error_msg("数据异常,岗位" + error_msg.substr(0, error_msg.length - 1) + "删除失败!");
+                            }
+                        }, function (response) {
+                            jQuery.fn.error_msg("无法获取岗位列表信息,请尝试刷新操作。");
+                        });
                     }
                 });
             },
             del_item: function (data) {
+                var me = this;
                 jQuery.fn.check_msg({
                     msg: '是否删除【<span style="color: red;">' + data.name + '</span>】？，删除角色将清空该部门的员工信息！',
                     success: function () {
-                        jQuery.fn.alert_msg('角色删除成功！');
+                        me.$http.post("/role/chagneState", {
+                            id: data.id,
+                            type: 1
+                        }).then(function (response) {
+                            var data = response.data;
+                            jQuery.fn.codeState(data.code, {
+                                200: function () {
+                                    var currentPage = parseInt(jQuery('.paging span').html());
+                                    var condition = me.search_key == "" ? "" : "name=" + encodeURI(me.search_key);
+                                    me.load_list(condition, currentPage);
+                                    jQuery.fn.alert_msg('岗位删除成功！');
+                                }
+                            })
+                        }, function (response) {
+                            jQuery.fn.error_msg("无法获取岗位列表信息,请尝试刷新操作。");
+                        });
                     }
                 });
             },
-            edit_item: function (data, depart) {
+            edit_item: function (data) {
                 var me = this;
                 var index = data.id;
                 var template = jQuery.fn.loadTemplate("/assets/template/subject/role_addItem.tpl");
@@ -177,15 +211,32 @@
                         return {
                             name: data.name,
                             depart_list: me.departments,
-                            belong_depart: depart.id
+                            belong_depart: data.department.id
                         };
                     },
                     methods: {
                         save: function () {
-                            var data = JSON.parse(JSON.stringify(this._data));
-                            console.log(data);
-                            jQuery.fn.alert_msg("部门信息修改成功!");
-                            jQuery("#custom_modal").modal("hide");
+                            var data = {
+                                id: index,
+                                name: this.name,
+                                department_id: jQuery('#choose_depart').val()
+                            };
+
+                            me.$http.post("/role/change", data).then(function (response) {
+                                var data = response.data;
+                                jQuery.fn.codeState(data.code, {
+                                    200: function () {
+                                        var currentPage = parseInt(jQuery('.paging span').html());
+                                        var condition = me.search_key == "" ? "" : "name=" + encodeURI(me.search_key);
+                                        me.load_list(condition, currentPage);
+                                        jQuery.fn.alert_msg("岗位修改成功!");
+                                        jQuery("#custom_modal").modal("hide");
+                                    }
+                                });
+                            }, function (response) {
+                                jQuery.fn.error_msg("服务器数据异常!无法保存岗位信息,请刷新后重新尝试。");
+                            });
+
                         }
                     },
                     ready: function () {
@@ -227,7 +278,7 @@
                             clear: function () {
                                 var me = this;
                                 me.checked_power = [];
-                                jQuery('input[name=select_all]').prop("checked",false);
+                                jQuery('input[name=select_all]').prop("checked", false);
                             },
                             choose_all: function () {
                                 var me = this;
@@ -249,53 +300,91 @@
                 });
 
 
+            },
+
+            search: function (data) {
+                var value = data.target.value;
+                this.load_list("name=" + encodeURI(value), 1);
+            },
+            load_list: function (condition, currentPage) {
+                var me = this;
+                var dom = jQuery(me.$el);
+                var rowCount = localStorage.getItem("rowCount") || 0;
+                me.$http.get("/role/list", {
+                    params: {
+                        rowCount: rowCount,
+                        currentPage: currentPage,
+                        condition: condition
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    me.$set("results", data.results);
+
+                    //页码事件
+                    dom.find('.paging').pagination({
+                        pageCount: data.totalPage,
+                        coping: true,
+                        homePage: '首页',
+                        endPage: '末页',
+                        prevContent: '上页',
+                        nextContent: '下页',
+                        current: data.currentPage,
+                        callback: function (page) {
+                            var currentPage = page.getCurrent();
+                            me.$http.get("/role/list", {
+                                params: {
+                                    rowCount: rowCount,
+                                    currentPage: currentPage,
+                                    condition: data.condition
+                                }
+                            }).then(function (response) {
+                                var data = response.data;
+                                me.$set("results", data.results);
+                            }, function (response) {
+                                jQuery.fn.error_msg("无法获取岗位列表信息,请尝试刷新操作。");
+                            });
+                        }
+                    });
+                    jQuery.validator.setDefaults({
+                        submitHandler: function () {
+                        }
+                    });
+                }, function (response) {
+                    jQuery.fn.error_msg("无法获取岗位列表信息,请尝试刷新操作。");
+                });
+            }, convert_all: function () {
+                //反选操作
+                jQuery.fn.select_all("role_check", "other");
+            },
+            select_all: function () {
+                //全选操作
+                jQuery.fn.select_all("role_check", "all");
             }
         },
         ready: function () {
             var me = this;
             var dom = jQuery(me.$el);
-            jQuery.get("/assets/json/role_list.json", {pageCount: 1, rowCount: 20}, function (data) {
-                me.$set("results", data.results);
+            me.$http.get("/department/getList").then(function (response) {
+                var data = response.data;
                 me.$set("departments", data.results);
-                jQuery('.select2').select2({
-                    width: '100%',
-                    minimumResultsForSearch: -1
-                });
-                //搜索框事件
-                dom.find("#serach").keyup(function () {
-                    if (event.keyCode == 13) {
-                        var data = jQuery(this).val();
-                        console.log('按下回车了,数据为' + data);
-                    }
-                });
-                dom.find('#depart_change').on("click", function () {
-                    var index = jQuery(this).val();
-                    var list = me.departments;
-                    list.forEach(function (item) {
-                        if (item.id == index) {
-                            me.$set("results", [item]);
-                        }
-                    });
-                });
-                //页码事件
-                dom.find('.paging').pagination({
-                    pageCount: data.totalPage,
-                    coping: true,
-                    homePage: '首页',
-                    endPage: '末页',
-                    prevContent: '上页',
-                    nextContent: '下页',
-                    current: data.currentPage,
-                    callback: function (page) {
-                        console.log(page.getCurrent());
-                    }
-                });
-
-                $.validator.setDefaults({
-                    submitHandler: function () {
-                    }
-                });
+            }, function (response) {
+                jQuery.fn.error_msg("无法获取部门列表信息,请尝试刷新操作。");
             });
+            this.load_list("", 1);
+            dom.find('.select2').select2({
+                width: '100%',
+                minimumResultsForSearch: -1
+            });
+
+            dom.find("#depart_change").on("change", function (data) {
+                var id = data.val;
+                if (id == 0) {
+                    me.load_list("", 1);
+                } else {
+                    me.load_list("department_id=" + encodeURI(id), 1);
+                }
+
+            })
         }
 
     });
