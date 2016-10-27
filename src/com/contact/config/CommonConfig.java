@@ -2,6 +2,7 @@ package com.contact.config;
 
 import com.contact.model.Department;
 import com.contact.model.Role;
+import com.contact.model.User;
 import com.jfinal.config.*;
 import com.jfinal.kit.PathKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
@@ -52,6 +53,7 @@ public class CommonConfig extends JFinalConfig {
         me.add(arp);
         arp.addMapping("db_department", Department.class);
         arp.addMapping("db_role", Role.class);
+        arp.addMapping("db_user", User.class);
     }
 
     @Override

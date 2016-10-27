@@ -18,11 +18,11 @@
                 <label class="col-sm-2 control-label">性别</label>
                 <div class="col-sm-10">
                     <div class="rdio rdio-primary">
-                        <input type="radio" v-model="sex" name="radio" value="男" id="man" checked/>
+                        <input type="radio" v-model="gender" name="radio" value="0" id="man" checked/>
                         <label for="man">男</label>
                     </div>
                     <div class="rdio rdio-primary">
-                        <input type="radio" v-model="sex" name="radio" value="女" id="female"/>
+                        <input type="radio" v-model="gender" name="radio" value="1" id="female"/>
                         <label for="female">女</label>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">所属部门</label>
                 <div class="col-sm-10">
-                    <select class="select2" v-model="belong_department" id="depart_select" data-placeholder="请选择部门...">
+                    <select class="select2" v-model="belong_department" id="depart_user_change" data-placeholder="请选择部门...">
                         <option value=""></option>
                         <template v-for="item in departments">
                             <option value="{{item.id}}">{{item.name}}</option>
