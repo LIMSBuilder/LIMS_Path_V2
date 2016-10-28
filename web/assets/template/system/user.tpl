@@ -289,7 +289,7 @@
                     }
                 }
                 jQuery('a[href="#add"]').tab('show');
-                //jQuery("#depart_user_change").trigger("change");
+//                jQuery("#depart_user_change").trigger("change");
             },
             init_pwd: function () {
                 jQuery.fn.check_msg({
@@ -362,7 +362,7 @@
             });
 
             dom.find('#depart_change').on("change", function () {
-                var id = this.value || jQuery("#depart_change").val();
+                var id = this.value;
                 me.$http.get("/role/getListByDepartment", {
                     params: {
                         department_id: id
@@ -377,7 +377,7 @@
 
 
             dom.find('#depart_user_change').on("change", function () {
-                var id = this.value || jQuery("#depart_user_change").val();
+                var id = this.value;
                 me.$http.get("/role/getListByDepartment", {
                     params: {
                         department_id: id

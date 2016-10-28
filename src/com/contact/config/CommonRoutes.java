@@ -1,6 +1,7 @@
 package com.contact.config;
 
 import com.contact.controller.common.SignController;
+import com.contact.controller.system.CustomerController;
 import com.contact.controller.system.DepartmentController;
 import com.contact.controller.system.RoleController;
 import com.contact.controller.system.UserController;
@@ -17,5 +18,6 @@ public class CommonRoutes extends Routes {
         add("/department", DepartmentController.class,"/");
         add("/role", RoleController.class,"/");
         add("/user", UserController.class,"/");
+        add("/customer", CustomerController.class,"/");
     }
 }
