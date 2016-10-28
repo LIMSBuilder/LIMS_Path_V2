@@ -6,11 +6,11 @@
                     <div class="col-md-9">
                         <div class="btn-demo" id="toolbar">
                             <a class="btn btn-info-alt" data-toggle="modal"
-                               data-target=".bs-example-modal-static" @click="add_depart">新
+                               data-target=".bs-example-modal-static" @click="add_customer">新
                                 增</a>
                             <a class="btn btn-primary-alt" @click="select_all">全 选</a>
                             <a class="btn btn-default-alt select_no" @click="convert_all">反 选</a>
-                            <a class="btn btn-danger-alt del_all_select" @click="del_depart">删 除</a>
+                            <a class="btn btn-danger-alt del_all_select" @click="del_customer">删 除</a>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -103,7 +103,7 @@
                         current: data.currentPage,
                         callback: function (page) {
                             var currentPage = page.getCurrent();
-                            me.$http.get("/department/list", {
+                            me.$http.get("/customer/list", {
                                 params: {
                                     rowCount: rowCount,
                                     currentPage: currentPage,
@@ -145,7 +145,7 @@
                 LIMS.dialog.$set('title', '查看客户资料');
                 LIMS.dialog.currentView = 'customer_view_item' + index;
             },
-            add_depart: function () {
+            add_customer: function () {
                 var outer = this;
                 var template = jQuery.fn.loadTemplate("/assets/template/subject/customer_addItem.tpl");
                 Vue.component('customer_add_item', {
@@ -168,6 +168,10 @@
                                     var data = response.data;
                                     jQuery.fn.codeState(data.code, {
                                         200: function () {
+                                            var currentPage = parseInt(jQuery('.paging span').html());
+                                            var condition = outer.search_key == "" ? "" : "client_unit=" + encodeURI(outer.search_key);
+                                            outer.load_list(condition, currentPage);
+
                                             jQuery.fn.alert_msg("客户资料保存成功!");
                                             var datas = me._data;
                                             for (var key in datas) {
@@ -197,41 +201,40 @@
                 LIMS.dialog.$set('title', '创建客户资料');
                 LIMS.dialog.currentView = 'customer_add_item';
             },
-            del_depart: function () {
+            del_customer: function () {
                 var me = this;
                 var selected = [];
                 var oCheck = jQuery('input[name=depart_check]:checked');
                 if (oCheck.length == 0) {
-                    jQuery.fn.error_msg('至少需要选择一个部门！');
+                    jQuery.fn.error_msg('至少需要选择一个客户！');
                     return;
                 }
                 oCheck.each(function (index, item) {
                     selected.push(item.value);
                 });
                 jQuery.fn.check_msg({
-                    msg: '是否<span style="color: red;">删除</span>所有选中的部门？',
+                    msg: '是否<span style="color: red;">删除</span>所有选中的客户？',
                     success: function () {
-                        me.$http.post("/department/changeStateAll", {
-                            selected: selected,
-                            type: 2
+                        me.$http.post("/customer/deleteAll", {
+                            selected: selected
                         }).then(function (response) {
                             var data = response.data;
                             if (data.code == "200") {
                                 var currentPage = parseInt(jQuery('.paging span').html());
-                                var condition = me.search_key == "" ? "" : "name=" + encodeURI(me.search_key);
+                                var condition = me.search_key == "" ? "" : "client_unit=" + encodeURI(me.search_key);
                                 me.load_list(condition, currentPage);
-                                jQuery.fn.alert_msg('所选部门删除成功！');
+                                jQuery.fn.alert_msg('所选客户信息删除成功！');
                             }
                             if (data.code == "503") {
                                 var results = data.results;
                                 var error_msg = "";
                                 for (var i = 0; i < results.length; i++) {
-                                    error_msg += results[i].name + ",";
+                                    error_msg += results[i].client_unit + ",";
                                 }
-                                jQuery.fn.error_msg("数据异常,部门" + error_msg.substr(0, error_msg.length - 1) + "删除失败!");
+                                jQuery.fn.error_msg("数据异常,客户" + error_msg.substr(0, error_msg.length - 1) + "删除失败!");
                             }
                         }, function (response) {
-                            jQuery.fn.error_msg("无法获取部门列表信息,请尝试刷新操作。");
+                            jQuery.fn.error_msg("无法获取客户列表信息,请尝试刷新操作。");
                         });
                     }
                 });
@@ -239,23 +242,22 @@
             del_item: function (data) {
                 var me = this;
                 jQuery.fn.check_msg({
-                    msg: '是否删除【<span style="color: red;">' + data.name + '</span>】？，删除部门将清空该部门的员工信息！',
+                    msg: '是否删除【<span style="color: red;">' + data.client_unit + '</span>】？，删除部门将清空该部门的员工信息！',
                     success: function () {
-                        me.$http.post("/department/chagneState", {
-                            id: data.id,
-                            type: 2
+                        me.$http.post("/customer/delete", {
+                            id: data.id
                         }).then(function (response) {
                             var data = response.data;
                             jQuery.fn.codeState(data.code, {
                                 200: function () {
                                     var currentPage = parseInt(jQuery('.paging span').html());
-                                    var condition = me.search_key == "" ? "" : "name=" + encodeURI(me.search_key);
+                                    var condition = me.search_key == "" ? "" : "client_unit=" + encodeURI(me.search_key);
                                     me.load_list(condition, currentPage);
-                                    jQuery.fn.alert_msg('部门删除成功！');
+                                    jQuery.fn.alert_msg('客户信息删除成功！');
                                 }
                             })
                         }, function (response) {
-                            jQuery.fn.error_msg("无法获取部门列表信息,请尝试刷新操作。");
+                            jQuery.fn.error_msg("无法获取客户列表信息,请尝试刷新操作。");
                         });
                     }
                 });
@@ -263,47 +265,46 @@
             edit_item: function (data) {
                 var me = this;
                 var index = data.id;
-                var template = jQuery.fn.loadTemplate("/assets/template/subject/department_addItem.tpl");
-                Vue.component('depart_change_item' + index, {
+                var template = jQuery.fn.loadTemplate("/assets/template/subject/customer_addItem.tpl");
+                Vue.component('customer_change_item' + index, {
                     template: template,
                     data: function () {
                         return {
-                            name: data.name
+                            id: data.id,
+                            client_unit: data.client_unit,
+                            client_code: data.client_code,
+                            client_address: data.client_address,
+                            client_tel: data.client_tel,
+                            client: data.client,
+                            client_fax: data.client_fax
                         };
                     },
                     methods: {
                         save: function () {
                             var that = this;
-                            var data = JSON.parse(JSON.stringify(this._data));
-                            for (var i = 0; i < me.results.length; i++) {
-                                var item = me.results[i];
-                                if (item.id == index) {
-                                    item.name = data.name;
-                                }
-                            }
-                            me.$http.post("/department/change", {
-                                id: index,
-                                name: that.name
-                            }).then(function (response) {
+                            var data = JSON.parse(JSON.stringify(that._data));
+                            me.$http.post("/customer/change", data).then(function (response) {
                                 var data = response.data;
                                 jQuery.fn.codeState(data.code, {
                                     200: function () {
-                                        jQuery.fn.alert_msg("部门信息修改成功!");
+                                        var currentPage = parseInt(jQuery('.paging span').html());
+                                        var condition = me.search_key == "" ? "" : "client_unit=" + encodeURI(me.search_key);
+                                        me.load_list(condition, currentPage);
+                                        jQuery.fn.alert_msg("客户信息修改成功!");
                                         jQuery("#custom_modal").modal("hide");
                                     }
                                 });
                             }, function (response) {
-                                jQuery.fn.error_msg("无法获取部门列表信息,请尝试刷新操作。");
+                                jQuery.fn.error_msg("无法获取客户列表信息,请尝试刷新操作。");
                             });
 
 
                         }
                     }
                 });
-                LIMS.dialog.$set('title', '修改部门信息');
-                LIMS.dialog.currentView = 'depart_change_item' + index;
+                LIMS.dialog.$set('title', '修改客户信息');
+                LIMS.dialog.currentView = 'customer_change_item' + index;
             },
-
             convert_all: function () {
                 //反选操作
                 jQuery.fn.select_all("depart_check", "other");
@@ -317,7 +318,6 @@
             this.load_list("", 1);
         }
     })
-
 </script>
 
 

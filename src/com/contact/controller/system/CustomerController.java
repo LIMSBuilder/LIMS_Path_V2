@@ -1,16 +1,12 @@
 package com.contact.controller.system;
 
 import com.contact.model.Customer;
-import com.contact.model.Role;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CustomerController extends Controller {
 
@@ -90,6 +86,67 @@ public class CustomerController extends Controller {
         } catch (Exception e) {
             System.out.println(e.toString());
             renderError(500);
+        }
+    }
+
+
+    public void change() {
+        try {
+            int id = getParaToInt("id");
+            if (id != 0) {
+                Customer customer = Customer.customerDao.findById(id);
+                if (customer != null) {
+                    Boolean result = customer
+                            .set("client_unit", getPara("client_unit"))
+                            .set("client_code", getPara("client_code"))
+                            .set("client_address", getPara("client_address"))
+                            .set("client_tel", getPara("client_tel"))
+                            .set("client", getPara("client"))
+                            .set("client_fax", getPara("client_fax"))
+                            .update();
+                    renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+                } else {
+                    renderJson(RenderUtils.CODE_EMPTY);
+                }
+            }
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+
+    public void delete() {
+        try {
+            int id = getParaToInt("id");
+            if (id != 0) {
+                Boolean result = Customer.customerDao.deleteById(id);
+                renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+            }
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+    public void deleteAll() {
+        Integer[] selected = getParaValuesToInt("selected[]");
+        Boolean flag = true;
+        List<Customer> errorRun = new LinkedList<>();
+        for (int i = 0; i < selected.length; i++) {
+            int id = selected[i];
+            Boolean result = Customer.customerDao.deleteById(id);
+            if (!result) {
+                flag = false;
+                //客户删除失败
+                errorRun.add(Customer.customerDao.findById(id));
+            }
+        }
+        if (!flag) {
+            Map results = toJson(errorRun);
+            results.put("code", "502");
+            renderJson(results);
+        } else {
+            //删除成功
+            renderJson(RenderUtils.CODE_SUCCESS);
         }
     }
 }
