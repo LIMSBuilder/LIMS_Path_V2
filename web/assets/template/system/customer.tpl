@@ -14,7 +14,8 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" @keyup.enter="search" v-model="search_key" placeholder="搜索内容..." id="serach"
+                        <input type="text" @keyup.enter="search" v-model="search_key" placeholder="搜索委托单位..."
+                               id="serach"
                                class="form-control">
                     </div>
                 </div>
@@ -26,12 +27,10 @@
                                 <tr>
                                 <tr>
                                     <th class="text-center"></th>
-                                    <th class="text-center">编号</th>
                                     <th class="text-center">委托单位</th>
                                     <th class="text-center">联系人</th>
                                     <th class="text-center">联系电话</th>
                                     <th class="text-center">联系地址</th>
-                                    <th class="text-center">当前状态</th>
                                     <th></th>
                                 </tr>
                                 </tr>
@@ -42,17 +41,19 @@
                                         <td class="text-center">
                                             <input type="checkbox" value="{{item.id}}"
                                                    name="depart_check"></td>
-                                        <td class="text-center">{{item.id}}</td>
-                                        <td class="text-center">{{item.name}}</td>
-                                        <td class="text-center" v-if="item.state==0"><span class="label label-success">正常</span>
-                                        </td>
-                                        <td class="text-center" v-if="item.state==1"><span
-                                                class="label label-warning">禁用</span></td>
+                                        <td class="text-center">{{item.client_unit}}</td>
+                                        <td class="text-center">{{item.client}}</td>
+                                        <td class="text-center">{{item.client_tel}}</td>
+                                        <td class="text-center">{{item.client_address}}</td>
                                         <td class="table-action text-center">
                                             <a href="javascript:;" data-toggle="modal"
                                                data-target=".bs-example-modal-static"
                                                @click="edit_item(item)"><i
-                                                    class="fa fa-pencil"></i></a>
+                                                    class="fa fa-edit"></i></a>
+                                            <a href="javascript:;" data-toggle="modal"
+                                               data-target=".bs-example-modal-static"
+                                               @click="view_item(item)"><i
+                                                    class="fa fa-eye"></i></a>
                                             <a href="javascript:;" class="delete-row" @click="del_item(item)"><i
                                                     class="fa fa-trash-o "></i></a>
                                         </td>
@@ -71,7 +72,6 @@
 
 
 <script type="text/javascript">
-
     var vue = new Vue({
         el: "#contentpanel",
         data: {
@@ -83,8 +83,7 @@
                 var me = this;
                 var dom = jQuery(me.$el);
                 var rowCount = localStorage.getItem("rowCount") || 0;
-                //获取department列表
-                me.$http.get("/department/list", {
+                me.$http.get("/customer/list", {
                     params: {
                         rowCount: rowCount,
                         currentPage: currentPage,
@@ -92,11 +91,7 @@
                     }
                 }).then(function (response) {
                     var data = response.data;
-                    for (var key in data) {
-                        if (me[key] != undefined) {
-                            me.$set(key, data[key]);
-                        }
-                    }
+                    me.$set("results", data.results);
                     //页码事件
                     dom.find('.paging').pagination({
                         pageCount: data.totalPage,
@@ -118,7 +113,7 @@
                                 var data = response.data;
                                 me.$set("results", data.results);
                             }, function (response) {
-                                jQuery.fn.error_msg("无法获取部门列表信息,请尝试刷新操作。");
+                                jQuery.fn.error_msg("无法获取客户列表信息,请尝试刷新操作。");
                             });
                         }
                     });
@@ -127,13 +122,28 @@
                         }
                     });
                 }, function (response) {
-                    jQuery.fn.error_msg("无法获取部门列表信息,请尝试刷新操作。");
+                    jQuery.fn.error_msg("无法获取客户列表信息,请尝试刷新操作。");
                 });
 
             },
             search: function (data) {
                 var value = data.target.value;
-                this.load_list("name=" + encodeURI(value), 1);
+                this.load_list("client_unit=" + encodeURI(value), 1);
+            },
+            view_item: function (data) {
+                var me = this;
+                var index = data.id;
+                var template = jQuery.fn.loadTemplate("/assets/template/subject/customer_view.tpl");
+                Vue.component('customer_view_item' + index, {
+                    template: template,
+                    data: function () {
+                        return {
+                            data: data
+                        };
+                    }
+                });
+                LIMS.dialog.$set('title', '查看客户资料');
+                LIMS.dialog.currentView = 'customer_view_item' + index;
             },
             add_depart: function () {
                 var outer = this;
@@ -293,6 +303,7 @@
                 LIMS.dialog.$set('title', '修改部门信息');
                 LIMS.dialog.currentView = 'depart_change_item' + index;
             },
+
             convert_all: function () {
                 //反选操作
                 jQuery.fn.select_all("depart_check", "other");
@@ -303,7 +314,7 @@
             }
         },
         ready: function () {
-            //this.load_list("", 1);
+            this.load_list("", 1);
         }
     })
 
