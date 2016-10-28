@@ -1,5 +1,6 @@
 package com.contact.config;
 
+import com.contact.controller.Constract.MonitorFrequencyController;
 import com.contact.controller.common.SignController;
 import com.contact.controller.system.CustomerController;
 import com.contact.controller.system.DepartmentController;
@@ -15,9 +16,10 @@ public class CommonRoutes extends Routes {
     @Override
     public void config() {
         add("/", SignController.class, "/");
-        add("/department", DepartmentController.class,"/");
-        add("/role", RoleController.class,"/");
-        add("/user", UserController.class,"/");
-        add("/customer", CustomerController.class,"/");
+        add("/department", DepartmentController.class, "/");
+        add("/role", RoleController.class, "/");
+        add("/user", UserController.class, "/");
+        add("/customer", CustomerController.class, "/");
+        add("/frequency", MonitorFrequencyController.class, "/");
     }
 }

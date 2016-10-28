@@ -1,9 +1,6 @@
 package com.contact.config;
 
-import com.contact.model.Customer;
-import com.contact.model.Department;
-import com.contact.model.Role;
-import com.contact.model.User;
+import com.contact.model.*;
 import com.jfinal.config.*;
 import com.jfinal.kit.PathKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
@@ -56,6 +53,7 @@ public class CommonConfig extends JFinalConfig {
         arp.addMapping("db_role", Role.class);
         arp.addMapping("db_user", User.class);
         arp.addMapping("db_customer", Customer.class);
+        arp.addMapping("db_monitorFrequency", Monitor_Frequency.class);
     }
 
     @Override
