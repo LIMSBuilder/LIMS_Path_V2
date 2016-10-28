@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-md-12">
-        <form id="frequency_form">
+        <form id="category_form">
             <div class="form-group">
-                <label class="col-sm-2 control-label text-center">监测频次 </label>
+                <label class="col-sm-2 control-label text-center">环境要素 </label>
                 <div class="col-sm-8">
                     <input type="text" name="name" v-model="name" class="form-control"
                            required/>

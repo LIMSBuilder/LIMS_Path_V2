@@ -1,6 +1,6 @@
 package com.contact.controller.constract;
 
-import com.contact.model.Monitor_Frequency;
+import com.contact.model.Monitor_Category;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
@@ -11,8 +11,7 @@ import java.util.*;
 /**
  * Created by qulongjun on 2016/10/28.
  */
-public class MonitorFrequencyController extends Controller {
-
+public class MonitorCategoryController extends Controller {
     /**
      * 列表展示
      */
@@ -39,11 +38,11 @@ public class MonitorFrequencyController extends Controller {
             }
 
         }
-        Page<Monitor_Frequency> monitor_frequencyPage = Monitor_Frequency.monitor_frequencyDao.paginate(currentPage, rowCount, "SELECT *", " FROM `db_monitorFrequency`" + paras);
-        List<Monitor_Frequency> monitor_frequencyList = monitor_frequencyPage.getList();
-        Map results = toJson(monitor_frequencyList);
+        Page<Monitor_Category> monitorCategoryPage = Monitor_Category.monitorCategoryDao.paginate(currentPage, rowCount, "SELECT *", " FROM `db_monitorCategory`" + paras);
+        List<Monitor_Category> monitorCategoryList = monitorCategoryPage.getList();
+        Map results = toJson(monitorCategoryList);
         results.put("currentPage", currentPage);
-        results.put("totalPage", monitor_frequencyPage.getTotalPage());
+        results.put("totalPage", monitorCategoryPage.getTotalPage());
         results.put("rowCount", rowCount);
         results.put("condition", condition_temp);
         renderJson(results);
@@ -56,14 +55,14 @@ public class MonitorFrequencyController extends Controller {
      * @param entityList
      * @return
      */
-    public Map toJson(List<Monitor_Frequency> entityList) {
+    public Map toJson(List<Monitor_Category> entityList) {
         Map<String, Object> json = new HashMap<>();
         List results = new ArrayList();
-        for (Monitor_Frequency monitor_frequency : entityList) {
-            Map<String, Object> frequencyList = new HashMap<>();
-            frequencyList.put("id", monitor_frequency.getInt("id"));
-            frequencyList.put("name", monitor_frequency.get("name"));
-            results.add(frequencyList);
+        for (Monitor_Category monitor_category : entityList) {
+            Map<String, Object> categoryList = new HashMap<>();
+            categoryList.put("id", monitor_category.getInt("id"));
+            categoryList.put("name", monitor_category.get("name"));
+            results.add(categoryList);
         }
         json.put("results", results);
         return json;
@@ -74,11 +73,11 @@ public class MonitorFrequencyController extends Controller {
         try {
             String name = getPara("name");
             if (name != null) {
-                if (Monitor_Frequency.monitor_frequencyDao.find("SELECT * FROM `db_monitorFrequency` WHERE name='" + name + "'").size() != 0) {
+                if (Monitor_Category.monitorCategoryDao.find("SELECT * FROM `db_monitorCategory` WHERE name='" + name + "'").size() != 0) {
                     renderJson(RenderUtils.CODE_REPEAT);
                     return;
                 }
-                Boolean result = new Monitor_Frequency().set("name", name).save();
+                Boolean result = new Monitor_Category().set("name", name).save();
                 renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
             }
         } catch (Exception e) {
@@ -92,11 +91,11 @@ public class MonitorFrequencyController extends Controller {
             int id = getParaToInt("id");
             String name = getPara("name");
             if (id != 0 && name != null) {
-                if (Monitor_Frequency.monitor_frequencyDao.find("SELECT * FROM `db_monitorFrequency` WHERE name='" + name + "'").size() != 0) {
+                if (Monitor_Category.monitorCategoryDao.find("SELECT * FROM `db_monitorCategory` WHERE name='" + name + "'").size() != 0) {
                     renderJson(RenderUtils.CODE_REPEAT);
                     return;
                 }
-                Boolean result = Monitor_Frequency.monitor_frequencyDao.findById(id).set("name", name).update();
+                Boolean result = Monitor_Category.monitorCategoryDao.findById(id).set("name", name).update();
                 renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
             }
         } catch (Exception e) {
@@ -109,7 +108,7 @@ public class MonitorFrequencyController extends Controller {
         try {
             int id = getParaToInt("id");
             if (id != 0) {
-                Boolean result = Monitor_Frequency.monitor_frequencyDao.deleteById(id);
+                Boolean result = Monitor_Category.monitorCategoryDao.deleteById(id);
                 renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
             }
         } catch (Exception e) {
@@ -120,14 +119,13 @@ public class MonitorFrequencyController extends Controller {
     public void deleteAll() {
         Integer[] selected = getParaValuesToInt("selected[]");
         Boolean flag = true;
-        List<Monitor_Frequency> errorRun = new LinkedList<>();
+        List<Monitor_Category> errorRun = new LinkedList<>();
         for (int i = 0; i < selected.length; i++) {
             int id = selected[i];
-            Boolean result = Monitor_Frequency.monitor_frequencyDao.deleteById(id);
+            Boolean result = Monitor_Category.monitorCategoryDao.deleteById(id);
             if (!result) {
                 flag = false;
-                //客户删除失败
-                errorRun.add(Monitor_Frequency.monitor_frequencyDao.findById(id));
+                errorRun.add(Monitor_Category.monitorCategoryDao.findById(id));
             }
         }
         if (!flag) {
