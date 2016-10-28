@@ -1,5 +1,6 @@
 package com.contact.config;
 
+import com.contact.model.Customer;
 import com.contact.model.Department;
 import com.contact.model.Role;
 import com.contact.model.User;
@@ -54,6 +55,7 @@ public class CommonConfig extends JFinalConfig {
         arp.addMapping("db_department", Department.class);
         arp.addMapping("db_role", Role.class);
         arp.addMapping("db_user", User.class);
+        arp.addMapping("db_customer", Customer.class);
     }
 
     @Override
