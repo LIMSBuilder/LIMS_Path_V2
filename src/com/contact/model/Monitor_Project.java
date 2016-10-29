@@ -1,7 +1,19 @@
 package com.contact.model;
 
+import com.jfinal.plugin.activerecord.Model;
+
 /**
- * Created by qulongjun on 2016/10/28.
+ * 监测项目
  */
-public class Monitor_Project {
+public class Monitor_Project extends Model<Monitor_Project> {
+    public static final Monitor_Project monitor_projectDao = new Monitor_Project();
+
+    /**
+     * 获取外键Category
+     *
+     * @return
+     */
+    public Monitor_Category getCategory() {
+        return Monitor_Category.monitorCategoryDao.findById(get("category_id"));
+    }
 }

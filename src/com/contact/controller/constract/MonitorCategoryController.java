@@ -137,4 +137,14 @@ public class MonitorCategoryController extends Controller {
             renderJson(RenderUtils.CODE_SUCCESS);
         }
     }
+
+
+    public void getList() {
+        try {
+            List<Monitor_Category> categories = Monitor_Category.monitorCategoryDao.find("SELECT * FROM `db_monitorCategory`");
+            renderJson(toJson(categories));
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
 }

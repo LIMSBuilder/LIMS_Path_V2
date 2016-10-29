@@ -14,7 +14,7 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" @keyup.enter="search" v-model="search_key" placeholder="搜索委托单位..."
+                        <input type="text" @keyup.enter="search" v-model="search_key" placeholder="搜索监测频次..."
                                id="serach"
                                class="form-control">
                     </div>

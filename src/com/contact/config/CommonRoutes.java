@@ -3,6 +3,7 @@ package com.contact.config;
 import com.contact.controller.constract.MonitorCategoryController;
 import com.contact.controller.common.SignController;
 import com.contact.controller.constract.MonitorFrequencyController;
+import com.contact.controller.constract.MonitorProjectController;
 import com.contact.controller.system.CustomerController;
 import com.contact.controller.system.DepartmentController;
 import com.contact.controller.system.RoleController;
@@ -23,5 +24,6 @@ public class CommonRoutes extends Routes {
         add("/customer", CustomerController.class, "/");
         add("/frequency", MonitorFrequencyController.class, "/");
         add("/category", MonitorCategoryController.class, "/");
+        add("/project", MonitorProjectController.class, "/");
     }
 }

@@ -45,7 +45,7 @@ public class CommonConfig extends JFinalConfig {
 
     @Override
     public void configPlugin(Plugins me) {
-        C3p0Plugin cp = new C3p0Plugin("jdbc:mysql://localhost/lims", "root", "admin");
+        C3p0Plugin cp = new C3p0Plugin("jdbc:mysql://localhost/lims", "root", "jun920221");
         me.add(cp);
         ActiveRecordPlugin arp = new ActiveRecordPlugin(cp);
         me.add(arp);
@@ -55,6 +55,7 @@ public class CommonConfig extends JFinalConfig {
         arp.addMapping("db_customer", Customer.class);
         arp.addMapping("db_monitorFrequency", Monitor_Frequency.class);
         arp.addMapping("db_monitorCategory", Monitor_Category.class);
+        arp.addMapping("db_monitorProject", Monitor_Project.class);
     }
 
     @Override
