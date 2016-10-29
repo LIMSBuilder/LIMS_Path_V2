@@ -33,7 +33,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 text-center  control-label">承办人</label>
                         <div class="col-sm-9">
-                            <input type="text" placeholder="请输入承办人姓名" v-model="trustee" class="form-control">
+                            <input type="text" placeholder="请输入承办人姓名" v-model="trustee.name" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
@@ -69,12 +69,19 @@
         },
         methods: {
             save: function () {
+                var me = this;
                 console.log(JSON.parse(JSON.stringify(this._data)));
+                me.$http.post("/default/setDefault", me._data).then(function (response) {
+                    var data = response.data;
+                    jQuery.fn.codeState(data.code,{
+                        200:"预设信息修改成功!"
+                    })
+                }, function () {
+                    jQuery.fn.error_msg("数据异常,无法设置预设信息,请尝试刷新操作。");
+                })
             },
             clear: function () {
                 var me = this;
-                //var temp = jQuery("#default_info")[0];
-                //temp.reset();
                 var data = this._data;
                 for (var key in data) {
                     me.$set(key, "");
@@ -83,13 +90,14 @@
         },
         ready: function () {
             var me = this;
-            me.$http.get("/assets/json/contract_default.json").then(function (response) {
+            me.$http.get("/default/getDefault").then(function (response) {
                 var data = response.data;
                 for (var key in data) {
                     me.$set(key, data[key]);
                 }
             }, function (response) {
-            });
+                jQuery.fn.error_msg("无法获取预设信息,请尝试刷新操作。");
+            })
         }
     });
 

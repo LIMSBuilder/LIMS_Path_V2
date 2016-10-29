@@ -56,6 +56,7 @@ public class CommonConfig extends JFinalConfig {
         arp.addMapping("db_monitorFrequency", Monitor_Frequency.class);
         arp.addMapping("db_monitorCategory", Monitor_Category.class);
         arp.addMapping("db_monitorProject", Monitor_Project.class);
+        arp.addMapping("db_default", Default.class);
     }
 
     @Override

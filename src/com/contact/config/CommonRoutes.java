@@ -1,5 +1,6 @@
 package com.contact.config;
 
+import com.contact.controller.constract.DefaultsController;
 import com.contact.controller.constract.MonitorCategoryController;
 import com.contact.controller.common.SignController;
 import com.contact.controller.constract.MonitorFrequencyController;
@@ -25,5 +26,6 @@ public class CommonRoutes extends Routes {
         add("/frequency", MonitorFrequencyController.class, "/");
         add("/category", MonitorCategoryController.class, "/");
         add("/project", MonitorProjectController.class, "/");
+        add("/default", DefaultsController.class,"/");
     }
 }
