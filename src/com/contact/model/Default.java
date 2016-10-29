@@ -27,4 +27,13 @@ public class Default extends Model<Default> {
         trustee.put("trustee", User.userDao.findById(getInt("trustee")));
         return trustee;
     }
+
+
+    public Boolean setValues(Map paras) {
+        for (Object key : paras.keySet()) {
+            String value = ((String[]) paras.get(key))[0];
+            this.set(key.toString(), value);
+        }
+        return this.update();
+    }
 }

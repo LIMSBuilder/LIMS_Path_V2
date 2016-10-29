@@ -95,4 +95,11 @@ public class UserController extends Controller {
                 .save();
         renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
     }
+
+
+    public void getList() {
+        List<User> userList = User.userDao.find("SELECT * FROM `db_user`");
+        renderJson(toJson(userList));
+
+    }
 }

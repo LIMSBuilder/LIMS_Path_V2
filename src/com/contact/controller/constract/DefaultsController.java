@@ -16,18 +16,8 @@ import java.util.Map;
 public class DefaultsController extends Controller {
     public void setDefault() {
         try {
-//            Map props = getParaMap();
-//            Hashtable tables = new Hashtable();
-//            for (Object key : props.keySet()) {
-//                String value = ((String[]) props.get(key))[0];
-//                tables.put(key, value);
-//            }
-//            PropertiesUtlis.setValueAndStore("/defaults.properties", tables);
-
-
-
-
-            renderJson(RenderUtils.CODE_SUCCESS);
+            Boolean result = Default.defaultDao.findFirst("SELECT * FROM `db_default`").setValues(getParaMap());
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
         } catch (Exception e) {
             System.out.println(e);
             renderError(500);
