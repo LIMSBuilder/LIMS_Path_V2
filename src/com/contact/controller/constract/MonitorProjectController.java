@@ -68,7 +68,7 @@ public class MonitorProjectController extends Controller {
             String name = getPara("name");
             int category_id = getParaToInt("category");
             if (name != null) {
-                if (Monitor_Project.monitor_projectDao.find("SELECT * FROM `db_monitorProject` WHERE name='" + name + "' AND category_id = " + category_id).size() != 0) {
+                if (Monitor_Project.monitor_projectDao.find("SELECT * FROM `db_monitorProject` WHERE state=0 AND name='" + name + "' AND category_id = " + category_id).size() != 0) {
                     renderJson(RenderUtils.CODE_REPEAT);
                     return;
                 }
@@ -92,7 +92,7 @@ public class MonitorProjectController extends Controller {
             String name = getPara("name");
             int category_id = getParaToInt("category");
             if (id != 0 && name != null) {
-                if (Monitor_Project.monitor_projectDao.find("SELECT * FROM `db_monitorProject` WHERE name='" + name + "' AND category_id = " + category_id + " AND desp ='" + getPara("desp") + "'").size() != 0) {
+                if (Monitor_Project.monitor_projectDao.find("SELECT * FROM `db_monitorProject` WHERE state=0 AND name='" + name + "' AND category_id = " + category_id + " AND desp ='" + getPara("desp") + "'").size() != 0) {
                     renderJson(RenderUtils.CODE_REPEAT);
                     return;
                 }

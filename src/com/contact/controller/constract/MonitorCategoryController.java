@@ -1,6 +1,7 @@
 package com.contact.controller.constract;
 
 import com.contact.model.Monitor_Category;
+import com.contact.model.Monitor_Project;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
@@ -23,20 +24,12 @@ public class MonitorCategoryController extends Controller {
         if (rowCount == 0) {
             rowCount = ParaUtils.getRowCount();
         }
-        String paras = "";
+        String paras = " WHERE state = 0 ";
         Object[] keys = condition.keySet().toArray();
         for (int i = 0; i < keys.length; i++) {
-            if (i == 0) {
-                paras += " WHERE ";
-            }
             String key = (String) keys[i];
             Object value = condition.get(key);
-            if (i != keys.length - 1) {
-                paras += (key + " like \"%" + value + "%\" AND ");
-            } else {
-                paras += (key + " like \"%" + value + "%\"");
-            }
-
+            paras += (" AND " + key + " like \"%" + value + "%\"");
         }
         Page<Monitor_Category> monitorCategoryPage = Monitor_Category.monitorCategoryDao.paginate(currentPage, rowCount, "SELECT *", " FROM `db_monitorCategory`" + paras);
         List<Monitor_Category> monitorCategoryList = monitorCategoryPage.getList();
@@ -73,11 +66,11 @@ public class MonitorCategoryController extends Controller {
         try {
             String name = getPara("name");
             if (name != null) {
-                if (Monitor_Category.monitorCategoryDao.find("SELECT * FROM `db_monitorCategory` WHERE name='" + name + "'").size() != 0) {
+                if (Monitor_Category.monitorCategoryDao.find("SELECT * FROM `db_monitorCategory` WHERE state = 0 AND name='" + name + "'").size() != 0) {
                     renderJson(RenderUtils.CODE_REPEAT);
                     return;
                 }
-                Boolean result = new Monitor_Category().set("name", name).save();
+                Boolean result = new Monitor_Category().set("name", name).set("state", 0).save();
                 renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
             }
         } catch (Exception e) {
@@ -91,7 +84,7 @@ public class MonitorCategoryController extends Controller {
             int id = getParaToInt("id");
             String name = getPara("name");
             if (id != 0 && name != null) {
-                if (Monitor_Category.monitorCategoryDao.find("SELECT * FROM `db_monitorCategory` WHERE name='" + name + "'").size() != 0) {
+                if (Monitor_Category.monitorCategoryDao.find("SELECT * FROM `db_monitorCategory` WHERE state=0 AND name='" + name + "'").size() != 0) {
                     renderJson(RenderUtils.CODE_REPEAT);
                     return;
                 }
@@ -108,7 +101,12 @@ public class MonitorCategoryController extends Controller {
         try {
             int id = getParaToInt("id");
             if (id != 0) {
-                Boolean result = Monitor_Category.monitorCategoryDao.deleteById(id);
+                Monitor_Category category = Monitor_Category.monitorCategoryDao.findById(id);
+                Boolean result = category.set("state", 1).update();
+                List<Monitor_Project> projectList = category.getProjects();
+                for (Monitor_Project project : projectList) {
+                    project.set("state", 1).update();
+                }
                 renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
             }
         } catch (Exception e) {
@@ -122,7 +120,12 @@ public class MonitorCategoryController extends Controller {
         List<Monitor_Category> errorRun = new LinkedList<>();
         for (int i = 0; i < selected.length; i++) {
             int id = selected[i];
-            Boolean result = Monitor_Category.monitorCategoryDao.deleteById(id);
+            Monitor_Category category = Monitor_Category.monitorCategoryDao.findById(id);
+            Boolean result = category.set("state", 1).update();
+            List<Monitor_Project> projectList = category.getProjects();
+            for (Monitor_Project project : projectList) {
+                project.set("state", 1).update();
+            }
             if (!result) {
                 flag = false;
                 errorRun.add(Monitor_Category.monitorCategoryDao.findById(id));
@@ -141,7 +144,7 @@ public class MonitorCategoryController extends Controller {
 
     public void getList() {
         try {
-            List<Monitor_Category> categories = Monitor_Category.monitorCategoryDao.find("SELECT * FROM `db_monitorCategory`");
+            List<Monitor_Category> categories = Monitor_Category.monitorCategoryDao.find("SELECT * FROM `db_monitorCategory` WHERE state=0");
             renderJson(toJson(categories));
         } catch (Exception e) {
             renderError(500);
