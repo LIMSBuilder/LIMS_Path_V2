@@ -25,8 +25,6 @@ public class DefaultsController extends Controller {
     }
 
     public void getDefault() {
-        //Prop setting = PropKit.use("defaults.properties");
-        //renderJson(setting);
         renderJson(Default.defaultDao.findFirst("SELECT * FROM `db_default`").getTrusteeInfo());
     }
 }

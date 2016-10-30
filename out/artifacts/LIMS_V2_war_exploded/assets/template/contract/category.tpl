@@ -73,7 +73,7 @@
                 var me = this;
                 var dom = jQuery(me.$el);
                 var rowCount = localStorage.getItem("rowCount") || 0;
-                me.$http.get("/category/list", {
+                me.$http.get("/customer/list", {
                     params: {
                         rowCount: rowCount,
                         currentPage: currentPage,
@@ -93,7 +93,7 @@
                         current: data.currentPage,
                         callback: function (page) {
                             var currentPage = page.getCurrent();
-                            me.$http.get("/category/list", {
+                            me.$http.get("/customer/list", {
                                 params: {
                                     rowCount: rowCount,
                                     currentPage: currentPage,

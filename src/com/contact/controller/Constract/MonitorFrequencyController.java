@@ -139,4 +139,14 @@ public class MonitorFrequencyController extends Controller {
             renderJson(RenderUtils.CODE_SUCCESS);
         }
     }
+
+    public void getList() {
+        try {
+            List<Monitor_Frequency> frequencyList = Monitor_Frequency.monitor_frequencyDao.find("SELECT * FROM `db_monitorFrequency`");
+            renderJson(frequencyList);
+        } catch (Exception e) {
+            renderError(500);
+        }
+
+    }
 }

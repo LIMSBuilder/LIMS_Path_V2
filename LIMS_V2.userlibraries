@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="lib">
+    <archive path="/Users/qulongjun/project/LIMS_V2/web/WEB-INF/lib/cos.jar" />
+    <archive path="/Users/qulongjun/project/LIMS_V2/web/WEB-INF/lib/c3p0-0.9.1.jar" />
+    <archive path="/Users/qulongjun/project/LIMS_V2/web/WEB-INF/lib/log4j-1.2.15.jar" />
+    <archive path="/Users/qulongjun/project/LIMS_V2/web/WEB-INF/lib/jetty-server-8.1.8.jar" />
+    <archive path="/Users/qulongjun/project/LIMS_V2/web/WEB-INF/lib/json-lib-2.4-jdk15.jar" />
+    <archive path="/Users/qulongjun/project/LIMS_V2/web/WEB-INF/lib/jfinal-2.2-bin-with-src.jar" />
+    <archive path="/Users/qulongjun/project/LIMS_V2/web/WEB-INF/lib/mysql-connector-java-5.1.18-bin.jar" />
+  </library>
+</eclipse-userlibraries>
+
