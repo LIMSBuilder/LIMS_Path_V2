@@ -1,4 +1,4 @@
-package com.contact.controller.Constract;
+package com.contact.controller.constract;
 
 import com.contact.model.Monitor_Frequency;
 import com.contact.utils.ParaUtils;

@@ -322,7 +322,7 @@
 
                     //页码事件
                     dom.find('.paging').pagination({
-                        pageCount: data.totalPage,
+                        pageCount: data.totalPage != 0 ? data.totalPage : 1,
                         coping: true,
                         homePage: '首页',
                         endPage: '末页',

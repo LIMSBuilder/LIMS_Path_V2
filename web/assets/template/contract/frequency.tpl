@@ -14,7 +14,7 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" @keyup.enter="search" v-model="search_key" placeholder="搜索委托单位..."
+                        <input type="text" @keyup.enter="search" v-model="search_key" placeholder="搜索监测频次..."
                                id="serach"
                                class="form-control">
                     </div>
@@ -84,7 +84,7 @@
                     me.$set("results", data.results);
                     //页码事件
                     dom.find('.paging').pagination({
-                        pageCount: data.totalPage,
+                        pageCount: data.totalPage != 0 ? data.totalPage : 1,
                         coping: true,
                         homePage: '首页',
                         endPage: '末页',
@@ -174,7 +174,7 @@
                 var selected = [];
                 var oCheck = jQuery('input[name=depart_check]:checked');
                 if (oCheck.length == 0) {
-                    jQuery.fn.error_msg('至少需要选择一个客户！');
+                    jQuery.fn.error_msg('至少需要选择一个监测频次！');
                     return;
                 }
                 oCheck.each(function (index, item) {
@@ -251,7 +251,7 @@
                                 jQuery.fn.codeState(data.code, {
                                     200: function () {
                                         var currentPage = parseInt(jQuery('.paging span').html());
-                                        var condition = me.search_key == "" ? "" : "client_unit=" + encodeURI(me.search_key);
+                                        var condition = me.search_key == "" ? "" : "name=" + encodeURI(me.search_key);
                                         me.load_list(condition, currentPage);
                                         jQuery.fn.alert_msg("监测频次修改成功!");
                                         jQuery("#custom_modal").modal("hide");

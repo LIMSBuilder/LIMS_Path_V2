@@ -85,6 +85,20 @@
 
 </section>
 
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true" id="custom_lg_modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>
+                <h4 class="modal-title">邀您参与《邦达诚科技实验室信息管理系统》内测！</h4>
+            </div>
+            <div class="modal-body" id="contentpanel">
+
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="/assets/js/jquery-1.11.1.min.js"></script>
 <script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
@@ -95,6 +109,8 @@
 
 <script src="/assets/js/toggles.min.js"></script>
 <script src="/assets/js/retina.min.js"></script>
+
+<script src="/assets/js/template.js"></script>
 
 <script src="/assets/js/custom.js"></script>
 <script>
@@ -110,6 +126,16 @@
         } else if (c && c == 'katniss') {
             jQuery('.btn-success').addClass('btn-primary').removeClass('btn-success');
         }
+
+
+        setTimeout(function () {
+            jQuery.get("/assets/template/test.tpl", function (data) {
+                $('#contentpanel').html(data);
+                $("#custom_lg_modal").modal("show");
+            });
+
+
+        }, 1000);
     });
 </script>
 
