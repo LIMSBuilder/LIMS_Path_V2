@@ -19,7 +19,7 @@
                     </ul>
 
 
-                    <form class="form" id="firstForm">
+                    <form class="form" id="contractForm">
                         <div class="tab-content">
                             <div class="progress progress-striped active">
                                 <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0"
@@ -112,8 +112,15 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label text-center">承办人</label>
                                     <div class="col-sm-4">
-                                        <input type="text" name="trustee" v-model="trustee" class="form-control"
-                                               required/>
+                                        <!--<input type="text" name="trustee" v-model="trustee" class="form-control"-->
+                                        <!--required/>-->
+                                        <select class="select2" id="user_choose" data-placeholder="请选择承办人..." required>
+                                            <option value=""></option>
+                                            <template v-for="item in user_list">
+                                                <option value="{{item.id}}">{{item.name}}</option>
+                                            </template>
+                                        </select>
+
                                     </div>
                                     <label class="col-sm-2 control-label text-center">传真电话</label>
                                     <div class="col-sm-4">
@@ -140,16 +147,12 @@
                                     <label class="col-sm-2 control-label text-center">监测类别</label>
                                     <div class="col-sm-10">
                                         <select class="select2" id="monitor_type" v-model="monitor_type"
-                                                data-placeholder="选择监测类别"
+                                                data-placeholder="请选择监测类别"
                                                 required>
-                                            <option value="1"></option>
-                                            <option value="2">验收监测</option>
-                                            <option value="3">环评监测</option>
-                                            <option value="4">委托监测</option>
-                                            <option value="5">执法监测</option>
-                                            <option value="6">例行监测</option>
-                                            <option value="7">应急监测</option>
-                                            <option value="8">监督监测</option>
+                                            <option value=""></option>
+                                            <template v-for="items in monitor_typeList">
+                                                <option value="{{items.value}}">{{items.value}}</option>
+                                            </template>
                                         </select>
                                     </div>
                                 </div>
@@ -157,8 +160,8 @@
                                     <label class="col-sm-2 control-label text-center">检测方法</label>
                                     <div class="col-sm-10">
                                         <div class="rdio rdio-primary">
-                                            <input type="radio" v-model="monitor_way" checked id="way1" value="0"
-                                                   name="gender" required/>
+                                            <input type="radio" v-model="monitor_way" id="way1" value="0"
+                                                   name="gender" required checked="checked"/>
                                             <label for="way1">以我单位通过计量认证、国家实验室认可的方法进行检测</label>
                                         </div>
                                         <div class="rdio rdio-primary">
@@ -289,8 +292,25 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="vtab4">
-
                                 <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label text-center">合同编号</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="payment_count" v-model="identify"
+                                                   class="form-control" required/>
+                                            <span class="help-block">合同编号具有唯一性,建议使用"系统生成"功能保证其唯一性。</span>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="btn-demo">
+                                                <a
+                                                        class="btn btn-sm btn-success-alt pull-left "
+                                                        v-on:click="create_identify">系统生成</a>
+                                                <a
+                                                        class="btn btn-sm btn-warning-alt pull-left "
+                                                        v-on:click="free_identify">释放编号</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="table-responsive">
                                         <table class="table table-bordered  mb30">
                                             <thead>
@@ -377,7 +397,7 @@
                                                     以我单位通过计量认证、国家实验室认可的方法进行检测
                                                 </td>
                                                 <td class="text-center" colspan="5" v-if="monitor_way==1">
-                                                    {{monitor_way_desp}}
+                                                    客户指定：{{monitor_way_desp}}
                                                 </td>
 
                                             </tr>
@@ -399,16 +419,16 @@
                                                 <td class="text-center" colspan="2">{{finish_date}}</td>
                                                 <td class="text-center">监测费用(¥)</td>
                                                 <td class="text-center">{{payment_count}}</td>
-                                                <td class="text-center">壹佰贰拾叁圆</td>
+                                                <td class="text-center">{{payment_count_chinese}}</td>
                                             </tr>
                                             <tr>
                                                 <td class="text-center">客户要求</td>
                                                 <td class="text-center" colspan="2">客户需要进入实验室监视与本次委托有关的检测活动</td>
-                                                <td class="text-center" v-if="in_room!='room'">否</td>
-                                                <td class="text-center" v-if="in_room=='room'">是</td>
+                                                <td class="text-center" v-if="in_room!=true">否</td>
+                                                <td class="text-center" v-if="in_room==true">是</td>
                                                 <td class="text-center" colspan="2">客户需要本实验室对本次委托有关资料保密</td>
-                                                <td class="text-center" v-if="keep_secret!='secret'">否</td>
-                                                <td class="text-center" v-if="keep_secret=='secret'">是</td>
+                                                <td class="text-center" v-if="keep_secret!=true">否</td>
+                                                <td class="text-center" v-if="keep_secret==true">是</td>
                                             </tr>
                                             <tr>
                                                 <td class="text-center">其他约定</td>
@@ -429,7 +449,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-center">承办人</td>
-                                                <td class="text-center" colspan="2">{{trustee}}</td>
+                                                <td class="text-center" colspan="2">{{trustee.name}}</td>
                                                 <td class="text-center">传真电话</td>
                                                 <td class="text-center" colspan="2">{{trustee_fax}}</td>
                                             </tr>
@@ -469,6 +489,9 @@
             me: this,
             el: '#contentpanel',
             data: {
+                user_list: [],
+                monitor_typeList: [],
+                identify: "",
                 client_unit: "",
                 client_code: "",
                 client_address: "",
@@ -492,6 +515,7 @@
                 payment_way: "",
                 finish_date: "",
                 payment_count: "",
+                payment_count_chinese: "",
                 in_room: "",
                 keep_secret: "",
                 other: ""
@@ -565,11 +589,15 @@
                     jQuery.fn.check_msg({
                         msg: '是否导入系统预设的乙方信息？已填信息将会被覆盖。',
                         success: function () {
-                            me.$http.get('/assets/json/contract_default.json').then(function (response) {
+                            me.$http.get('/default/getDefault').then(function (response) {
                                 var data = response.data;
                                 for (var key in data) {
                                     var value = data[key];
                                     me.$set(key, value);
+                                    if (key == "trustee") {
+                                        jQuery("#user_choose").val(data[key].id);
+                                        jQuery("#user_choose").trigger("change");
+                                    }
                                 }
                             }, function (response) {
                                 jQuery.fn.error_msg("服务器无法获取预设信息！");
@@ -584,43 +612,88 @@
                  */
                 open_dialog: function () {
                     var me = this;
-
-                    me.$http.get("/assets/json/customer_select_list.json").then(function (response) {
-                        var data = response.data;
-                        var template = jQuery.fn.loadTemplate("/assets/template/subject/customer_select_list.tpl");
-
-                        Vue.component('child', {
-                            template: template,
-                            data: function () {
-                                return {customers: data.results};
+                    var template = jQuery.fn.loadTemplate("/assets/template/subject/customer_select_list.tpl");
+                    Vue.component('child', {
+                        template: template,
+                        data: function () {
+                            return {
+                                customers: [],
+                                search_key: ""
+                            };
+                        },
+                        methods: {
+                            startSearch: function (event) {
+                                var me = this;
+                                me.load_list("client_unit=" + encodeURI(me.search_key), 1);
                             },
-                            methods: {
-                                startSearch: function (event) {
-                                    //向服务器发送查询请求
-                                    alert("触发了enter操作");
-                                },
-                                choose: function (data) {
-                                    //console.log(data)
-                                    var customer = data.customer;
-                                    jQuery("#custom_modal").modal("hide");
-                                    jQuery.fn.check_msg({
-                                        msg: "是否导入【" + customer.client_unit + "】公司的客户资料?",
-                                        success: function () {
-                                            for (var key in customer) {
-                                                me.$set(key, customer[key]);
-                                            }
+                            choose: function (data) {
+                                var customer = data.customer;
+                                jQuery("#custom_modal").modal("hide");
+                                jQuery.fn.check_msg({
+                                    msg: "是否导入【" + customer.client_unit + "】公司的客户资料?",
+                                    success: function () {
+                                        for (var key in customer) {
+                                            me.$set(key, customer[key]);
+                                        }
 
+                                    }
+                                });
+                            },
+                            load_list: function (condition, currentPage) {
+                                var me = this;
+                                var dom = jQuery(me.$el);
+                                var rowCount = localStorage.getItem("rowCount") || 0;
+                                me.$http.get("/customer/list", {
+                                    params: {
+                                        rowCount: rowCount,
+                                        currentPage: currentPage,
+                                        condition: condition
+                                    }
+                                }).then(function (response) {
+                                    var data = response.data;
+                                    me.$set("customers", data.results);
+                                    //页码事件
+                                    dom.find('.paging').pagination({
+                                        pageCount: data.totalPage != 0 ? data.totalPage : 1,
+                                        coping: true,
+                                        homePage: '首页',
+                                        endPage: '末页',
+                                        prevContent: '上页',
+                                        nextContent: '下页',
+                                        current: data.currentPage,
+                                        callback: function (page) {
+                                            var currentPage = page.getCurrent();
+                                            me.$http.get("/customer/list", {
+                                                params: {
+                                                    rowCount: rowCount,
+                                                    currentPage: currentPage,
+                                                    condition: data.condition
+                                                }
+                                            }).then(function (response) {
+                                                var data = response.data;
+                                                me.$set("customers", data.results);
+                                            }, function (response) {
+                                                jQuery.fn.error_msg("无法获取客户列表信息,请尝试刷新操作。");
+                                            });
                                         }
                                     });
-                                }
+                                    jQuery.validator.setDefaults({
+                                        submitHandler: function () {
+                                        }
+                                    });
+                                }, function (response) {
+                                    jQuery.fn.error_msg("无法获取客户列表信息,请尝试刷新操作。");
+                                });
+
                             }
-                        });
-                        LIMS.dialog.$set('title', '从客户管理系统中导入');
-                        LIMS.dialog.currentView = 'child';
-                    }, function (response) {
-                        //error
-                        jQuery.fn.error_msg("客户资料获取失败！");
+                        },
+                        ready: function () {
+                            var me = this;
+                            me.load_list("", 1);
+                        }
                     });
+                    LIMS.dialog.$set('title', '从客户管理系统中导入');
+                    LIMS.dialog.currentView = 'child';
 
 
                 },
@@ -644,13 +717,15 @@
                                     monitor_item: "",
                                     frequency: "",
                                     other: "",
-                                    monitor_type_item: data.monitor_type_item,
-                                    frequency_item: data.frequency_item
+                                    monitor_type_item: [],
+                                    frequency_item: [],
+                                    monitor_project_item: []
                                 }
                             },
                             methods: {
                                 save: function () {
                                     var dom = $(this.$el);
+                                    if (!jQuery("#monitor_addItem").valid())return;
                                     var items = [];
                                     dom.find('#monitor_item option:selected').each(function (index, item) {
                                         var dom = jQuery(item);
@@ -670,18 +745,22 @@
                                         frequency: dom.find("select[name=frequency]").val(),
                                         other: this.other
                                     };
+                                    console.log(data);
                                     me.item_arr.push(data);
                                     jQuery("#monitor_addItem")[0].reset();
                                     jQuery("#monitor_addItem .select2").val("").trigger("change");
                                     jQuery("#tags").removeTag("");
                                     jQuery.fn.alert_msg("检测项保存成功!");
+
                                 },
+
                                 cancel: function () {
                                     jQuery("#custom_modal").modal("hide");
                                 }
                             },
                             ready: function () {
-                                var dom = $(this.$el);
+                                var me = this;
+                                var dom = $(me.$el);
                                 dom.find('.select2').select2({
                                     width: '100%',
                                     minimumResultsForSearch: -1
@@ -690,19 +769,46 @@
                                     width: 'auto',
                                     defaultText: '增加...'
                                 });
+                                me.$http.get("/category/getList").then(function (res) {
+                                    var results = res.data.results;
+                                    me.$set("monitor_type_item", results);
+                                }, function (response) {
+                                    jQuery.fn.error_msg("无法获取环境要素列表信息,请尝试刷新操作。");
+                                });
+                                me.$http.get("/frequency/getList").then(function (response) {
+                                    var data = response.data;
+                                    me.$set("frequency_item", data);
+                                }, function (response) {
+                                    jQuery.fn.error_msg("无法获取监测频次列表信息,请尝试刷新操作。");
+                                });
+
+
                                 dom.find('select[name=environment]').on("change", function (event) {
                                     var id = event.val;
-                                    var items = data.monitor_type_item.find(function (item) {
-                                        return item.id == id;
-                                    });
-                                    var oSelect = jQuery("#monitor_item");
-                                    oSelect.find('option').remove();
-                                    items.items.forEach(function (item) {
-                                        console.log(item);
-                                        oSelect.append("<option value='" + item.id + "'>" + item.name + "</option>");
-                                    });
-                                    $('#monitor_item').trigger("change");
-                                })
+                                    if (!id) return;
+                                    me.$http.get("/project/getByCategory", {
+                                        params: {
+                                            id: id
+                                        }
+                                    }).then(function (response) {
+                                        var data = response.data;
+                                        me.$set("monitor_project_item", data.results);
+                                        console.log(data)
+                                    }, function (response) {
+                                        jQuery.fn.error_msg("无法获取监测项目列表信息,请尝试刷新操作。");
+                                    })
+                                });
+
+                                jQuery("#monitor_addItem").validate({
+                                    highlight: function (element) {
+                                        jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+                                    },
+                                    success: function (element) {
+                                        jQuery(element).closest('.form-group').removeClass('has-error');
+                                    }
+                                });
+
+
                             }
                         });
 
@@ -756,10 +862,10 @@
                 saveAsDraft: function () {
                     var template = '<div class="form-group"> <div class="col-sm-12"> <input type="text" id="template_name" placeholder="请输入模板名称" class="form-control"> </div> </div>';
                     jQuery.fn.check_msg({
-                        msg: '<p>是否将合同保存为模板？您可以在\"模板合同\"列表中查看、修改或进入项目流中。</p>'+template,
+                        msg: '<p>是否将合同保存为模板？您可以在\"模板合同\"列表中查看、修改或进入项目流中。</p>' + template,
                         success: function () {
                             var name = jQuery("#template_name").val();
-                            jQuery.fn.alert_msg("合同模板【"+name+"】保存成功！");
+                            jQuery.fn.alert_msg("合同模板【" + name + "】保存成功！");
                         }
                     });
                 },
@@ -767,10 +873,85 @@
                  * 保存并进入流程中
                  */
                 saveAsProject: function () {
+                    var me = this;
+                    var $valid = jQuery('#contractForm').valid();
+                    if (!$valid) {
+                        jQuery.fn.error_msg("您有合同信息尚未填写完成,请返回检查。");
+                        return;
+                    }
+                    debugger
+                    var arr_item = [];
+                    for (var i = 0; i < me.item_arr.length; i++) {
+                        var item = me.item_arr[i];
+                        var m = "";
+                        for (var j = 0; j < item.monitor_item.length; j++) {
+                            m += (item.monitor_item[j] + ",");
+                        }
+                        var temp = {
+                            category_id: item.environment,
+                            frequency: item.frequency,
+                            monitor_point: item.monitor_point.replace(/,/g,';'),
+                            other: item.other,
+                            project_id: encodeURI(m.substr(0, m.length - 1)).replace(/,/g,';')
+                        };
+                        arr_item.push(JSON.stringify(temp));
+                    }
+                    var data = {
+                        identify: me.identify,
+                        client_unit: me.client_unit,
+                        client_code: me.client_code,
+                        client_address: me.client_address,
+                        client_tel: me.client_tel,
+                        client: me.client,
+                        client_fax: me.client_fax,
+                        trustee_unit: me.trustee_unit,
+                        trustee_code: me.trustee_code,
+                        trustee_address: me.trustee_address,
+                        trustee_tel: me.trustee_tel,
+                        trustee: me.trustee.id,
+                        trustee_fax: me.trustee_fax,
+                        project_name: me.project_name,
+                        monitor_aim: me.monitor_aim,
+                        monitor_type: jQuery("#monitor_type").val(),
+                        monitor_way: me.monitor_way,
+                        monitor_way_desp: me.monitor_way_desp,
+                        subpackage: me.subpackage,
+                        subpackage_project: me.subpackage_project,
+                        "item_arr[]": arr_item,
+                        payment_way: jQuery("#payment_way").val(),
+                        finish_date: me.finish_date,
+                        payment_count: me.payment_count,
+                        in_room: me.in_room ? 1 : 0,
+                        keep_secret: me.keep_secret ? 1 : 0,
+                        other: me.other
+                    };
+                    console.log(data);
+                    debugger
                     jQuery.fn.check_msg({
                         msg: "您即将创建一份全新的合同,创建完成之后将进入项目流中,是否创建？",
                         success: function () {
-                            jQuery.fn.alert_msg("合同创建成功！");
+                            $.ajax({
+                                type: "POST",
+                                url: "/constarct/add",
+                                cache: false,
+                                data: data,
+                                traditional: true,
+                                success: function () {
+
+                                }
+                            });
+
+//                            me.$http.post("/constarct/add", {
+//                                data: data,
+//                                traditional: true
+//                            }).then(function (response) {
+//                                var data = response.data;
+//                                jQuery.fn.codeState(data.code, {
+//                                    200: "合同创建成功!"
+//                                });
+//                            }, function (response) {
+//                                jQuery.fn.error_msg("无法创建合同,请尝试刷新操作。");
+//                            });
                         }
                     });
                 },
@@ -784,13 +965,52 @@
                             jQuery.fn.alert_msg("合同打印成功！");
                         }
                     });
+                },
+                /**
+                 * 生成合同编号
+                 */
+                create_identify: function () {
+                    var me = this;
+                    jQuery.fn.check_msg({
+                        msg: "是否由系统自动生成合同编号?",
+                        success: function () {
+                            me.$http.get("/constarct/identify").then(function (response) {
+                                var data = response.data;
+                                me.$set("identify", data.identify);
+                            }, function (response) {
+                                jQuery.fn.error_msg("无法生成合同编号,请尝试刷新操作。");
+                            });
+                        }
+                    });
+                },
+                free_identify: function () {
+                    var me = this;
+                    jQuery.fn.check_msg({
+                        msg: "是否由释放合同编号" + me.identify + "?释放的合同编号将进入优先编号库,下次自动生成时将优先使用。",
+                        success: function () {
+                            var identify = me.identify;
+                            me.$http.post("/constarct/freeIdentify", {"identify": identify}).then(function (response) {
+                                var data = response.data;
+                                jQuery.fn.codeState(data.code, {
+                                    200: function () {
+                                        jQuery.fn.alert_msg("合同编码释放成功!");
+                                        me.identify = "";
+                                    }
+                                })
+                            }, function (response) {
+                                jQuery.fn.error_msg("无法生成合同编号,请尝试刷新操作。");
+                            });
+                        }
+                    });
                 }
             },
             /**
              * 页面加载完成,执行ready操作
              */
             ready: function () {
-                var $validator = jQuery("#firstForm").validate({
+                var me = this;
+                var dom = jQuery(me.$el);
+                jQuery("#contractForm").validate({
                     highlight: function (element) {
                         jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
                     },
@@ -818,11 +1038,11 @@
                         var $percent = ($current / $total) * 100;
                         jQuery('#validationWizard').find('.progress-bar').css('width', $percent + '%');
 
-                        var $valid = jQuery('#firstForm').valid();
-                        if (!$valid) {
-                            $validator.focusInvalid();
-                            return false;
-                        }
+                        var $valid = jQuery('#contractForm').valid();
+//                        if (!$valid) {
+//                            $validator.focusInvalid();
+//                            return false;
+//                        }
 
                         if (index >= 3) {
                             jQuery('.wizard .finish').show();
@@ -890,14 +1110,89 @@
                     numberOfMonths: 3,
                     showButtonPanel: true
                 });
+
                 this.$watch('monitor_way', function (val) {
                     if (this.monitor_way == 0) {
-                        jQuery('input[name=monitor_way_desp]').prop("disabled", true);
+                        jQuery('input[name=monitor_way_desp]').prop("disabled", true).val("");
                     } else {
                         jQuery('input[name=monitor_way_desp]').prop("disabled", false);
                     }
                 });
+
+                this.$watch('payment_count', function (val) {
+                    var count = chineseNumber(val);
+                    me.$set("payment_count_chinese", count);
+                });
+
+
+                jQuery("#monitor_type").on("change", function (event) {
+                    var index = event.val;
+                    me.$set("monitor_type", index);
+                });
+
+                jQuery("#payment_way").on("change", function (event) {
+                    var index = event.val;
+                    me.$set("payment_way", index);
+                });
+
+                //加载用户列表
+                me.$http.get("/user/getList").then(function (response) {
+                    var data = response.data;
+                    me.$set("user_list", data.results);
+                }, function (response) {
+                    jQuery.fn.error_msg("无法获取用户列表信息,请尝试刷新操作。");
+                });
+
+                //加载监测类别
+                me.$http.get("/constarct/monitorType").then(function (response) {
+                    var data = response.data;
+                    for (var key in data) {
+                        me.monitor_typeList.push({
+                            id: data[key],
+                            value: key
+                        })
+                    }
+                }, function (response) {
+                    jQuery.fn.error_msg("无法获取监测类别列表信息,请尝试刷新操作。");
+                });
+
             }
         });
+
+
+        function chineseNumber(num) {
+            if (isNaN(num) || num > Math.pow(10, 12))
+                return ""
+            var cn = "零壹贰叁肆伍陆柒捌玖"
+            var unit = new Array("拾百千", "分角")
+            var unit1 = new Array("万亿", "")
+            var numArray = num.toString().split(".")
+            var start = new Array(numArray[0].length - 1, 2)
+
+            function toChinese(num, index) {
+                var num = num.replace(/\d/g, function ($1) {
+                    return cn.charAt($1) + unit[index].charAt(start-- % 4 ? start % 4 : -1)
+                })
+                return num
+            }
+
+            for (var i = 0; i < numArray.length; i++) {
+                var tmp = ""
+                for (var j = 0; j * 4 < numArray[i].length; j++) {
+                    var strIndex = numArray[i].length - (j + 1) * 4
+                    var str = numArray[i].substring(strIndex, strIndex + 4)
+                    var start = i ? 2 : str.length - 1
+                    var tmp1 = toChinese(str, i)
+                    tmp1 = tmp1.replace(/(零.)+/g, "零").replace(/零+$/, "")
+                    tmp1 = tmp1.replace(/^壹拾/, "拾")
+                    tmp = (tmp1 + unit1[i].charAt(j - 1)) + tmp
+                }
+                numArray[i] = tmp
+            }
+            numArray[1] = numArray[1] ? numArray[1] : ""
+            numArray[0] = numArray[0] ? numArray[0] + "元" : numArray[0], numArray[1] = numArray[1].replace(/^零+/, "")
+            numArray[1] = numArray[1].match(/分/) ? numArray[1] : numArray[1] + "整"
+            return numArray[0] + numArray[1]
+        }
     });
 </script>

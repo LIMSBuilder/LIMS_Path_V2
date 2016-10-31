@@ -138,4 +138,18 @@ public class MonitorProjectController extends Controller {
             renderJson(RenderUtils.CODE_SUCCESS);
         }
     }
+
+
+    public void getByCategory() {
+        try {
+            int id = getParaToInt("id");
+            if (id != 0) {
+                List<Monitor_Project> projectList = Monitor_Project.monitor_projectDao.find("SELECT * FROM `db_monitorProject` WHERE state=0 AND category_id=" + id);
+                renderJson(toJson(projectList));
+            }
+        } catch (Exception e) {
+            renderError(500);
+        }
+
+    }
 }
