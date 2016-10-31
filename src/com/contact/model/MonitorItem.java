@@ -8,4 +8,5 @@ import com.jfinal.plugin.activerecord.Model;
 public class MonitorItem extends Model<MonitorItem> {
     public static final MonitorItem monitorItemDao = new MonitorItem();
 
+
 }

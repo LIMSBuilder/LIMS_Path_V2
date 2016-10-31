@@ -306,7 +306,7 @@
                                                         class="btn btn-sm btn-success-alt pull-left "
                                                         v-on:click="create_identify">系统生成</a>
                                                 <a
-                                                        class="btn btn-sm btn-warning-alt pull-left "
+                                                        class="btn btn-sm btn-warning-alt pull-left hidden"
                                                         v-on:click="free_identify">释放编号</a>
                                             </div>
                                         </div>
@@ -890,9 +890,9 @@
                         var temp = {
                             category_id: item.environment,
                             frequency: item.frequency,
-                            monitor_point: item.monitor_point.replace(/,/g,';'),
+                            monitor_point: item.monitor_point.replace(/,/g, ';'),
                             other: item.other,
-                            project_id: encodeURI(m.substr(0, m.length - 1)).replace(/,/g,';')
+                            project_id: encodeURI(m.substr(0, m.length - 1)).replace(/,/g, ';')
                         };
                         arr_item.push(JSON.stringify(temp));
                     }
