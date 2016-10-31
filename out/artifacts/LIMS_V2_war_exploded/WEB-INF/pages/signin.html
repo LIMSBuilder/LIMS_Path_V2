@@ -38,14 +38,14 @@
 
                     <h5><strong>欢迎使用邦达诚科技实验室信息管理系统！</strong></h5>
                     <ul>
-                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> Fully Responsive Layout</li>
-                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> HTML5/CSS3 Valid</li>
-                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> Retina Ready</li>
-                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> WYSIWYG CKEditor</li>
-                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> and much more...</li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> 响应式网站,电脑、手机、平板多平台登录</li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> 精准的流程控制,进度实时掌握</li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> 数据加密,贴心的安全防护</li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> 流畅的操作体验,准确的消息反馈</li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> 其他更多...</li>
                     </ul>
                     <div class="mb20"></div>
-                    <strong>公司新成员? <a href="signup.html">点此注册</a></strong>
+                    <strong>公司新成员? <a href="/signup" target="_blank">点此注册</a></strong>
                 </div><!-- signin0-info -->
 
             </div><!-- col-sm-7 -->
@@ -54,10 +54,10 @@
 
                 <form method="post" action="/dashboard">
                     <h4 class="nomargin">登 录</h4>
-                    <p class="mt5 mb20">Login to access your account.</p>
+                    <p class="mt5 mb20">使用您的员工账号登陆</p>
 
-                    <input type="text" class="form-control uname" placeholder="Username"/>
-                    <input type="password" class="form-control pword" placeholder="Password"/>
+                    <input type="text" class="form-control uname" placeholder="用户名"/>
+                    <input type="password" class="form-control pword" placeholder="密码"/>
                     <a href="">
                         <small>忘记密码？</small>
                     </a>
@@ -115,7 +115,6 @@
 <script src="/assets/js/custom.js"></script>
 <script>
     jQuery(document).ready(function () {
-
         // Please do not use the code below
         // This is for demo purposes only
         var c = jQuery.cookie('change-skin');
@@ -133,8 +132,6 @@
                 $('#contentpanel').html(data);
                 $("#custom_lg_modal").modal("show");
             });
-
-
         }, 1000);
     });
 </script>

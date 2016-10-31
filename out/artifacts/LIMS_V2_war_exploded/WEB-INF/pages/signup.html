@@ -1,0 +1,302 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png">
+
+    <title>邦达城科技有限公司欢迎您!</title>
+
+    <link href="/assets/css/style.default.css" rel="stylesheet">
+
+    <!--弹出层-->
+    <link href="/assets/css/jquery.gritter.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/assets/js/html5shiv.js"></script>
+    <script src="/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="signin" id="signinContainer">
+
+
+<section>
+
+    <div class="signuppanel">
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="signup-info">
+                    <div class="logopanel">
+                        <h1><span>[</span> 邦达诚科技有限公司 <span>]</span></h1>
+                    </div><!-- logopanel -->
+
+                    <div class="mb20"></div>
+
+                    <h5><strong>欢迎使用邦达诚科技实验室信息管理系统！</strong></h5>
+                    <!--<p>推进业务流程的标准化和自动化，规范实验室质量管理，增强对实验室资源的优化管理，提高实验室工作效率、管理水平和检验质量。</p>-->
+                    <div class="mb20"></div>
+
+                    <div class="feat-list">
+                        <i class="fa fa-wrench"></i>
+                        <h4 class="text-success">跨平台技术</h4>
+                        <p>系统可支持在台式机客户端、平板、手机等移动端设备中完美运行。</p>
+                    </div>
+                    <div class="feat-list mb20">
+                        <i class="fa fa-compress"></i>
+                        <h4 class="text-success">开放式数据交互</h4>
+                        <p>拥有多种开放式数据交互手段，满足各类系统的数据集成需求，诸如：Web Services、ODBC、XML、邮件接口、短信接口、MQ消息机制。</p>
+                    </div>
+                    <div class="feat-list">
+                        <i class="fa fa-laptop"></i>
+                        <h4 class="text-success">实验室管理规范化</h4>
+                        <p>系统构建于实验室标准 ISO17025 之上，严格遵循国家各种标准与规范，作为实验室通用解决方案，系统满足各行业相关标准。</p>
+                    </div>
+
+                    <div class="feat-list mb20">
+                        <i class="fa fa-code"></i>
+                        <h4 class="text-success">表单化功能配置</h4>
+                        <p>系统提供灵活的表单构建工具与流程建模管理工具，建立一个开放式、可配置、可扩展的系统平台，实现实验室功能的多样化配置。</p>
+                    </div>
+                    <div class="feat-list mb20">
+                        <i class="fa fa-flask"></i>
+                        <h4 class="text-success">仪器数据采集</h4>
+                        <p>提供数据获取API，可与市面上多数具有标准接口或工作站软件的仪器进行连接，并获取仪器数据。</p>
+                    </div>
+                    <div class="feat-list mb20">
+                        <i class="fa fa-search-plus"></i>
+                        <h4 class="text-success">行业检测标准库</h4>
+                        <p>将实验室的业务流程，最大化实现实验室自动化运行，为实验室提供全方位的解决方案。</p>
+                    </div>
+
+                    <h4 class="mb20">更多...</h4>
+
+                </div><!-- signup-info -->
+
+            </div><!-- col-sm-6 -->
+
+            <div class="col-md-6">
+                <form id="signForm">
+                    <h3 class="nomargin">注册</h3>
+                    <p class="mt5 mb10">已经注册? <a href="/login"><strong>登 录</strong></a></p>
+                    <div class="form-group">
+                        <label class="col-sm-12 control-label">用户名 <span class="asterisk">*</span></label>
+                        <div class="col-sm-12">
+                            <input type="text" name="username" v-model="username" class="form-control" minlength="5"
+                                   placeholder="由数字和字母组成,不少于5个字符。" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12 control-label">登录密码 <span class="asterisk">*</span></label>
+                        <div class="col-sm-12">
+                            <input type="password" name="password" v-model="password" id="password"
+                                   placeholder="由数字和字母组成,不少于6个字符。"
+                                   minlength="6"
+                                   class="form-control" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12 control-label">重复密码 <span class="asterisk">*</span></label>
+                        <div class="col-sm-12">
+                            <input type="password" name="repeatPassword" placeholder="再次输入登录密码" equalTo="#password"
+                                   class="form-control"
+                                   required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12 control-label">真实姓名 <span class="asterisk">*</span></label>
+                        <div class="col-sm-12">
+                            <input type="text" name="name" v-model="name" class="form-control" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12 control-label">性别</label>
+                        <div class="col-sm-12">
+                            <div class="rdio rdio-primary col-sm-3">
+                                <input type="radio" v-model="gender" name="radio" value="0" id="man" checked/>
+                                <label for="man">男</label>
+                            </div>
+                            <div class="rdio rdio-primary col-sm-3">
+                                <input type="radio" v-model="gender" name="radio" value="1" id="female"/>
+                                <label for="female">女</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12 control-label">证件号 <span class="asterisk">*</span></label>
+                        <div class="col-sm-12">
+                            <input type="text" name="idCard" v-model="idCard" class="form-control" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12 control-label">联系电话 <span class="asterisk">*</span></label>
+                        <div class="col-sm-12">
+                            <input type="text" name="tel" v-model="tel" class="form-control" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12 control-label">所属部门</label>
+                        <div class="col-sm-12">
+                            <select class="select2" id="department_select"
+                                    data-placeholder="请选择部门..." required>
+                                <option value=""></option>
+                                <template v-for="item in departments">
+                                    <option value="{{item.id}}">{{item.name}}</option>
+                                </template>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-12 control-label">所属角色</label>
+                        <div class="col-sm-12">
+
+                            <select class="select2" v-model="belong_role" id="role_select" data-placeholder="请选择角色..."
+                                    required>
+                                <option value=""></option>
+                                <template v-for="item in roles">
+                                    <option value="{{item.id}}">{{item.name}}</option>
+                                </template>
+                            </select>
+
+                        </div>
+                    </div>
+                    <br/>
+                    <a class="btn btn-success btn-block" @click="signin">注 册</a>
+                </form>
+            </div><!-- col-sm-6 -->
+
+        </div><!-- row -->
+
+        <div class="signup-footer">
+            <div class="pull-left">
+                <span class="footer_copy_text">Copyright &copy; 2016 Powered By <a
+                        href="javascript:;">邦达诚科技有限公司</a>  - All Rights Reserved / <a
+                        href="http://www.miitbeian.gov.cn" target="_blank">苏ICP备16022318号</a></span>
+            </div>
+            <div class="pull-right">
+                Created By: <a href="http://themepixels.com/" target="_blank"> 瞿龙俊 </a>
+            </div>
+        </div>
+
+    </div><!-- signuppanel -->
+
+</section>
+
+
+<script src="/assets/js/jquery-1.11.1.min.js"></script>
+<script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/modernizr.min.js"></script>
+<script src="/assets/js/jquery.sparkline.min.js"></script>
+<script src="/assets/js/jquery.cookies.js"></script>
+
+<script src="/assets/js/toggles.min.js"></script>
+<script src="/assets/js/retina.min.js"></script>
+
+<script src="/assets/js/select2.min.js"></script>
+
+<script src="/assets/js/vue.js"></script>
+<script src="/assets/js/vue-resource.min.js"></script>
+
+<!--弹出层-->
+<script src="/assets/js/jquery.gritter.min.js"></script>
+<!--表单验证-->
+<script src="/assets/js/jquery.validate.min.js"></script>
+<script src="/assets/js/messages_zh.js"></script>
+
+<script src="/assets/js/custom.js"></script>
+<script>
+    jQuery(document).ready(function () {
+        Vue.http.options.emulateJSON = true;
+        var vue = new Vue({
+            el: "#signinContainer",
+            data: {
+                username: "",
+                password: "",
+                name: "",
+                gender: 0,
+                idCard: "",
+                tel: "",
+                belong_role: "",
+                departments: [],
+                roles: []
+            },
+            methods: {
+                signin: function () {
+                    var me = this;
+                    var result = jQuery("#signForm").valid();
+                    var data = {
+                        username: me.username,
+                        password: me.password,
+                        name: me.name,
+                        gender: me.gender,
+                        idCard: me.idCard,
+                        tel: me.tel,
+                        role_id: jQuery("#role_select").val()
+                    };
+                    console.log(data);
+                    me.$http.post("/user/add", data).then(function (response) {
+                        var data = response.data;
+                        jQuery.fn.codeState(data.code, {
+                            200: function () {
+                                jQuery.fn.alert_msg("用户注册成功!");
+                                jQuery("#signForm")[0].reset();
+                            },
+                            503: "当前用户名已经存在,请更换用户名重新注册!",
+                            505: "当前证件号已经在系统中注册过,请直接登录或使用找回账号服务!"
+                        })
+                    }, function (response) {
+                        jQuery.fn.error_msg("服务器异常,无法获取注册信息!");
+                    })
+                }
+            },
+            ready: function () {
+                var me = this;
+                me.$http.get("/department/getList").then(function (response) {
+                    var data = response.data;
+                    me.$set("departments", data.results);
+                }, function (response) {
+                    jQuery.fn.error_msg("服务器异常,无法获取部门列表信息!");
+                });
+
+                jQuery("#department_select").select2({
+                    width: '100%',
+                    minimumResultsForSearch: -1,
+                }).on("change", function (event) {
+                    var id = event.val;
+                    me.$http.get("/role/getRoleByDepartment", {
+                        params: {
+                            id: id
+                        }
+                    }).then(function (response) {
+                        var data = response.data;
+                        me.$set("roles", data.results);
+                    }, function (response) {
+                        jQuery.fn.error_msg("服务器异常,无法获取岗位列表信息!");
+                    })
+                });
+
+                jQuery("#role_select").select2({
+                    width: '100%'
+                });
+                jQuery("#signForm").validate({
+                    highlight: function (element) {
+                        jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+                    },
+                    success: function (element) {
+                        jQuery(element).closest('.form-group').removeClass('has-error');
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

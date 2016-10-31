@@ -23,6 +23,9 @@ import java.util.*;
  * 合同
  * state
  * 0-合同正常创建完成并进入项目流中
+ * -1 -合同模板
+ * -2中止合同
+ * -3删除合同
  */
 public class ContractController extends Controller {
     //所有可以直接插入的元素
@@ -30,8 +33,76 @@ public class ContractController extends Controller {
             "client", "client_fax", "trustee_unit", "trustee_code", "trustee_address", "trustee_tel",
             "trustee", "trustee_fax", "project_name", "monitor_aim", "monitor_type", "monitor_way",
             "monitor_way_desp", "subpackage", "subpackage_project", "in_room", "keep_secret",
-            "payment_way", "finish_date", "payment_count", "other", "state"};
+            "payment_way", "payment_count", "other", "state"};
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    SimpleDateFormat format_date = new SimpleDateFormat("MM/dd/yyyy");
+    SimpleDateFormat new_format_date = new SimpleDateFormat("yyyy-MM-dd");
+
+    public void list() {
+        int rowCount = getParaToInt("rowCount");
+        int currentPage = getParaToInt("currentPage");
+        String condition_temp = getPara("condition");
+        Map condition = ParaUtils.getSplitCondition(condition_temp);
+        if (rowCount == 0) {
+            rowCount = ParaUtils.getRowCount();
+        }
+        String paras = " WHERE state != -3";
+        Object[] keys = condition.keySet().toArray();
+        for (int i = 0; i < keys.length; i++) {
+            String key = (String) keys[i];
+            Object value = condition.get(key);
+            if (key.equals("identify") || key.equals("project_name") || key.equals("client_unit")) {
+                paras += (" AND " + key + " like \"%" + value + "%\"");
+            }
+            if (key.equals("monitor_type_selected")) {
+                paras += (" AND monitor_type in ('" + value.toString().replace(",", "','") + "')");
+            }
+            if (key.equals("search_createTime_start")) {
+                try {
+                    Date date = format_date.parse(value.toString());
+                    value = new_format_date.format(date);
+                } catch (Exception e) {
+                    renderError(500);
+                }
+                paras += (" AND create_time >= '" + value + "'");
+            }
+            if (key.equals("search_createTime_end")) {
+                try {
+                    Date date = format_date.parse(value.toString());
+                    value = new_format_date.format(date);
+                } catch (Exception e) {
+                    renderError(500);
+                }
+                paras += (" AND create_time <= '" + value + "'");
+            }
+        }
+        Page<Contract> contractPage = Contract.contractDao.paginate(currentPage, rowCount, "SELECT *", " FROM `db_contract`" + paras);
+        List<Contract> contractList = contractPage.getList();
+        Map results = toJson(contractList);
+        results.put("currentPage", currentPage);
+        results.put("totalPage", contractPage.getTotalPage());
+        results.put("rowCount", rowCount);
+        results.put("condition", condition_temp);
+        results.put("totalRowCount", contractPage.getTotalRow());
+        renderJson(results);
+    }
+
+    /**
+     * 将查询结果生成JSON
+     *
+     * @param entityList
+     * @return
+     */
+    public Map toJson(List<Contract> entityList) {
+        Map<String, Object> json = new HashMap<>();
+        List results = new ArrayList();
+        for (Contract contract : entityList) {
+            results.add(contract);
+        }
+        json.put("results", results);
+        return json;
+    }
+
 
     /**
      * 获取所有监测类别
@@ -104,6 +175,16 @@ public class ContractController extends Controller {
                         if (directList.indexOf(key) != -1) {
                             String value = ((String[]) result.get(key))[0];
                             constract.set(key.toString(), value);
+                        } else {
+                            if (key.equals("finish_date")) {
+                                String value = ((String[]) result.get(key))[0];
+                                try {
+                                    Date date = format_date.parse(value);
+                                    constract.set("finish_date", new_format_date.format(date));
+                                } catch (Exception e) {
+                                    constract.set("finish_date", value);
+                                }
+                            }
                         }
                     }
                     constract.set("create_time", sdf.format(new Date()));//创建时间

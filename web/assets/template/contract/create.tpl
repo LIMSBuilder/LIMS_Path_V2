@@ -555,9 +555,22 @@
                                         if (me[key] != undefined) {
                                             var value = data[key];
                                             me.$set(key, value);
-                                            //承办人
+
                                             if (jQuery.inArray(key, arr) != -1) {
                                                 $('#' + key).select2("val", value);
+                                            }
+                                            //承办人
+                                            if (key == "trustee") {
+                                                me.$http.get("/user/getById", {
+                                                    params: {
+                                                        id: value
+                                                    }
+                                                }).then(function (response) {
+                                                    var data = response.data;
+                                                    me.$set("trustee", data);
+                                                }, function (response) {
+                                                    jQuery.fn.error_msg("服务器无法获取承办人信息！");
+                                                })
                                             }
                                         }
                                     }
@@ -1170,6 +1183,21 @@
                 }, function (response) {
                     jQuery.fn.error_msg("无法获取监测类别列表信息,请尝试刷新操作。");
                 });
+
+
+                jQuery('#trustee').on("change", function (event) {
+                    var id = event.val;
+                    me.$http.get("/user/getById", {
+                        params: {
+                            id: id
+                        }
+                    }).then(function (response) {
+                        var data = response.data;
+                        me.$set("trustee",data);
+                    }, function (response) {
+                        jQuery.fn.error_msg("服务器无法获取承办人信息！");
+                    })
+                })
 
             }
         });
