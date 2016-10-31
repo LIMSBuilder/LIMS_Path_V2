@@ -24,6 +24,6 @@ public class CommonRoutes extends Routes {
         add("/category", MonitorCategoryController.class, "/");
         add("/project", MonitorProjectController.class, "/");
         add("/default", DefaultsController.class,"/");
-        add("/constarct", ConstractController.class,"/");
+        add("/constarct", ContractController.class,"/");
     }
 }

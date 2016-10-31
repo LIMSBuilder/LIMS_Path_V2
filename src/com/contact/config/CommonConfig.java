@@ -57,6 +57,10 @@ public class CommonConfig extends JFinalConfig {
         arp.addMapping("db_monitorCategory", Monitor_Category.class);
         arp.addMapping("db_monitorProject", Monitor_Project.class);
         arp.addMapping("db_default", Default.class);
+        arp.addMapping("db_contract", Contract.class);
+        arp.addMapping("db_monitorItem", MonitorItem.class);
+        arp.addMapping("db_item_project", Item_Project.class);
+        arp.addMapping("db_identify", Identify.class);
     }
 
     @Override
