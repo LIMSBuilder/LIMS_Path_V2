@@ -114,7 +114,7 @@
                                     <div class="col-sm-4">
                                         <!--<input type="text" name="trustee" v-model="trustee" class="form-control"-->
                                         <!--required/>-->
-                                        <select class="select2" id="user_choose" data-placeholder="请选择承办人..." required>
+                                        <select class="select2" id="trustee" data-placeholder="请选择承办人..." required>
                                             <option value=""></option>
                                             <template v-for="item in user_list">
                                                 <option value="{{item.id}}">{{item.name}}</option>
@@ -135,6 +135,7 @@
                                     <div class="col-sm-10">
                                         <input type="text" v-model="project_name" name="project_name"
                                                class="form-control" required/>
+                                        <label class="help-block">若生成"合同模板",则项目名称为模板名称。</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -227,6 +228,7 @@
                                                 </tbody>
                                             </table>
                                         </div><!-- table-responsive -->
+                                        <label class="help-block">若保存为"合同模板",请勿填写监测项目内容,模板将不保存监测项目。</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -527,60 +529,99 @@
                  */
                 use_template: function () {
                     var me = this;
-                    me.$http.get("/assets/json/contract_template_list.json").then(function (response) {
-                        var data = response.data;
-                        var template = jQuery.fn.loadTemplate("/assets/template/subject/template_select_list.tpl");
-                        Vue.component('contract_template', {
-                            template: template,
-                            data: function () {
-                                return {
-                                    templates: data.results
-                                };
+                    var template = jQuery.fn.loadTemplate("/assets/template/subject/template_select_list.tpl");
+                    Vue.component('contract_template', {
+                        template: template,
+                        data: function () {
+                            return {
+                                templates: [],
+                                search_key: ""
+                            };
+                        },
+                        methods: {
+                            startSearch: function (event) {
+                                var me = this;
+                                me.load_list("project_name=" + encodeURI(me.search_key), 1);
                             },
-                            methods: {
-                                startSearch: function (event) {
-                                    //向服务器发送查询请求
-                                    alert("触发了enter操作");
-                                },
-                                choose: function (data) {
-                                    var template = data.template;
-                                    jQuery("#custom_modal").modal("hide");
-                                    jQuery.fn.check_msg({
-                                        msg: "是否导入名为【" + template.name + "】的合同模板?",
-                                        success: function () {
-                                            debugger
-                                            var id = template.id;
-                                            me.$http.get("/assets/json/contract_template.json").then(function (response) {
-                                                var data = response.data;
-                                                for (var key in data) {
-                                                    if (me[key] != undefined) {
-                                                        var value = data[key];
-                                                        me.$set(key, value);
-                                                        if (key == 'monitor_type') {
-                                                            $('#monitor_type').find('option[value="' + value + '"]').prop("selected", "selected");
-                                                            $('#monitor_type').trigger("change");
-                                                        }
-                                                        if (key == 'payment_way') {
-                                                            $('#payment_way').find('option[value="' + value + '"]').prop("selected", "selected");
-                                                            $('#payment_way').trigger("change");
-                                                        }
-                                                    }
-
+                            choose: function (data) {
+                                var id = data.id;
+                                me.$http.get("/constarct/getTemplate", {
+                                    params: {id: id}
+                                }).then(function (response) {
+                                    var data = response.data;
+                                    data.identify = "";
+                                    var arr = ["trustee", "monitor_type", "payment_way"];
+                                    for (var key in data) {
+                                        if (me[key] != undefined) {
+                                            var value = data[key];
+                                            me.$set(key, value);
+                                            //承办人
+                                            if (jQuery.inArray(key, arr) != -1) {
+                                                $('#' + key).select2("val", value);
+                                            }
+                                        }
+                                    }
+                                }, function (response) {
+                                    jQuery.fn.error_msg("服务器无法获取合同模板信息！");
+                                })
+                            },
+                            load_list: function (condition, currentPage) {
+                                var me = this;
+                                var dom = jQuery(me.$el);
+                                var rowCount = localStorage.getItem("rowCount") || 0;
+                                me.$http.get("/constarct/getTemplateList", {
+                                    params: {
+                                        rowCount: rowCount,
+                                        currentPage: currentPage,
+                                        condition: condition
+                                    }
+                                }).then(function (response) {
+                                    var data = response.data;
+                                    me.$set("templates", data.results);
+                                    //页码事件
+                                    dom.find('.paging').pagination({
+                                        pageCount: data.totalPage != 0 ? data.totalPage : 1,
+                                        coping: true,
+                                        homePage: '首页',
+                                        endPage: '末页',
+                                        prevContent: '上页',
+                                        nextContent: '下页',
+                                        current: data.currentPage,
+                                        callback: function (page) {
+                                            var currentPage = page.getCurrent();
+                                            me.$http.get("/constarct/getTemplateList", {
+                                                params: {
+                                                    rowCount: rowCount,
+                                                    currentPage: currentPage,
+                                                    condition: data.condition
                                                 }
+                                            }).then(function (response) {
+                                                var data = response.data;
+                                                me.$set("templates", data.results);
                                             }, function (response) {
-
+                                                jQuery.fn.error_msg("无法获取合同模板列表信息,请尝试刷新操作。");
                                             });
-
                                         }
                                     });
-                                }
-                            }
-                        });
-                        LIMS.dialog.$set('title', '使用合同模板');
-                        LIMS.dialog.currentView = 'contract_template';
-                    }, function (response) {
+                                    jQuery.validator.setDefaults({
+                                        submitHandler: function () {
+                                        }
+                                    });
+                                }, function (response) {
+                                    jQuery.fn.error_msg("无法获取合同模板列表信息,请尝试刷新操作。");
+                                });
 
+                            }
+                        },
+                        ready: function () {
+                            var me = this;
+                            me.load_list("", 1);
+                        }
                     });
+                    LIMS.dialog.$set('title', '使用合同模板');
+                    LIMS.dialog.currentView = 'contract_template';
+
+
                 },
                 /**
                  * 获取预设乙方信息
@@ -596,8 +637,7 @@
                                     var value = data[key];
                                     me.$set(key, value);
                                     if (key == "trustee") {
-                                        jQuery("#user_choose").val(data[key].id);
-                                        jQuery("#user_choose").trigger("change");
+                                        jQuery("#trustee").select2("val", data[key].id);
                                     }
                                 }
                             }, function (response) {
@@ -1015,10 +1055,9 @@
                         jQuery('#validationWizard').find('.progress-bar').css('width', $percent + '%');
 
                         var $valid = jQuery('#contractForm').valid();
-//                        if (!$valid) {
-//                            $validator.focusInvalid();
-//                            return false;
-//                        }
+                        if (!$valid) {
+                            return false;
+                        }
 
                         if (index >= 3) {
                             jQuery('.wizard .finish').show();

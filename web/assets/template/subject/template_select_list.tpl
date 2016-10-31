@@ -1,7 +1,7 @@
 <div class="row" id="customer_select_list">
     <div class="form-group">
         <div class="col-sm-12">
-            <input type="text" v-on:keydown.enter="startSearch" placeholder="搜索模板..." class="form-control input-sm">
+            <input type="text" v-on:keydown.enter="startSearch" v-model="search_key" placeholder="搜索模板..." class="form-control input-sm">
         </div>
     </div>
     <div class="col-md-12">
@@ -19,15 +19,16 @@
                 <template v-for="(index , template) in templates">
                     <tr class="text-center">
                         <td>{{index+1}}</td>
-                        <td>{{template.name}}</td>
+                        <td>{{template.project_name}}</td>
                         <td>{{template.create_time}}</td>
                         <td class="table-action">
-                            <a href="javascript:;" v-on:click="choose(this)"><i class="fa fa-mail-reply-all"></i></a>
+                            <a href="javascript:;" v-on:click="choose(template)"><i class="fa fa-magic"></i></a>
                         </td>
                     </tr>
                 </template>
                 </tbody>
             </table>
         </div><!-- table-responsive -->
+        <div class="paging nomargin pull-right"></div>
     </div>
 </div>

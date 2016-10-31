@@ -4,12 +4,14 @@ import com.contact.model.Contract;
 import com.contact.model.Identify;
 import com.contact.model.Item_Project;
 import com.contact.model.MonitorItem;
+import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.IAtom;
+import com.jfinal.plugin.activerecord.Page;
 
 
 import java.sql.SQLException;
@@ -29,6 +31,7 @@ public class ContractController extends Controller {
             "trustee", "trustee_fax", "project_name", "monitor_aim", "monitor_type", "monitor_way",
             "monitor_way_desp", "subpackage", "subpackage_project", "in_room", "keep_secret",
             "payment_way", "finish_date", "payment_count", "other", "state"};
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     /**
      * 获取所有监测类别
@@ -103,33 +106,36 @@ public class ContractController extends Controller {
                             constract.set(key.toString(), value);
                         }
                     }
-                    String[] a = getParaValues("item_arr[]");
-                    List<Map> items = ContractController.parseItem(a);//所有合同检测项
+                    constract.set("create_time", sdf.format(new Date()));//创建时间
                     Boolean contract_result = constract.save();
                     Boolean item_result = true;
                     Boolean item_project_result = true;
-                    for (int i = 0; i < items.size(); i++) {
-                        Map temp = items.get(i);
-                        MonitorItem monitorItem = new MonitorItem();
-                        item_result = monitorItem
-                                .set("contract_id", constract.get("id"))
-                                .set("category_id", temp.get("category_id"))
-                                .set("frequency", temp.get("frequency"))
-                                .set("monitor_point", temp.get("monitor_point"))
-                                .set("other", temp.get("other"))
-                                .save();
-                        if (!item_result) break;
-                        int item_id = monitorItem.getInt("id");
-                        String[] ids = temp.get("project_id").toString().split(";");
-                        for (String idStr : ids) {
-                            int id = Integer.parseInt(idStr);
-                            item_project_result = new Item_Project()
-                                    .set("item_id", item_id)
-                                    .set("project_id", id)
+                    String[] a = getParaValues("item_arr[]");
+                    if (a != null && a.length != 0) {
+                        List<Map> items = ContractController.parseItem(a);//所有合同检测项
+                        for (int i = 0; i < items.size(); i++) {
+                            Map temp = items.get(i);
+                            MonitorItem monitorItem = new MonitorItem();
+                            item_result = monitorItem
+                                    .set("contract_id", constract.get("id"))
+                                    .set("category_id", temp.get("category_id"))
+                                    .set("frequency", temp.get("frequency"))
+                                    .set("monitor_point", temp.get("monitor_point"))
+                                    .set("other", temp.get("other"))
                                     .save();
+                            if (!item_result) break;
+                            int item_id = monitorItem.getInt("id");
+                            String[] ids = temp.get("project_id").toString().split(";");
+                            for (String idStr : ids) {
+                                int id = Integer.parseInt(idStr);
+                                item_project_result = new Item_Project()
+                                        .set("item_id", item_id)
+                                        .set("project_id", id)
+                                        .save();
+                                if (!item_project_result) break;
+                            }
                             if (!item_project_result) break;
                         }
-                        if (!item_project_result) break;
                     }
                     return item_result && contract_result && item_project_result;
                 }
@@ -138,6 +144,66 @@ public class ContractController extends Controller {
         } catch (Exception e) {
             renderError(500);
         }
+    }
+
+    /**
+     * 获取合同模板列表
+     */
+    public void getTemplateList() {
+        int rowCount = getParaToInt("rowCount");
+        int currentPage = getParaToInt("currentPage");
+        String condition_temp = getPara("condition");
+        Map condition = ParaUtils.getSplitCondition(condition_temp);
+        if (rowCount == 0) {
+            rowCount = ParaUtils.getRowCount();
+        }
+        String paras = "WHERE state = -1";
+        Object[] keys = condition.keySet().toArray();
+        for (int i = 0; i < keys.length; i++) {
+            String key = (String) keys[i];
+            Object value = condition.get(key);
+            paras += (" AND " + key + " like \"%" + value + "%\"");
+        }
+        Page<Contract> contractPage = Contract.contractDao.paginate(currentPage, rowCount, "SELECT *", " FROM `db_contract`" + paras);
+        List<Contract> contractList = contractPage.getList();
+        Map results = toTemplateJson(contractList);
+        results.put("currentPage", currentPage);
+        results.put("totalPage", contractPage.getTotalPage());
+        results.put("rowCount", rowCount);
+        results.put("condition", condition_temp);
+        renderJson(results);
+    }
+
+
+    public void getTemplate() {
+        try {
+            int id = getParaToInt("id");
+            Contract template = Contract.contractDao.findById(id);
+            renderJson(template);
+        } catch (Exception e) {
+            renderError(500);
+        }
+
+    }
+
+    /**
+     * 将查询合同模板结果生成JSON
+     *
+     * @param entityList
+     * @return
+     */
+    public Map toTemplateJson(List<Contract> entityList) {
+        Map<String, Object> json = new HashMap<>();
+        List results = new ArrayList();
+        for (Contract contract : entityList) {
+            Map<String, Object> contractList = new HashMap<>();
+            contractList.put("id", contract.getInt("id"));
+            contractList.put("project_name", contract.get("project_name"));
+            contractList.put("create_time", contract.get("create_time"));
+            results.add(contractList);
+        }
+        json.put("results", results);
+        return json;
     }
 
     /**
@@ -163,4 +229,6 @@ public class ContractController extends Controller {
         }
         return results;
     }
+
+
 }
