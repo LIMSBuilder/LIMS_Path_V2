@@ -2,6 +2,7 @@ package com.contact.controller.system;
 
 import com.contact.model.Department;
 import com.contact.model.User;
+import com.contact.utils.MD5Tools;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
@@ -73,7 +74,8 @@ public class UserController extends Controller {
     public void add() {
         String username = getPara("username");
         String idCard = getPara("idCard");
-
+        String password = getPara("password");
+        if (password == null) password = "000000";
         if (User.userDao.find("SELECT * FROM `db_user` WHERE username='" + username + "'").size() != 0) {
             renderJson(RenderUtils.CODE_REPEAT);
             return;
@@ -82,8 +84,6 @@ public class UserController extends Controller {
             renderJson(RenderUtils.CODE_UNIQUE);
             return;
         }
-
-
         Boolean result = new User().set("username", getPara("username"))
                 .set("name", getPara("name"))
                 .set("gender", getParaToInt("gender"))
@@ -91,7 +91,7 @@ public class UserController extends Controller {
                 .set("tel", getPara("tel"))
                 .set("role_id", getParaToInt("role_id"))
                 .set("state", 0)
-                .set("password", "000000")
+                .set("password", MD5Tools.MD5(password))
                 .save();
         renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
     }
@@ -100,6 +100,14 @@ public class UserController extends Controller {
     public void getList() {
         List<User> userList = User.userDao.find("SELECT * FROM `db_user`");
         renderJson(toJson(userList));
+    }
 
+    public void getById() {
+        try {
+            int id = getParaToInt("id");
+            renderJson(User.userDao.findById(id));
+        } catch (Exception e) {
+            renderError(500);
+        }
     }
 }

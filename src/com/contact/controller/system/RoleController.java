@@ -186,4 +186,15 @@ public class RoleController extends Controller {
         }
     }
 
+
+    public void getRoleByDepartment() {
+        try {
+            int id = getParaToInt("id");
+            List<Role> roleList = Role.roleDao.find(" SELECT * FROM `db_role` WHERE state=0 AND department_id=" + id);
+            renderJson(toJson(roleList));
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
 }
