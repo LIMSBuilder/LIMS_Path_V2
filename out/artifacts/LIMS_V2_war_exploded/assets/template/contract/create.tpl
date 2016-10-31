@@ -296,9 +296,10 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label text-center">合同编号</label>
                                         <div class="col-sm-6">
-                                            <input type="text" name="payment_count" v-model="identify"
+                                            <input type="text" name="payment_count" readonly="readonly"
+                                                   v-model="identify"
                                                    class="form-control" required/>
-                                            <span class="help-block">合同编号具有唯一性,建议使用"系统生成"功能保证其唯一性。</span>
+                                            <span class="help-block">合同编号具有唯一性,建议使用"系统生成"功能保证其唯一性。若生成合同模板请勿点击"系统生成"。</span>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="btn-demo">
@@ -465,9 +466,9 @@
                     <ul class="pager wizard">
                         <li class="previous"><a href="javascript:void(0)">上一项</a></li>
                         <li class="next"><a href="javascript:void(0)">下一项</a></li>
-                        <li class="draft"><a href="javascript:void(0)" @click="saveAsDraft">存为模板</a></li>
+                        <li class="draft"><a href="javascript:void(0)" @click="save(-1)">存为模板</a></li>
                         <li class="print"><a href="javascript:void(0)" @click="print">打印</a></li>
-                        <li class="finish"><a href="javascript:void(0)" @click="saveAsProject">完成创建</a></li>
+                        <li class="finish"><a href="javascript:void(0)" @click="save(0)">完成创建</a></li>
                     </ul>
 
                 </div><!-- #validationWizard -->
@@ -857,29 +858,14 @@
                     this.item_arr.$set(index + 1, value);
                 },
                 /**
-                 * 以模板保存
+                 * 保存
                  */
-                saveAsDraft: function () {
-                    var template = '<div class="form-group"> <div class="col-sm-12"> <input type="text" id="template_name" placeholder="请输入模板名称" class="form-control"> </div> </div>';
-                    jQuery.fn.check_msg({
-                        msg: '<p>是否将合同保存为模板？您可以在\"模板合同\"列表中查看、修改或进入项目流中。</p>' + template,
-                        success: function () {
-                            var name = jQuery("#template_name").val();
-                            jQuery.fn.alert_msg("合同模板【" + name + "】保存成功！");
-                        }
-                    });
-                },
-                /**
-                 * 保存并进入流程中
-                 */
-                saveAsProject: function () {
+                save: function (state) {
                     var me = this;
-                    var $valid = jQuery('#contractForm').valid();
-                    if (!$valid) {
+                    if (state == 0 && !jQuery('#contractForm').valid()) {
                         jQuery.fn.error_msg("您有合同信息尚未填写完成,请返回检查。");
                         return;
                     }
-                    debugger
                     var arr_item = [];
                     for (var i = 0; i < me.item_arr.length; i++) {
                         var item = me.item_arr[i];
@@ -897,7 +883,7 @@
                         arr_item.push(JSON.stringify(temp));
                     }
                     var data = {
-                        identify: me.identify,
+                        identify: state == 0 ? me.identify : "000000",
                         client_unit: me.client_unit,
                         client_code: me.client_code,
                         client_address: me.client_address,
@@ -923,35 +909,25 @@
                         payment_count: me.payment_count,
                         in_room: me.in_room ? 1 : 0,
                         keep_secret: me.keep_secret ? 1 : 0,
-                        other: me.other
+                        other: me.other,
+                        state: state
                     };
-                    console.log(data);
-                    debugger
                     jQuery.fn.check_msg({
-                        msg: "您即将创建一份全新的合同,创建完成之后将进入项目流中,是否创建？",
+                        msg: state == 0 ? "您即将创建一份全新的合同,创建完成之后将进入项目流中,是否创建？" : "是否将当前合同保存为合同模板？您可以在后续合同创建中复用该模板。",
                         success: function () {
-                            $.ajax({
+                            jQuery.ajax({
                                 type: "POST",
                                 url: "/constarct/add",
                                 cache: false,
                                 data: data,
                                 traditional: true,
-                                success: function () {
-
+                                success: function (data) {
+                                    jQuery.fn.codeState(data.code, {
+                                        200: state == 0 ? "合同保存成成功!" : "合同模板保存成功!",
+                                        503: "当前合同编号已经存在,请使用\"系统生成\"按钮重新生成！"
+                                    });
                                 }
                             });
-
-//                            me.$http.post("/constarct/add", {
-//                                data: data,
-//                                traditional: true
-//                            }).then(function (response) {
-//                                var data = response.data;
-//                                jQuery.fn.codeState(data.code, {
-//                                    200: "合同创建成功!"
-//                                });
-//                            }, function (response) {
-//                                jQuery.fn.error_msg("无法创建合同,请尝试刷新操作。");
-//                            });
                         }
                     });
                 },
@@ -1162,12 +1138,12 @@
 
         function chineseNumber(num) {
             if (isNaN(num) || num > Math.pow(10, 12))
-                return ""
-            var cn = "零壹贰叁肆伍陆柒捌玖"
-            var unit = new Array("拾百千", "分角")
-            var unit1 = new Array("万亿", "")
-            var numArray = num.toString().split(".")
-            var start = new Array(numArray[0].length - 1, 2)
+                return "";
+            var cn = "零壹贰叁肆伍陆柒捌玖";
+            var unit = new Array("拾百千", "分角");
+            var unit1 = new Array("万亿", "");
+            var numArray = num.toString().split(".");
+            var start = new Array(numArray[0].length - 1, 2);
 
             function toChinese(num, index) {
                 var num = num.replace(/\d/g, function ($1) {
