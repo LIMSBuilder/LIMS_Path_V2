@@ -50,12 +50,20 @@ public class ContractController extends Controller {
         Date now = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat(identify_model);
         String identify_value = sdf.format(now);
+        String pre = identify_value.split("-")[0];
         String zero = identify_value.split("-")[1];
+
         int id_num = Identify.identifyDao.getContractId();
-        Boolean result = Identify.identifyDao.setContractId(id_num);//新编号写入数据库
         DecimalFormat df = new DecimalFormat(zero);//格式化合同编号字符串
         String id = df.format(id_num);
-        String identify = identify_value + "-" + id;
+        String identify = pre + "-" + id;
+        while (Contract.contractDao.find("SELECT * FROM `db_contract` WHERE state=0 AND identify='" + identify + "'").size() != 0) {
+            //进行编号校验,如果编号已经存在了,则继续下行
+            id_num++;
+            id = df.format(id_num);
+            identify = pre + "-" + id;
+        }
+        Boolean result = Identify.identifyDao.setContractId(id_num);//新编号写入数据库
         Map idMap = new HashMap();
         idMap.put("identify", identify);
         renderJson(result ? idMap : RenderUtils.CODE_ERROR);

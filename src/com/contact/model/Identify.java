@@ -20,7 +20,7 @@ public class Identify extends Model<Identify> {
     }
 
     public Boolean setContractId(int id) {
-        Boolean result = this.findById(1).set("contract_id", id).save();
+        Boolean result = this.findById(1).set("contract_id", id).update();
         return result;
     }
 }
