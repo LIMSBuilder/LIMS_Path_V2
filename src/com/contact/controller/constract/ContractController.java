@@ -28,7 +28,7 @@ public class ContractController extends Controller {
             "client", "client_fax", "trustee_unit", "trustee_code", "trustee_address", "trustee_tel",
             "trustee", "trustee_fax", "project_name", "monitor_aim", "monitor_type", "monitor_way",
             "monitor_way_desp", "subpackage", "subpackage_project", "in_room", "keep_secret",
-            "payment_way", "finish_date", "payment_count", "other"};
+            "payment_way", "finish_date", "payment_count", "other", "state"};
 
     /**
      * 获取所有监测类别
@@ -57,7 +57,7 @@ public class ContractController extends Controller {
         DecimalFormat df = new DecimalFormat(zero);//格式化合同编号字符串
         String id = df.format(id_num);
         String identify = pre + "-" + id;
-        while (Contract.contractDao.find("SELECT * FROM `db_contract` WHERE state=0 AND identify='" + identify + "'").size() != 0) {
+        while (Contract.contractDao.find("SELECT * FROM `db_contract` WHERE identify='" + identify + "'").size() != 0) {
             //进行编号校验,如果编号已经存在了,则继续下行
             id_num++;
             id = df.format(id_num);
@@ -85,7 +85,8 @@ public class ContractController extends Controller {
         try {
             //首先,进行合同编号存在性验证
             String identify = getPara("identify");
-            if (Contract.contractDao.find("SELECT * FROM `db_contract` WHERE state=0 AND identify='" + identify + "'").size() != 0) {
+            int state = getParaToInt("state");
+            if (state == 0 && Contract.contractDao.find("SELECT * FROM `db_contract` WHERE identify='" + identify + "'").size() != 0) {
                 renderJson(RenderUtils.CODE_REPEAT);
                 return;
             }
@@ -102,7 +103,6 @@ public class ContractController extends Controller {
                             constract.set(key.toString(), value);
                         }
                     }
-                    constract.set("state", 0);
                     String[] a = getParaValues("item_arr[]");
                     List<Map> items = ContractController.parseItem(a);//所有合同检测项
                     Boolean contract_result = constract.save();
