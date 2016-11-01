@@ -1130,15 +1130,25 @@
                     }
                 });
 
-                jQuery(".select2").select2({
+                jQuery("#trustee").select2({
                     width: '100%',
                     minimumResultsForSearch: -1
                 });
+
+                jQuery("#payment_way").select2({
+                    width: '100%',
+                    minimumResultsForSearch: -1
+                });
+                jQuery("#monitor_type").select2({
+                    width: '100%',
+                    minimumResultsForSearch: -1
+                });
+
+
                 jQuery('#datepicker-multiple').datepicker({
                     numberOfMonths: 3,
                     showButtonPanel: true
                 });
-
                 this.$watch('monitor_way', function (val) {
                     if (this.monitor_way == 0) {
                         jQuery('input[name=monitor_way_desp]').prop("disabled", true).val("");
@@ -1193,7 +1203,7 @@
                         }
                     }).then(function (response) {
                         var data = response.data;
-                        me.$set("trustee",data);
+                        me.$set("trustee", data);
                     }, function (response) {
                         jQuery.fn.error_msg("服务器无法获取承办人信息！");
                     })
