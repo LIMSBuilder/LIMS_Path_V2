@@ -1,52 +1,66 @@
 <div class="panel panel-info">
-    <div class="panel-heading">
-        <h3 class="panel-title">可变更合同列表</h3>
-    </div>
     <div class="panel-body">
-        <div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <strong>⚠️ 警告!</strong> 改变合同的 <a href="" class="alert-link">某些信息</a> 可能会导致后续流程变更且不可逆。中止合同会导致该合同流程结束且不可逆。
-        </div>
-        <div class="table-responsive">
-            <table class="table table-hidaction table-hover mb30">
-                <thead>
-                <tr>
-                    <th class="text-center">编号</th>
-                    <th class="text-center">合同编号</th>
-                    <th class="text-center">项目名称</th>
-                    <th class="text-center">委托单位</th>
-                    <th class="text-center">创建时间</th>
-                    <th class="text-center">变更次数</th>
-                    <th class="text-center">当前状态</th>
-                    <th class="text-center"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <template v-for="(index,item) in result">
-                    <tr>
-                        <td class="text-center">{{index+1}}</td>
-                        <td class="text-center">{{item.identify}}</td>
-                        <td class="text-center">{{item.project_name}}</td>
-                        <td class="text-center">{{item.client_unit}}</td>
-                        <td class="text-center">{{item.create_time}}</td>
-                        <td class="text-center">{{item.change_index}}</td>
-                        <td class="text-center">{{item.progress}}</td>
-                        <td class="table-action">
-                            <a href="javascript:;" @click="change_item(item)" data-toggle="modal"
-                               data-target=".bs-example-modal-lg"><i class="fa fa-pencil"></i></a>
-                            <a href="javascript:;" @click="stop_item(item)"><i class="fa fa-lock"></i></a>
-                        </td>
-                    </tr>
-                </template>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs nav-justified">
+            <li class="active"><a href="#list_page" data-toggle="tab"><strong>选择合同</strong></a></li>
+            <li><a href="#change_page" data-toggle="tab"><strong>修改合同</strong></a></li>
+        </ul>
 
-                </tbody>
-            </table>
-        </div><!-- table-responsive -->
-        <div class="row">
-            <div class="col-md-12 ">
-                <div class="paging pull-right"></div>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active" id="list_page">
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <strong>⚠️ 警告!</strong> 改变合同的 <a href="" class="alert-link">某些信息</a>
+                    可能会导致后续流程变更且不可逆。
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hidaction table-hover mb30">
+                        <thead>
+                        <tr>
+                            <th class="text-center">编号</th>
+                            <th class="text-center">合同编号</th>
+                            <th class="text-center">项目名称</th>
+                            <th class="text-center">委托单位</th>
+                            <th class="text-center">创建时间</th>
+                            <th class="text-center">变更次数</th>
+                            <th class="text-center">当前状态</th>
+                            <th class="text-center"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <template v-for="(index,item) in result">
+                            <tr>
+                                <td class="text-center">{{index+1}}</td>
+                                <td class="text-center">{{item.identify}}</td>
+                                <td class="text-center">{{item.project_name}}</td>
+                                <td class="text-center">{{item.client_unit}}</td>
+                                <td class="text-center">{{item.create_time}}</td>
+                                <td class="text-center">{{item.change_index}}</td>
+                                <td class="text-center">{{item.progress}}</td>
+                                <td class="table-action">
+                                    <a href="javascript:;" @click="change_item(item)" data-toggle="modal"
+                                       data-target=".bs-example-modal-lg"><i class="fa fa-pencil"></i></a>
+                                    <a href="javascript:;" @click="stop_item(item)"><i class="fa fa-lock"></i></a>
+                                </td>
+                            </tr>
+                        </template>
+
+                        </tbody>
+                    </table>
+                </div><!-- table-responsive -->
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="paging pull-right"></div>
+                    </div>
+
+                </div>
             </div>
+            <div class="tab-pane" id="change_page">
+                <div class="row">
 
+                </div>
+            </div>
         </div>
     </div>
 </div><!-- panel -->
@@ -62,7 +76,6 @@
         },
         methods: {
             change_item: function (data) {
-
                 var template = jQuery.fn.loadTemplate("/assets/template/subject/contract_change.tpl");
                 Vue.component('contract_view' + data.id, {
                     template: template,
