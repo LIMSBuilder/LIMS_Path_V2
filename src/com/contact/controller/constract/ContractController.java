@@ -103,6 +103,16 @@ public class ContractController extends Controller {
         return json;
     }
 
+    public Map toJsonSingle(Contract contract) {
+        Map<String, Object> json = new HashMap<>();
+        List results = new ArrayList();
+        results.add(contract);
+        json.put("results", results);
+        json.put("trustee", contract.getTrustee());
+        json.put("items", contract.getMonitorItems());
+        return json;
+    }
+
 
     /**
      * 获取所有监测类别
@@ -286,6 +296,19 @@ public class ContractController extends Controller {
         json.put("results", results);
         return json;
     }
+
+
+    public void getById() {
+        try {
+            int id = getParaToInt("id");
+            Contract contract = Contract.contractDao.findById(id);
+            renderJson(toJsonSingle(contract));
+        } catch (Exception e) {
+            renderError(500);
+        }
+
+    }
+
 
     /**
      * 解析item字符串

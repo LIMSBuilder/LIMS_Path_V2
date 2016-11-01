@@ -9,4 +9,8 @@ public class MonitorItem extends Model<MonitorItem> {
     public static final MonitorItem monitorItemDao = new MonitorItem();
 
 
+    public Monitor_Category getCategory() {
+        Monitor_Category category = Monitor_Category.monitorCategoryDao.findById(getInt("category_id"));
+        return category;
+    }
 }

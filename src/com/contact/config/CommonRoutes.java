@@ -2,10 +2,7 @@ package com.contact.config;
 
 import com.contact.controller.constract.*;
 import com.contact.controller.common.SignController;
-import com.contact.controller.system.CustomerController;
-import com.contact.controller.system.DepartmentController;
-import com.contact.controller.system.RoleController;
-import com.contact.controller.system.UserController;
+import com.contact.controller.system.*;
 import com.jfinal.config.Routes;
 
 /**
@@ -23,7 +20,8 @@ public class CommonRoutes extends Routes {
         add("/frequency", MonitorFrequencyController.class, "/");
         add("/category", MonitorCategoryController.class, "/");
         add("/project", MonitorProjectController.class, "/");
-        add("/default", DefaultsController.class,"/");
-        add("/constarct", ContractController.class,"/");
+        add("/default", DefaultsController.class, "/");
+        add("/constarct", ContractController.class, "/");
+        add("/feedback", FeedbackController.class, "/");
     }
 }
