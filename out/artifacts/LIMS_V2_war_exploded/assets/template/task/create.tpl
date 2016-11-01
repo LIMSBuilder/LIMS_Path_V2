@@ -18,8 +18,6 @@
                                 <a class="btn btn-sm btn-success-alt pull-right" data-toggle="modal"
                                    data-target=".bs-example-modal-lg" @click="from_contract">从现有合同导入</a>
                             </div>
-
-
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">项目名称</label>
