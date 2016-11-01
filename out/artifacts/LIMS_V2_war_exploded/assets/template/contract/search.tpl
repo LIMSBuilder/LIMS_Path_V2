@@ -88,7 +88,7 @@
 </div><!-- row -->
 
 <script src="/assets/js/jquery-ui-1.10.3.min.js"></script>
-<script src="/assets/js/select2.min.js"></script>
+<!--<script src="/assets/js/select2.min.js"></script>-->
 
 <script>
     jQuery(document).ready(function () {
@@ -246,9 +246,9 @@
                     value: 50
                 });
 
-                jQuery(".select2").select2({
-                    width: '100%'
-                });
+//                jQuery(".select2").select2({
+//                    width: '100%'
+//                });
 
                 // Date Picker
                 jQuery('#date_start').datepicker();
