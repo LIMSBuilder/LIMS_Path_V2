@@ -7,30 +7,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="20ae044c-4c25-41ff-ab00-28aaf995c514" name="默认的" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/contact/utils/MD5Tools.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/signup.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/contact/controller/system/FeedbackController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/contact/model/Feedback.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war/LIMS_V2_war.war" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war/LIMS_V2_war.war" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/common/SignController.class" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/common/SignController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/constract/ContractController$1.class" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/constract/ContractController$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/constract/ContractController.class" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/constract/ContractController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/system/RoleController.class" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/system/RoleController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/system/UserController.class" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/system/UserController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/common/SignController.class" afterPath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/common/SignController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/model/Contract.class" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/model/Contract.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/model/MonitorItem.class" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/model/MonitorItem.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/constract/ContractController$1.class" afterPath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/constract/ContractController$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/constract/ContractController.class" afterPath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/constract/ContractController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/system/RoleController.class" afterPath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/system/RoleController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/system/UserController.class" afterPath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/system/UserController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/model/Contract.class" afterPath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/model/Contract.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/model/MonitorItem.class" afterPath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/model/MonitorItem.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/pages/signin.html" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/pages/signin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/contract/create.tpl" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/contract/create.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/pages/index.html" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/pages/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/contract/category.tpl" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/contract/category.tpl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/contract/search.tpl" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/contract/search.tpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/common/SignController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/common/SignController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/subject/contract_view.tpl" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/subject/contract_view.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/config/CommonConfig.java" afterPath="$PROJECT_DIR$/src/com/contact/config/CommonConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/config/CommonRoutes.java" afterPath="$PROJECT_DIR$/src/com/contact/config/CommonRoutes.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/constract/ContractController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/constract/ContractController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/system/RoleController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/system/RoleController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/system/UserController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/system/UserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/pages/signin.html" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/signin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/contract/create.tpl" afterPath="$PROJECT_DIR$/web/assets/template/contract/create.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/model/Contract.java" afterPath="$PROJECT_DIR$/src/com/contact/model/Contract.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/model/MonitorItem.java" afterPath="$PROJECT_DIR$/src/com/contact/model/MonitorItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/pages/index.html" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/contract/category.tpl" afterPath="$PROJECT_DIR$/web/assets/template/contract/category.tpl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/contract/search.tpl" afterPath="$PROJECT_DIR$/web/assets/template/contract/search.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/subject/contract_view.tpl" afterPath="$PROJECT_DIR$/web/assets/template/subject/contract_view.tpl" />
     </list>
     <ignored path="LIMS_V2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,88 +53,7 @@
     <favorites_list name="LIMS_V2" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ContractController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/contact/controller/constract/ContractController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.86821705">
-              <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#6101#9343#0" expanded="true" />
-                <element signature="e#6363#6371#0" expanded="true" />
-                <element signature="e#9342#9343#0" expanded="true" />
-                <element signature="method#parseItem#0;class#ContractController#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="search.tpl" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/assets/template/contract/search.tpl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-20.923077">
-              <caret line="33" column="107" selection-start-line="33" selection-start-column="107" selection-end-line="33" selection-end-column="107" />
-              <folding>
-                <element signature="e#5522#8042#0" expanded="false" />
-                <element signature="e#8105#10508#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.5">
-              <caret line="814" column="25" selection-start-line="814" selection-start-column="25" selection-end-line="814" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="create.tpl" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/assets/template/contract/create.tpl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.961538">
-              <caret line="1195" column="48" selection-start-line="1195" selection-start-column="48" selection-end-line="1195" selection-end-column="48" />
-              <folding>
-                <element signature="e#35750#35921#0" expanded="false" />
-                <element signature="e#38121#40935#0" expanded="false" />
-                <element signature="e#41405#42352#0" expanded="false" />
-                <element signature="e#42463#47084#0" expanded="false" />
-                <element signature="e#43251#43873#0" expanded="false" />
-                <element signature="e#47188#53495#0" expanded="false" />
-                <element signature="e#50221#50331#0" expanded="false" />
-                <element signature="e#50573#50723#0" expanded="false" />
-                <element signature="e#50786#50929#0" expanded="false" />
-                <element signature="e#53638#53993#0" expanded="false" />
-                <element signature="e#54136#54380#0" expanded="false" />
-                <element signature="e#54525#54768#0" expanded="false" />
-                <element signature="e#58592#58852#0" expanded="false" />
-                <element signature="e#58965#59581#0" expanded="false" />
-                <element signature="e#59626#60628#0" expanded="false" />
-                <element signature="e#60863#61231#0" expanded="false" />
-                <element signature="e#61295#65289#0" expanded="false" />
-                <element signature="e#65336#65438#0" expanded="false" />
-                <element signature="e#65499#65599#0" expanded="false" />
-                <element signature="e#67989#69543#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/contact/controller/system/UserController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="104" column="23" selection-start-line="104" selection-start-column="16" selection-end-line="104" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -155,9 +75,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/web/assets/template/subject/customer_addItem.tpl" />
-        <option value="$PROJECT_DIR$/web/assets/template/subject/customer_view.tpl" />
-        <option value="$PROJECT_DIR$/src/com/contact/model/Monitor_Frequency.java" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/Constract/MonitorFrequencyController.java" />
         <option value="$PROJECT_DIR$/web/assets/template/subject/frequency_addItem.tpl" />
         <option value="$PROJECT_DIR$/web/assets/template/subject/category_addItem.tpl" />
@@ -179,23 +96,17 @@
         <option value="$PROJECT_DIR$/src/com/contact/model/Default.java" />
         <option value="$PROJECT_DIR$/web/assets/template/contract/preInfo.tpl" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/system/CustomerController.java" />
-        <option value="$PROJECT_DIR$/web/assets/template/contract/category.tpl" />
         <option value="$PROJECT_DIR$/web/assets/template/subject/customer_select_list.tpl" />
         <option value="$PROJECT_DIR$/src/defaults.properties" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/constract/DefaultsController.java" />
-        <option value="$PROJECT_DIR$/src/com/contact/config/CommonRoutes.java" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/constract/MonitorFrequencyController.java" />
         <option value="$PROJECT_DIR$/web/assets/template/subject/contract_monitor_addItem.tpl" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/constract/MonitorProjectController.java" />
         <option value="$PROJECT_DIR$/src/com/contact/model/Item_Project.java" />
-        <option value="$PROJECT_DIR$/src/com/contact/model/MonitorItem.java" />
         <option value="$PROJECT_DIR$/src/com/contact/model/Constract.java" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/constract/ConstractController.java" />
-        <option value="$PROJECT_DIR$/src/com/contact/model/Contract.java" />
         <option value="$PROJECT_DIR$/src/identify.properties" />
-        <option value="$PROJECT_DIR$/src/com/contact/config/CommonConfig.java" />
         <option value="$PROJECT_DIR$/src/com/contact/model/Identify.java" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/pages/index.html" />
         <option value="$PROJECT_DIR$/web/assets/template/subject/template_select_list.tpl" />
         <option value="$PROJECT_DIR$/web/WEB-INF/pages/signin.html" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/system/RoleController.java" />
@@ -204,8 +115,17 @@
         <option value="$PROJECT_DIR$/src/com/contact/controller/common/SignController.java" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/system/UserController.java" />
         <option value="$PROJECT_DIR$/web/assets/template/contract/create.tpl" />
-        <option value="$PROJECT_DIR$/web/assets/template/contract/search.tpl" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/constract/ContractController.java" />
+        <option value="$PROJECT_DIR$/src/com/contact/model/MonitorItem.java" />
+        <option value="$PROJECT_DIR$/src/com/contact/model/Contract.java" />
+        <option value="$PROJECT_DIR$/web/assets/template/subject/contract_view.tpl" />
+        <option value="$PROJECT_DIR$/web/assets/template/contract/search.tpl" />
+        <option value="$PROJECT_DIR$/web/assets/template/contract/category.tpl" />
+        <option value="$PROJECT_DIR$/src/com/contact/config/CommonConfig.java" />
+        <option value="$PROJECT_DIR$/src/com/contact/config/CommonRoutes.java" />
+        <option value="$PROJECT_DIR$/src/com/contact/model/Feedback.java" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/pages/index.html" />
+        <option value="$PROJECT_DIR$/src/com/contact/controller/system/FeedbackController.java" />
       </list>
     </option>
   </component>
@@ -392,6 +312,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="subject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="template" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="contract" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -489,6 +435,28 @@
               <option name="myItemId" value="contact" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contact" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -535,32 +503,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LIMS_V2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LIMS_V2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="contact" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="constract" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1159,12 +1101,12 @@
       <workItem from="1477729642971" duration="101000" />
       <workItem from="1477729768107" duration="18288000" />
       <workItem from="1477813202069" duration="17750000" />
-      <workItem from="1477837077880" duration="32892000" />
+      <workItem from="1477837077880" duration="40421000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="187203000" />
+    <option name="totallyTimeSpent" value="194732000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1177,7 +1119,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3132653" sideWeight="0.497558" order="15" side_tool="false" content_ui="tabs" />
@@ -1190,7 +1132,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3122449" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="控制板" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24053724" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24053724" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="设计师" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1226,7 +1168,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="112" />
+      <option name="time" value="115" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
@@ -1236,6 +1178,7 @@
         <watch expression="format_date" language="JAVA" custom="" />
         <watch expression="e" language="JAVA" custom="" />
         <watch expression="paras" language="JAVA" custom="" />
+        <watch expression="getParaToInt(&quot;id&quot;)" language="JAVA" custom="" />
       </configuration>
     </watches-manager>
   </component>
@@ -1244,62 +1187,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/contact/model/Department.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21052632">
-          <caret line="8" column="68" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/constract/MonitorProjectController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33279485">
-          <caret line="25" column="14" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/constract/DefaultsController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35702747">
-          <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/constract/MonitorCategoryController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.68421054">
-          <caret line="33" column="160" selection-start-line="33" selection-start-column="140" selection-end-line="33" selection-end-column="160" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/constract/MonitorFrequencyController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.68659127">
-          <caret line="145" column="35" selection-start-line="145" selection-start-column="35" selection-end-line="145" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/model/Default.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6756757">
-          <caret line="33" column="58" selection-start-line="33" selection-start-column="11" selection-end-line="33" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/model/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/web/WEB-INF/lib/jfinal-2.2-bin-with-src.jar!/com/jfinal/kit/JsonKit.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.28947368">
@@ -1412,16 +1299,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/model/Contract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20930232">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/contact/model/Identify.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5271318">
@@ -1442,14 +1319,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.822294">
           <caret line="35" column="54" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/model/MonitorItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1542,22 +1411,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/config/CommonConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="62" column="54" selection-start-line="62" selection-start-column="54" selection-end-line="62" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/config/CommonRoutes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/contact/controller/common/SignController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2372093">
@@ -1634,26 +1487,59 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.5">
-          <caret line="814" column="25" selection-start-line="814" selection-start-column="25" selection-end-line="814" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/contact/controller/system/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.7100775">
           <caret line="104" column="23" selection-start-line="104" selection-start-column="16" selection-end-line="104" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/json/contract_create.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.35702747">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/template/subject/customer_view.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/constract/ContractController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.68770224">
+          <caret line="100" column="9" selection-start-line="100" selection-start-column="9" selection-end-line="100" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6446#9688#0" expanded="true" />
+            <element signature="e#6708#6716#0" expanded="true" />
+            <element signature="e#9687#9688#0" expanded="true" />
+            <element signature="method#parseItem#0;class#ContractController#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/contact/model/Contract.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4744186">
+          <caret line="26" column="65" selection-start-line="26" selection-start-column="65" selection-end-line="26" selection-end-column="65" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#setMonitorItems#0;class#Contract#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/contract/create.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.961538">
-          <caret line="1195" column="48" selection-start-line="1195" selection-start-column="48" selection-end-line="1195" selection-end-column="48" />
+        <state vertical-scroll-proportion="0.36187398">
+          <caret line="962" column="43" selection-start-line="962" selection-start-column="36" selection-end-line="962" selection-end-column="43" />
           <folding>
             <element signature="e#35750#35921#0" expanded="false" />
             <element signature="e#38121#40935#0" expanded="false" />
@@ -1679,27 +1565,89 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/template/subject/contract_view.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7597173">
+          <caret line="150" column="48" selection-start-line="150" selection-start-column="43" selection-end-line="150" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/contract/search.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.923077">
-          <caret line="33" column="107" selection-start-line="33" selection-start-column="107" selection-end-line="33" selection-end-column="107" />
+        <state vertical-scroll-proportion="0.6704362">
+          <caret line="168" column="52" selection-start-line="168" selection-start-column="52" selection-end-line="168" selection-end-column="52" />
           <folding>
-            <element signature="e#5522#8042#0" expanded="false" />
-            <element signature="e#8105#10508#0" expanded="false" />
+            <element signature="e#8957#11360#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/constract/ContractController.java">
+    <entry file="file://$PROJECT_DIR$/src/com/contact/model/MonitorItem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.86821705">
-          <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.34263566">
+          <caret line="13" column="24" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/contact/config/CommonConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="63" column="54" selection-start-line="63" selection-start-column="54" selection-end-line="63" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/contact/model/Feedback.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/constract/MonitorCategoryController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/template/contract/category.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-19.73077">
+          <caret line="95" column="51" selection-start-line="95" selection-start-column="51" selection-end-line="95" selection-end-column="51" />
+          <folding>
+            <marker date="1477970249000" expanded="true" signature="8872:8883" placeholder="..." />
+            <marker date="1477970249000" expanded="true" signature="10474:10485" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/contact/config/CommonRoutes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5534884">
+          <caret line="24" column="56" selection-start-line="24" selection-start-column="56" selection-end-line="24" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.076923">
+          <caret line="963" column="27" selection-start-line="963" selection-start-column="27" selection-end-line="963" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/system/FeedbackController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36899224">
+          <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6101#9343#0" expanded="true" />
-            <element signature="e#6363#6371#0" expanded="true" />
-            <element signature="e#9342#9343#0" expanded="true" />
-            <element signature="method#parseItem#0;class#ContractController#0" expanded="false" />
           </folding>
         </state>
       </provider>

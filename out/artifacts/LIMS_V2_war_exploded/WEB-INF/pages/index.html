@@ -78,8 +78,9 @@
                                data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 合同起草 </a></li>
                         <li><a href="javascript:;" class="nav-item" data-type="contract/search" data-title="合同查询"
                                data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 合同查询 </a></li>
-                        <li><a href="javascript:;" class="nav-item" data-type="contract/change" data-title="合同变更"
-                               data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 合同变更 </a></li>
+                        <li class="hidden"><a href="javascript:;" class="nav-item" data-type="contract/change"
+                                              data-title="合同变更"
+                                              data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 合同变更 </a></li>
                         <li><a href="javascript:;" class="nav-item" data-type="contract/preInfo" data-title="预设信息管理"
                                data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 预设信息管理 </a></li>
                         <li><a href="javascript:;" class="nav-item" data-type="contract/frequency" data-title="监测频次管理"
@@ -162,6 +163,8 @@
                 </li>
                 <li class="nav-parent"><a href=""><i class="fa fa-cogs"></i> <span>系统管理</span></a>
                     <ul class="children" data-icon="fa fa-cogs">
+                        <li><a href="javascript:;" class="nav-item" data-type="system/customer" data-title="客户管理"
+                               data-desp="查看、编辑部门岗位、权限信息"><i class="fa fa-caret-right"></i> 客户管理</a></li>
                         <li><a href="javascript:;" class="nav-item" data-type="system/department" data-title="部门管理"
                                data-desp="查看、编辑公司部门信息"><i
                                 class="fa fa-caret-right"></i> 部门管理 </a></li>
@@ -169,8 +172,6 @@
                                data-desp="查看、编辑部门岗位、权限信息"><i class="fa fa-caret-right"></i> 角色管理</a></li>
                         <li><a href="javascript:;" class="nav-item" data-type="system/user" data-title="用户管理"
                                data-desp="查看、编辑用户信息、重置密码服务"><i class="fa fa-caret-right"></i> 用户管理</a></li>
-                        <li><a href="javascript:;" class="nav-item" data-type="system/customer" data-title="客户管理"
-                               data-desp="查看、编辑部门岗位、权限信息"><i class="fa fa-caret-right"></i> 客户管理</a></li>
                         <li><a href="javascript:;"><i class="fa fa-caret-right"></i> 原始记录管理</a></li>
                         <li><a href="javascript:;"><i class="fa fa-caret-right"></i> 授权签字人</a></li>
                         <li><a href="javascript:;"><i class="fa fa-caret-right"></i> 系统设置</a></li>
@@ -232,8 +233,8 @@
 
             <form class="searchform" action="index.html" method="post">
                 <input type="text" class="form-control" name="keyword" placeholder="搜索..."/>
+                <a class="btn btn-sm btn-danger-alt pull-left" id="feedback">问题反馈</a>
             </form>
-
             <div class="header-right">
                 <ul class="headermenu">
                     <li>
@@ -804,6 +805,49 @@
             </div>
         </div>
     </div>
+
+
+    <!--问题反馈专用-->
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+         aria-hidden="true" id="feedback_modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>
+                    <h4 class="modal-title">问题反馈</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="feedback_form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">问题类型</label>
+                            <div class="col-sm-10">
+                                <select id="type" class="select2" required data-placeholder="选择需要反馈的问题类型">
+                                    <option value=""></option>
+                                    <option value="系统缺陷(bug)">系统缺陷(bug)</option>
+                                    <option value="功能缺失">功能缺失</option>
+                                    <option value="个人建议">个人建议</option>
+                                    <option value="其他">其他</option>
+                                </select>
+                                <label class="error" for="type"></label>
+                            </div>
+                        </div><!-- form-group -->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">反馈内容 <span class="asterisk">*</span></label>
+                            <div class="col-sm-10">
+                                <textarea id="feedback_content" class="form-control" rows="5" required></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <a class="btn btn-primary" id="save_feedback">提 交</a>
+                                <button type="reset" class="btn btn-default">清 空</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 
@@ -889,6 +933,42 @@
         });
 
 
+        //问题反馈
+        jQuery("#feedback").on("click", function () {
+            jQuery('#feedback_modal').modal("show");
+        });
+
+        jQuery("#type").select2({
+            width: '100%',
+            minimumResultsForSearch: -1
+        });
+
+
+        jQuery("#feedback_form").validate({
+            highlight: function (element) {
+                jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            success: function (element) {
+                jQuery(element).closest('.form-group').removeClass('has-error');
+            }
+        });
+
+        jQuery("#save_feedback").on("click", function () {
+            var data = {
+                type: jQuery("#type").val(),
+                content: jQuery("#feedback_content").val()
+            };
+            jQuery.ajax({
+                type: 'post',
+                url: '/feedback/add',
+                data: data,
+                success: function (data) {
+                    jQuery.fn.codeState(data.code, {
+                        200: "问题反馈成功!"
+                    });
+                }
+            });
+        });
         //自定义模态弹出框
         LIMS.dialog = new Vue({
             el: '#custom_modal',

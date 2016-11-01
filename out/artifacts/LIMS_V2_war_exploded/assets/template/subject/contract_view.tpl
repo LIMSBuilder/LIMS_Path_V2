@@ -4,7 +4,9 @@
             <table class="table table-bordered  mb30">
                 <thead>
                 <tr>
-                    <th class="text-center" colspan="7">环境监测业务合同</th>
+                    <th class="text-center" colspan="7">环境监测业务合同
+                        <span class="pull-right">合同编号: {{identify}}</span>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -61,7 +63,7 @@
                                     <tr>
                                         <td class="text-center">{{index+1}}</td>
                                         <td class="text-center">
-                                            {{item.environment_text}}
+                                            {{item.environment_text.name}}
                                         </td>
                                         <td class="text-center">{{item.monitor_point}}</td>
                                         <td class="text-center">
@@ -112,11 +114,11 @@
                 <tr>
                     <td class="text-center">客户要求</td>
                     <td class="text-center" colspan="2">客户需要进入实验室监视与本次委托有关的检测活动</td>
-                    <td class="text-center" v-if="in_room!='room'">否</td>
-                    <td class="text-center" v-if="in_room=='room'">是</td>
+                    <td class="text-center" v-if="in_room==0">否</td>
+                    <td class="text-center" v-if="in_room==1">是</td>
                     <td class="text-center" colspan="2">客户需要本实验室对本次委托有关资料保密</td>
-                    <td class="text-center" v-if="keep_secret!='secret'">否</td>
-                    <td class="text-center" v-if="keep_secret=='secret'">是</td>
+                    <td class="text-center" v-if="keep_secret==0">否</td>
+                    <td class="text-center" v-if="keep_secret==1">是</td>
                 </tr>
                 <tr>
                     <td class="text-center">其他约定</td>
@@ -145,7 +147,7 @@
             </table>
         </div><!-- table-responsive -->
     </div>
-    <div class="col-md-12 text-center" >
-        <a class="btn btn-primary">打印合同</a>
+    <div class="col-md-12 text-center">
+        <a class="btn btn-primary" @click="print">打印合同</a>
     </div>
 </div>
