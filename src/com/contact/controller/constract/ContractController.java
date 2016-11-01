@@ -22,10 +22,12 @@ import java.util.*;
 /**
  * 合同
  * state
- * 0-合同正常创建完成并进入项目流中
+ * 0-合同正常创建完成并进入项目流中,待审核
+ * 1-合同审核通过,待进入任务书环节
  * -1 -合同模板
  * -2中止合同
  * -3删除合同
+ * -4合同审核拒绝
  */
 public class ContractController extends Controller {
     //所有可以直接插入的元素
@@ -53,6 +55,9 @@ public class ContractController extends Controller {
             Object value = condition.get(key);
             if (key.equals("identify") || key.equals("project_name") || key.equals("client_unit")) {
                 paras += (" AND " + key + " like \"%" + value + "%\"");
+            }
+            if (key.equals("state")) {
+                paras += (" AND state=" + value);
             }
             if (key.equals("monitor_type_selected")) {
                 paras += (" AND monitor_type in ('" + value.toString().replace(",", "','") + "')");
@@ -274,7 +279,29 @@ public class ContractController extends Controller {
         } catch (Exception e) {
             renderError(500);
         }
+    }
 
+    /**
+     * 合同审核
+     */
+    public void review() {
+        try {
+            int id = getParaToInt("id");
+            int state = getParaToInt("state");
+            Contract contract = Contract.contractDao.findById(id);
+            if (contract != null) {
+                contract.set("state", state);
+                if (state == 0) {//若是审核拒绝,则reject_count++;
+                    contract.set("reject_count", contract.getInt("reject_count") + 1);
+                }
+                Boolean result = contract.update();
+                renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+            } else {
+                renderJson(RenderUtils.CODE_EMPTY);
+            }
+        } catch (Exception e) {
+            renderError(500);
+        }
     }
 
     /**

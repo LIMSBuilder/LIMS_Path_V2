@@ -148,6 +148,9 @@
         </div><!-- table-responsive -->
     </div>
     <div class="col-md-12 text-center">
-        <a class="btn btn-primary" @click="print">打印合同</a>
+        <div class="btn-demo">
+            <a class="btn btn-success-alt" @click="pass" style="float: none;">审核通过</a>
+            <a class="btn btn-danger-alt" @click="reject" style="float: none;">审核拒绝</a>
+        </div>
     </div>
 </div>
