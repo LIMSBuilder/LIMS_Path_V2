@@ -7,12 +7,12 @@
                     <strong>推荐操作！</strong> 建议使用"从合同中导入"功能,系统会自动抓取合同中已经设置的信息并自动填充至任务书中。
                 </div>
                 <div class="col-md-11">
-                    <form class="form-horizontal ">
+                    <form class="form-horizontal" id="task_form">
                         <div class="form-group ">
-
                             <label class="col-sm-2 control-label ">委托单位</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" v-model="client_unit">
+                                <input type="text" class="form-control" name="client_unit" v-model="client_unit"
+                                       required>
                             </div>
                             <div class="col-sm-2">
                                 <a class="btn btn-sm btn-success-alt pull-right" data-toggle="modal"
@@ -22,7 +22,8 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">项目名称</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" v-model="project_name">
+                                <input type="text" class="form-control" name="project_name" v-model="project_name"
+                                       required>
                             </div>
                             <div class="col-sm-2">
                                 <a class="btn btn-sm btn-success-alt pull-right" data-toggle="modal"
@@ -38,21 +39,24 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">联系地址</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" v-model="client_address">
+                                <input type="text" class="form-control" name="client_address" v-model="client_address"
+                                       required>
                             </div>
                             <label class="col-sm-1 control-label">邮政编码</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" v-model="client_code">
+                                <input type="text" class="form-control" name="client_code" v-model="client_code"
+                                       required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">联系人</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" v-model="client">
+                                <input type="text" class="form-control" name="client" v-model="client" required>
                             </div>
                             <label class="col-sm-1 control-label">联系电话</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" v-model="client_tel">
+                                <input type="text" class="form-control" name="client_tel" v-model="client_tel"
+                                       requireds>
                             </div>
                         </div>
                         <div class="form-group">
@@ -115,32 +119,52 @@
                             <label class="col-sm-2 control-label">监测方法</label>
                             <div class="col-sm-8">
                                 <div class="rdio rdio-primary">
-                                    <input type="radio" v-model="monitor_way" checked id="way1" value="0"
-                                           name="gender" required/>
+                                    <input type="radio" v-model="monitor_way" checked="checked" id="way1" value="0"
+                                           name="monitor_way"/>
                                     <label for="way1">以我单位通过计量认证、国家实验室认可的方法进行检测</label>
                                 </div>
                                 <div class="rdio rdio-primary">
                                     <input type="radio" v-model="monitor_way" value="1" id="way2"
-                                           name="gender"/>
+                                           name="monitor_way"/>
                                     <label for="way2">客户指定的方法:</label>
                                     <input type="text" v-model="monitor_way_desp" name="monitor_way_desp"
                                            class="form-control " disabled/>
                                 </div>
                             </div>
                         </div>
+                        <!--<div class="form-group">-->
+                        <!--<label class="col-sm-2 control-label">承接科室</label>-->
+                        <!--<div class="col-sm-8">-->
+                        <!--<select class="select2" v-model="receive_depart" name="department_id"-->
+                        <!--id="receive_depart"-->
+                        <!--data-placeholder="选择交付方式"-->
+                        <!--required>-->
+                        <!--<option value=""></option>-->
+                        <!--<template v-for="item in receive_depart_list">-->
+                        <!--<option value="{{item.id}}">{{item.name}}</option>-->
+                        <!--</template>-->
+                        <!--</select>-->
+                        <!--<span class="help-block">承接科室设定项目流程的走向,管理员可以在"系统设置"->"承接科室设置"中进行流程修改。</span>-->
+                        <!--</div>-->
+                        <!--</div>-->
+
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">承接科室</label>
+                            <label class="col-sm-2 control-label">采样方式</label>
                             <div class="col-sm-8">
-                                <select class="select2" v-model="receive_depart" id="receive_depart"
-                                        data-placeholder="选择交付方式"
-                                        required>
-                                    <template v-for="item in receive_depart_list">
-                                        <option value="{{item.id}}">{{item.name}}</option>
-                                    </template>
-                                </select>
-                                <span class="help-block">承接科室设定项目流程的走向,管理员可以在"系统设置"->"承接科室设置"中进行流程修改。</span>
+                                <div class="rdio rdio-primary">
+                                    <input type="radio" v-model="sample_way" checked="checked" id="self" value="0"
+                                           name="sample_way"/>
+                                    <label for="self">自送样（接收部门：{{self_depart}}）</label>
+                                </div>
+                                <div class="rdio rdio-primary">
+                                    <input type="radio" v-model="sample_way" value="1" id="spot"
+                                           name="sample_way"/>
+                                    <label for="spot">现场采样（接收部门：{{scene_depart}}）</label>
+                                </div>
                             </div>
                         </div>
+
+
                         <div class="form-group">
                             <label class="col-sm-2 control-label">备注信息</label>
                             <div class="col-sm-8">
@@ -173,49 +197,96 @@
                 "monitor_way": 0,
                 "item_arr": [],
                 "monitor_way_desp": "",
-                "receive_depart": "",
                 "other": "",
-                "receive_depart_list": []
+                "sample_way": "",
+                "self_depart": "",
+                "scene_depart": ""
             },
             methods: {
                 from_customer: function () {
                     var me = this;
-                    me.$http.get("/assets/json/customer_select_list.json").then(function (response) {
-                        var data = response.data;
-                        var template = jQuery.fn.loadTemplate("/assets/template/subject/customer_select_list.tpl");
-
-                        Vue.component('child', {
-                            template: template,
-                            data: function () {
-                                return {customers: data.results};
+                    var template = jQuery.fn.loadTemplate("/assets/template/subject/customer_select_list.tpl");
+                    Vue.component('child', {
+                        template: template,
+                        data: function () {
+                            return {
+                                customers: [],
+                                search_key: ""
+                            };
+                        },
+                        methods: {
+                            startSearch: function (event) {
+                                var me = this;
+                                me.load_list("client_unit=" + encodeURI(me.search_key), 1);
                             },
-                            methods: {
-                                startSearch: function (event) {
-                                    //向服务器发送查询请求
-                                    alert("触发了enter操作");
-                                },
-                                choose: function (data) {
-                                    //console.log(data)
-                                    var customer = data.customer;
-                                    jQuery("#custom_modal").modal("hide");
-                                    jQuery.fn.check_msg({
-                                        msg: "是否导入【" + customer.client_unit + "】公司的客户资料?",
-                                        success: function () {
-                                            for (var key in customer) {
-                                                me.$set(key, customer[key]);
-                                            }
+                            choose: function (data) {
+                                var customer = data.customer;
+                                jQuery("#custom_modal").modal("hide");
+                                jQuery.fn.check_msg({
+                                    msg: "是否导入【" + customer.client_unit + "】公司的客户资料?",
+                                    success: function () {
+                                        for (var key in customer) {
+                                            me.$set(key, customer[key]);
+                                        }
 
+                                    }
+                                });
+                            },
+                            load_list: function (condition, currentPage) {
+                                var me = this;
+                                var dom = jQuery(me.$el);
+                                var rowCount = localStorage.getItem("rowCount") || 0;
+                                me.$http.get("/customer/list", {
+                                    params: {
+                                        rowCount: rowCount,
+                                        currentPage: currentPage,
+                                        condition: condition
+                                    }
+                                }).then(function (response) {
+                                    var data = response.data;
+                                    me.$set("customers", data.results);
+                                    //页码事件
+                                    dom.find('.paging').pagination({
+                                        pageCount: data.totalPage != 0 ? data.totalPage : 1,
+                                        coping: true,
+                                        homePage: '首页',
+                                        endPage: '末页',
+                                        prevContent: '上页',
+                                        nextContent: '下页',
+                                        current: data.currentPage,
+                                        callback: function (page) {
+                                            var currentPage = page.getCurrent();
+                                            me.$http.get("/customer/list", {
+                                                params: {
+                                                    rowCount: rowCount,
+                                                    currentPage: currentPage,
+                                                    condition: data.condition
+                                                }
+                                            }).then(function (response) {
+                                                var data = response.data;
+                                                me.$set("customers", data.results);
+                                            }, function (response) {
+                                                jQuery.fn.error_msg("无法获取客户列表信息,请尝试刷新操作。");
+                                            });
                                         }
                                     });
-                                }
+                                    jQuery.validator.setDefaults({
+                                        submitHandler: function () {
+                                        }
+                                    });
+                                }, function (response) {
+                                    jQuery.fn.error_msg("无法获取客户列表信息,请尝试刷新操作。");
+                                });
+
                             }
-                        });
-                        LIMS.dialog.$set('title', '从客户管理系统中导入');
-                        LIMS.dialog.currentView = 'child';
-                    }, function (response) {
-                        //error
-                        jQuery.fn.error_msg("客户资料获取失败！");
+                        },
+                        ready: function () {
+                            var me = this;
+                            me.load_list("", 1);
+                        }
                     });
+                    LIMS.dialog.$set('title', '从客户管理系统中导入');
+                    LIMS.dialog.currentView = 'child';
                 },
                 from_contract: function () {
                     var me = this;
@@ -332,13 +403,15 @@
                                     monitor_item: "",
                                     frequency: "",
                                     other: "",
-                                    monitor_type_item: data.monitor_type_item,
-                                    frequency_item: data.frequency_item
+                                    monitor_type_item: [],
+                                    frequency_item: [],
+                                    monitor_project_item: []
                                 }
                             },
                             methods: {
                                 save: function () {
                                     var dom = $(this.$el);
+                                    if (!jQuery("#monitor_addItem").valid())return;
                                     var items = [];
                                     dom.find('#monitor_item option:selected').each(function (index, item) {
                                         var dom = jQuery(item);
@@ -358,18 +431,22 @@
                                         frequency: dom.find("select[name=frequency]").val(),
                                         other: this.other
                                     };
+                                    console.log(data);
                                     me.item_arr.push(data);
                                     jQuery("#monitor_addItem")[0].reset();
                                     jQuery("#monitor_addItem .select2").val("").trigger("change");
                                     jQuery("#tags").removeTag("");
                                     jQuery.fn.alert_msg("检测项保存成功!");
+
                                 },
+
                                 cancel: function () {
                                     jQuery("#custom_modal").modal("hide");
                                 }
                             },
                             ready: function () {
-                                var dom = $(this.$el);
+                                var me = this;
+                                var dom = $(me.$el);
                                 dom.find('.select2').select2({
                                     width: '100%',
                                     minimumResultsForSearch: -1
@@ -378,19 +455,46 @@
                                     width: 'auto',
                                     defaultText: '增加...'
                                 });
+                                me.$http.get("/category/getList").then(function (res) {
+                                    var results = res.data.results;
+                                    me.$set("monitor_type_item", results);
+                                }, function (response) {
+                                    jQuery.fn.error_msg("无法获取环境要素列表信息,请尝试刷新操作。");
+                                });
+                                me.$http.get("/frequency/getList").then(function (response) {
+                                    var data = response.data;
+                                    me.$set("frequency_item", data);
+                                }, function (response) {
+                                    jQuery.fn.error_msg("无法获取监测频次列表信息,请尝试刷新操作。");
+                                });
+
+
                                 dom.find('select[name=environment]').on("change", function (event) {
                                     var id = event.val;
-                                    var items = data.monitor_type_item.find(function (item) {
-                                        return item.id == id;
-                                    });
-                                    var oSelect = jQuery("#monitor_item");
-                                    oSelect.find('option').remove();
-                                    items.items.forEach(function (item) {
-                                        console.log(item);
-                                        oSelect.append("<option value='" + item.id + "'>" + item.name + "</option>");
-                                    });
-                                    $('#monitor_item').trigger("change");
-                                })
+                                    if (!id) return;
+                                    me.$http.get("/project/getByCategory", {
+                                        params: {
+                                            id: id
+                                        }
+                                    }).then(function (response) {
+                                        var data = response.data;
+                                        me.$set("monitor_project_item", data.results);
+                                        console.log(data)
+                                    }, function (response) {
+                                        jQuery.fn.error_msg("无法获取监测项目列表信息,请尝试刷新操作。");
+                                    })
+                                });
+
+                                jQuery("#monitor_addItem").validate({
+                                    highlight: function (element) {
+                                        jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+                                    },
+                                    success: function (element) {
+                                        jQuery(element).closest('.form-group').removeClass('has-error');
+                                    }
+                                });
+
+
                             }
                         });
 
@@ -417,30 +521,34 @@
             ready: function () {
                 var me = this;
                 var dom = $(this.$el);
-                dom.find('.select2').select2({
-                    width: '100%',
-                    minimumResultsForSearch: -1
-                });
                 this.$watch('monitor_way', function (val) {
                     if (this.monitor_way == 0) {
                         dom.find('input[name=monitor_way_desp]').prop("disabled", true);
+                        me.$set("monitor_way_desp", "");
+
                     } else {
                         dom.find('input[name=monitor_way_desp]').prop("disabled", false);
                     }
                 });
 
-
-                jQuery('#receive_depart').on("change", function () {
-                    me.$set("receive_depart", jQuery("#receive_depart").val());
-                });
-
-
-                me.$http.get("/assets/json/task_receive_deaprt.json").then(function (response) {
+                me.$http.get("/department/getSampleReceive").then(function (response) {
                     var data = response.data;
-                    me.$set('receive_depart_list', data.results);
+                    debugger
+                    var self = data.sample_self ? data.sample_self[0].name : "您尚未设置自送样接收部门";
+                    var scene = data.sample_scene ? data.sample_scene[0].name : "您尚未设置现场采样接收部门";
+                    me.$set("self_depart", self);
+                    me.$set("scene_depart", scene);
                 }, function (response) {
                     jQuery.fn.error_msg("无法获取承接科室信息!");
-                })
+                });
+                jQuery("#task_form").validate({
+                    highlight: function (element) {
+                        jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+                    },
+                    success: function (element) {
+                        jQuery(element).closest('.form-group').removeClass('has-error');
+                    }
+                });
 
 
             }
