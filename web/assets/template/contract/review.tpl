@@ -58,7 +58,7 @@
                         }
                     }).then(function (response) {
                         var data = response.data;
-                        var template = jQuery.fn.loadTemplate("/assets/template/subject/contract_view.tpl");
+                        var template = jQuery.fn.loadTemplate("/assets/template/subject/contract_review.tpl");
                         Vue.component('contract_view' + id, {
                             template: template,
                             data: function () {
@@ -206,7 +206,7 @@
                             }
                         });
                     }, function (response) {
-                        jQuery.fn.error_msg("无法获取用户列表信息,请尝试刷新操作。");
+                        jQuery.fn.error_msg("无法获取合同列表信息,请尝试刷新操作。");
                     });
                 }
             },

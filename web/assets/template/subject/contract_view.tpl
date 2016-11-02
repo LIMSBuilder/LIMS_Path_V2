@@ -149,8 +149,7 @@
     </div>
     <div class="col-md-12 text-center">
         <div class="btn-demo">
-            <a class="btn btn-success-alt" @click="pass" style="float: none;">审核通过</a>
-            <a class="btn btn-danger-alt" @click="reject" style="float: none;">审核拒绝</a>
+            <a class="btn btn-primary-alt" @click="print" style="float: none;">导出合同</a>
         </div>
     </div>
 </div>
