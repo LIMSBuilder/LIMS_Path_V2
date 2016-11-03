@@ -14,6 +14,7 @@
                                 <input type="text" readonly="readonly" class="form-control" name="identify"
                                        v-model="identify"
                                        required>
+                                <label class="help-block">若从现有合同导入,则任务书与合同共享编号,若自定义生成合同,请点击"系统生成"创建任务书编号。</label>
                             </div>
                             <div class="col-sm-2">
                                 <div class="btn-demo">
@@ -184,7 +185,6 @@
                         </div>
                         <div class="form-group text-center">
                             <a class="btn btn-primary" @click="create_task">创 建</a>
-                            <a class="btn btn-default @click=clear_sumbit">清 空</a>
                         </div>
                     </form>
                 </div>
@@ -593,6 +593,9 @@
                 },
                 create_task: function () {
                     var me = this;
+                    if (!jQuery("#task_form").valid()) {
+                        return false;
+                    }
                     var from_contract = me.from_contractId;
                     var msg = from_contract != 0 ? "您即将创建一份来自现有合同的任务书，每份合同只能创建一份任务书，是否创建任务书并进入项目流程？" : "您即将创建一份自定义的任务书，是否创建任务书并进入项目流程？";
                     jQuery.fn.check_msg({
@@ -666,9 +669,6 @@
                             }
                         }
                     })
-                },
-                clear_sumbit: function () {
-                    alert("取消");
                 },
                 /**
                  * 生成合同编号
