@@ -48,7 +48,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="paging nomargin pull-right"></div>
-                <h4 class="panel-title" v-if="searchCondition.length == 0">全部合同</h4>
+                <h4 class="panel-title" v-if="searchCondition.length == 0">合同列表</h4>
                 <h4 class="panel-title" v-else>“
                     <template v-for="search in searchCondition">
                         {{ search }}
