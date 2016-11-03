@@ -132,22 +132,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="form-group">-->
-                        <!--<label class="col-sm-2 control-label">承接科室</label>-->
-                        <!--<div class="col-sm-8">-->
-                        <!--<select class="select2" v-model="receive_depart" name="department_id"-->
-                        <!--id="receive_depart"-->
-                        <!--data-placeholder="选择交付方式"-->
-                        <!--required>-->
-                        <!--<option value=""></option>-->
-                        <!--<template v-for="item in receive_depart_list">-->
-                        <!--<option value="{{item.id}}">{{item.name}}</option>-->
-                        <!--</template>-->
-                        <!--</select>-->
-                        <!--<span class="help-block">承接科室设定项目流程的走向,管理员可以在"系统设置"->"承接科室设置"中进行流程修改。</span>-->
-                        <!--</div>-->
-                        <!--</div>-->
-
                         <div class="form-group">
                             <label class="col-sm-2 control-label">采样方式</label>
                             <div class="col-sm-8">
@@ -290,98 +274,200 @@
                 },
                 from_contract: function () {
                     var me = this;
-                    me.$http.get("/assets/json/contract_search_result.json").then(function (response) {
-                        var data = response.data;
-                        var template = jQuery.fn.loadTemplate("/assets/template/subject/contract_select_list.tpl");
-                        Vue.component('child', {
-                            template: template,
-                            data: function () {
-                                return {result_list: data.results};
-                            },
-                            methods: {
-                                import_into: function (data) {
-                                    console.log(data.id);
-                                    me.$http.get("/assets/json/contract_template.json").then(function (response) {
-                                        var data = response.data;
-                                        for (var key in data) {
-                                            if (me[key] != undefined) {
-                                                me.$set(key, data[key]);
-                                            }
+                    var template = jQuery.fn.loadTemplate("/assets/template/subject/task_fromContract.tpl");
+                    Vue.component('child', {
+                        template: template,
+                        data: function () {
+                            return {
+                                result_list: [],//结果集
+                                totalRowCount: ''//总共有的结果数
+                            };
+                        },
+                        methods: {
+                            import_into: function (data) {
+                                console.log(data.id);
+                                me.$http.get("/assets/json/contract_template.json").then(function (response) {
+                                    var data = response.data;
+                                    for (var key in data) {
+                                        if (me[key] != undefined) {
+                                            me.$set(key, data[key]);
                                         }
-                                        jQuery('#custom_lg_modal').modal("hide");
-                                        jQuery.fn.alert_msg("合同导入成功！");
+                                    }
+                                    jQuery('#custom_lg_modal').modal("hide");
+                                    jQuery.fn.alert_msg("合同导入成功！");
 
-                                    }, function (response) {
+                                }, function (response) {
 
-                                    })
-                                },
-                                show_info: function () {
-                                    jQuery("#custom_lg_modal").modal("hide");
-                                    me.$http.get("/assets/json/contract_template.json").then(function (response) {
-                                        var data = response.data;
-                                        var template = jQuery.fn.loadTemplate("/assets/template/subject/contract_view.tpl");
-                                        Vue.component('view_contract' + data.id, {
-                                            template: template,
-                                            data: function () {
-                                                return {
-                                                    client_unit: "",
-                                                    client_code: "",
-                                                    client_address: "",
-                                                    client_tel: "",
-                                                    client: "",
-                                                    client_fax: "",
-                                                    trustee_unit: "",
-                                                    trustee_code: "",
-                                                    trustee_address: "",
-                                                    trustee_tel: "",
-                                                    trustee: "",
-                                                    trustee_fax: "",
-                                                    project_name: "",
-                                                    monitor_aim: "",
-                                                    monitor_type: "",
-                                                    monitor_way: "",
-                                                    monitor_way_desp: "",
-                                                    subpackage: "",
-                                                    subpackage_project: "",
-                                                    item_arr: [],
-                                                    payment_way: "",
-                                                    finish_date: "",
-                                                    payment_count: "",
-                                                    in_room: "",
-                                                    keep_secret: "",
-                                                    other: ""
-                                                };
+                                })
+                            },
+                            view_info: function (contract) {
+                                var me = this;
+                                var id = contract.id;
+                                me.$http.get("/constarct/getById", {
+                                    params: {
+                                        id: id
+                                    }
+                                }).then(function (response) {
+                                    var data = response.data;
+                                    var template = jQuery.fn.loadTemplate("/assets/template/subject/contract_review.tpl");
+                                    Vue.component('contract_view' + id, {
+                                        template: template,
+                                        data: function () {
+                                            return {
+                                                identify: "",
+                                                client_unit: "",
+                                                client_code: "",
+                                                client_address: "",
+                                                client_tel: "",
+                                                client: "",
+                                                client_fax: "",
+                                                trustee_unit: "",
+                                                trustee_code: "",
+                                                trustee_address: "",
+                                                trustee_tel: "",
+                                                trustee: "",
+                                                trustee_fax: "",
+                                                project_name: "",
+                                                monitor_aim: "",
+                                                monitor_type: "",
+                                                monitor_way: "",
+                                                monitor_way_desp: "",
+                                                subpackage: "",
+                                                subpackage_project: "",
+                                                item_arr: [],
+                                                payment_way: "",
+                                                finish_date: "",
+                                                payment_count: "",
+                                                in_room: "",
+                                                keep_secret: "",
+                                                other: ""
+                                            };
+                                        },
+                                        methods: {
+                                            pass: function (data) {
+                                                var that = this;
+                                                jQuery("#custom_lg_modal").modal("hide");
+                                                jQuery.fn.check_msg({
+                                                    msg: "是否将编号为<span style='font-weight: bolder'>" + that.identify + "</span>的合同标记为<span class='text-success'>【审核通过】</span>?",
+                                                    success: function () {
+                                                        me.$http.post("/constarct/review", {
+                                                            id: id,
+                                                            state: 1
+                                                        }).then(function (response) {
+                                                            var data = response.data;
+                                                            jQuery.fn.codeState(data.code, {
+                                                                200: function () {
+                                                                    jQuery.fn.alert_msg("合同审核完成!");
+                                                                    var currentPage = parseInt(jQuery('.paging span').html());
+                                                                    me.load_list("state=1", currentPage);
+                                                                }
+                                                            });
+                                                        }, function (response) {
+                                                            jQuery.fn.error_msg("合同数据请求异常,请刷新后重新尝试。");
+                                                        });
+                                                    }
+                                                });
                                             },
-                                            methods: {},
-                                            ready: function () {
-                                                for (var key in data) {
-                                                    this.$set(key, data[key]);
+                                            reject: function () {
+                                                var that = this;
+                                                jQuery("#custom_lg_modal").modal("hide");
+                                                jQuery.fn.check_msg({
+                                                    msg: "是否将编号为<span style='font-weight: bolder'>" + that.identify + "</span>的合同标记为<span class='text-danger'>【审核拒绝】</span>?",
+                                                    success: function () {
+                                                        me.$http.post("/constarct/review", {
+                                                            id: id,
+                                                            state: -4
+                                                        }).then(function (response) {
+                                                            var data = response.data;
+                                                            jQuery.fn.codeState(data.code, {
+                                                                200: function () {
+                                                                    jQuery.fn.alert_msg("合同审核完成!");
+                                                                    var currentPage = parseInt(jQuery('.paging span').html());
+                                                                    me.load_list("state=1", currentPage);
+                                                                }
+                                                            });
+                                                        }, function (response) {
+                                                            jQuery.fn.error_msg("合同数据请求异常,请刷新后重新尝试。");
+                                                        });
+                                                    }
+                                                });
+                                            }
+                                        },
+                                        ready: function () {
+                                            var me = this;
+                                            var result = data.results[0];
+                                            var items = data.items;
+                                            for (var key in result) {
+                                                if (me[key] != undefined) {
+                                                    me.$set(key, result[key]);
                                                 }
                                             }
-                                        });
-                                        LIMS.dialog.$set('title', '从客户管理系统中导入');
-                                        LIMS.dialog.currentView = 'view_contract' + data.id;
-                                    }, function (response) {
-                                        //error
-                                        jQuery.fn.error_msg("客户资料获取失败！");
+                                            me.$set("item_arr", items);
+                                            me.$set("trustee", data.trustee.name);
+                                        }
                                     });
-
-
-                                    jQuery("#custom_modal").modal("show");
-
-
-                                    return;
-                                }
+                                    LIMS.dialog_lg.$set('title', '查看合同详情');
+                                    LIMS.dialog_lg.currentView = 'contract_view' + id;
+                                }, function (response) {
+                                    jQuery.fn.error_msg("合同数据请求异常,请刷新后重新尝试。");
+                                });
+                            },
+                            load_list: function (condition, currentPage) {
+                                var me = this;
+                                var dom = jQuery(me.$el);
+                                var rowCount = localStorage.getItem("rowCount") || 0;
+                                me.$http.get("/constarct/list", {
+                                    params: {
+                                        rowCount: rowCount,
+                                        currentPage: currentPage,
+                                        condition: condition
+                                    }
+                                }).then(function (response) {
+                                    var data = response.data;
+                                    me.$set("result_list", data.results);
+                                    me.$set("totalRowCount", data.totalRowCount);
+                                    //页码事件
+                                    dom.find('.paging').pagination({
+                                        pageCount: data.totalPage != 0 ? data.totalPage : 1,
+                                        coping: true,
+                                        homePage: '首页',
+                                        endPage: '末页',
+                                        prevContent: '上页',
+                                        nextContent: '下页',
+                                        current: data.currentPage,
+                                        callback: function (page) {
+                                            var currentPage = page.getCurrent();
+                                            me.$http.get("/constarct/list", {
+                                                params: {
+                                                    rowCount: rowCount,
+                                                    currentPage: currentPage,
+                                                    condition: data.condition
+                                                }
+                                            }).then(function (response) {
+                                                var data = response.data;
+                                                me.$set("result_list", data.results);
+                                                me.$set("totalRowCount", data.totalRowCount);
+                                            }, function (response) {
+                                                jQuery.fn.error_msg("无法获取合同列表信息,请尝试刷新操作。");
+                                            });
+                                        }
+                                    });
+                                    jQuery.validator.setDefaults({
+                                        submitHandler: function () {
+                                        }
+                                    });
+                                }, function (response) {
+                                    jQuery.fn.error_msg("无法获取合同列表信息,请尝试刷新操作。");
+                                });
                             }
-                        });
-                        LIMS.dialog_lg.$set('title', '合同预览');
-                        LIMS.dialog_lg.currentView = 'child';
-                    }, function (response) {
-                        //error
-                        jQuery.fn.error_msg("客户资料获取失败！");
+                        },
+                        ready: function () {
+                            var me = this;
+                            me.load_list("state=1", 1);
+                        }
                     });
-
-
+                    LIMS.dialog_lg.$set('title', '合同预览');
+                    LIMS.dialog_lg.currentView = 'child';
                 },
                 /**
                  * 增加检测项
@@ -533,7 +619,6 @@
 
                 me.$http.get("/department/getSampleReceive").then(function (response) {
                     var data = response.data;
-                    debugger
                     var self = data.sample_self ? data.sample_self[0].name : "您尚未设置自送样接收部门";
                     var scene = data.sample_scene ? data.sample_scene[0].name : "您尚未设置现场采样接收部门";
                     me.$set("self_depart", self);
