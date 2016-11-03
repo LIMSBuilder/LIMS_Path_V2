@@ -119,13 +119,13 @@
                 view_info: function (contract) {
                     var me = this;
                     var id = contract.id;
-                    me.$http.get("/constarct/getById", {
+                    me.$http.get("/task/getById", {
                         params: {
                             id: id
                         }
                     }).then(function (response) {
                         var data = response.data;
-                        var template = jQuery.fn.loadTemplate("/assets/template/subject/contract_view.tpl");
+                        var template = jQuery.fn.loadTemplate("/assets/template/subject/task_view.tpl");
                         Vue.component('contract_view' + id, {
                             template: template,
                             data: function () {
@@ -136,26 +136,13 @@
                                     client_address: "",
                                     client_tel: "",
                                     client: "",
-                                    client_fax: "",
-                                    trustee_unit: "",
-                                    trustee_code: "",
-                                    trustee_address: "",
-                                    trustee_tel: "",
-                                    trustee: "",
-                                    trustee_fax: "",
                                     project_name: "",
                                     monitor_aim: "",
-                                    monitor_type: "",
                                     monitor_way: "",
                                     monitor_way_desp: "",
-                                    subpackage: "",
-                                    subpackage_project: "",
                                     item_arr: [],
-                                    payment_way: "",
-                                    finish_date: "",
-                                    payment_count: "",
-                                    in_room: "",
-                                    keep_secret: "",
+                                    create_time:"",
+                                    receive_deparment:"",
                                     other: ""
                                 };
                             },
@@ -167,21 +154,18 @@
                             },
                             ready: function () {
                                 var me = this;
-                                var result = data.results[0];
-                                var items = data.items;
-                                for (var key in result) {
+                                //var items = data.items;
+                                for (var key in data) {
                                     if (me[key] != undefined) {
-                                        me.$set(key, result[key]);
+                                        me.$set(key, data[key]);
                                     }
                                 }
-                                me.$set("item_arr", items);
-                                me.$set("trustee", data.trustee.name);
                             }
                         });
-                        LIMS.dialog_lg.$set('title', '查看合同详情');
+                        LIMS.dialog_lg.$set('title', '查看任务书详情');
                         LIMS.dialog_lg.currentView = 'contract_view' + id;
                     }, function (response) {
-                        jQuery.fn.error_msg("合同数据请求异常,请刷新后重新尝试。");
+                        jQuery.fn.error_msg("任务书数据请求异常,请刷新后重新尝试。");
                     });
                 },
                 load_list: function (condition, currentPage) {

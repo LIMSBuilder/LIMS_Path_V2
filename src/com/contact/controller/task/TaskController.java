@@ -1,9 +1,7 @@
 package com.contact.controller.task;
 
 
-import com.contact.model.Item_Project;
-import com.contact.model.MonitorItem;
-import com.contact.model.Task;
+import com.contact.model.*;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
@@ -197,6 +195,43 @@ public class TaskController extends Controller {
             }
         });
         renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+    }
+
+
+    public void getById() {
+        try {
+            int id = getParaToInt("id");
+            Task task = Task.taskDao.findById(id);
+            if (task != null) {
+                renderJson(toJsonSingle(task));
+            }
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+    public Map toJsonSingle(Task task) {
+        String[] keys = {"identify", "client_unit", "client_address", "client_code", "client_tel", "client", "project_name", "monitor_aim", "monitor_way", "monitor_way_desp"};
+        Map result = new HashMap();
+        if (task.get("contract_id") != null) {
+            int id = task.getInt("contract_id");
+            Contract contract = Contract.contractDao.findById(id);
+            for (String key : keys) {
+                result.put(key, contract.get(key));
+            }
+        } else {
+            for (String key : keys) {
+                result.put(key, task.get(key));
+            }
+        }
+        result.put("id", task.get("id"));
+        result.put("receive_deparment", Department.departmentDao.findById(task.get("receive_deparment")));
+        result.put("other", task.get("other"));
+        result.put("state", task.get("state"));
+        result.put("create_time", task.get("create_time"));
+        result.put("item_arr", task.getMonitorItems());
+        result.put("create_time", task.get("create_time"));
+        return result;
     }
 
     /**

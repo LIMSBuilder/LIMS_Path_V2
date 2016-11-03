@@ -8,9 +8,8 @@
   <component name="ChangeListManager">
     <list default="true" id="20ae044c-4c25-41ff-ab00-28aaf995c514" name="默认的" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/pages/index.html" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/contract/search.tpl" afterPath="$PROJECT_DIR$/web/assets/template/contract/search.tpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/task/create.tpl" afterPath="$PROJECT_DIR$/web/assets/template/task/create.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/model/Task.java" afterPath="$PROJECT_DIR$/src/com/contact/model/Task.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/subject/task_view.tpl" afterPath="$PROJECT_DIR$/web/assets/template/subject/task_view.tpl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/task/search.tpl" afterPath="$PROJECT_DIR$/web/assets/template/task/search.tpl" />
     </list>
     <ignored path="LIMS_V2.iws" />
@@ -37,27 +36,17 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.65384614">
+            <state vertical-scroll-proportion="162.15384">
               <caret line="102" column="88" selection-start-line="102" selection-start-column="88" selection-end-line="102" selection-end-column="88" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DepartmentController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/contact/controller/system/DepartmentController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="209" column="64" selection-start-line="209" selection-start-column="64" selection-end-line="209" selection-end-column="64" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="search.tpl" pinned="false" current-in-tab="true">
+      <file leaf-file-name="search.tpl" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/assets/template/contract/search.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.68659127">
+            <state vertical-scroll-proportion="-16.346153">
               <caret line="50" column="79" selection-start-line="50" selection-start-column="79" selection-end-line="50" selection-end-column="79" />
               <folding>
                 <element signature="e#8964#11367#0" expanded="false" />
@@ -66,14 +55,23 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="task_view.tpl" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/assets/template/subject/task_view.tpl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5056543">
+              <caret line="79" column="61" selection-start-line="79" selection-start-column="61" selection-end-line="79" selection-end-column="61" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="search.tpl" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/assets/template/task/search.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.692307">
-              <caret line="48" column="80" selection-start-line="48" selection-start-column="80" selection-end-line="48" selection-end-column="80" />
+            <state vertical-scroll-proportion="-15.307693">
+              <caret line="144" column="53" selection-start-line="144" selection-start-column="36" selection-end-line="144" selection-end-column="53" />
               <folding>
-                <element signature="e#5453#8821#0" expanded="false" />
-                <element signature="e#8884#11277#0" expanded="false" />
+                <element signature="e#7991#10384#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -83,7 +81,19 @@
         <entry file="file://$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+              <caret line="227" column="37" selection-start-line="227" selection-start-column="20" selection-end-line="227" selection-end-column="37" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Task.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/contact/model/Task.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="22" column="118" selection-start-line="22" selection-start-column="118" selection-end-line="22" selection-end-column="118" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -95,7 +105,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/contact/controller/constract/ContractController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="39" column="49" selection-start-line="39" selection-start-column="49" selection-end-line="39" selection-end-column="49" />
+              <caret line="116" column="44" selection-start-line="116" selection-start-column="44" selection-end-line="116" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -123,7 +133,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/web/index.html" />
         <option value="$PROJECT_DIR$/web/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/web/assets/template/subject/project_addItem.tpl" />
         <option value="$PROJECT_DIR$/src/com/contact/model/Monitor_Project.java" />
@@ -165,15 +174,16 @@
         <option value="$PROJECT_DIR$/web/assets/template/contract/review.tpl" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/system/DepartmentController.java" />
         <option value="$PROJECT_DIR$/web/assets/template/subject/task_fromContract.tpl" />
-        <option value="$PROJECT_DIR$/src/com/contact/model/Task.java" />
         <option value="$PROJECT_DIR$/src/com/contact/config/CommonConfig.java" />
         <option value="$PROJECT_DIR$/src/com/contact/config/CommonRoutes.java" />
         <option value="$PROJECT_DIR$/src/setting.properties" />
         <option value="$PROJECT_DIR$/web/assets/template/task/create.tpl" />
         <option value="$PROJECT_DIR$/web/WEB-INF/pages/index.html" />
+        <option value="$PROJECT_DIR$/web/assets/template/contract/search.tpl" />
+        <option value="$PROJECT_DIR$/src/com/contact/model/Task.java" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java" />
         <option value="$PROJECT_DIR$/web/assets/template/task/search.tpl" />
-        <option value="$PROJECT_DIR$/web/assets/template/contract/search.tpl" />
+        <option value="$PROJECT_DIR$/web/assets/template/subject/task_view.tpl" />
       </list>
     </option>
   </component>
@@ -333,33 +343,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="task" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LIMS_V2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LIMS_V2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="template" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="contract" />
+              <option name="myItemId" value="subject" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -432,6 +416,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="contact" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contact" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="model" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1133,12 +1139,12 @@
       <workItem from="1477813202069" duration="17750000" />
       <workItem from="1477837077880" duration="44691000" />
       <workItem from="1477987807099" duration="4649000" />
-      <workItem from="1478082784528" duration="20767000" />
+      <workItem from="1478082784528" duration="22420000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="224418000" />
+    <option name="totallyTimeSpent" value="226071000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1219,13 +1225,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/contact/model/Role.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21052632">
-          <caret line="8" column="29" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/signin.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="46.76923">
@@ -1432,17 +1431,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/model/Contract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.68421054">
-          <caret line="26" column="65" selection-start-line="26" selection-start-column="65" selection-end-line="26" selection-end-column="65" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#setMonitorItems#0;class#Contract#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/subject/contract_view.tpl">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7532258">
@@ -1506,14 +1494,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13178295">
           <caret line="5" column="50" selection-start-line="5" selection-start-column="50" selection-end-line="5" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/model/Task.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13178295">
-          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
           <folding />
         </state>
       </provider>
@@ -1610,14 +1590,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.65384614">
-          <caret line="102" column="88" selection-start-line="102" selection-start-column="88" selection-end-line="102" selection-end-column="88" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/contact/controller/system/FeedbackController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1626,26 +1598,65 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/contact/model/Contract.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.896124">
+          <caret line="34" column="5" selection-start-line="15" selection-start-column="4" selection-end-line="34" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#setMonitorItems#0;class#Contract#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/contact/controller/constract/ContractController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="49" selection-start-line="39" selection-start-column="49" selection-end-line="39" selection-end-column="49" />
+          <caret line="116" column="44" selection-start-line="116" selection-start-column="44" selection-end-line="116" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/contact/controller/system/DepartmentController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.60465115">
           <caret line="209" column="64" selection-start-line="209" selection-start-column="64" selection-end-line="209" selection-end-column="64" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="162.15384">
+          <caret line="102" column="88" selection-start-line="102" selection-start-column="88" selection-end-line="102" selection-end-column="88" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/contact/model/Task.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="118" selection-start-line="22" selection-start-column="118" selection-end-line="22" selection-end-column="118" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/template/contract/search.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.346153">
+          <caret line="50" column="79" selection-start-line="50" selection-start-column="79" selection-end-line="50" selection-end-column="79" />
+          <folding>
+            <element signature="e#8964#11367#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+          <caret line="227" column="37" selection-start-line="227" selection-start-column="20" selection-end-line="227" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1654,22 +1665,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/task/search.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.692307">
-          <caret line="48" column="80" selection-start-line="48" selection-start-column="80" selection-end-line="48" selection-end-column="80" />
+        <state vertical-scroll-proportion="-15.307693">
+          <caret line="144" column="53" selection-start-line="144" selection-start-column="36" selection-end-line="144" selection-end-column="53" />
           <folding>
-            <element signature="e#5453#8821#0" expanded="false" />
-            <element signature="e#8884#11277#0" expanded="false" />
+            <element signature="e#7991#10384#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/template/contract/search.tpl">
+    <entry file="file://$PROJECT_DIR$/web/assets/template/subject/task_view.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.68659127">
-          <caret line="50" column="79" selection-start-line="50" selection-start-column="79" selection-end-line="50" selection-end-column="79" />
-          <folding>
-            <element signature="e#8964#11367#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.5056543">
+          <caret line="79" column="61" selection-start-line="79" selection-start-column="61" selection-end-line="79" selection-end-column="61" />
+          <folding />
         </state>
       </provider>
     </entry>

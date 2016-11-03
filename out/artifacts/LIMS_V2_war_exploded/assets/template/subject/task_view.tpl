@@ -3,9 +3,6 @@
         <div class="table-responsive">
             <table class="table table-bordered mb30 text-center">
                 <tr>
-                    <th colspan="6" class="text-center"><h4>任 务 书</h4></th>
-                </tr>
-                <tr>
                     <td>任务书编号</td>
                     <td colspan="5">{{identify}}</td>
                 </tr>
@@ -49,7 +46,7 @@
                                     <tr>
                                         <td class="text-center">{{index+1}}</td>
                                         <td class="text-center">
-                                            {{item.environment_text}}
+                                            {{item.environment_text.name}}
                                         </td>
                                         <td class="text-center">{{item.monitor_point}}</td>
                                         <td class="text-center">
@@ -76,11 +73,11 @@
                     <td>任务下达人</td>
                     <td colspan="2">{{task_assigned}}</td>
                     <td>日期</td>
-                    <td colspan="2">{{task_assigned_date}}</td>
+                    <td colspan="2">{{create_time}}</td>
                 </tr>
                 <tr>
                     <td>承接科室</td>
-                    <td colspan="2">{{receive_depart}}</td>
+                    <td colspan="2">{{receive_deparment.name}}</td>
                     <td>项目负责人</td>
                     <td colspan="2">{{task_charge}}</td>
                 </tr>
