@@ -201,7 +201,21 @@ public class DepartmentController extends Controller {
 
 
     public void getList() {
-        List<Department> departmentList = Department.departmentDao.find("SELECT * FROM `db_department`");
+        List<Department> departmentList = Department.departmentDao.find("SELECT * FROM `db_department` WHERE state=0");
         renderJson(toJson(departmentList));
+    }
+
+    public void getSampleReceive() {
+        Prop setting = PropKit.use("setting.properties");
+        int sample_self = setting.getInt("sample_receive_self");
+        int sample_scene = setting.getInt("sample_receive_scene");
+        Map map = new HashMap();
+        if (sample_self != 0) {
+            map.put("sample_self", Department.departmentDao.findFirst("SELECT * FROM `db_department` WHERE state=0 AND id=" + sample_self));
+        }
+        if (sample_scene != 0) {
+            map.put("sample_scene", Department.departmentDao.findFirst("SELECT * FROM `db_department` WHERE state=0 AND id=" + sample_scene));
+        }
+        renderJson(map);
     }
 }
