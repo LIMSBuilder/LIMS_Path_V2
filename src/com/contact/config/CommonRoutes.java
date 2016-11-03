@@ -3,6 +3,7 @@ package com.contact.config;
 import com.contact.controller.constract.*;
 import com.contact.controller.common.SignController;
 import com.contact.controller.system.*;
+import com.contact.controller.task.TaskController;
 import com.jfinal.config.Routes;
 
 /**
@@ -23,5 +24,6 @@ public class CommonRoutes extends Routes {
         add("/default", DefaultsController.class, "/");
         add("/constarct", ContractController.class, "/");
         add("/feedback", FeedbackController.class, "/");
+        add("/task", TaskController.class, "/");
     }
 }

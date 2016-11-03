@@ -9,20 +9,36 @@
                 <div class="col-md-11">
                     <form class="form-horizontal" id="task_form">
                         <div class="form-group ">
+                            <label class="col-sm-2 control-label ">任务书编号</label>
+                            <div class="col-sm-7">
+                                <input type="text" data-read="readonly" class="form-control" name="identify"
+                                       v-model="identify"
+                                       required>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="btn-demo">
+                                    <a class="btn btn-sm btn-success-alt pull-left "
+                                       v-on:click="create_identify">系统生成</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
                             <label class="col-sm-2 control-label ">委托单位</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="client_unit" v-model="client_unit"
+                                <input type="text" data-read="readonly" class="form-control" name="client_unit"
+                                       v-model="client_unit"
                                        required>
                             </div>
                             <div class="col-sm-2">
                                 <a class="btn btn-sm btn-success-alt pull-right" data-toggle="modal"
-                                   data-target=".bs-example-modal-lg" @click="from_contract">从现有合同导入</a>
+                                   data-target=".bs-example-modal-static" @click="from_contract">从现有合同导入</a>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">项目名称</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="project_name" v-model="project_name"
+                                <input type="text" data-read="readonly" class="form-control" name="project_name"
+                                       v-model="project_name"
                                        required>
                             </div>
                             <div class="col-sm-2">
@@ -33,29 +49,34 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">监测目的</label>
                             <div class="col-sm-8">
-                                <textarea class="form-control" rows="5" v-model="monitor_aim"></textarea>
+                                <textarea class="form-control" data-read="readonly" rows="5"
+                                          v-model="monitor_aim"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">联系地址</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="client_address" v-model="client_address"
+                                <input type="text" data-read="readonly" class="form-control" name="client_address"
+                                       v-model="client_address"
                                        required>
                             </div>
                             <label class="col-sm-1 control-label">邮政编码</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" name="client_code" v-model="client_code"
+                                <input type="text" data-read="readonly" class="form-control" name="client_code"
+                                       v-model="client_code"
                                        required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">联系人</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="client" v-model="client" required>
+                                <input type="text" data-read="readonly" class="form-control" name="client"
+                                       v-model="client" required>
                             </div>
                             <label class="col-sm-1 control-label">联系电话</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" name="client_tel" v-model="client_tel"
+                                <input type="text" data-read="readonly" class="form-control" name="client_tel"
+                                       v-model="client_tel"
                                        requireds>
                             </div>
                         </div>
@@ -80,7 +101,7 @@
                                             <tr>
                                                 <td class="text-center">{{index+1}}</td>
                                                 <td class="text-center">
-                                                    {{item.environment_text}}
+                                                    {{item.environment_text.name}}
                                                 </td>
                                                 <td class="text-center">{{item.monitor_point}}</td>
                                                 <td class="text-center">
@@ -103,7 +124,7 @@
                                                 </td>
                                             </tr>
                                         </template>
-                                        <tr>
+                                        <tr id="add_item_btn">
                                             <td class="table-action" colspan="7">
                                                 <a href="javascript:;" v-on:click="addItem" data-toggle="modal"
                                                    data-target=".bs-example-modal-static"><i
@@ -119,18 +140,24 @@
                             <label class="col-sm-2 control-label">监测方法</label>
                             <div class="col-sm-8">
                                 <div class="rdio rdio-primary">
-                                    <input type="radio" v-model="monitor_way" checked="checked" id="way1" value="0"
+                                    <input type="radio" v-model="monitor_way" data-read="readonly" checked="checked"
+                                           id="way1" value="0"
                                            name="monitor_way"/>
                                     <label for="way1">以我单位通过计量认证、国家实验室认可的方法进行检测</label>
                                 </div>
                                 <div class="rdio rdio-primary">
-                                    <input type="radio" v-model="monitor_way" value="1" id="way2"
+                                    <input type="radio" v-model="monitor_way" data-read="readonly" value="1" id="way2"
                                            name="monitor_way"/>
                                     <label for="way2">客户指定的方法:</label>
-                                    <input type="text" v-model="monitor_way_desp" name="monitor_way_desp"
+                                    <input type="text" v-model="monitor_way_desp" data-read="readonly"
+                                           name="monitor_way_desp"
                                            class="form-control " disabled/>
                                 </div>
                             </div>
+                        </div>
+                        <hr>
+                        <div class="form-group text-center">
+                            <h4 class="col-sm-12 text-danger">若当前任务书是从现有合同导入,则只需填写下方内容。</h4>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">采样方式</label>
@@ -138,12 +165,12 @@
                                 <div class="rdio rdio-primary">
                                     <input type="radio" v-model="sample_way" checked="checked" id="self" value="0"
                                            name="sample_way"/>
-                                    <label for="self">自送样（接收部门：{{self_depart}}）</label>
+                                    <label for="self">自送样（接收部门：{{self_depart.name}}）</label>
                                 </div>
                                 <div class="rdio rdio-primary">
                                     <input type="radio" v-model="sample_way" value="1" id="spot"
                                            name="sample_way"/>
-                                    <label for="spot">现场采样（接收部门：{{scene_depart}}）</label>
+                                    <label for="spot">现场采样（接收部门：{{scene_depart.name}}）</label>
                                 </div>
                             </div>
                         </div>
@@ -171,6 +198,7 @@
         var vue = new Vue({
             el: "#contentpanel",
             data: {
+                "identify": "",
                 "client_unit": "",
                 "project_name": "",
                 "monitor_aim": "",
@@ -184,7 +212,8 @@
                 "other": "",
                 "sample_way": "",
                 "self_depart": "",
-                "scene_depart": ""
+                "scene_depart": "",
+                "from_contractId": 0
             },
             methods: {
                 from_customer: function () {
@@ -285,31 +314,46 @@
                         },
                         methods: {
                             import_into: function (data) {
-                                console.log(data.id);
-                                me.$http.get("/assets/json/contract_template.json").then(function (response) {
-                                    var data = response.data;
-                                    for (var key in data) {
-                                        if (me[key] != undefined) {
-                                            me.$set(key, data[key]);
-                                        }
+                                jQuery('#custom_modal').modal("hide");
+                                jQuery.fn.check_msg({
+                                    msg: "是否将合同【" + data.project_name + "】导入到任务书中？当前任务书将与合同项绑定，对任务书的修改将不会生效。",
+                                    success: function () {
+                                        me.$http.get("/constarct/getById", {
+                                            params: {
+                                                id: data.id
+                                            }
+                                        }).then(function (response) {
+                                            var data = response.data.results && response.data.results[0];
+                                            var items = response.data.items;
+                                            for (var key in data) {
+                                                if (me[key] != undefined) {
+                                                    me.$set(key, data[key]);
+                                                }
+                                            }
+                                            me.$set("item_arr", items);
+                                            me.$set("from_contractId", data.id);
+                                            jQuery('#custom_lg_modal').modal("hide");
+                                            jQuery.fn.alert_msg("合同导入成功！");
+                                            jQuery("[data-read='readonly']").prop("readonly", 'true')
+                                            jQuery("[name='monitor_way']").prop("disabled", true);
+                                            jQuery("#add_item_btn").hide();
+                                        }, function (response) {
+                                            jQuery.fn.error_msg("获取合同数据失败,请刷新后重新尝试!");
+                                        });
                                     }
-                                    jQuery('#custom_lg_modal').modal("hide");
-                                    jQuery.fn.alert_msg("合同导入成功！");
-
-                                }, function (response) {
-
-                                })
+                                });
                             },
                             view_info: function (contract) {
                                 var me = this;
                                 var id = contract.id;
+                                jQuery('#custom_modal').modal("hide");
                                 me.$http.get("/constarct/getById", {
                                     params: {
                                         id: id
                                     }
                                 }).then(function (response) {
                                     var data = response.data;
-                                    var template = jQuery.fn.loadTemplate("/assets/template/subject/contract_review.tpl");
+                                    var template = jQuery.fn.loadTemplate("/assets/template/subject/contract_view.tpl");
                                     Vue.component('contract_view' + id, {
                                         template: template,
                                         data: function () {
@@ -344,53 +388,9 @@
                                             };
                                         },
                                         methods: {
-                                            pass: function (data) {
-                                                var that = this;
-                                                jQuery("#custom_lg_modal").modal("hide");
-                                                jQuery.fn.check_msg({
-                                                    msg: "是否将编号为<span style='font-weight: bolder'>" + that.identify + "</span>的合同标记为<span class='text-success'>【审核通过】</span>?",
-                                                    success: function () {
-                                                        me.$http.post("/constarct/review", {
-                                                            id: id,
-                                                            state: 1
-                                                        }).then(function (response) {
-                                                            var data = response.data;
-                                                            jQuery.fn.codeState(data.code, {
-                                                                200: function () {
-                                                                    jQuery.fn.alert_msg("合同审核完成!");
-                                                                    var currentPage = parseInt(jQuery('.paging span').html());
-                                                                    me.load_list("state=1", currentPage);
-                                                                }
-                                                            });
-                                                        }, function (response) {
-                                                            jQuery.fn.error_msg("合同数据请求异常,请刷新后重新尝试。");
-                                                        });
-                                                    }
-                                                });
-                                            },
-                                            reject: function () {
-                                                var that = this;
-                                                jQuery("#custom_lg_modal").modal("hide");
-                                                jQuery.fn.check_msg({
-                                                    msg: "是否将编号为<span style='font-weight: bolder'>" + that.identify + "</span>的合同标记为<span class='text-danger'>【审核拒绝】</span>?",
-                                                    success: function () {
-                                                        me.$http.post("/constarct/review", {
-                                                            id: id,
-                                                            state: -4
-                                                        }).then(function (response) {
-                                                            var data = response.data;
-                                                            jQuery.fn.codeState(data.code, {
-                                                                200: function () {
-                                                                    jQuery.fn.alert_msg("合同审核完成!");
-                                                                    var currentPage = parseInt(jQuery('.paging span').html());
-                                                                    me.load_list("state=1", currentPage);
-                                                                }
-                                                            });
-                                                        }, function (response) {
-                                                            jQuery.fn.error_msg("合同数据请求异常,请刷新后重新尝试。");
-                                                        });
-                                                    }
-                                                });
+                                            print: function () {
+                                                console.log(id);
+                                                jQuery.fn.alert_msg("打印合同功能待开发!")
                                             }
                                         },
                                         ready: function () {
@@ -466,8 +466,8 @@
                             me.load_list("state=1", 1);
                         }
                     });
-                    LIMS.dialog_lg.$set('title', '合同预览');
-                    LIMS.dialog_lg.currentView = 'child';
+                    LIMS.dialog.$set('title', '合同预览');
+                    LIMS.dialog.currentView = 'child';
                 },
                 /**
                  * 增加检测项
@@ -593,10 +593,50 @@
                 },
                 create_task: function () {
                     var me = this;
+                    var from_contract = me.from_contractId;
+                    var msg = from_contract != 0 ? "您即将创建一份来自现有合同的任务书，每份合同只能创建一份任务书，是否创建任务书并进入项目流程？" : "您即将创建一份自定义的任务书，是否创建任务书并进入项目流程？";
                     jQuery.fn.check_msg({
-                        msg: "是否创建任务书并进入项目流程?",
+                        msg: msg,
                         success: function () {
-                            console.log(JSON.parse(JSON.stringify(me._data)));
+                            var sample_way = me.sample_way;
+                            var receive_depart = sample_way == 0 ? me.self_depart : me.scene_depart;
+                            if (!receive_depart.id) {
+                                jQuery.fn.error_msg("您尚未设置承接科室信息,无法创建任务书！");
+                                return;
+                            }
+                            if (from_contract != 0) {
+                                //来自合同
+                                var data = {
+                                    contract_id: from_contract,
+                                    receive_deparment: receive_depart.id,
+                                    other: me.other
+                                };
+                                me.$http.post("/task/addByContract", data).then(function (response) {
+                                    var data = response.data;
+                                    jQuery.fn.codeState(data.code, {
+                                        200: "任务书保存成功!"
+                                    })
+                                }, function () {
+                                    jQuery.fn.error_msg("服务器异常，无法创建任务书!");
+                                });
+
+                            } else {
+                                //自定义
+                                var data = {
+                                    identify: me.identify,
+                                    client_unit: me.client_unit,
+                                    client_address: me.client_address,
+                                    client_code: me.client_code,
+                                    client_tel: me.client_tel,
+                                    client: me.client,
+                                    project_name: me.project_name,
+                                    monitor_aim: me.monitor_aim,
+                                    monitor_way: me.monitor_way,
+                                    monitor_way_desp: me.monitor_way_desp,
+                                    other: me.other,
+                                    receive_deparment: receive_depart.id
+                                }
+                            }
                         }
                     })
                 },
@@ -619,8 +659,8 @@
 
                 me.$http.get("/department/getSampleReceive").then(function (response) {
                     var data = response.data;
-                    var self = data.sample_self ? data.sample_self[0].name : "您尚未设置自送样接收部门";
-                    var scene = data.sample_scene ? data.sample_scene[0].name : "您尚未设置现场采样接收部门";
+                    var self = data.sample_self ? data.sample_self : {name: "您尚未设置自送样接收部门"};
+                    var scene = data.sample_scene ? data.sample_scene : {name: "您尚未设置现场采样接收部门"};
                     me.$set("self_depart", self);
                     me.$set("scene_depart", scene);
                 }, function (response) {
