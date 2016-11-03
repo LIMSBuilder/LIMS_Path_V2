@@ -11,7 +11,7 @@
                         <div class="form-group ">
                             <label class="col-sm-2 control-label ">任务书编号</label>
                             <div class="col-sm-7">
-                                <input type="text" data-read="readonly" class="form-control" name="identify"
+                                <input type="text" readonly="readonly" class="form-control" name="identify"
                                        v-model="identify"
                                        required>
                             </div>
@@ -622,6 +622,23 @@
 
                             } else {
                                 //自定义
+                                var arr_item = [];
+                                for (var i = 0; i < me.item_arr.length; i++) {
+                                    var item = me.item_arr[i];
+                                    var m = "";
+                                    for (var j = 0; j < item.monitor_item.length; j++) {
+                                        m += (item.monitor_item[j] + ",");
+                                    }
+                                    var temp = {
+                                        category_id: item.environment,
+                                        frequency: item.frequency,
+                                        monitor_point: item.monitor_point.replace(/,/g, ';'),
+                                        other: item.other,
+                                        project_id: encodeURI(m.substr(0, m.length - 1)).replace(/,/g, ';')
+                                    };
+                                    arr_item.push(JSON.stringify(temp));
+                                }
+
                                 var data = {
                                     identify: me.identify,
                                     client_unit: me.client_unit,
@@ -634,15 +651,42 @@
                                     monitor_way: me.monitor_way,
                                     monitor_way_desp: me.monitor_way_desp,
                                     other: me.other,
+                                    item_arr: arr_item,
                                     receive_deparment: receive_depart.id
-                                }
+                                };
+                                me.$http.post("/task/addBySelf", data).then(function (response) {
+                                    var data = response.data;
+                                    jQuery.fn.codeState(data.code, {
+                                        200: "任务书保存成功!",
+                                        503: "当前数据库中已经存在该编号的任务书,请重新生成。"
+                                    })
+                                }, function () {
+                                    jQuery.fn.error_msg("服务器异常，无法创建任务书!");
+                                });
                             }
                         }
                     })
                 },
                 clear_sumbit: function () {
                     alert("取消");
-                }
+                },
+                /**
+                 * 生成合同编号
+                 */
+                create_identify: function () {
+                    var me = this;
+                    jQuery.fn.check_msg({
+                        msg: "是否由系统自动生成合同编号?",
+                        success: function () {
+                            me.$http.get("/constarct/identify").then(function (response) {
+                                var data = response.data;
+                                me.$set("identify", data.identify);
+                            }, function (response) {
+                                jQuery.fn.error_msg("无法生成合同编号,请尝试刷新操作。");
+                            });
+                        }
+                    });
+                },
             },
             ready: function () {
                 var me = this;
