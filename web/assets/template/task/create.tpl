@@ -166,12 +166,12 @@
                                 <div class="rdio rdio-primary">
                                     <input type="radio" v-model="sample_way" checked="checked" id="self" value="0"
                                            name="sample_way"/>
-                                    <label for="self">自送样（接收部门：{{self_depart.name}}）</label>
+                                    <label for="self">自送样（接收部门：{{self_depart.name}}，负责岗位：{{self_role.name}}）</label>
                                 </div>
                                 <div class="rdio rdio-primary">
                                     <input type="radio" v-model="sample_way" value="1" id="spot"
                                            name="sample_way"/>
-                                    <label for="spot">现场采样（接收部门：{{scene_depart.name}}）</label>
+                                    <label for="spot">现场采样（接收部门：{{scene_depart.name}}，负责岗位：{{scene_role.name}}）</label>
                                 </div>
                             </div>
                         </div>
@@ -213,6 +213,8 @@
                 "sample_way": "",
                 "self_depart": "",
                 "scene_depart": "",
+                "self_role": "",
+                "scene_role": "",
                 "from_contractId": 0
             },
             methods: {
@@ -389,8 +391,7 @@
                                         },
                                         methods: {
                                             print: function () {
-                                                console.log(id);
-                                                jQuery.fn.alert_msg("打印合同功能待开发!")
+                                                jQuery.fn.export_contract(id);
                                             }
                                         },
                                         ready: function () {
@@ -703,10 +704,10 @@
 
                 me.$http.get("/properties/getReceiveInfo").then(function (response) {
                     var data = response.data;
-                    var self = data.sample_self ? data.sample_self : {name: "尚未设置"};
-                    var scene = data.sample_scene ? data.sample_scene : {name: "尚未设置"};
-                    me.$set("self_depart", self);
-                    me.$set("scene_depart", scene);
+                    me.$set("self_depart", data.sample_self ? data.sample_self : {name: "尚未设置"});
+                    me.$set("scene_depart", data.sample_scene ? data.sample_scene : {name: "尚未设置"});
+                    me.$set("self_role", data.sample_self_role ? data.sample_self_role : {name: "尚未设置"});
+                    me.$set("scene_role", data.sample_scene_role ? data.sample_scene_role : {name: "尚未设置"});
                 }, function (response) {
                     jQuery.fn.error_msg("无法获取承接科室信息!");
                 });

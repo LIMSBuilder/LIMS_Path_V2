@@ -481,6 +481,16 @@ jQuery(document).ready(function () {
     };
 
 
+    jQuery.fn.export_contract = function (id) {
+        console.log(id);
+        jQuery.fn.alert_msg("导出合同功能待开发!")
+    };
+    jQuery.fn.export_task = function (id) {
+        console.log(id);
+        jQuery.fn.alert_msg("导出任务书功能待开发!")
+    };
+
+
     //执行自动调整高度,2秒执行一次 
     setInterval(function () {
         adjustmainpanelheight();
