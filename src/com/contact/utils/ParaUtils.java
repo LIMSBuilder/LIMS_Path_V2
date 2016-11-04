@@ -1,5 +1,6 @@
 package com.contact.utils;
 
+import com.contact.model.User;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 import sun.misc.BASE64Encoder;
@@ -92,6 +93,16 @@ public class ParaUtils {
             return true;
         else
             return false;
+    }
+
+    /**
+     * 获取当前登录用户
+     *
+     * @return
+     */
+    public static User getCurrentUser() {
+        User user = User.userDao.findById(1);
+        return user;
     }
 
 }

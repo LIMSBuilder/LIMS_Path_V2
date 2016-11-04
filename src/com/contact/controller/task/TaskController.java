@@ -2,11 +2,10 @@ package com.contact.controller.task;
 
 
 import com.contact.model.*;
+import com.contact.model.Properties;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
-import com.jfinal.kit.Prop;
-import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.IAtom;
 import com.jfinal.plugin.activerecord.Page;
@@ -56,9 +55,9 @@ public class TaskController extends Controller {
             if (key.equals("sample_type")) {
                 String[] ids = value.toString().split(",");
                 String temp = "";
-                Prop setting = PropKit.use("setting.properties");
-                int sample_self = setting.getInt("sample_receive_self");
-                int sample_scene = setting.getInt("sample_receive_scene");
+                Properties properties = Properties.propertiesDao.findById(1);
+                int sample_self = properties.getInt("sample_receive_self");
+                int sample_scene = properties.getInt("sample_receive_scene");
                 for (int k = 0; k < ids.length; k++) {
                     int id = Integer.parseInt(ids[k]);
                     switch (id) {
@@ -130,6 +129,7 @@ public class TaskController extends Controller {
                         .set("receive_deparment", getParaToInt("receive_deparment"))
                         .set("other", getPara("other"))
                         .set("create_time", sdf.format(new Date()))
+                        .set("create_user", ParaUtils.getCurrentUser().getInt("id"))
                         .set("state", 0)
                         .save();
                 renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
@@ -160,7 +160,7 @@ public class TaskController extends Controller {
                         task.set(key.toString(), value);
                     }
                 }
-                task.set("create_time", sdf.format(new Date())).set("state", 0);
+                task.set("create_time", sdf.format(new Date())).set("state", 0).set("create_user", ParaUtils.getCurrentUser().getInt("id"));
                 Boolean result = task.save();
                 Boolean item_result = true;
                 Boolean item_project_result = true;
@@ -229,6 +229,7 @@ public class TaskController extends Controller {
         result.put("other", task.get("other"));
         result.put("state", task.get("state"));
         result.put("create_time", task.get("create_time"));
+        result.put("create_user", User.userDao.findById(task.get("create_user")));
         result.put("item_arr", task.getMonitorItems());
         result.put("create_time", task.get("create_time"));
         return result;

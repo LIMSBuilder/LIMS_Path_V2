@@ -166,8 +166,7 @@
                             },
                             methods: {
                                 print: function () {
-                                    console.log(id);
-                                    jQuery.fn.alert_msg("打印合同功能待开发!")
+                                    jQuery.fn.export_contract(id);
                                 }
                             },
                             ready: function () {
@@ -245,11 +244,6 @@
                     max: 100,
                     value: 50
                 });
-
-//                jQuery(".select2").select2({
-//                    width: '100%'
-//                });
-
                 // Date Picker
                 jQuery('#date_start').datepicker();
                 jQuery('#date_end').datepicker();
@@ -264,6 +258,9 @@
                 }, function (response) {
                     jQuery.fn.error_msg("获取监测类型列表失败！");
                 });
+
+
+
                 me.load_list("", 1);
             }
         });
