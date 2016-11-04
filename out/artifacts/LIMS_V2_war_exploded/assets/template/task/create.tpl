@@ -306,7 +306,8 @@
                 from_contract: function () {
                     var me = this;
                     var template = jQuery.fn.loadTemplate("/assets/template/subject/task_fromContract.tpl");
-                    Vue.component('child', {
+                    var name ='task_fromContract'+Math.random();
+                    Vue.component(name, {
                         template: template,
                         data: function () {
                             return {
@@ -467,8 +468,8 @@
                             me.load_list("state=1", 1);
                         }
                     });
-                    LIMS.dialog.$set('title', '合同预览');
-                    LIMS.dialog.currentView = 'child';
+                    LIMS.dialog.$set('title', '从现有合同导入');
+                    LIMS.dialog.currentView = name;
                 },
                 /**
                  * 增加检测项

@@ -72,7 +72,7 @@
                                 <h4 class="filename text-primary">{{result.project_name}}</h4>
                                 <small class="text-muted">合同编号: {{result.identify}}</small>
                                 <br/>
-                                <small class="text-muted">监测类型: {{result.monitor_type}}</small>
+                                <small class="text-muted">承接科室: {{result.receive_deparment.name}}</small>
                                 <br/>
                                 <small class="text-muted">创建时间: {{result.create_time}}</small>
                                 <br/>

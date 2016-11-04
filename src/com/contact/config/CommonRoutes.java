@@ -3,13 +3,11 @@ package com.contact.config;
 import com.contact.controller.common.PropertiesController;
 import com.contact.controller.constract.*;
 import com.contact.controller.common.SignController;
+import com.contact.controller.sample.SampleController;
 import com.contact.controller.system.*;
 import com.contact.controller.task.TaskController;
 import com.jfinal.config.Routes;
 
-/**
- * Created by qulongjun on 2016/10/17.
- */
 public class CommonRoutes extends Routes {
 
     @Override
@@ -27,5 +25,6 @@ public class CommonRoutes extends Routes {
         add("/feedback", FeedbackController.class, "/");
         add("/task", TaskController.class, "/");
         add("/properties", PropertiesController.class, "/");
+        add("/sample", SampleController.class, "/");
     }
 }
