@@ -31,7 +31,7 @@ public class TaskController extends Controller {
         if (rowCount == 0) {
             rowCount = ParaUtils.getRowCount();
         }
-        String paras = " WHERE contract_id IS Null AND state != -3";
+        String paras = " WHERE state != -3";
         Object[] keys = condition.keySet().toArray();
         for (int i = 0; i < keys.length; i++) {
             String key = (String) keys[i];
@@ -131,6 +131,7 @@ public class TaskController extends Controller {
                     return;
                 }
                 Task task = new Task();
+                Contract contract = Contract.contractDao.findById(contract_id);
                 Boolean result = task
                         .set("contract_id", contract_id)
                         .set("receive_deparment", getParaToInt("receive_deparment"))
@@ -138,6 +139,16 @@ public class TaskController extends Controller {
                         .set("create_time", sdf.format(new Date()))
                         .set("create_user", ParaUtils.getCurrentUser().getInt("id"))
                         .set("state", 0)
+                        .set("identify", contract.get("identify"))
+                        .set("client_unit", contract.get("client_unit"))
+                        .set("client_address", contract.get("client_address"))
+                        .set("client_code", contract.get("client_code"))
+                        .set("client_tel", contract.get("client_tel"))
+                        .set("client", contract.get("client"))
+                        .set("project_name", contract.get("project_name"))
+                        .set("monitor_aim", contract.get("monitor_aim"))
+                        .set("monitor_way", contract.get("monitor_way"))
+                        .set("monitor_way_desp", contract.get("monitor_way_desp"))
                         .save();
                 renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
             }
@@ -217,6 +228,20 @@ public class TaskController extends Controller {
         }
     }
 
+//    public void getMonitorProject() {
+//        try {
+//            int id = getParaToInt("id");
+//            Task task = Task.taskDao.findById(id);
+//            if (task != null) {
+//                renderJson(task.getMonitorProjects());
+//            } else {
+//                renderJson(RenderUtils.CODE_EMPTY);
+//            }
+//        } catch (Exception e) {
+//            renderError(500);
+//        }
+//    }
+
     public Map toJsonSingle(Task task) {
         String[] keys = {"identify", "client_unit", "client_address", "client_code", "client_tel", "client", "project_name", "monitor_aim", "monitor_way", "monitor_way_desp"};
         Map result = new HashMap();
@@ -225,10 +250,12 @@ public class TaskController extends Controller {
             Contract contract = Contract.contractDao.findById(id);
             for (String key : keys) {
                 result.put(key, contract.get(key));
+                result.put("item_arr", contract.getMonitorItems());
             }
         } else {
             for (String key : keys) {
                 result.put(key, task.get(key));
+                result.put("item_arr", task.getMonitorItems());
             }
         }
         result.put("id", task.get("id"));
@@ -237,7 +264,6 @@ public class TaskController extends Controller {
         result.put("state", task.get("state"));
         result.put("create_time", task.get("create_time"));
         result.put("create_user", User.userDao.findById(task.get("create_user")));
-        result.put("item_arr", task.getMonitorItems());
         result.put("create_time", task.get("create_time"));
         return result;
     }
