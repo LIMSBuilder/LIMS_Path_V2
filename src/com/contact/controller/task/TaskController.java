@@ -84,7 +84,7 @@ public class TaskController extends Controller {
                 paras += (" AND create_time <= '" + value + "'");
             }
         }
-        Page<Task> taskPage = Task.taskDao.paginate(currentPage, rowCount, "SELECT *", " FROM `db_task`" + paras);
+        Page<Task> taskPage = Task.taskDao.paginate(currentPage, rowCount, "SELECT * ", " FROM `db_task`" + paras);
         List<Task> taskList = taskPage.getList();
         Map results = toJson(taskList);
         results.put("currentPage", currentPage);
@@ -105,7 +105,14 @@ public class TaskController extends Controller {
         Map<String, Object> json = new HashMap<>();
         List results = new ArrayList();
         for (Task task : entityList) {
-            results.add(task);
+            Map map = new HashMap();
+            map.put("id", task.get("id"));
+            map.put("identify", task.get("identify"));
+            map.put("create_time", task.get("create_time"));
+            map.put("project_name", task.get("project_name"));
+            map.put("client_unit", task.get("client_unit"));
+            map.put("receive_deparment", Department.departmentDao.findById(task.get("receive_deparment")));
+            results.add(map);
         }
         json.put("results", results);
         return json;

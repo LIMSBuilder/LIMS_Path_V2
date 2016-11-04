@@ -65,8 +65,12 @@
                                 <img alt="" src="/assets/images/photos/contract.png" class="media-object">
                             </a>
                             <div class="media-body">
-                                <a class="btn btn-default-alt pull-right" data-toggle="modal"
-                                   data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
+                                <div class="btn-demo pull-right">
+                                    <a class="btn btn-default-alt" data-toggle="modal"
+                                       data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
+                                    <a class="btn btn-info-alt" data-toggle="modal"
+                                       data-target=".bs-example-modal-lg" @click="view_process(result)">流程查询</a>
+                                </div>
                                 <h4 class="filename text-primary">{{result.project_name}}</h4>
                                 <small class="text-muted">合同编号: {{result.identify}}</small>
                                 <br/>
@@ -187,6 +191,10 @@
                     }, function (response) {
                         jQuery.fn.error_msg("合同数据请求异常,请刷新后重新尝试。");
                     });
+                },
+                view_process:function(contract){
+                    var id = contract.id;
+                    jQuery.fn.alert_msg("查看流程功能即将上线");
                 },
                 load_list: function (condition, currentPage) {
                     var me = this;
