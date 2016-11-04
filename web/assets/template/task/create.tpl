@@ -701,10 +701,10 @@
                     }
                 });
 
-                me.$http.get("/department/getSampleReceive").then(function (response) {
+                me.$http.get("/properties/getReceiveInfo").then(function (response) {
                     var data = response.data;
-                    var self = data.sample_self ? data.sample_self : {name: "您尚未设置自送样接收部门"};
-                    var scene = data.sample_scene ? data.sample_scene : {name: "您尚未设置现场采样接收部门"};
+                    var self = data.sample_self ? data.sample_self : {name: "尚未设置"};
+                    var scene = data.sample_scene ? data.sample_scene : {name: "尚未设置"};
                     me.$set("self_depart", self);
                     me.$set("scene_depart", scene);
                 }, function (response) {

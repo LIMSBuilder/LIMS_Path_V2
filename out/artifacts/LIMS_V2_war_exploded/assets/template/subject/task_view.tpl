@@ -77,7 +77,7 @@
                 </tr>
                 <tr>
                     <td>承接科室</td>
-                    <td colspan="2">{{receive_deparment.name}}</td>
+                    <td colspan="2">{{receive_deparment.nameg}}</td>
                     <td>项目负责人</td>
                     <td colspan="2">{{task_charge}}</td>
                 </tr>
