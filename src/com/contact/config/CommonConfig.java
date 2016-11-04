@@ -63,6 +63,7 @@ public class CommonConfig extends JFinalConfig {
         arp.addMapping("db_identify", Identify.class);
         arp.addMapping("db_feedback", Feedback.class);
         arp.addMapping("db_task", Task.class);
+        arp.addMapping("db_properties", Properties.class);
     }
 
     @Override

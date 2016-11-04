@@ -27,4 +27,5 @@ public class DefaultsController extends Controller {
     public void getDefault() {
         renderJson(Default.defaultDao.findFirst("SELECT * FROM `db_default`").getTrusteeInfo());
     }
+
 }

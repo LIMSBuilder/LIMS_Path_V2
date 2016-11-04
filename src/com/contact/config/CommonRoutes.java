@@ -1,5 +1,6 @@
 package com.contact.config;
 
+import com.contact.controller.common.PropertiesController;
 import com.contact.controller.constract.*;
 import com.contact.controller.common.SignController;
 import com.contact.controller.system.*;
@@ -25,5 +26,6 @@ public class CommonRoutes extends Routes {
         add("/constarct", ContractController.class, "/");
         add("/feedback", FeedbackController.class, "/");
         add("/task", TaskController.class, "/");
+        add("/properties", PropertiesController.class, "/");
     }
 }
