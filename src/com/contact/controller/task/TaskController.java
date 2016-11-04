@@ -17,6 +17,12 @@ import java.util.*;
 /**
  * 任务书
  * 0-任务书创建成功
+ * <p/>
+ * <p/>
+ * <p/>
+ * <p/>
+ * 0-自送样
+ * 1-现场采样
  */
 public class TaskController extends Controller {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -55,24 +61,24 @@ public class TaskController extends Controller {
             if (key.equals("sample_type")) {
                 String[] ids = value.toString().split(",");
                 String temp = "";
-                Properties properties = Properties.propertiesDao.findById(1);
-                int sample_self = properties.getInt("sample_receive_self");
-                int sample_scene = properties.getInt("sample_receive_scene");
+//                Properties properties = Properties.propertiesDao.findById(1);
+//                int sample_self = properties.getInt("sample_receive_self");
+//                int sample_scene = properties.getInt("sample_receive_scene");
                 for (int k = 0; k < ids.length; k++) {
                     int id = Integer.parseInt(ids[k]);
                     switch (id) {
                         case 0:
-                            if (!temp.equals("")) temp += ("," + sample_self);
-                            else temp = (sample_self + "");
+                            if (!temp.equals("")) temp = "0,1";
+                            else temp = "0";
                             break;
                         case 1:
-                            if (!temp.equals("")) temp += ("," + sample_scene);
-                            else temp = (sample_scene + "");
+                            if (!temp.equals("")) temp = "0,1";
+                            else temp = "1";
                             break;
 
                     }
                 }
-                paras += (" AND receive_deparment in (" + temp + ")");
+                paras += (" AND sample_type in (" + temp + ")");
             }
             if (key.equals("search_createTime_end")) {
                 try {
@@ -149,6 +155,7 @@ public class TaskController extends Controller {
                         .set("monitor_aim", contract.get("monitor_aim"))
                         .set("monitor_way", contract.get("monitor_way"))
                         .set("monitor_way_desp", contract.get("monitor_way_desp"))
+                        .set("sample_type", getPara("sample_type"))
                         .save();
                 renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
             }
@@ -178,7 +185,7 @@ public class TaskController extends Controller {
                         task.set(key.toString(), value);
                     }
                 }
-                task.set("create_time", sdf.format(new Date())).set("state", 0).set("create_user", ParaUtils.getCurrentUser().getInt("id"));
+                task.set("create_time", sdf.format(new Date())).set("state", 0).set("create_user", ParaUtils.getCurrentUser().getInt("id")).set("sample_type", getPara("sample_type"));
                 Boolean result = task.save();
                 Boolean item_result = true;
                 Boolean item_project_result = true;
@@ -228,22 +235,8 @@ public class TaskController extends Controller {
         }
     }
 
-//    public void getMonitorProject() {
-//        try {
-//            int id = getParaToInt("id");
-//            Task task = Task.taskDao.findById(id);
-//            if (task != null) {
-//                renderJson(task.getMonitorProjects());
-//            } else {
-//                renderJson(RenderUtils.CODE_EMPTY);
-//            }
-//        } catch (Exception e) {
-//            renderError(500);
-//        }
-//    }
-
     public Map toJsonSingle(Task task) {
-        String[] keys = {"identify", "client_unit", "client_address", "client_code", "client_tel", "client", "project_name", "monitor_aim", "monitor_way", "monitor_way_desp"};
+        String[] keys = {"identify", "client_unit", "client_address", "client_code", "client_tel", "client", "project_name", "monitor_aim", "monitor_way", "monitor_way_desp", "sample_type"};
         Map result = new HashMap();
         if (task.get("contract_id") != null) {
             int id = task.getInt("contract_id");

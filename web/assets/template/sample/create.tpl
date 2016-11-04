@@ -81,34 +81,47 @@
                                 add: function () {
                                     var me = this;
                                     console.log(JSON.parse(JSON.stringify(me._data)));
-                                    me.$http.post("/sample/addItem",me._data).then(function (response) {
+                                    var data = {
+                                        id: id,
+                                        name: me.name,
+                                        feature: me.feature,
+                                        condition: me.condition,
+                                        color: me.color,
+                                        projects: me.projects
+                                    };
+
+
+                                    me.$http.post("/sample/addItem", data).then(function (response) {
                                         var data = response.data;
                                         jQuery.fn.codeState(data.code, {
                                             200: function () {
                                                 jQuery.fn.alert_msg("样品保存成功!");
-                                                me.sample_list.push(data.item);
+                                                //me.sample_list.push(data.item);
+                                                me.load_list();
                                             }
                                         });
                                     }, function (response) {
                                         jQuery.fn.error_msg("数据异常,样品保存失败,请刷新后重新尝试!");
                                     })
+                                },
+                                load_list:function(){
+                                    var me = this;
+                                    me.$http.get("/sample/getSignleSample", {
+                                        params: {
+                                            id: id
+                                        }
+                                    }).then(function (response) {
+                                        var data = response.data;
+                                        me.$set("sample_list", data.results);
+                                        me.$set("projectList", data.projects);
+                                    }, function (response) {
 
-
+                                    });
                                 }
                             },
                             ready: function () {
                                 var me = this;
-                                me.$http.get("/sample/getSignleSample", {
-                                    params: {
-                                        id: id
-                                    }
-                                }).then(function (response) {
-                                    var data = response.data;
-                                    me.$set("sample_list", data.results);
-                                    me.$set("projectList", data.projects);
-                                }, function (response) {
-
-                                });
+                                me.load_list();
 
 
                                 jQuery("#feature").select2({

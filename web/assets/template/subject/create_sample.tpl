@@ -18,6 +18,24 @@
             </tr>
             </thead>
             <tbody>
+            <template v-for="(index,item) in sample_list">
+                <tr class="text-center">
+                    <td>{{index+1}}</td>
+                    <td>{{item.identify}}</td>
+                    <td>{{item.name}}</td>
+                    <td>
+                        <template v-for="pro in item.project">
+                            {{pro.name}} 、
+                        </template>
+                    </td>
+                    <td v-if="item.feature=='G'">气态</td>
+                    <td v-if="item.feature=='L'">液态</td>
+                    <td v-if="item.feature=='S'">固态</td>
+                    <td>{{item.color}}</td>
+                    <td v-if="item.condition=='+'">完好</td>
+                    <td v-if="item.condition=='-'">瑕疵</td>
+                </tr>
+            </template>
             <tr>
                 <td class="col-sm-1"></td>
                 <td class="col-sm-1"></td>

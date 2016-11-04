@@ -306,7 +306,7 @@
                 from_contract: function () {
                     var me = this;
                     var template = jQuery.fn.loadTemplate("/assets/template/subject/task_fromContract.tpl");
-                    var name ='task_fromContract'+Math.random();
+                    var name = 'task_fromContract' + Math.random();
                     Vue.component(name, {
                         template: template,
                         data: function () {
@@ -614,7 +614,8 @@
                                 var data = {
                                     contract_id: from_contract,
                                     receive_deparment: receive_depart.id,
-                                    other: me.other
+                                    other: me.other,
+                                    sample_type: sample_way
                                 };
                                 me.$http.post("/task/addByContract", data).then(function (response) {
                                     var data = response.data;
@@ -657,7 +658,8 @@
                                     monitor_way_desp: me.monitor_way_desp,
                                     other: me.other,
                                     item_arr: arr_item,
-                                    receive_deparment: receive_depart.id
+                                    receive_deparment: receive_depart.id,
+                                    sample_type: sample_way
                                 };
                                 me.$http.post("/task/addBySelf", data).then(function (response) {
                                     var data = response.data;
