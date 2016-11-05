@@ -7,14 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="20ae044c-4c25-41ff-ab00-28aaf995c514" name="默认的" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/contact/controller/common/FlowController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war/LIMS_V2_war.war" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war/LIMS_V2_war.war" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/sample/create.tpl" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/sample/create.tpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/config/CommonRoutes.java" afterPath="$PROJECT_DIR$/src/com/contact/config/CommonRoutes.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/utils/ParaUtils.java" afterPath="$PROJECT_DIR$/src/com/contact/utils/ParaUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/sample/create.tpl" afterPath="$PROJECT_DIR$/web/assets/template/sample/create.tpl" />
     </list>
     <ignored path="LIMS_V2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,10 +30,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="create.tpl" pinned="false" current-in-tab="true">
+      <file leaf-file-name="create.tpl" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/assets/template/sample/create.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6429725">
+            <state vertical-scroll-proportion="-23.807692">
               <caret line="366" column="75" selection-start-line="366" selection-start-column="75" selection-end-line="366" selection-end-column="75" />
               <folding>
                 <element signature="e#3073#3191#0" expanded="false" />
@@ -86,6 +79,19 @@
             <state vertical-scroll-proportion="-13.346154">
               <caret line="75" column="61" selection-start-line="75" selection-start-column="61" selection-end-line="75" selection-end-column="61" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TaskController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="1.027907">
+              <caret line="49" column="53" selection-start-line="49" selection-start-column="53" selection-end-line="49" selection-end-column="53" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#toJson#0;class#TaskController#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -218,10 +224,10 @@
         <option value="$PROJECT_DIR$/src/com/contact/controller/sample/SampleController.java" />
         <option value="$PROJECT_DIR$/web/assets/template/subject/create_sample.tpl" />
         <option value="$PROJECT_DIR$/src/com/contact/config/CommonRoutes.java" />
-        <option value="$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java" />
         <option value="$PROJECT_DIR$/src/com/contact/utils/ParaUtils.java" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/common/FlowController.java" />
         <option value="$PROJECT_DIR$/web/assets/template/sample/create.tpl" />
+        <option value="$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java" />
       </list>
     </option>
   </component>
@@ -1185,12 +1191,12 @@
       <workItem from="1477837077880" duration="44691000" />
       <workItem from="1477987807099" duration="4649000" />
       <workItem from="1478082784528" duration="22539000" />
-      <workItem from="1478167560095" duration="54211000" />
+      <workItem from="1478167560095" duration="54415000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="280401000" />
+    <option name="totallyTimeSpent" value="280605000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1206,7 +1212,7 @@
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="调试" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3132653" sideWeight="0.497558" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3132653" sideWeight="0.497558" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.502442" order="7" side_tool="true" content_ui="tabs" />
@@ -1688,17 +1694,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7379845">
-          <caret line="31" column="7" selection-start-line="28" selection-start-column="4" selection-end-line="31" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#toJson#0;class#TaskController#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/contact/config/CommonRoutes.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7627907">
@@ -1737,7 +1732,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/sample/create.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6429725">
+        <state vertical-scroll-proportion="-23.807692">
           <caret line="366" column="75" selection-start-line="366" selection-start-column="75" selection-end-line="366" selection-end-column="75" />
           <folding>
             <element signature="e#3073#3191#0" expanded="false" />
@@ -1750,6 +1745,17 @@
             <element signature="e#11752#11932#0" expanded="false" />
             <element signature="e#11989#12687#0" expanded="false" />
             <element signature="e#14111#16573#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.027907">
+          <caret line="49" column="53" selection-start-line="49" selection-start-column="53" selection-end-line="49" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#toJson#0;class#TaskController#0" expanded="false" />
           </folding>
         </state>
       </provider>
