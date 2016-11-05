@@ -21,6 +21,7 @@
                                                @click="create_sample(result)">样品登记</a>
                                             <a class="btn btn-default-alt" data-toggle="modal"
                                                data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
+                                            <a class="btn btn-danger-alt" @click="flow(result)">业务流转</a>
                                         </div>
                                         <h4 class="filename text-primary">{{result.project_name}}</h4>
                                         <small class="text-muted">合同编号: {{result.identify}}</small>
@@ -347,11 +348,31 @@
                     }, function (response) {
                         jQuery.fn.error_msg("无法获取任务书列表信息,请尝试刷新操作。");
                     });
+                },
+                flow: function (item) {
+                    var me = this;
+                    jQuery.fn.check_msg({
+                        msg: "您即将进行任务编号为【" + item.identify + "】的进度流转,是否继续?",
+                        success: function () {
+                            me.$http.post("/flow/taskFlow", {id: item.id}).then(function (response) {
+                                var data = response.data;
+                                jQuery.fn.codeState(data.code, {
+                                    200: function () {
+                                        jQuery.fn.alert_msg("任务流转成功!");
+                                        me.load_list("state=create_task", 1);
+                                    },
+                                    501: "样品数量不能为空,请先进行样品登记！"
+                                })
+                            }, function (response) {
+                                jQuery.fn.error_msg("数据异常,无法流转任务,请刷新后重新尝试!");
+                            });
+                        }
+                    })
                 }
             },
             ready: function () {
                 var me = this;
-                me.load_list("", 1);
+                me.load_list("state=create_task", 1);
             }
         });
     });

@@ -1,6 +1,7 @@
 package com.contact.controller.task;
 
 
+import com.contact.controller.common.FlowController;
 import com.contact.model.*;
 import com.contact.model.Properties;
 import com.contact.utils.ParaUtils;
@@ -25,6 +26,10 @@ import java.util.*;
  * 1-现场采样
  */
 public class TaskController extends Controller {
+    public final static Map flows = new HashMap() {{
+        put("create_task", 0);
+        put("create_sample", 1);
+    }};
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     SimpleDateFormat format_date = new SimpleDateFormat("MM/dd/yyyy");
     SimpleDateFormat new_format_date = new SimpleDateFormat("yyyy-MM-dd");
@@ -46,7 +51,7 @@ public class TaskController extends Controller {
                 paras += (" AND " + key + " like \"%" + value + "%\"");
             }
             if (key.equals("state")) {
-                paras += (" AND state=" + value);
+                paras += (" AND state=" + flows.get(value));
             }
 
             if (key.equals("search_createTime_start")) {
