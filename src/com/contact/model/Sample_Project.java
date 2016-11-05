@@ -7,4 +7,6 @@ import com.jfinal.plugin.activerecord.Model;
  */
 public class Sample_Project extends Model<Sample_Project> {
     public static Sample_Project sample_projectDao = new Sample_Project();
+
+
 }

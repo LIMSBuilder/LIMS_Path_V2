@@ -385,7 +385,10 @@ jQuery(document).ready(function () {
         jQuery('#myModal').modal('show');
         jQuery('#check_true').off('click').on('click', function () {
             opt.success && opt.success();
-
+            jQuery('#myModal').modal('hide');
+        });
+        jQuery("#check_false").off("click").on("click", function () {
+            opt.cancel && opt.cancel();
             jQuery('#myModal').modal('hide');
         });
     };

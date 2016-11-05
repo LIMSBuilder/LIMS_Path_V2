@@ -54,7 +54,7 @@ public class SampleController extends Controller {
                         return false;
                     }
                     Sample sample = new Sample();
-                    sample.set("identify", identify(id));
+                    sample.set("identify", identify);
                     sample.set("name", getPara("name"));
                     sample.set("feature", getPara("feature"));
                     sample.set("condition", getPara("condition"));
@@ -63,10 +63,10 @@ public class SampleController extends Controller {
                     sample.set("task_id", id);
                     Boolean result = sample.save();
                     Boolean item_result = true;
-                    List<Monitor_Project> monitor_projects = new ArrayList<Monitor_Project>();
+                    //List<Monitor_Project> monitor_projects = new ArrayList<Monitor_Project>();
                     for (int i : projects) {
-                        Monitor_Project monitor_project = Monitor_Project.monitor_projectDao.findById(i);
-                        monitor_projects.add(monitor_project);//保存以便返回json
+                        //Monitor_Project monitor_project = Monitor_Project.monitor_projectDao.findById(i);
+                        //monitor_projects.add(monitor_project);//保存以便返回json
                         item_result = new Sample_Project().set("sample_id", sample.get("id")).set("project_id", i).save();
                         if (!item_result) break;
                     }
@@ -76,6 +76,71 @@ public class SampleController extends Controller {
             renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
 
 
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+
+    /**
+     * 修改Item
+     */
+    public void changeItem() {
+        try {
+            Boolean result = Db.tx(new IAtom() {
+                @Override
+                public boolean run() throws SQLException {
+                    String id = getPara("id") == null ? null : getPara("id").toString();
+                    if (id != null) {
+                        Sample sample = Sample.sampleDao.findById(id);
+                        if (sample != null) {
+                            Map map = getParaMap();
+                            for (Object key : map.keySet()) {
+                                if (!key.equals("projects[]") && !key.equals("id")) {
+                                    String value = ((String[]) map.get(key))[0];
+                                    sample.set(key.toString(), value);
+                                }
+                            }
+                            Boolean result = sample.update();//更新sample是否成功
+                            Boolean delete_result = true;//判定删除是否成功
+                            Boolean item_result = true;//判定插入新的sample_project是否成功
+                            List<Sample_Project> sample_projectList = Sample_Project.sample_projectDao.find("SELECT * FROM `db_sampleProject` WHERE `db_sampleProject`.`sample_id` =" + id);
+                            for (Sample_Project sample_project : sample_projectList) {
+                                delete_result = sample_project.delete();
+                                if (!delete_result) break;
+                            }
+                            if (delete_result) {
+                                //删除成功,重新插入新的sample_project
+                                Integer[] projects = getParaValuesToInt("projects[]");
+                                for (int i : projects) {
+                                    item_result = new Sample_Project().set("sample_id", sample.get("id")).set("project_id", i).save();
+                                    if (!item_result) break;
+                                }
+                            }
+                            return result && delete_result && item_result;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                }
+            });
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+        } catch (Exception e) {
+            renderError(500);
+        }
+
+    }
+
+    /**
+     * 删除样品
+     */
+    public void delete() {
+        try {
+            int id = getParaToInt("id");
+            Boolean result = Sample.sampleDao.deleteById(id);
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
         } catch (Exception e) {
             renderError(500);
         }
