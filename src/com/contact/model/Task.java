@@ -31,9 +31,15 @@ public class Task extends Model<Task> {
         return result;
     }
 
-    public List getMonitorProjects() {
+    public List getMonitorProjects(String type) {
         Set result = new HashSet();
-        List<MonitorItem> monitorItemList = MonitorItem.monitorItemDao.find("SELECT * FROM `db_monitorItem` WHERE task_id=?", get("id"));
+        List<MonitorItem> monitorItemList = new ArrayList<>();
+        if (type.equals("task")) {
+            monitorItemList = MonitorItem.monitorItemDao.find("SELECT * FROM `db_monitorItem` WHERE task_id=?", get("id"));
+        }
+        if (type.equals("contract")) {
+            monitorItemList = MonitorItem.monitorItemDao.find("SELECT * FROM `db_monitorItem` WHERE contract_id=?", get("contract_id"));
+        }
         for (MonitorItem items : monitorItemList) {
             List<Monitor_Project> projects = Monitor_Project.monitor_projectDao.find("SELECT `db_monitorProject`.id,`db_monitorProject`.`name` FROM `db_monitorProject`,`db_monitorItem`,`db_item_project` WHERE `db_monitorProject`.`id`=`db_item_project`.`project_id` AND `db_item_project`.`item_id`=`db_monitorItem`.`id` AND `db_monitorItem`.`id`=" + items.getInt("id"));
             result.addAll(projects);

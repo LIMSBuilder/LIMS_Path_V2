@@ -29,10 +29,10 @@ public class RenderUtils {
      * @param code
      * @return
      */
-    public static String codeFactory(int code) {
+    public static Map codeFactory(int code) {
         Map jsonMap = new HashMap();
         jsonMap.put("code", code);
-        return JsonKit.toJson(jsonMap);
+        return jsonMap;
     }
 
 }

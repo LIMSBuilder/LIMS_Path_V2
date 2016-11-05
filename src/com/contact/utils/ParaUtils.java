@@ -16,6 +16,12 @@ import java.util.Map;
  * Created by qulongjun on 2016/10/26.
  */
 public class ParaUtils {
+    public final static Map flows = new HashMap() {{
+        put("create_task", 0);
+        put("create_sample", 1);
+    }};
+
+
     /**
      * 获取系统配置的rowCount信息
      *
