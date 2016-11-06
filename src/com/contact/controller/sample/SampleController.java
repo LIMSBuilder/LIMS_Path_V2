@@ -1,6 +1,7 @@
 package com.contact.controller.sample;
 
 import com.contact.model.*;
+import com.contact.model.Properties;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.Prop;
@@ -10,13 +11,12 @@ import com.jfinal.plugin.activerecord.IAtom;
 
 import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
- * Created by qulongjun on 2016/11/4.
+ * 样品:
+ * 0:正常
+ * -1:删除
  */
 public class SampleController extends Controller {
     public void getSignleSample() {
@@ -145,6 +145,69 @@ public class SampleController extends Controller {
             renderError(500);
         }
     }
+
+
+    /**
+     * 获取所有id为task id 的样品的监测项目 不重复
+     */
+    public void getProjectList() {
+        try {
+            int id = getParaToInt("id");
+            Task task = Task.taskDao.findById(id);
+            Map<Monitor_Project, List<Sample>> project_sample = new HashMap<>();
+            List<Sample> sampleList = Sample.sampleDao.find("SELECT * FROM `db_sample` WHERE state!=-1 AND `db_sample`.`task_id`=" + id);
+            for (Sample sample : sampleList) {
+                List<Sample_Project> sample_projects = Sample_Project.sample_projectDao.find("SELECT * FROM `db_sampleProject` WHERE `db_sampleProject`.`sample_id`=" + sample.get("id"));
+                for (Sample_Project sample_project : sample_projects) {
+                    Monitor_Project project = Monitor_Project.monitor_projectDao.findById(sample_project.get("project_id"));
+                    if (project_sample.get(project) != null) {
+                        project_sample.get(project).add(sample);
+                    } else {
+                        List temp = new ArrayList();
+                        temp.add(sample);
+                        project_sample.put(project, temp);
+                    }
+                }
+            }
+            Map temp = ProjecttoJson(project_sample);
+//            temp.put("sampleCount", sampleList.size());
+            temp.put("sampleFrom", sampleList.get(0).get("identify"));
+            temp.put("sampleTo", sampleList.get(sampleList.size() - 1).get("identify"));
+            temp.put("sample_create", task.get("sample_time"));
+            temp.put("sample_user", User.userDao.findById(task.getInt("sample_user")));
+            renderJson(temp);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+
+    /**
+     * 将根据项目查找样品转换成合适的JSON并返回
+     *
+     * @return
+     */
+    public static Map ProjecttoJson(Map<Monitor_Project, List<Sample>> map) {
+        List result = new ArrayList();
+        int count = 0;
+        for (Monitor_Project project : map.keySet()) {
+            if (project != null) {
+                List<Sample> value = map.get(project);
+                Map temp = new HashMap();
+                temp.put("id", project.get("id"));
+                temp.put("name", project.get("name"));
+                temp.put("category", Monitor_Category.monitorCategoryDao.findById(project.getInt("category_id")));
+                temp.put("samples", value);
+                count += value.size();
+                result.add(temp);
+            }
+        }
+        Map returnTemp = new HashMap();
+        returnTemp.put("results", result);
+        returnTemp.put("sampleCount", count);
+        return returnTemp;
+    }
+
 
     /**
      * 将查询结果生成JSON
