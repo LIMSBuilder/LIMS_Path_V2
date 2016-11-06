@@ -17,8 +17,9 @@ import java.util.Map;
  */
 public class ParaUtils {
     public final static Map flows = new HashMap() {{
-        put("create_task", 0);
-        put("create_sample", 1);
+        put("create_task", 0);//任务创建成功,进入样品登记环节
+        put("create_sample", 1);//样品登记成功,进入交接联单环节
+        put("connect_sample", 2);//交接联单生成完成,进入送检单环节
     }};
 
 
