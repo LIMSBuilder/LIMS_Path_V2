@@ -5,7 +5,12 @@ import com.contact.model.Task;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.IAtom;
 
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,16 +22,41 @@ import java.util.Map;
  * 1-样品登记完成,转入
  */
 public class FlowController extends Controller {
-
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public void taskFlow() {
         try {
+            Boolean result = Db.tx(new IAtom() {
+                @Override
+                public boolean run() throws SQLException {
+                    int id = getParaToInt("id");
+                    List<Sample> sampleList = Sample.sampleDao.find("SELECT * FROM `db_sample` WHERE `db_sample`.`task_id`=" + id);
+                    if (sampleList.size() != 0) {
+                        Boolean result = flow(Integer.parseInt(ParaUtils.flows.get("create_sample").toString()), id);
+                        renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+                        Task task = Task.taskDao.findById(id);
+                        task.set("sample_time", sdf.format(new Date()));
+                        task.set("sample_user", ParaUtils.getCurrentUser().get("id"));
+                        return result && task.update();
+                    } else {
+                        renderJson(RenderUtils.CODE_NOTEMPTY);
+                        return false;
+                    }
+                }
+            });
+            if (result) renderJson(RenderUtils.CODE_SUCCESS);
+
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+
+    public void sampleFlow() {
+        try {
             int id = getParaToInt("id");
-            List<Sample> sampleList = Sample.sampleDao.find("SELECT * FROM `db_sample` WHERE `db_sample`.`task_id`=" + id);
-            if (sampleList.size() != 0) {
-                Boolean result = flow(Integer.parseInt(ParaUtils.flows.get("create_sample").toString()), id);
-                renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
-            } else renderJson(RenderUtils.CODE_NOTEMPTY);
+            Boolean result = flow(Integer.parseInt(ParaUtils.flows.get("connect_sample").toString()), id);
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
         } catch (Exception e) {
             renderError(500);
         }

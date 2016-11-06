@@ -68,181 +68,67 @@
                             template: template,
                             data: function () {
                                 return {
-                                    id: "",
-                                    identify: "",
-                                    isChange: false,//是否修改
-                                    name: "",
-                                    feature: "",
-                                    condition: "",
-                                    color: "",
-                                    projects: "",
+                                    isShow: false,
+                                    projectList: [],
                                     sample_list: [],
-                                    projectList: []
+                                    sampleCount: "",
+                                    sampleFrom: "",
+                                    sampleTo: "",
+                                    sample_create: "",
+                                    sample_user: ""
                                 };
                             },
                             methods: {
-                                add: function () {
+                                showInfo: function (samples) {
                                     var me = this;
-                                    var data = {
-                                        id: id,
-                                        name: me.name,
-                                        feature: me.feature,
-                                        condition: me.condition,
-                                        color: me.color,
-                                        projects: me.projects
-                                    };
-
-
-                                    me.$http.post("/sample/addItem", data).then(function (response) {
-                                        var data = response.data;
-                                        jQuery.fn.codeState(data.code, {
-                                            200: function () {
-                                                jQuery.fn.alert_msg("样品保存成功!");
-
-                                                jQuery("#feature").val(null).trigger("change");
-                                                jQuery("#condition").val(null).trigger("change");
-                                                jQuery("#projectList").val(null).trigger("change");
-                                                me.name = "";
-                                                me.color = "";
-
-                                                me.load_list();
-                                            }
-                                        });
-                                    }, function (response) {
-                                        jQuery.fn.error_msg("数据异常,样品保存失败,请刷新后重新尝试!");
-                                    })
+                                    me.isShow = true;
+                                    me.$set("sample_list", samples);
                                 },
-                                deleteBtn: function (item) {
-                                    var me = this;
-                                    var id = item.id;
+                                export: function () {
+                                    jQuery.fn.export_delivery(id);
+                                },
+                                flow: function () {
+                                    var that = this;
                                     jQuery("#custom_lg_modal").modal("hide");
                                     jQuery.fn.check_msg({
-                                        msg: "是否删除样品【" + item.name + "】？删除该样品会导致无法复用样品编号" + item.identify + "。",
+                                        msg: "您即将进行任务编号为【" + task.identify + "】的进度流转,是否继续?",
                                         success: function () {
-                                            me.$http.get("/sample/delete", {
-                                                params: {
-                                                    id: id
-                                                }
-                                            }).then(function (response) {
+                                            me.$http.post("/flow/sampleFlow", {id: id}).then(function (response) {
                                                 var data = response.data;
                                                 jQuery.fn.codeState(data.code, {
                                                     200: function () {
-                                                        jQuery.fn.alert_msg("样品删除成功!");
-                                                        me.sample_list.$remove(item);
-                                                        jQuery("#custom_lg_modal").modal("show");
-                                                    },
-                                                    502: function () {
-                                                        jQuery.fn.error_msg('请求异常,请重新尝试操作！');
-                                                        jQuery("#custom_lg_modal").modal("show");
+                                                        jQuery.fn.alert_msg("任务流转成功!");
+                                                        me.load_list("state=create_sample", 1);
                                                     }
-                                                });
+                                                })
                                             }, function (response) {
-                                                jQuery.fn.error_msg("数据异常,无法删除样品,请刷新后重新尝试!");
+                                                jQuery.fn.error_msg("数据异常,无法流转任务,请刷新后重新尝试!");
                                             });
-
-                                        },
-                                        cancel: function () {
-                                            jQuery("#custom_lg_modal").modal("show");
                                         }
                                     })
                                 },
-                                change: function (item) {
-                                    var me = this;
-                                    me.id = item.id;
-                                    var projects = [];
-                                    for (var i = 0; i < item.project.length; i++) {
-                                        projects.push(item.project[i].id);
-                                    }
-                                    me.identify = item.identify;
-                                    me.isChange = true;
-                                    me.name = item.name;
-                                    me.color = item.color;
-                                    me.feature = item.feature;
-                                    me.condition = item.condition;
-                                    me.projects = projects;
-                                    jQuery('#name').val(me.name);
-                                    jQuery('#color').val(me.color);
-                                    jQuery("#feature").select2("val", me.feature);
-                                    jQuery("#condition").select2("val", me.condition);
-                                    jQuery("#projectList").select2("val", me.projects);
-                                },
-                                cancelBtn: function () {
-                                    var me = this;
-                                    me.id = "";
-                                    me.identify = "";
-                                    me.isChange = false;
-                                    debugger
-                                    me.clear();
-                                },
-                                changeBtn: function () {
-                                    var me = this;
-                                    var id = me.id;
-                                    debugger
-                                    var data = {
-                                        id: id,
-                                        name: me.name,
-                                        feature: me.feature,
-                                        condition: me.condition,
-                                        color: me.color,
-                                        projects: me.projects
-                                    };
-                                    me.$http.post("/sample/changeItem", data).then(function (response) {
-                                        var data = response.data;
-                                        jQuery.fn.codeState(data.code, {
-                                            200: function () {
-                                                jQuery.fn.alert_msg("样品修改成功!");
-//                                                jQuery("#feature").val(null).trigger("change");
-//                                                jQuery("#condition").val(null).trigger("change");
-//                                                jQuery("#projectList").val(null).trigger("change");
-//                                                me.name = "";
-//                                                me.color = "";
-                                                me.cancelBtn();
-                                                me.load_list();
-                                            }
-                                        });
-                                    }, function (response) {
-                                        jQuery.fn.error_msg("数据异常,样品保存失败,请刷新后重新尝试!");
-                                    })
-
-                                },
-                                clear: function () {
-                                    jQuery("#sample_form")[0].reset();
-                                    jQuery('.select2').trigger("change");
-                                },
-                                load_list: function () {
-                                    var me = this;
-                                    me.$http.get("/sample/getSignleSample", {
-                                        params: {
-                                            id: id
-                                        }
-                                    }).then(function (response) {
-                                        var data = response.data;
-                                        me.$set("sample_list", data.results);
-                                        me.$set("projectList", data.projects);
-                                    }, function (response) {
-
-                                    });
+                                download: function () {
+                                    //导出送检单
+                                    jQuery.fn.export_inspection(id);
                                 }
                             },
                             ready: function () {
                                 var me = this;
-                                me.load_list();
-                                jQuery("#feature").select2({
-                                    width: '100%'
-                                }).on("change", function (event) {
-                                    me.$set("feature", event.val)
+                                me.$http.get("/sample/getProjectList", {
+                                    params: {
+                                        id: id
+                                    }
+                                }).then(function (response) {
+                                    var data = response.data;
+                                    for (var key in data) {
+                                        if (me[key] != undefined) {
+                                            me.$set(key, data[key]);
+                                        }
+                                    }
+                                    me.$set("projectList", data.results);
+                                }, function (response) {
+                                    jQuery.fn.error_msg("样品数据请求异常,请刷新后重新尝试。");
                                 });
-                                jQuery("#condition").select2({
-                                    width: '100%'
-                                }).on("change", function (event) {
-                                    me.$set("condition", event.val)
-                                });
-                                jQuery("#projectList").select2({
-                                    width: '100%'
-                                }).on("change", function (event) {
-                                    me.$set("projects", event.val)
-                                });
-
                             }
                         });
                         LIMS.dialog_lg.$set('title', '样品交接联单');
@@ -354,14 +240,13 @@
                     jQuery.fn.check_msg({
                         msg: "您即将进行任务编号为【" + item.identify + "】的进度流转,是否继续?",
                         success: function () {
-                            me.$http.post("/flow/taskFlow", {id: item.id}).then(function (response) {
+                            me.$http.post("/flow/sampleFlow", {id: item.id}).then(function (response) {
                                 var data = response.data;
                                 jQuery.fn.codeState(data.code, {
                                     200: function () {
                                         jQuery.fn.alert_msg("任务流转成功!");
                                         me.load_list("state=create_sample", 1);
-                                    },
-                                    501: "样品数量不能为空,请先进行样品登记！"
+                                    }
                                 })
                             }, function (response) {
                                 jQuery.fn.error_msg("数据异常,无法流转任务,请刷新后重新尝试!");

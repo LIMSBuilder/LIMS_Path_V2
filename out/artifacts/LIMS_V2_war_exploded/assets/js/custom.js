@@ -492,7 +492,18 @@ jQuery(document).ready(function () {
         console.log(id);
         jQuery.fn.alert_msg("导出任务书功能待开发!")
     };
-
+    jQuery.fn.export_sample = function (id) {
+        console.log(id);
+        jQuery.fn.alert_msg("导出样品清单功能待开发!")
+    };
+    jQuery.fn.export_delivery = function (id) {
+        console.log(id);
+        jQuery.fn.alert_msg("导出交接联单功能待开发!")
+    };
+    jQuery.fn.export_inspection = function (id) {
+        console.log(id);
+        jQuery.fn.alert_msg("导出送检单功能待开发!")
+    };
 
     //执行自动调整高度,2秒执行一次 
     setInterval(function () {
