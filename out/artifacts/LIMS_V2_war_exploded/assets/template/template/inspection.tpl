@@ -415,6 +415,10 @@
                                     jQuery.fn.codeState(data.code, {
                                         200: function () {
                                             jQuery.fn.alert_msg("送检模板保存成功!");
+                                            var currentPage = parseInt(jQuery('#template_paging span').html());
+                                            me.load_template("", currentPage);
+                                            var currentCategoryPage = parseInt(jQuery('#category_paging span').html());
+                                            me.load_list("", currentCategoryPage);
                                         }
                                     })
                                 }, function (response) {

@@ -7,19 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="20ae044c-4c25-41ff-ab00-28aaf995c514" name="默认的" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/template_inspection.tpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/template_inspection_change.tpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war/LIMS_V2_war.war" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war/LIMS_V2_war.war" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/constract/MonitorCategoryController.class" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/constract/MonitorCategoryController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/template/TemplateController$1.class" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/template/TemplateController$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/template/TemplateController.class" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/template/TemplateController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/constract/MonitorCategoryController.class" afterPath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/constract/MonitorCategoryController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/template/TemplateController$1.class" afterPath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/template/TemplateController$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/template/TemplateController.class" afterPath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/template/TemplateController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/template/inspection.tpl" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/template/inspection.tpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/constract/MonitorCategoryController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/constract/MonitorCategoryController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/template/TemplateController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/template/TemplateController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/template/inspection.tpl" afterPath="$PROJECT_DIR$/web/assets/template/template/inspection.tpl" />
     </list>
     <ignored path="LIMS_V2.iws" />
@@ -56,16 +43,16 @@
       <file leaf-file-name="inspection.tpl" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/assets/template/template/inspection.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2924071">
-              <caret line="248" column="52" selection-start-line="248" selection-start-column="52" selection-end-line="248" selection-end-column="52" />
+            <state vertical-scroll-proportion="0.39579967">
+              <caret line="420" column="82" selection-start-line="420" selection-start-column="82" selection-end-line="420" selection-end-column="82" />
               <folding>
                 <element signature="e#5774#8602#0" expanded="false" />
                 <element signature="e#8646#9774#0" expanded="false" />
                 <element signature="e#9823#11984#0" expanded="false" />
+                <element signature="e#12035#13434#0" expanded="false" />
                 <element signature="e#13497#15752#0" expanded="false" />
                 <element signature="e#15819#18105#0" expanded="false" />
                 <element signature="e#18260#18385#0" expanded="false" />
-                <element signature="e#18810#21431#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -1143,12 +1130,12 @@
       <workItem from="1477837077880" duration="44691000" />
       <workItem from="1477987807099" duration="4649000" />
       <workItem from="1478082784528" duration="22539000" />
-      <workItem from="1478167560095" duration="85178000" />
+      <workItem from="1478167560095" duration="85366000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="311368000" />
+    <option name="totallyTimeSpent" value="311556000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1720,16 +1707,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/template/inspection.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2924071">
-          <caret line="248" column="52" selection-start-line="248" selection-start-column="52" selection-end-line="248" selection-end-column="52" />
+        <state vertical-scroll-proportion="0.39579967">
+          <caret line="420" column="82" selection-start-line="420" selection-start-column="82" selection-end-line="420" selection-end-column="82" />
           <folding>
             <element signature="e#5774#8602#0" expanded="false" />
             <element signature="e#8646#9774#0" expanded="false" />
             <element signature="e#9823#11984#0" expanded="false" />
+            <element signature="e#12035#13434#0" expanded="false" />
             <element signature="e#13497#15752#0" expanded="false" />
             <element signature="e#15819#18105#0" expanded="false" />
             <element signature="e#18260#18385#0" expanded="false" />
-            <element signature="e#18810#21431#0" expanded="false" />
           </folding>
         </state>
       </provider>
