@@ -21,6 +21,13 @@
     <link rel="stylesheet" href="/assets/css/bootstrap-wysihtml5.css"/>
 
     <link rel="stylesheet" href="/assets/css/jquery.tagsinput.css"/>
+
+
+    <!--DropZone-->
+    <!--<link rel="stylesheet" href="/assets/css/dropzone/basic.css">-->
+    <link rel="stylesheet" href="/assets/css/dropzone/dropzone.css">
+
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="/assets/js/html5shiv.js"></script>
@@ -121,7 +128,7 @@
                         <li><a href="javascript:;"><i class="fa fa-caret-right"></i> 报告二审</a></li>
                     </ul>
                 </li>
-                <li class="nav-parent"><a href=""><i class="fa fa-sitemap"></i> <span>检测任务管理</span></a>
+                <li class="nav-parent"><a href=""><i class="fa fa-sitemap"></i> <span>实验管理</span></a>
                     <ul class="children">
                         <li><a href="javascript:;"><i class="fa fa-caret-right"></i> 任务下达 </a></li>
                         <li><a href="javascript:;"><i class="fa fa-caret-right"></i> 任务分配 </a></li>
@@ -140,7 +147,11 @@
                     </ul>
                 </li>
                 <li class="nav-parent"><a href=""><i class="fa fa-folder-open-o"></i> <span>模板库</span></a>
-                    <ul class="children">
+                    <ul class="children" data-icon="fa fa-folder-open-o">
+
+                        <li><a href="javascript:;" class="nav-item" data-type="template/inspection" data-title="送检单管理"
+                               data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 送检单管理 </a></li>
+
                         <li><a href="javascript:;"><i class="fa fa-caret-right"></i> 合同模板</a></li>
                         <li><a href="javascript:;"><i class="fa fa-caret-right"></i> 监测报告模板</a></li>
                         <li><a href="javascript:;"><i class="fa fa-caret-right"></i> 原始记录模板</a></li>
