@@ -19,7 +19,8 @@ public class ParaUtils {
     public final static Map flows = new HashMap() {{
         put("create_task", 0);//任务创建成功,进入样品登记环节
         put("create_sample", 1);//样品登记成功,进入交接联单环节
-        put("connect_sample", 2);//交接联单生成完成,进入送检单环节
+        put("connect_sample", 2);//交接联单生成完成,进入质量控制环节
+        put("create_quality", 3);//质量控制完成,进入实验分析环节
     }};
 
 
@@ -108,7 +109,8 @@ public class ParaUtils {
      * @return
      */
     public static User getCurrentUser() {
-        User user = User.userDao.findById(1);
+        //User user = User.userDao.findById(1);
+        User user = User.userDao.findFirst("SELECT * FROM `db_user`");
         return user;
     }
 

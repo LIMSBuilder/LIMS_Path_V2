@@ -48,6 +48,17 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-2 control-label">监测类别</label>
+                            <div class="col-sm-8">
+                                <select class="select2" data-placeholder="请选择监测类别" id="monitor_type">
+                                    <option value=""></option>
+                                    <template v-for=" items in monitor_type_list">
+                                        <option value="{{items.value}}">{{items.value}}</option>
+                                    </template>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-2 control-label">监测目的</label>
                             <div class="col-sm-8">
                                 <textarea class="form-control" data-read="readonly" rows="5"
@@ -215,7 +226,9 @@
                 "scene_depart": "",
                 "self_role": "",
                 "scene_role": "",
-                "from_contractId": 0
+                "from_contractId": 0,
+                monitor_type_list: [],
+                monitor_type: ""
             },
             methods: {
                 from_customer: function () {
@@ -331,6 +344,9 @@
                                             for (var key in data) {
                                                 if (me[key] != undefined) {
                                                     me.$set(key, data[key]);
+                                                    if (key == "monitor_type") {
+                                                        jQuery('#monitor_type').select2("val", data[key]);
+                                                    }
                                                 }
                                             }
                                             me.$set("item_arr", items);
@@ -339,6 +355,7 @@
                                             jQuery.fn.alert_msg("合同导入成功！");
                                             jQuery("[data-read='readonly']").prop("readonly", 'true')
                                             jQuery("[name='monitor_way']").prop("disabled", true);
+                                            jQuery("#monitor_type").prop("disabled", true);
                                             jQuery("#add_item_btn").hide();
                                         }, function (response) {
                                             jQuery.fn.error_msg("获取合同数据失败,请刷新后重新尝试!");
@@ -657,6 +674,7 @@
                                     monitor_way: me.monitor_way,
                                     monitor_way_desp: me.monitor_way_desp,
                                     other: me.other,
+                                    monitor_type: me.monitor_type,
                                     item_arr: arr_item,
                                     receive_deparment: receive_depart.id,
                                     sample_type: sample_way
@@ -723,6 +741,23 @@
                     }
                 });
 
+
+                me.$http.get("/constarct/monitorType").then(function (response) {
+                    var data = response.data;
+                    for (var key in data) {
+                        me.monitor_type_list.push({
+                            id: data[key],
+                            value: key
+                        })
+                    }
+                }, function (response) {
+                    jQuery.fn.error_msg("无法获取监测类别列表信息,请尝试刷新操作。");
+                });
+                jQuery("#monitor_type").select2({
+                    width: '100%'
+                }).on("change", function (event) {
+                    me.$set("monitor_type", event.val);
+                });
 
             }
 

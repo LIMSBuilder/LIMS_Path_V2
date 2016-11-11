@@ -1,5 +1,6 @@
 package com.contact.controller.constract;
 
+import com.contact.model.InspectionTemplate;
 import com.contact.model.Monitor_Category;
 import com.contact.model.Monitor_Project;
 import com.contact.utils.ParaUtils;
@@ -55,6 +56,7 @@ public class MonitorCategoryController extends Controller {
             Map<String, Object> categoryList = new HashMap<>();
             categoryList.put("id", monitor_category.getInt("id"));
             categoryList.put("name", monitor_category.get("name"));
+            categoryList.put("template", InspectionTemplate.inspectionTemplateDao.findById(monitor_category.get("inspection_template")));
             results.add(categoryList);
         }
         json.put("results", results);
