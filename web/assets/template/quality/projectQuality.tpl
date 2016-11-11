@@ -76,27 +76,68 @@
                                     sampleTo: "",
                                     sample_create: "",
                                     sample_user: "",
+                                    project_id: 0,
                                     blindCount: 0,//盲样个数
                                     sceneList: [],//现场平行样
                                     labList: [],//实验室平行样
-                                    markList: []//加标回收样
+                                    markList: [],//加标回收样
+                                    qualityList: []
                                 };
                             },
                             methods: {
-                                showInfo: function (samples) {
+                                showInfo: function (item) {
                                     var me = this;
                                     me.isShow = true;
-                                    me.$set("sample_list", samples);
+                                    me.$set("sample_list", item.samples);
+                                    me.blindCount = 0;
+                                    me.$set("sceneList", []);
+                                    me.$set("labList", []);
+                                    me.$set("markList", []);
+                                    me.$set("project_id", item.id);
                                 },
                                 save: function () {
-                                    debugger;
                                     var me = this;
-                                    console.log(me.sceneList);
-                                    console.log(me.labList);
-                                    console.log(me.markList);
+                                    var data = {
+                                        id: id,
+                                        project_id: me.project_id,
+                                        sceneList: me.sceneList,
+                                        labList: me.labList,
+                                        markList: me.markList,
+                                        blindCount: me.blindCount
+                                    };
+                                    me.$http.post("/quality/save", data).then(function (response) {
+                                        var data = response.data;
+                                        jQuery.fn.codeState(data.code, {
+                                            200: function () {
+                                                jQuery.fn.alert_msg("当前监测项目质量控制记录已经保存!");
+                                                me.load_list();
+                                            }
+                                        })
+                                    }, function (response) {
+                                        jQuery.fn.error_msg("服务器异常,无法保存当前监测项目的质控记录!");
+                                    });
+                                },
+                                deleteQuality: function (item) {
+                                    var me = this;
+                                    var id = item.id;
+                                    me.$http.get("/quality/deleteItem", {
+                                        params: {
+                                            id: id
+                                        }
+                                    }).then(function (response) {
+                                        var data = response.data;
+                                        jQuery.fn.codeState(data.code, {
+                                            200: function () {
+                                                jQuery.fn.alert_msg("当前质控记录删除成功!");
+                                                me.load_list();
+                                            }
+                                        })
+                                    }, function (response) {
+                                        jQuery.fn.error_msg("服务器异常,无法删除当前质控记录!");
+                                    });
                                 },
                                 export: function () {
-                                    jQuery.fn.export_delivery(id);
+                                    jQuery.fn.export_quality(id);
                                 },
                                 flow: function () {
                                     var that = this;
@@ -104,12 +145,12 @@
                                     jQuery.fn.check_msg({
                                         msg: "您即将进行任务编号为【" + task.identify + "】的进度流转,是否继续?",
                                         success: function () {
-                                            me.$http.post("/flow/sampleFlow", {id: id}).then(function (response) {
+                                            me.$http.post("/flow/qualityFlow", {id: id}).then(function (response) {
                                                 var data = response.data;
                                                 jQuery.fn.codeState(data.code, {
                                                     200: function () {
                                                         jQuery.fn.alert_msg("任务流转成功!");
-                                                        me.load_list("state=create_sample", 1);
+                                                        me.load_list("state=connect_sample", 1);
                                                     }
                                                 })
                                             }, function (response) {
@@ -117,6 +158,19 @@
                                             });
                                         }
                                     })
+                                },
+                                load_list: function () {
+                                    var me = this;
+                                    me.$http.get("/quality/list", {
+                                        params: {
+                                            id: id
+                                        }
+                                    }).then(function (response) {
+                                        var data = response.data;
+                                        me.$set("qualityList", data.results);
+                                    }, function (response) {
+                                        jQuery.fn.error_msg("无法获取质量控制列表信息,请刷新后重新尝试!");
+                                    });
                                 }
                             },
                             ready: function () {
@@ -136,6 +190,7 @@
                                 }, function (response) {
                                     jQuery.fn.error_msg("样品数据请求异常,请刷新后重新尝试。");
                                 });
+                                me.load_list();
                             }
                         });
                         LIMS.dialog_lg.$set('title', '样品交接联单');
@@ -247,12 +302,12 @@
                     jQuery.fn.check_msg({
                         msg: "您即将进行任务编号为【" + item.identify + "】的进度流转,是否继续?",
                         success: function () {
-                            me.$http.post("/flow/taskFlow", {id: item.id}).then(function (response) {
+                            me.$http.post("/flow/qualityFlow", {id: item.id}).then(function (response) {
                                 var data = response.data;
                                 jQuery.fn.codeState(data.code, {
                                     200: function () {
                                         jQuery.fn.alert_msg("任务流转成功!");
-                                        me.load_list("state=create_task", 1);
+                                        me.load_list("state=connect_sample", 1);
                                     },
                                     501: "样品数量不能为空,请先进行样品登记！"
                                 })
