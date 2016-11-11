@@ -320,7 +320,6 @@
                     var me = this;
                     var template = jQuery.fn.loadTemplate("/assets/template/subject/task_fromContract.tpl");
                     var name = 'task_fromContract' + Math.random();
-                    debugger
                     Vue.component(name, {
                         template: template,
                         data: function () {
