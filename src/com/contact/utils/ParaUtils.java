@@ -108,7 +108,8 @@ public class ParaUtils {
      * @return
      */
     public static User getCurrentUser() {
-        User user = User.userDao.findById(1);
+        //User user = User.userDao.findById(1);
+        User user = User.userDao.findFirst("SELECT * FROM `db_user`");
         return user;
     }
 

@@ -139,8 +139,7 @@ public class TaskController extends Controller {
                 }
                 Task task = new Task();
                 Contract contract = Contract.contractDao.findById(contract_id);
-                Boolean result = task
-                        .set("contract_id", contract_id)
+                task.set("contract_id", contract_id)
                         .set("receive_deparment", getParaToInt("receive_deparment"))
                         .set("other", getPara("other"))
                         .set("create_time", sdf.format(new Date()))
@@ -157,7 +156,9 @@ public class TaskController extends Controller {
                         .set("monitor_way", contract.get("monitor_way"))
                         .set("monitor_way_desp", contract.get("monitor_way_desp"))
                         .set("sample_type", getPara("sample_type"))
-                        .save();
+                        .set("monitor_type", contract.get("monitor_type"));
+
+                Boolean result = task.save();
                 renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
             }
         } catch (Exception e) {
