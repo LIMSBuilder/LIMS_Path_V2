@@ -67,6 +67,10 @@ public class CommonConfig extends JFinalConfig {
         arp.addMapping("db_sample", Sample.class);
         arp.addMapping("db_sampleProject", Sample_Project.class);
         arp.addMapping("db_inspectionTemplate", InspectionTemplate.class);
+        arp.addMapping("db_qualityController", Quality.class);
+        arp.addMapping("db_qualityScene", QualityScene.class);
+        arp.addMapping("db_qualityLab", QualityLab.class);
+        arp.addMapping("db_qualityMark", QualityMark.class);
     }
 
     @Override

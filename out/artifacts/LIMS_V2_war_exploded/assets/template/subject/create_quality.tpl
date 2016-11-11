@@ -37,7 +37,7 @@
                         <td>{{project.name}}</td>
                         <td>{{project.samples.length}}</td>
                         <td class="table-action">
-                            <a href="javascript:;"><i class="fa fa-gears" @click="showInfo(project.samples)"></i></a>
+                            <a href="javascript:;"><i class="fa fa-gears" @click="showInfo(project)"></i></a>
                         </td>
                     </tr>
                 </template>
@@ -87,11 +87,11 @@
                         <input type="text" v-model="blindCount" placeholder="输入盲样个数" class="form-control">
                     </td>
                     <td style="vertical-align: middle;">现场数:</td>
-                    <td style="vertical-align: middle;">{{sceneList.length}}</td>
+                    <td style="vertical-align: middle;">{{sceneList.length}}个</td>
                     <td style="vertical-align: middle;">实验室:</td>
-                    <td style="vertical-align: middle;">{{labList.length}}</td>
+                    <td style="vertical-align: middle;">{{labList.length}}个</td>
                     <td style="vertical-align: middle;">加标数:</td>
-                    <td style="vertical-align: middle;">{{markList.length}}</td>
+                    <td style="vertical-align: middle;">{{markList.length}}个</td>
                     <td class="text-center" colspan="2">
                         <a class="btn btn-sm btn-primary-alt" @click="save">保 存</a>
                     </td>
@@ -114,17 +114,35 @@
                     <th class="text-center">实验室平行样</th>
                     <th class="text-center">加标回收样</th>
                     <th class="text-center">盲样</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                </tr>
+                <template v-for="(index,item) in qualityList">
+                    <tr class="text-center">
+                        <td>{{index+1}}</td>
+                        <td>{{item.project.name}}</td>
+                        <td>
+                            <template v-for="scene in item.scene">
+                                {{scene.name.name}}
+                            </template>
+                        </td>
+                        <td>
+                            <template v-for="lab in item.lab">
+                                {{lab.name.name}}
+                            </template>
+                        </td>
+                        <td>
+                            <template v-for="mark in item.mark">
+                                {{mark.name.name}}
+                            </template>
+                        </td>
+                        <td>{{item.blind}}</td>
+                        <td class="table-action">
+                            <a href="javascript:;"><i class="fa fa-trash-o" @click="deleteQuality(item)"></i></a>
+                        </td>
+                    </tr>
+                </template>
                 </tbody>
             </table>
         </div>

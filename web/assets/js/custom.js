@@ -504,7 +504,10 @@ jQuery(document).ready(function () {
         console.log(id);
         jQuery.fn.alert_msg("导出送检单功能待开发!")
     };
-
+    jQuery.fn.export_quality = function (id) {
+        console.log(id);
+        jQuery.fn.alert_msg("导出质量控制统计表功能待开发!")
+    };
     //执行自动调整高度,2秒执行一次 
     setInterval(function () {
         adjustmainpanelheight();
