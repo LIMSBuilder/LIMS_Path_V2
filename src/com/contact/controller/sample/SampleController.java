@@ -170,7 +170,33 @@ public class SampleController extends Controller {
                 }
             }
             Map temp = ProjecttoJson(project_sample);
-//            temp.put("sampleCount", sampleList.size());
+            temp.put("sampleFrom", sampleList.get(0).get("identify"));
+            temp.put("sampleTo", sampleList.get(sampleList.size() - 1).get("identify"));
+            temp.put("sample_create", task.get("sample_time"));
+            temp.put("sample_user", User.userDao.findById(task.getInt("sample_user")));
+            renderJson(temp);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+
+    /**
+     * 通过交接联单进行管理后续项目
+     */
+    public void getProjectListByDelivery() {
+        try {
+            Map<Monitor_Project, List<Sample>> project_sample = new HashMap<>();
+            int task_id = getParaToInt("id");
+            List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM db_delivery WHERE task_id =" + task_id);
+            List<Sample> sampleList = Sample.sampleDao.find("SELECT * FROM `db_sample` WHERE state!=-1 AND `db_sample`.`task_id`=" + task_id);
+            Task task = Task.taskDao.findById(task_id);
+            for (Delivery delivery : deliveryList) {
+                Monitor_Project monitor_project = Monitor_Project.monitor_projectDao.findById(delivery.get("project_id"));
+                List<Sample> sampleProjectList = Sample.sampleDao.find("SELECT `db_sample`.* FROM `db_sample`,`db_sampleProject` WHERE `db_sample`.`id`=`db_sampleProject`.`sample_id` AND `db_sampleProject`.`project_id`=" + monitor_project.get("id") + " AND`db_sample`.`task_id`=" + task_id);
+                project_sample.put(monitor_project, sampleProjectList);
+            }
+            Map temp = ProjecttoJson(project_sample);
             temp.put("sampleFrom", sampleList.get(0).get("identify"));
             temp.put("sampleTo", sampleList.get(sampleList.size() - 1).get("identify"));
             temp.put("sample_create", task.get("sample_time"));
