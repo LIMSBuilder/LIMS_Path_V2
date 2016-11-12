@@ -7,22 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="20ae044c-4c25-41ff-ab00-28aaf995c514" name="默认的" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/contact/model/DeliveryReceiveInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war/LIMS_V2_war.war" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war/LIMS_V2_war.war" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/sample/DeliveryController.class" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/sample/DeliveryController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/sample/SampleController.class" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/sample/SampleController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/sample/DeliveryController.class" afterPath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/sample/DeliveryController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/sample/SampleController.class" afterPath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/sample/SampleController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/sample/receive.tpl" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/sample/receive.tpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/subject/receive_sample.tpl" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/subject/receive_sample.tpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/config/CommonConfig.java" afterPath="$PROJECT_DIR$/src/com/contact/config/CommonConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/common/FlowController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/common/FlowController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/sample/DeliveryController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/sample/DeliveryController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/sample/SampleController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/sample/SampleController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/utils/ParaUtils.java" afterPath="$PROJECT_DIR$/src/com/contact/utils/ParaUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/sample/receive.tpl" afterPath="$PROJECT_DIR$/web/assets/template/sample/receive.tpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/subject/receive_sample.tpl" afterPath="$PROJECT_DIR$/web/assets/template/subject/receive_sample.tpl" />
     </list>
     <ignored path="LIMS_V2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -67,11 +52,11 @@
       <file leaf-file-name="receive.tpl" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/assets/template/sample/receive.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3419355">
-              <caret line="161" column="108" selection-start-line="161" selection-start-column="108" selection-end-line="161" selection-end-column="108" />
+            <state vertical-scroll-proportion="0.6032258">
+              <caret line="22" column="117" selection-start-line="22" selection-start-column="117" selection-end-line="22" selection-end-column="117" />
               <folding>
-                <element signature="e#3074#3192#0" expanded="false" />
-                <element signature="e#12063#14525#0" expanded="false" />
+                <element signature="e#2969#3087#0" expanded="false" />
+                <element signature="e#11958#14420#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -1243,12 +1228,12 @@
       <workItem from="1478082784528" duration="22539000" />
       <workItem from="1478167560095" duration="88684000" />
       <workItem from="1478747016890" duration="10444000" />
-      <workItem from="1478871202528" duration="20692000" />
+      <workItem from="1478871202528" duration="20838000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="346010000" />
+    <option name="totallyTimeSpent" value="346156000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1803,11 +1788,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/sample/receive.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3419355">
-          <caret line="161" column="108" selection-start-line="161" selection-start-column="108" selection-end-line="161" selection-end-column="108" />
+        <state vertical-scroll-proportion="0.6032258">
+          <caret line="22" column="117" selection-start-line="22" selection-start-column="117" selection-end-line="22" selection-end-column="117" />
           <folding>
-            <element signature="e#3074#3192#0" expanded="false" />
-            <element signature="e#12063#14525#0" expanded="false" />
+            <element signature="e#2969#3087#0" expanded="false" />
+            <element signature="e#11958#14420#0" expanded="false" />
           </folding>
         </state>
       </provider>
