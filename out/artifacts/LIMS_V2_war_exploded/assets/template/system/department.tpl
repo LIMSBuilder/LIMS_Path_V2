@@ -145,7 +145,8 @@
                     template: template,
                     data: function () {
                         return {
-                            name: ""
+                            name: "",
+                            departmentList: []
                         };
                     },
                     methods: {
@@ -176,6 +177,8 @@
                                 jQuery.fn.error_msg("服务器数据异常!无法保存部门信息,请刷新后重新尝试。");
                             });
                         }
+                    },
+                    ready: function () {
                     }
                 });
                 LIMS.dialog.$set('title', '创建部门');

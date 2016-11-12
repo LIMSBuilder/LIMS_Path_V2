@@ -1,5 +1,6 @@
 package com.contact.controller.constract;
 
+import com.contact.model.Department;
 import com.contact.model.Monitor_Project;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
@@ -55,6 +56,7 @@ public class MonitorProjectController extends Controller {
             projectList.put("id", monitor_project.getInt("id"));
             projectList.put("name", monitor_project.get("name"));
             projectList.put("desp", monitor_project.get("desp"));
+            projectList.put("chargeDepart", Department.departmentDao.findById(monitor_project.get("chargeDepart")));
             projectList.put("category", monitor_project.getCategory());
             results.add(projectList);
         }
@@ -76,6 +78,7 @@ public class MonitorProjectController extends Controller {
                         .set("name", name)
                         .set("desp", getPara("desp"))
                         .set("category_id", category_id)
+                        .set("chargeDepart", getParaToInt("chargeDepart"))
                         .set("state", 0)
                         .save();
                 renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
@@ -96,7 +99,7 @@ public class MonitorProjectController extends Controller {
                     renderJson(RenderUtils.CODE_REPEAT);
                     return;
                 }
-                Boolean result = Monitor_Project.monitor_projectDao.findById(id).set("name", name).set("desp", getPara("desp")).set("category_id", category_id).update();
+                Boolean result = Monitor_Project.monitor_projectDao.findById(id).set("name", name).set("desp", getPara("desp")).set("category_id", category_id).set("chargeDepart", getParaToInt("chargeDepart")).update();
                 renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
             }
         } catch (Exception e) {

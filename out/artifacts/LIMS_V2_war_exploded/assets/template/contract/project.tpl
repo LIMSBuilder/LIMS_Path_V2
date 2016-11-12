@@ -40,6 +40,7 @@
                                     <th class="text-center"></th>
                                     <th class="text-center">项目名称</th>
                                     <th class="text-center">所属分类</th>
+                                    <th class="text-center">负责科室</th>
                                     <th class="text-center">项目描述</th>
                                     <th class="text-center">操作</th>
                                 </tr>
@@ -53,6 +54,7 @@
                                                    name="depart_check"></td>
                                         <td class="text-center">{{item.name}}</td>
                                         <td class="text-center">{{item.category.name}}</td>
+                                        <td class="text-center">{{item.chargeDepart.name}}</td>
                                         <td class="text-center">{{item.desp}}</td>
                                         <td class="table-action text-center">
                                             <a href="javascript:;" data-toggle="modal"
@@ -146,7 +148,9 @@
                             name: "",
                             types: [],
                             category: 0,
-                            desp: ""
+                            desp: "",
+                            departmentList: [],
+                            chargeDepart: ""
                         };
                     },
                     methods: {
@@ -156,7 +160,8 @@
                                 var data = {
                                     category: jQuery("#project_category").val(),
                                     name: me.name,
-                                    desp: me.desp
+                                    desp: me.desp,
+                                    chargeDepart: me.chargeDepart
                                 };
                                 me.$http.post("/project/add", data).then(function (response) {
                                     var data = response.data;
@@ -196,9 +201,24 @@
                                 jQuery(element).closest('.form-group').removeClass('has-error');
                             }
                         });
-                        dom.find('.select2').select2({
+                        dom.find('#project_category').select2({
                             width: '100%',
                             minimumResultsForSearch: -1
+                        });
+
+                        me.$http.get("/department/getList").then(function (response) {
+                            var data = response.data;
+                            me.$set("departmentList", data.results);
+                        }, function (response) {
+                            jQuery.fn.error_msg("无法获取部门列表信息,请刷新后重新尝试!");
+                        });
+
+
+                        jQuery("#chargeDepart").select2({
+                            width: '100%'
+                        }).on("change", function (event) {
+                            var id = event.val;
+                            me.$set("chargeDepart", id);
                         });
                     }
                 });
@@ -277,7 +297,9 @@
                             id: data.id,
                             name: data.name,
                             desp: data.desp,
-                            types: []
+                            types: [],
+                            chargeDepart: "",
+                            departmentList: []
                         };
                     },
                     methods: {
@@ -288,6 +310,7 @@
                                     id: that.id,
                                     category: jQuery("#project_category").val(),
                                     name: that.name,
+                                    chargeDepart:that.chargeDepart,
                                     desp: that.desp
                                 };
                                 me.$http.post("/project/change", data).then(function (response) {
@@ -328,8 +351,21 @@
                         });
                         dom.find('#project_category').select2({
                             width: '100%',
-                            minimumResultsForSearch: -1,
-                            val: data.category.id
+                            minimumResultsForSearch: -1
+                        });
+                        me.$http.get("/department/getList").then(function (response) {
+                            var data = response.data;
+                            me.$set("departmentList", data.results);
+                        }, function (response) {
+                            jQuery.fn.error_msg("无法获取部门列表信息,请刷新后重新尝试!");
+                        });
+
+
+                        jQuery("#chargeDepart").select2({
+                            width: '100%'
+                        }).on("change", function (event) {
+                            var id = event.val;
+                            me.$set("chargeDepart", id);
                         });
                     }
                 });

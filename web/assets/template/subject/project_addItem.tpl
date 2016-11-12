@@ -4,7 +4,8 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label text-center">环境要素 </label>
                 <div class="col-sm-8">
-                    <select class="select2" id="project_category" v-model="category" data-placeholder="请选择环境要素..." required>
+                    <select class="select2" id="project_category" v-model="category" data-placeholder="请选择环境要素..."
+                            required>
                         <option value=""></option>
                         <template v-for="item in types">
                             <option value="{{item.id}}">{{item.name}}</option>
@@ -17,6 +18,17 @@
                 <div class="col-sm-8">
                     <input type="text" name="name" v-model="name" class="form-control"
                            required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-center">负责科室 </label>
+                <div class="col-sm-8">
+                    <select class="select2" id="chargeDepart" data-placeholder="选择项目分析科室">
+                        <option value=""></option>
+                        <template v-for="depart in departmentList">
+                            <option value="{{depart.id}}">{{depart.name}}</option>
+                        </template>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
