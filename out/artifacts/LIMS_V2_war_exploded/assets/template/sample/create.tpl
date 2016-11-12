@@ -354,7 +354,7 @@
                     jQuery.fn.check_msg({
                         msg: "您即将进行任务编号为【" + item.identify + "】的进度流转,是否继续?",
                         success: function () {
-                            me.$http.post("/flow/taskFlow", {id: item.id}).then(function (response) {
+                            me.$http.post("/flow/sampleFlow", {id: item.id}).then(function (response) {
                                 var data = response.data;
                                 jQuery.fn.codeState(data.code, {
                                     200: function () {

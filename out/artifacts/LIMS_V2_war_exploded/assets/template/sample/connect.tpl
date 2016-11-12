@@ -93,16 +93,30 @@
                                     jQuery.fn.check_msg({
                                         msg: "您即将进行任务编号为【" + task.identify + "】的进度流转,是否继续?",
                                         success: function () {
-                                            me.$http.post("/flow/sampleFlow", {id: id}).then(function (response) {
+                                            var temp = [];
+                                            for (var i = 0; i < that.projectList.length; i++) {
+                                                temp.push(that.projectList[i].id);
+                                            }
+                                            me.$http.post("/delivery/save", {
+                                                projects: temp,
+                                                id: id
+                                            }).then(function (response) {
                                                 var data = response.data;
-                                                jQuery.fn.codeState(data.code, {
-                                                    200: function () {
-                                                        jQuery.fn.alert_msg("任务流转成功!");
-                                                        me.load_list("state=create_sample", 1);
-                                                    }
-                                                })
-                                            }, function (response) {
-                                                jQuery.fn.error_msg("数据异常,无法流转任务,请刷新后重新尝试!");
+                                                if (data.code != 200) {
+                                                    jQuery.fn.error_msg("数据异常,无法保存交接联单信息!");
+                                                } else {
+                                                    me.$http.post("/flow/sampleFlow", {id: id}).then(function (response) {
+                                                        var data = response.data;
+                                                        jQuery.fn.codeState(data.code, {
+                                                            200: function () {
+                                                                jQuery.fn.alert_msg("任务流转成功!");
+                                                                me.load_list("state=create_sample", 1);
+                                                            }
+                                                        })
+                                                    }, function (response) {
+                                                        jQuery.fn.error_msg("数据异常,无法流转任务,请刷新后重新尝试!");
+                                                    });
+                                                }
                                             });
                                         }
                                     })
