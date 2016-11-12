@@ -175,7 +175,7 @@
                             },
                             ready: function () {
                                 var me = this;
-                                me.$http.get("/sample/getProjectList", {
+                                me.$http.get("/sample/getProjectListByDelivery", {
                                     params: {
                                         id: id
                                     }
