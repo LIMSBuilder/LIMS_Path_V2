@@ -280,55 +280,29 @@ public class SampleController extends Controller {
                     }
                 }
                 identify = pre + middle + last;
-
-
-//                if (contract_id != null) {
-//                    //来自合同
-//                    Contract contract = Contract.contractDao.findById(contract_id);
-//                    Prop p = PropKit.use("monitorPlan.properties");
-//                    String pre = p.get(contract.get("monitor_type").toString());//编号前缀
-//                    String middle = "";//编号中缀
-//                    String last = "";//编号后缀"
-//                    if (sample_type == 0) {
-//                        //自送样
-//                        middle = properties.get("sample_self_middle");
-//                        int newId = properties.getInt("sample_self_serial") + 1;
-//                        last = df.format(newId);
-//                        if (newId == 9999) {
-//                            //自送样编号-1
-//                            properties.set("sample_self_serial", 0);
-//                            properties.set("sample_self_middle", (char) (Integer.parseInt(middle) - 1));
-//                        } else {
-//                            properties.set("sample_self_serial", newId);
-//                        }
-//
-//                    } else {
-//                        //现场采样
-//                        middle = properties.get("sample_scene_middle");
-//                        int newId = properties.getInt("sample_scene_serial") + 1;
-//                        last = df.format(newId);
-//                        if (newId == 9999) {
-//                            //自送样编号-1
-//                            properties.set("sample_scene_serial", 0);
-//                            properties.set("sample_scene_middle", (char) (Integer.parseInt(middle) - 1));
-//                        } else {
-//                            properties.set("sample_scene_serial", newId);
-//                        }
-//                    }
-//                    identify = pre + middle + last;
-//                } else {
-//                    //来自自定义
-//
-//
-//                }
                 properties.update();
             }
             while (identify != "" && Sample.sampleDao.find("SELECT * FROM `db_sample` WHERE identify='" + identify + "'").size() != 0);
             return identify;
 
         } catch (Exception e) {
-            //renderError(500);
             return null;
+        }
+    }
+
+    public void receive() {
+        try {
+            int id = getParaToInt("id");
+            int receive = getParaToInt("receive");
+            Sample sample = Sample.sampleDao.findById(id);
+            if (sample != null) {
+                Boolean result = sample.set("receive", receive).update();
+                renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+            } else {
+                renderJson(RenderUtils.CODE_EMPTY);
+            }
+        } catch (Exception e) {
+            renderError(500);
         }
     }
 }
