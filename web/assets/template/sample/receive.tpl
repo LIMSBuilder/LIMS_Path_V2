@@ -21,7 +21,6 @@
                                                @click="connect_sample(result)">样品接收</a>
                                             <a class="btn btn-default-alt" data-toggle="modal"
                                                data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
-                                            <a class="btn btn-danger-alt" @click="flow(result)">业务流转</a>
                                         </div>
                                         <h4 class="filename text-primary">{{result.project_name}}</h4>
                                         <small class="text-muted">合同编号: {{result.identify}}</small>
@@ -75,7 +74,10 @@
                                     sampleFrom: "",
                                     sampleTo: "",
                                     sample_create: "",
-                                    sample_user: ""
+                                    sample_user: "",
+                                    sampleFlag: "",//样品标识
+                                    additive: "",//固体添加剂情况
+                                    package: ""//样品包装情况
                                 };
                             },
                             methods: {
@@ -106,33 +108,69 @@
                                 },
                                 save: function (project) {
                                     var me = this;
-
-
-                                    console.log(JSON.parse(JSON.stringify(project)));
+                                    //增加对每个样品的验证
+                                    var samples = project.samples;
+                                    for (var i = 0; i < samples.length; i++) {
+                                        if (samples[i].receive != 1) {
+                                            //当前有项目尚未被接收,无法保存
+                                            jQuery.fn.error_msg("当前分析项目存在样品尚未接收,请先确认样品接收之后保存!");
+                                            return;
+                                        }
+                                    }
+                                    var data = {
+                                        id: project.id,
+                                        task_id: id,
+                                        character: project.character,
+                                        storage: project.storage
+                                    };
+                                    me.$http.post("/delivery/receiveItem", data).then(function (response) {
+                                        var data = response.data;
+                                        jQuery.fn.codeState(data.code, {
+                                            200: function () {
+                                                jQuery.fn.alert_msg("当前分析项目保存成功!!");
+                                            }
+                                        });
+                                    }, function (response) {
+                                        jQuery.fn.error_msg("数据异常,无法保存当前接收样品信息!");
+                                    });
                                 },
                                 export: function () {
                                     jQuery.fn.export_delivery(id);
                                 },
                                 flow: function () {
                                     var that = this;
-                                    debugger
-//                                    jQuery("#custom_lg_modal").modal("hide");
-//                                    jQuery.fn.check_msg({
-//                                        msg: "您即将进行任务编号为【" + task.identify + "】的进度流转,是否继续?",
-//                                        success: function () {
-//                                            me.$http.post("/flow/sampleFlow", {id: id}).then(function (response) {
-//                                                var data = response.data;
-//                                                jQuery.fn.codeState(data.code, {
-//                                                    200: function () {
-//                                                        jQuery.fn.alert_msg("任务流转成功!");
-//                                                        me.load_list("state=create_sample", 1);
-//                                                    }
-//                                                })
-//                                            }, function (response) {
-//                                                jQuery.fn.error_msg("数据异常,无法流转任务,请刷新后重新尝试!");
-//                                            });
-//                                        }
-//                                    })
+                                    jQuery("#custom_lg_modal").modal("hide");
+                                    jQuery.fn.check_msg({
+                                        msg: "您即将进行任务编号为【" + task.identify + "】的进度流转,是否继续?",
+                                        success: function () {
+                                            var data = {
+                                                task_id: id,
+                                                sampleFlag: that.sampleFlag,//样品标识
+                                                additive: that.additive,//固体添加剂情况
+                                                package: that.package//样品包装情况
+                                            };
+                                            me.$http.post("/delivery/receiveInfo", data).then(function (response) {
+                                                var data = response.data;
+                                                jQuery.fn.codeState(data.code, {
+                                                    200: function () {
+                                                        me.$http.post("/flow/deliveryFlow", {id: id}).then(function (response) {
+                                                            var data = response.data;
+                                                            jQuery.fn.codeState(data.code, {
+                                                                200: function () {
+                                                                    jQuery.fn.alert_msg("任务流转成功!");
+                                                                    me.load_list("state=create_quality", 1);
+                                                                }
+                                                            })
+                                                        }, function (response) {
+                                                            jQuery.fn.error_msg("数据异常,无法流转任务,请刷新后重新尝试!");
+                                                        });
+                                                    }
+                                                })
+                                            }, function (response) {
+                                                jQuery.fn.error_msg("数据异常,无法保存交联清单信息!");
+                                            });
+                                        }
+                                    })
                                 },
                                 load_list: function () {
                                     var me = this;
@@ -156,6 +194,12 @@
                             ready: function () {
                                 var me = this;
                                 me.load_list();
+                                jQuery('#package').select2({
+                                    width: '100%'
+                                }).on("change", function (event) {
+                                    var id = event.val;
+                                    me.$set("package", id);
+                                });
                             }
                         });
                         LIMS.dialog_lg.$set('title', '样品交接联单');
@@ -261,25 +305,6 @@
                     }, function (response) {
                         jQuery.fn.error_msg("无法获取任务书列表信息,请尝试刷新操作。");
                     });
-                },
-                flow: function (item) {
-                    var me = this;
-                    jQuery.fn.check_msg({
-                        msg: "您即将进行任务编号为【" + item.identify + "】的进度流转,是否继续?",
-                        success: function () {
-                            me.$http.post("/flow/sampleFlow", {id: item.id}).then(function (response) {
-                                var data = response.data;
-                                jQuery.fn.codeState(data.code, {
-                                    200: function () {
-                                        jQuery.fn.alert_msg("任务流转成功!");
-                                        me.load_list("state=create_quality", 1);
-                                    }
-                                })
-                            }, function (response) {
-                                jQuery.fn.error_msg("数据异常,无法流转任务,请刷新后重新尝试!");
-                            });
-                        }
-                    })
                 }
             },
             ready: function () {

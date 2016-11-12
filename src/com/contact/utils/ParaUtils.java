@@ -20,7 +20,8 @@ public class ParaUtils {
         put("create_task", 0);//任务创建成功,进入样品登记环节
         put("create_sample", 1);//样品登记成功,进入交接联单环节
         put("connect_sample", 2);//交接联单生成完成,进入质量控制环节
-        put("create_quality", 3);//质量控制完成,进入实验分析环节
+        put("create_quality", 3);//质量控制完成,进入样品接收环节
+        put("receive_delivery", 4);//样品接收完成,进入实验人员分配
     }};
 
 

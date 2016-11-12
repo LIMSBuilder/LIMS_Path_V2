@@ -186,7 +186,7 @@ public class SampleController extends Controller {
      */
     public void getProjectListByDelivery() {
         try {
-            Map<Monitor_Project, List<Sample>> project_sample = new HashMap<>();
+            Map<Delivery, List<Sample>> project_sample = new LinkedHashMap();
             int task_id = getParaToInt("id");
             List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM db_delivery WHERE task_id =" + task_id);
             List<Sample> sampleList = Sample.sampleDao.find("SELECT * FROM `db_sample` WHERE state!=-1 AND `db_sample`.`task_id`=" + task_id);
@@ -194,9 +194,9 @@ public class SampleController extends Controller {
             for (Delivery delivery : deliveryList) {
                 Monitor_Project monitor_project = Monitor_Project.monitor_projectDao.findById(delivery.get("project_id"));
                 List<Sample> sampleProjectList = Sample.sampleDao.find("SELECT `db_sample`.* FROM `db_sample`,`db_sampleProject` WHERE `db_sample`.`id`=`db_sampleProject`.`sample_id` AND `db_sampleProject`.`project_id`=" + monitor_project.get("id") + " AND`db_sample`.`task_id`=" + task_id);
-                project_sample.put(monitor_project, sampleProjectList);
+                project_sample.put(delivery, sampleProjectList);
             }
-            Map temp = ProjecttoJson(project_sample);
+            Map temp = DeliverytoJson(project_sample);
             temp.put("sampleFrom", sampleList.get(0).get("identify"));
             temp.put("sampleTo", sampleList.get(sampleList.size() - 1).get("identify"));
             temp.put("sample_create", task.get("sample_time"));
@@ -214,7 +214,7 @@ public class SampleController extends Controller {
      * @return
      */
     public static Map ProjecttoJson(Map<Monitor_Project, List<Sample>> map) {
-        List result = new ArrayList();
+        Set result = new TreeSet();
         int count = 0;
         for (Monitor_Project project : map.keySet()) {
             if (project != null) {
@@ -224,6 +224,36 @@ public class SampleController extends Controller {
                 temp.put("name", project.get("name"));
                 temp.put("category", Monitor_Category.monitorCategoryDao.findById(project.getInt("category_id")));
                 temp.put("samples", value);
+                count += value.size();
+                result.add(temp);
+            }
+        }
+        Map returnTemp = new HashMap();
+        returnTemp.put("results", result.toArray());
+        returnTemp.put("sampleCount", count);
+        return returnTemp;
+    }
+
+    /**
+     * 将根据项目查找样品转换成合适的JSON并返回
+     *
+     * @return
+     */
+    public static Map DeliverytoJson(Map<Delivery, List<Sample>> map) {
+        List result = new ArrayList();
+        int count = 0;
+        for (Delivery delivery : map.keySet()) {
+            if (delivery != null) {
+                List<Sample> value = map.get(delivery);
+                Map temp = new HashMap();
+                int project_id = delivery.get("project_id");
+                Monitor_Project project = Monitor_Project.monitor_projectDao.findById(project_id);
+                temp.put("id", project.get("id"));
+                temp.put("name", project.get("name"));
+                temp.put("category", Monitor_Category.monitorCategoryDao.findById(project.getInt("category_id")));
+                temp.put("samples", value);
+                temp.put("character", delivery.get("character"));
+                temp.put("storage", delivery.get("storage"));
                 count += value.size();
                 result.add(temp);
             }
