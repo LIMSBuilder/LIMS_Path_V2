@@ -22,6 +22,36 @@
     </div>
     <div class="col-sm-12">
         <div class="col-sm-4 mb10">
+            <h4>接收信息</h4>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">样品包装状况</label>
+                <div class="col-sm-8">
+                    <select class="select2" id="package" data-placeholder="选择样品包装情况">
+                        <option value=""></option>
+                        <option value="完好">完好</option>
+                        <option value="破损">破损</option>
+                        <option value="玷污">玷污</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">样品标识</label>
+                <div class="col-sm-8">
+                    <input type="text" v-model="sampleFlag" placeholder="请输入样品标识" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">固定添加剂</label>
+                <div class="col-sm-8">
+                    <input type="text" v-model="additive" placeholder="请描述固体添加剂情况" class="form-control">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="col-sm-4 mb10">
             <h4>交联清单</h4>
         </div>
         <div class="table-responsive">
@@ -49,8 +79,7 @@
                         </td>
                         <td>
                             <div class="radio"><label><input type="radio" v-model="project.storage" value="常温"
-                                                             name="condition{{project.id}}"
-                                                             checked="checked">常温 </label> <label><input
+                                                             name="condition{{project.id}}">常温 </label> <label><input
                                     type="radio" v-model="project.storage" value="低温" name="condition{{project.id}}">低温
                             </label></div>
                         </td>

@@ -74,6 +74,18 @@ public class FlowController extends Controller {
         }
     }
 
+    public void deliveryFlow() {
+        try {
+            int id = getParaToInt("id");
+            Task task = Task.taskDao.findById(id);
+            Boolean update = task.set("receive_user", ParaUtils.getCurrentUser().get("id")).set("receive_time", sdf.format(new Date())).update();
+            Boolean result = flow(Integer.parseInt(ParaUtils.flows.get("receive_delivery").toString()), id);
+            renderJson(result && update ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
     public static Boolean flow(int state, int id) {
         try {
             Task task = Task.taskDao.findById(id);
