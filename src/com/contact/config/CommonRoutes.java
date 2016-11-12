@@ -6,6 +6,7 @@ import com.contact.controller.common.PropertiesController;
 import com.contact.controller.constract.*;
 import com.contact.controller.common.SignController;
 import com.contact.controller.quality.QualityController;
+import com.contact.controller.sample.DeliveryController;
 import com.contact.controller.sample.SampleController;
 import com.contact.controller.system.*;
 import com.contact.controller.task.TaskController;
@@ -33,6 +34,7 @@ public class CommonRoutes extends Routes {
         add("/flow", FlowController.class, "/");
         add("/template", TemplateController.class, "/");
         add("/quality", QualityController.class,"/");
+        add("/delivery", DeliveryController.class,"/");
 
 
 
