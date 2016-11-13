@@ -75,17 +75,21 @@
                                         <td>{{project.name}}</td>
                                         <td>{{project.samples.length}}</td>
                                         <td v-if="project.analyst!=null">{{project.analyst.name}} <a href="javascript:;"
-                                                                                                     class="delete-row"><i
+                                                                                                     class="delete-row"
+                                                                                                     @click="delUser(project.id,'analyst','分析员')"><i
                                                 class="fa fa-trash-o"></i></a></td>
                                         <td v-else><a href="javascript:;" class="delete-row"><i class="fa fa-gears"></i></a>
                                         </td>
                                         <td v-if="project.assessor!=null">{{project.assessor.name}} <a
-                                                href="javascript:;" class="delete-row"><i class="fa fa-trash-o"></i></a>
+                                                href="javascript:;" class="delete-row"
+                                                @click="delUser(project.id,'assessor','审核员')"><i
+                                                class="fa fa-trash-o"></i></a>
                                         </td>
                                         <td v-else><a href="javascript:;" class="delete-row"><i class="fa fa-gears"></i></a>
                                         </td>
                                         <td v-if="project.checker!=null">{{project.checker.name}} <a href="javascript:;"
-                                                                                                     class="delete-row"><i
+                                                                                                     class="delete-row"
+                                                                                                     @click="delUser(project.id,'checker','复核员')"><i
                                                 class="fa fa-trash-o"></i></a></td>
                                         <td v-else><a href="javascript:;" class="delete-row"><i class="fa fa-gears"></i></a>
                                         </td>
@@ -353,6 +357,7 @@
                     jQuery("#saveOpt").off("click").on("click", function () {
                         var user_name = jQuery("#user_select").find('option:selected').html();
                         var user_id = jQuery("#user_select").val();
+                        if (!user_id) jQuery.fn.error_msg("请选择操作用户!");
                         jQuery("#charge_user").modal("hide");
                         jQuery.fn.check_msg({
                             msg: "是否将【" + user_name + "】设置为任务【" + me.identify + "】的【" + values.toString() + "】检测项目的【" + name + "】?",
@@ -378,6 +383,30 @@
                         });
                     });
                     console.log(type);
+                },
+                delUser: function (project_id, type, name) {
+                    var me = this;
+                    jQuery.fn.check_msg({
+                        msg: "是否移除当前检测项目的" + name+"？",
+                        success: function () {
+                            var data = {
+                                task_id: me.id,
+                                project_id: project_id,
+                                type: type
+                            };
+                            me.$http.post("/distribute/delUser", data).then(function (response) {
+                                var data = response.data;
+                                jQuery.fn.codeState(data.code, {
+                                    200: function () {
+                                        jQuery.fn.alert_msg(name + "删除成功!");
+                                        me.load_projectlist(me.id);
+                                    }
+                                });
+                            }, function (response) {
+                                jQuery.fn.error_msg("数据异常,无法删除当前监测项目的" + name);
+                            });
+                        }
+                    });
                 }
             },
             ready: function () {

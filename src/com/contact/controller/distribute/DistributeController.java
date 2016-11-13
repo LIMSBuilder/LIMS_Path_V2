@@ -42,4 +42,19 @@ public class DistributeController extends Controller {
             renderError(500);
         }
     }
+
+    public void delUser() {
+        try {
+            int task_id = getParaToInt("task_id");
+            int project_id = getParaToInt("project_id");
+            String type = getPara("type");
+            Delivery delivery = Delivery.deliveryDao.findFirst("SELECT * FROM `db_delivery` WHERE task_id=" + task_id + " AND project_id=" + project_id);
+            if (delivery != null) {
+                Boolean result = delivery.set(type, null).update();
+                renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+            } else renderJson(RenderUtils.CODE_EMPTY);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
 }
