@@ -48,7 +48,7 @@
                             <a class="btn btn-primary-alt" @click="user('analyst','分析员')">分析员</a>
                             <a class="btn btn-success-alt" @click="user('assessor','审核员')">审核员</a>
                             <a class="btn btn-warning-alt" @click="user('checker','复核员')">复核员</a>
-                            <a class="btn btn-danger-alt">清 空</a>
+                            <a class="btn btn-danger-alt" @click="clearAll">清 空</a>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-info mb30">
@@ -78,20 +78,26 @@
                                                                                                      class="delete-row"
                                                                                                      @click="delUser(project.id,'analyst','分析员')"><i
                                                 class="fa fa-trash-o"></i></a></td>
-                                        <td v-else><a href="javascript:;" class="delete-row"><i class="fa fa-gears"></i></a>
+                                        <td v-else><a href="javascript:;" class="delete-row"
+                                                      @click="addUser(project.id,'analyst','分析员')"><i
+                                                class="fa fa-gears"></i></a>
                                         </td>
                                         <td v-if="project.assessor!=null">{{project.assessor.name}} <a
                                                 href="javascript:;" class="delete-row"
                                                 @click="delUser(project.id,'assessor','审核员')"><i
                                                 class="fa fa-trash-o"></i></a>
                                         </td>
-                                        <td v-else><a href="javascript:;" class="delete-row"><i class="fa fa-gears"></i></a>
+                                        <td v-else><a href="javascript:;" class="delete-row"
+                                                      @click="addUser(project.id,'assessor','审核员')"><i
+                                                class="fa fa-gears"></i></a>
                                         </td>
                                         <td v-if="project.checker!=null">{{project.checker.name}} <a href="javascript:;"
                                                                                                      class="delete-row"
                                                                                                      @click="delUser(project.id,'checker','复核员')"><i
                                                 class="fa fa-trash-o"></i></a></td>
-                                        <td v-else><a href="javascript:;" class="delete-row"><i class="fa fa-gears"></i></a>
+                                        <td v-else><a href="javascript:;" class="delete-row"
+                                                      @click="addUser(project.id,'checker','复核员')"><i
+                                                class="fa fa-gears"></i></a>
                                         </td>
                                         <td class="table-action">
                                             <a class="btn btn-sm btn-info-alt" @click="showInfo(project.samples)">清单</a>
@@ -215,6 +221,7 @@
                 task_distribute: function (task) {
                     var me = this;
                     var id = task.id;
+                    me.isShow = false;
                     me.$set("id", id);
                     me.$set("identify", task.identify);
                     me.load_projectlist(id);
@@ -357,7 +364,10 @@
                     jQuery("#saveOpt").off("click").on("click", function () {
                         var user_name = jQuery("#user_select").find('option:selected').html();
                         var user_id = jQuery("#user_select").val();
-                        if (!user_id) jQuery.fn.error_msg("请选择操作用户!");
+                        if (!user_id) {
+                            jQuery.fn.error_msg("请选择操作用户!");
+                            return;
+                        }
                         jQuery("#charge_user").modal("hide");
                         jQuery.fn.check_msg({
                             msg: "是否将【" + user_name + "】设置为任务【" + me.identify + "】的【" + values.toString() + "】检测项目的【" + name + "】?",
@@ -382,12 +392,41 @@
                             }
                         });
                     });
-                    console.log(type);
+                },
+                clearAll: function () {
+                    var me = this;
+                    var oChecked = jQuery('input[name=selectedProject]:checked');
+                    var selected = [];
+                    var values = [];
+                    for (var i = 0; i < oChecked.length; i++) {
+                        selected.push(oChecked[i].value);
+                        values.push(jQuery(oChecked[i]).data("value"));
+                    }
+                    jQuery.fn.check_msg({
+                        msg: "是否将任务【" + me.identify + "】的【" + values.toString() + "】检测项目的分析员、审核员、复核员全部清空?",
+                        success: function () {
+                            var data = {
+                                task_id: me.id,
+                                projectList: selected
+                            };
+                            me.$http.post("/distribute/clear_distribute", data).then(function (response) {
+                                var data = response.data;
+                                jQuery.fn.codeState(data.code, {
+                                    200: function () {
+                                        jQuery.fn.alert_msg(name + "清空成功!");
+                                        me.load_projectlist(me.id);
+                                    }
+                                })
+                            }, function (response) {
+                                jQuery.fn.error_msg("数据异常,无法清空操作人员!");
+                            });
+                        }
+                    });
                 },
                 delUser: function (project_id, type, name) {
                     var me = this;
                     jQuery.fn.check_msg({
-                        msg: "是否移除当前检测项目的" + name+"？",
+                        msg: "是否移除当前检测项目的" + name + "？",
                         success: function () {
                             var data = {
                                 task_id: me.id,
@@ -407,6 +446,75 @@
                             });
                         }
                     });
+                },
+                addUser: function (project_id, type, name) {
+                    var me = this;
+                    jQuery("#charge_user").modal("show");
+                    jQuery("#saveOpt").off("click").on("click", function () {
+                        var user_name = jQuery("#user_select").find('option:selected').html();
+                        var user_id = jQuery("#user_select").val();
+                        if (!user_id) {
+                            jQuery.fn.error_msg("请选择操作用户!");
+                            return;
+                        }
+                        jQuery("#charge_user").modal("hide");
+                        jQuery.fn.check_msg({
+                            msg: "是否将【" + user_name + "】设置为当前检测项目的【" + name + "】?",
+                            success: function () {
+                                var data = {
+                                    user_id: user_id,
+                                    task_id: me.id,
+                                    projectList: [project_id],
+                                    type: type
+                                };
+                                me.$http.post("/distribute/task_distribute", data).then(function (response) {
+                                    var data = response.data;
+                                    jQuery.fn.codeState(data.code, {
+                                        200: function () {
+                                            jQuery.fn.alert_msg(name + "分配成功!");
+                                            me.load_projectlist(me.id);
+                                        }
+                                    })
+                                }, function (response) {
+                                    jQuery.fn.error_msg("数据异常,无法分配" + name);
+                                });
+                            }
+                        });
+                    });
+                },
+                flow: function (task) {
+                    var me = this;
+                    jQuery.fn.check_msg({
+                        msg: "您即将进行任务编号为【" + task.identify + "】的进度流转,是否继续?",
+                        success: function () {
+                            var data = {
+                                task_id: task.id
+                            };
+                            me.$http.post("/distribute/checkUser", data).then(function (response) {
+                                var data = response.data;
+                                jQuery.fn.codeState(data.code, {
+                                    200: function () {
+                                        me.$http.post("/flow/distributeFlow", {id: task.id}).then(function (response) {
+                                            var data = response.data;
+                                            jQuery.fn.codeState(data.code, {
+                                                200: function () {
+                                                    jQuery.fn.alert_msg("任务流转成功!");
+                                                    me.load_list("state=receive_delivery", 1);
+                                                }
+                                            })
+                                        }, function (response) {
+                                            jQuery.fn.error_msg("数据异常,无法流转任务,请刷新后重新尝试!");
+                                        });
+                                    },
+                                    504: function () {
+                                        jQuery.fn.error_msg("当前任务书尚有未分配监测项目,任务无法流转!");
+                                    }
+                                })
+                            }, function (response) {
+                                jQuery.fn.error_msg("数据异常,无法进行项目流转!");
+                            });
+                        }
+                    })
                 }
             },
             ready: function () {
