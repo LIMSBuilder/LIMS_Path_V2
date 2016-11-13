@@ -9,7 +9,7 @@ import com.jfinal.plugin.activerecord.IAtom;
 import java.sql.SQLException;
 
 /**
- * Created by qulongjun on 2016/11/13.
+ * 任务分配下达
  */
 public class DistributeController extends Controller {
     public void task_distribute() {
@@ -38,6 +38,33 @@ public class DistributeController extends Controller {
             renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
 
 
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+    public void clear_distribute() {
+        try {
+            Boolean result = Db.tx(new IAtom() {
+                @Override
+                public boolean run() throws SQLException {
+                    int task_id = getParaToInt("task_id");//需要设置的task编号
+                    Integer[] projectList = getParaValuesToInt("projectList[]");//选中的项目列表
+                    Boolean result = true;
+                    for (int i = 0; i < projectList.length; i++) {
+                        int project_id = projectList[i];
+                        Delivery delivery = Delivery.deliveryDao.findFirst("SELECT * FROM `db_delivery` WHERE task_id=" + task_id + " AND project_id=" + project_id);
+                        if (delivery != null) {
+                            result = delivery.set("analyst", null).set("assessor", null).set("checker", null).update();
+                        } else {
+                            return false;
+                        }
+                        if (!result) break;
+                    }
+                    return result;
+                }
+            });
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
         } catch (Exception e) {
             renderError(500);
         }

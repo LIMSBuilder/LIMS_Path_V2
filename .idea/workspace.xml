@@ -7,7 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="20ae044c-4c25-41ff-ab00-28aaf995c514" name="默认的" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/experiment/distribute.tpl" afterPath="$PROJECT_DIR$/web/assets/template/experiment/distribute.tpl" />
     </list>
@@ -45,15 +44,17 @@
       <file leaf-file-name="distribute.tpl" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/distribute.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33480826">
-              <caret line="390" column="46" selection-start-line="390" selection-start-column="46" selection-end-line="390" selection-end-column="46" />
+            <state vertical-scroll-proportion="0.5722714">
+              <caret line="223" column="38" selection-start-line="223" selection-start-column="38" selection-end-line="223" selection-end-column="38" />
               <folding>
-                <element signature="e#12001#12295#0" expanded="false" />
-                <element signature="e#12344#14806#0" expanded="false" />
-                <element signature="e#14869#17112#0" expanded="false" />
-                <element signature="e#17162#17897#0" expanded="false" />
-                <element signature="e#17944#18089#0" expanded="false" />
-                <element signature="e#18131#18222#0" expanded="false" />
+                <element signature="e#12843#15305#0" expanded="false" />
+                <element signature="e#15368#17611#0" expanded="false" />
+                <element signature="e#17661#18396#0" expanded="false" />
+                <element signature="e#18443#18588#0" expanded="false" />
+                <element signature="e#18630#18721#0" expanded="false" />
+                <element signature="e#18767#21027#0" expanded="false" />
+                <element signature="e#22636#23765#0" expanded="false" />
+                <element signature="e#23826#25667#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -63,7 +64,7 @@
         <entry file="file://$PROJECT_DIR$/web/assets/template/subject/task_distribute.tpl">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-15.692307">
-              <caret line="35" column="86" selection-start-line="33" selection-start-column="24" selection-end-line="35" selection-end-column="86" />
+              <caret line="35" column="74" selection-start-line="35" selection-start-column="67" selection-end-line="35" selection-end-column="74" />
               <folding />
             </state>
           </provider>
@@ -73,11 +74,13 @@
         <entry file="file://$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="45" column="23" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="23" />
+              <caret line="57" column="118" selection-start-line="57" selection-start-column="118" selection-end-line="57" selection-end-column="118" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#458#1529#0" expanded="true" />
-                <element signature="e#1528#1529#0" expanded="true" />
+                <element signature="e#429#1500#0" expanded="true" />
+                <element signature="e#1499#1500#0" expanded="true" />
+                <element signature="e#1754#2749#0" expanded="true" />
+                <element signature="e#2748#2749#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1073,12 +1076,12 @@
       <workItem from="1478082784528" duration="22539000" />
       <workItem from="1478167560095" duration="88684000" />
       <workItem from="1478747016890" duration="10444000" />
-      <workItem from="1478871202528" duration="40038000" />
+      <workItem from="1478871202528" duration="41716000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="365356000" />
+    <option name="totallyTimeSpent" value="367034000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1102,7 +1105,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="消息" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25306123" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="运行" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25306123" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="控制板" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24053724" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1639,37 +1642,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="45" column="23" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#458#1529#0" expanded="true" />
-            <element signature="e#1528#1529#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/subject/task_distribute.tpl">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-15.692307">
-          <caret line="35" column="86" selection-start-line="33" selection-start-column="24" selection-end-line="35" selection-end-column="86" />
+          <caret line="35" column="74" selection-start-line="35" selection-start-column="67" selection-end-line="35" selection-end-column="74" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="57" column="118" selection-start-line="57" selection-start-column="118" selection-end-line="57" selection-end-column="118" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#429#1500#0" expanded="true" />
+            <element signature="e#1499#1500#0" expanded="true" />
+            <element signature="e#1754#2749#0" expanded="true" />
+            <element signature="e#2748#2749#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/distribute.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33480826">
-          <caret line="390" column="46" selection-start-line="390" selection-start-column="46" selection-end-line="390" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.5722714">
+          <caret line="223" column="38" selection-start-line="223" selection-start-column="38" selection-end-line="223" selection-end-column="38" />
           <folding>
-            <element signature="e#12001#12295#0" expanded="false" />
-            <element signature="e#12344#14806#0" expanded="false" />
-            <element signature="e#14869#17112#0" expanded="false" />
-            <element signature="e#17162#17897#0" expanded="false" />
-            <element signature="e#17944#18089#0" expanded="false" />
-            <element signature="e#18131#18222#0" expanded="false" />
+            <element signature="e#12843#15305#0" expanded="false" />
+            <element signature="e#15368#17611#0" expanded="false" />
+            <element signature="e#17661#18396#0" expanded="false" />
+            <element signature="e#18443#18588#0" expanded="false" />
+            <element signature="e#18630#18721#0" expanded="false" />
+            <element signature="e#18767#21027#0" expanded="false" />
+            <element signature="e#22636#23765#0" expanded="false" />
+            <element signature="e#23826#25667#0" expanded="false" />
           </folding>
         </state>
       </provider>
