@@ -481,6 +481,40 @@
                             }
                         });
                     });
+                },
+                flow: function (task) {
+                    var me = this;
+                    jQuery.fn.check_msg({
+                        msg: "您即将进行任务编号为【" + task.identify + "】的进度流转,是否继续?",
+                        success: function () {
+                            var data = {
+                                task_id: task.id
+                            };
+                            me.$http.post("/distribute/checkUser", data).then(function (response) {
+                                var data = response.data;
+                                jQuery.fn.codeState(data.code, {
+                                    200: function () {
+                                        me.$http.post("/flow/distributeFlow", {id: task.id}).then(function (response) {
+                                            var data = response.data;
+                                            jQuery.fn.codeState(data.code, {
+                                                200: function () {
+                                                    jQuery.fn.alert_msg("任务流转成功!");
+                                                    me.load_list("state=receive_delivery", 1);
+                                                }
+                                            })
+                                        }, function (response) {
+                                            jQuery.fn.error_msg("数据异常,无法流转任务,请刷新后重新尝试!");
+                                        });
+                                    },
+                                    504: function () {
+                                        jQuery.fn.error_msg("当前任务书尚有未分配监测项目,任务无法流转!");
+                                    }
+                                })
+                            }, function (response) {
+                                jQuery.fn.error_msg("数据异常,无法进行项目流转!");
+                            });
+                        }
+                    })
                 }
             },
             ready: function () {

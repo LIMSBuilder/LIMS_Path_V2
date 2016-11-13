@@ -7,6 +7,7 @@ import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.IAtom;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * 任务分配下达
@@ -80,6 +81,16 @@ public class DistributeController extends Controller {
                 Boolean result = delivery.set(type, null).update();
                 renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
             } else renderJson(RenderUtils.CODE_EMPTY);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+    public void checkUser() {
+        try {
+            int task_id = getParaToInt("task_id");
+            List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE task_id=" + task_id + " AND (analyst IS NULL OR assessor IS NULL OR checker IS NULL)");
+            renderJson(deliveryList.size() != 0 ? RenderUtils.CODE_EMPTY : RenderUtils.CODE_SUCCESS);
         } catch (Exception e) {
             renderError(500);
         }

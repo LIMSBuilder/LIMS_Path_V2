@@ -474,6 +474,13 @@ jQuery(document).ready(function () {
             }
             opt[503] ? opt[503]() : jQuery.fn.error_msg('数据库中已存在当前值,不能重复操作！');
         }
+        if (code == 504) {
+            if (opt[504] && typeof opt[504] == "string") {
+                jQuery.fn.error_msg(opt[504]);
+                return;
+            }
+            opt[504] ? opt[504]() : jQuery.fn.error_msg('当前操作的数据不存在,请刷新后重新尝试！');
+        }
         if (code == 505) {
             if (opt[505] && typeof opt[505] == "string") {
                 jQuery.fn.error_msg(opt[505]);
