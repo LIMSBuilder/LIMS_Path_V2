@@ -102,6 +102,16 @@ public class UserController extends Controller {
         renderJson(toJson(userList));
     }
 
+    public void getListByRole() {
+        try {
+            int id = getParaToInt("id");
+            List<User> userList = User.userDao.find("SELECT * FROM `db_user` WHERE role_id=" + id);
+            renderJson(toJson(userList));
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
     public void getById() {
         try {
             int id = getParaToInt("id");
