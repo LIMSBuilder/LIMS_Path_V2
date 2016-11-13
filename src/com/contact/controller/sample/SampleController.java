@@ -254,6 +254,14 @@ public class SampleController extends Controller {
                 temp.put("samples", value);
                 temp.put("character", delivery.get("character"));
                 temp.put("storage", delivery.get("storage"));
+
+                temp.put("analyst", delivery.get("analyst") != null ? User.userDao.findById(delivery.get("analyst")) : null);
+                temp.put("assessor", delivery.get("assessor") != null ? User.userDao.findById(delivery.get("assessor")) : null);
+                temp.put("checker", delivery.get("checker") != null ? User.userDao.findById(delivery.get("checker")) : null);
+
+                temp.put("analyst_time", delivery.get("analyst_time"));
+                temp.put("assessor_time", delivery.get("assessor_time"));
+                temp.put("checker_time", delivery.get("checker_time"));
                 count += value.size();
                 result.add(temp);
             }
