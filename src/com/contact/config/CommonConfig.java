@@ -1,5 +1,6 @@
 package com.contact.config;
 
+import com.contact.interceptor.LoginInterceptor;
 import com.contact.model.*;
 import com.jfinal.config.*;
 import com.jfinal.kit.PathKit;
@@ -77,7 +78,7 @@ public class CommonConfig extends JFinalConfig {
 
     @Override
     public void configInterceptor(Interceptors me) {
-        //me.addGlobalActionInterceptor(new LoginInterceptor());
+        me.addGlobalActionInterceptor(new LoginInterceptor());//全局的登录拦截器
     }
 
     @Override

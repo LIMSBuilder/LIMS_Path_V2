@@ -906,86 +906,21 @@
     jQuery(document).ready(function () {
         "use strict";
         jQuery('.nav-item').on('click', function () {
-            var title = jQuery(this).data("title");
-            var desp = jQuery(this).data("desp");
-            var icon = jQuery(this).parents('ul:eq(0)').data("icon");
-            jQuery('#title').html('<i class="' + icon + '"></i> ' + title + ' <span>' + desp + '</span>');
-            var type = jQuery(this).data('type');
-
-            var rowCount = sessionStorage.getItem("rowCount");
-            if (!rowCount) rowCount = 0;
-
-            if (type) {
-                jQuery.get("/assets/template/" + type + ".tpl", function (data) {
-                    $('#contentpanel').html(data);
-                });
-                //页码事件
-                $('.paging').pagination({
-                    pageCount: 20,
-                    coping: true,
-                    homePage: '首页',
-                    endPage: '末页',
-                    prevContent: '上页',
-                    nextContent: '下页',
-                    current: 1,
-                    callback: function (page) {
-                        console.log(page.getCurrent());
-                    }
-                });
-                //绑定鼠标移入显示"操作"按钮
-                jQuery('.table-hidaction tbody tr').hover(function () {
-                    jQuery(this).find('.table-action-hide a').animate({opacity: 1});
-                }, function () {
-                    jQuery(this).find('.table-action-hide a').animate({opacity: 0});
-                });
-            }
-        });
-
-        jQuery('#contentpanel').on('click', function (event) {
-            var target = jQuery(event.target);
-            if (target.hasClass('select_all')) {
-                //选中全部
-                jQuery.fn.select_all('check', 'all');
-            }
-            if (target.hasClass('select_no')) {
-                //反向选择
-                jQuery.fn.select_all('check', 'toggle');
-            }
-        });
-
-
-        //问题反馈
-        jQuery("#feedback").on("click", function () {
-            jQuery('#feedback_modal').modal("show");
-        });
-
-        jQuery("#type").select2({
-            width: '100%',
-            minimumResultsForSearch: -1
-        });
-
-
-        jQuery("#feedback_form").validate({
-            highlight: function (element) {
-                jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-            },
-            success: function (element) {
-                jQuery(element).closest('.form-group').removeClass('has-error');
-            }
-        });
-
-        jQuery("#save_feedback").on("click", function () {
-            var data = {
-                type: jQuery("#type").val(),
-                content: jQuery("#feedback_content").val()
-            };
-            jQuery.ajax({
-                type: 'post',
-                url: '/feedback/add',
-                data: data,
-                success: function (data) {
-                    jQuery.fn.codeState(data.code, {
-                        200: "问题反馈成功!"
+            var me = this;
+            //加载子页面之前需要进行一次验证当前登录状态
+            jQuery.get("/checkState", function (data) {
+                if (data.code == 504) {
+                    window.location.href = "/accessBrred";
+                    return;
+                }
+                var title = jQuery(me).data("title");
+                var desp = jQuery(me).data("desp");
+                var icon = jQuery(me).parents('ul:eq(0)').data("icon");
+                jQuery('#title').html('<i class="' + icon + '"></i> ' + title + ' <span>' + desp + '</span>');
+                var type = jQuery(me).data('type');
+                if (type) {
+                    jQuery.get("/assets/template/" + type + ".tpl", function (data) {
+                        $('#contentpanel').html(data);
                     });
                 }
             });
@@ -1004,6 +939,8 @@
                 }
             }
         });
+
+        //大型的模态框
         LIMS.dialog_lg = new Vue({
             el: '#custom_lg_modal',
             data: {
@@ -1018,6 +955,48 @@
             }
         });
         Vue.http.options.emulateJSON = true;
+
+
+        //问题反馈
+        jQuery("#feedback").on("click", function () {
+            jQuery('#feedback_modal').modal("show");
+        });
+
+        //反馈问题类型
+        jQuery("#type").select2({
+            width: '100%',
+            minimumResultsForSearch: -1
+        });
+
+        //问题反馈清单
+        jQuery("#feedback_form").validate({
+            highlight: function (element) {
+                jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            success: function (element) {
+                jQuery(element).closest('.form-group').removeClass('has-error');
+            }
+        });
+
+        //问题反馈
+        jQuery("#save_feedback").on("click", function () {
+            var data = {
+                type: jQuery("#type").val(),
+                content: jQuery("#feedback_content").val()
+            };
+            jQuery.ajax({
+                type: 'post',
+                url: '/feedback/add',
+                data: data,
+                success: function (data) {
+                    jQuery.fn.codeState(data.code, {
+                        200: "问题反馈成功!"
+                    });
+                }
+            });
+        });
+
+
     });
 </script>
 <script type="text/html" id="modal_body"></script>
