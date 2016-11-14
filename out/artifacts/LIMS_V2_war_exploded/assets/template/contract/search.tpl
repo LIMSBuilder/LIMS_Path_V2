@@ -192,7 +192,7 @@
                         jQuery.fn.error_msg("合同数据请求异常,请刷新后重新尝试。");
                     });
                 },
-                view_process:function(contract){
+                view_process: function (contract) {
                     var id = contract.id;
                     jQuery.fn.alert_msg("查看流程功能即将上线");
                 },
@@ -247,14 +247,22 @@
             },
             ready: function () {
                 var me = this;
+                var dom = jQuery(me.$el);
                 jQuery('#slider').slider({
                     range: "min",
                     max: 100,
                     value: 50
                 });
+                debugger
                 // Date Picker
-                jQuery('#date_start').datepicker();
-                jQuery('#date_end').datepicker();
+                dom.find('#date_start').datepicker({
+                    numberOfMonths: 3,
+                    showButtonPanel: true
+                });
+                dom.find('#date_end').datepicker({
+                    numberOfMonths: 3,
+                    showButtonPanel: true
+                });
 
                 me.$http.get("/constarct/monitorType").then(function (response) {
                     var data = response.data;
@@ -266,7 +274,6 @@
                 }, function (response) {
                     jQuery.fn.error_msg("获取监测类型列表失败！");
                 });
-
 
 
                 me.load_list("", 1);
