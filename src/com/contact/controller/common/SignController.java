@@ -69,11 +69,21 @@ public class SignController extends Controller {
                 if (user.get("idCard").equals(getPara("idCard"))) {
                     //证件号一致
                     Boolean result = user.set("password", MD5Tools.MD5(getPara("password"))).update();
-                    renderJson(result?RenderUtils.CODE_SUCCESS:RenderUtils.CODE_ERROR);
+                    renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
                 } else {
                     renderJson(RenderUtils.CODE_REPEAT);
                 }
             } else renderJson(RenderUtils.CODE_EMPTY);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+    public void checkUsername() {
+        try {
+            String username = getPara("username");
+            User user = User.userDao.findFirst("SELECT * FROM `db_user` WHERE username='" + username + "'");
+            renderJson(user != null ? RenderUtils.CODE_UNIQUE : RenderUtils.CODE_SUCCESS);
         } catch (Exception e) {
             renderError(500);
         }

@@ -33,11 +33,9 @@
 
                 <div class="signin-info">
                     <div class="logopanel">
-                        <h2><span>[</span> 邦达诚环境监测中心欢迎您! <span>]</span></h2>
+                        <h2>邦达诚环境监测中心欢迎您!</h2>
                     </div><!-- logopanel -->
-
                     <div class="mb20"></div>
-
                     <h5><strong>欢迎使用邦达诚实验室信息管理系统！</strong></h5>
                     <ul>
                         <li><i class="fa fa-arrow-circle-o-right mr5"></i> 跨平台技术</li>
@@ -170,10 +168,7 @@
 <script src="/assets/js/custom.js"></script>
 <script>
     jQuery(document).ready(function () {
-        /**
-         * 用户登录
-         */
-        jQuery("#login").off("click").on("click", function () {
+        function loginFun() {
             var data = {
                 username: jQuery("#username").val(),
                 password: jQuery("#password").val()
@@ -197,6 +192,28 @@
                     });
                 }
             });
+        }
+
+        /**
+         * 用户登录
+         */
+        jQuery("#login").off("click").on("click", function () {
+            //点击登录按钮,登录
+            loginFun();
+        });
+        jQuery("#password").on("keyup", function (event) {
+            if (event.keyCode == 13) {
+                //按下回车,登录
+                loginFun();
+            }
+        });
+        jQuery("#forgetForm").validate({
+            highlight: function (element) {
+                jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            success: function (element) {
+                jQuery(element).closest('.form-group').removeClass('has-error');
+            }
         });
         jQuery('#findMyPWD').off("click").on("click", function () {
             if (jQuery('#forgetForm').valid()) {
