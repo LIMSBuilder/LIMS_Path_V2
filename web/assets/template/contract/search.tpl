@@ -68,8 +68,6 @@
                                 <div class="btn-demo pull-right">
                                     <a class="btn btn-default-alt" data-toggle="modal"
                                        data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
-                                    <a class="btn btn-info-alt" data-toggle="modal"
-                                       data-target=".bs-example-modal-lg" @click="view_process(result)">流程查询</a>
                                 </div>
                                 <h4 class="filename text-primary">{{result.project_name}}</h4>
                                 <small class="text-muted">合同编号: {{result.identify}}</small>
@@ -117,9 +115,6 @@
                 }
             },
             methods: {
-                search_by_type: function (type) {
-                    console.log(type);
-                },
                 search_btn: function () {
                     var me = this;
                     var condition = "identify=" + me.identify + "&&project_name=" + encodeURI(me.project_name) + "&&client_unit=" + encodeURI(me.client_unit) + "&&search_createTime_start=" + me.search_createTime_start + "&&search_createTime_end=" + me.search_createTime_end + "&&monitor_type_selected=" + encodeURI(me.monitor_type_selected);
@@ -192,10 +187,6 @@
                         jQuery.fn.error_msg("合同数据请求异常,请刷新后重新尝试。");
                     });
                 },
-                view_process:function(contract){
-                    var id = contract.id;
-                    jQuery.fn.alert_msg("查看流程功能即将上线");
-                },
                 load_list: function (condition, currentPage) {
                     var me = this;
                     var dom = jQuery(me.$el);
@@ -247,14 +238,22 @@
             },
             ready: function () {
                 var me = this;
+                var dom = jQuery(me.$el);
                 jQuery('#slider').slider({
                     range: "min",
                     max: 100,
                     value: 50
                 });
+                debugger
                 // Date Picker
-                jQuery('#date_start').datepicker();
-                jQuery('#date_end').datepicker();
+                dom.find('#date_start').datepicker({
+                    numberOfMonths: 3,
+                    showButtonPanel: true
+                });
+                dom.find('#date_end').datepicker({
+                    numberOfMonths: 3,
+                    showButtonPanel: true
+                });
 
                 me.$http.get("/constarct/monitorType").then(function (response) {
                     var data = response.data;
@@ -266,7 +265,6 @@
                 }, function (response) {
                     jQuery.fn.error_msg("获取监测类型列表失败！");
                 });
-
 
 
                 me.load_list("", 1);
