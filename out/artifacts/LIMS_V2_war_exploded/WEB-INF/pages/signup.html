@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png">
 
-    <title>邦达城科技有限公司欢迎您!</title>
+    <title>邦达诚环境监测中心（江苏）有限公司欢迎您!</title>
 
     <link href="/assets/css/style.default.css" rel="stylesheet">
 
@@ -33,7 +33,7 @@
 
                 <div class="signup-info">
                     <div class="logopanel">
-                        <h1><span>[</span> 邦达诚科技有限公司 <span>]</span></h1>
+                        <h3>邦达诚环境监测中心欢迎您!</h3>
                     </div><!-- logopanel -->
 
                     <div class="mb20"></div>
@@ -87,7 +87,8 @@
                     <div class="form-group">
                         <label class="col-sm-12 control-label">用户名 <span class="asterisk">*</span></label>
                         <div class="col-sm-12">
-                            <input type="text" name="username" v-model="username" class="form-control" minlength="5"
+                            <input type="text" name="username" v-model="username" id="username" class="form-control"
+                                   minlength="5"
                                    placeholder="由数字和字母组成,不少于5个字符。" required/>
                         </div>
                     </div>
@@ -117,11 +118,11 @@
                     <div class="form-group">
                         <label class="col-sm-12 control-label">性别</label>
                         <div class="col-sm-12">
-                            <div class="rdio rdio-primary col-sm-3">
+                            <div class="rdio rdio-primary col-sm-2">
                                 <input type="radio" v-model="gender" name="radio" value="0" id="man" checked/>
                                 <label for="man">男</label>
                             </div>
-                            <div class="rdio rdio-primary col-sm-3">
+                            <div class="rdio rdio-danger col-sm-2">
                                 <input type="radio" v-model="gender" name="radio" value="1" id="female"/>
                                 <label for="female">女</label>
                             </div>
@@ -143,7 +144,7 @@
                         <label class="col-sm-12 control-label">所属部门</label>
                         <div class="col-sm-12">
                             <select class="select2" id="department_select"
-                                    data-placeholder="请选择部门..." required>
+                                    data-placeholder="请选择部门...">
                                 <option value=""></option>
                                 <template v-for="item in departments">
                                     <option value="{{item.id}}">{{item.name}}</option>
@@ -176,11 +177,11 @@
         <div class="signup-footer">
             <div class="pull-left">
                 <span class="footer_copy_text">Copyright &copy; 2016 Powered By <a
-                        href="javascript:;">邦达诚科技有限公司</a>  - All Rights Reserved / <a
+                        href="javascript:;">邦达诚环境监测中心（江苏）有限公司</a>  - All Rights Reserved / <a
                         href="http://www.miitbeian.gov.cn" target="_blank">苏ICP备16022318号</a></span>
             </div>
             <div class="pull-right">
-                Created By: <a href="http://themepixels.com/" target="_blank"> 瞿龙俊 </a>
+                Created By: <a href="javascript:;" target="_blank"> 瞿龙俊 </a>
             </div>
         </div>
 
@@ -231,6 +232,8 @@
                 signin: function () {
                     var me = this;
                     var result = jQuery("#signForm").valid();
+                    if (!result) return;
+
                     var data = {
                         username: me.username,
                         password: me.password,
@@ -240,7 +243,6 @@
                         tel: me.tel,
                         role_id: jQuery("#role_select").val()
                     };
-                    console.log(data);
                     me.$http.post("/user/add", data).then(function (response) {
                         var data = response.data;
                         jQuery.fn.codeState(data.code, {
@@ -253,7 +255,7 @@
                         })
                     }, function (response) {
                         jQuery.fn.error_msg("服务器异常,无法获取注册信息!");
-                    })
+                    });
                 }
             },
             ready: function () {
@@ -292,6 +294,28 @@
                     success: function (element) {
                         jQuery(element).closest('.form-group').removeClass('has-error');
                     }
+                });
+
+                jQuery("#username").off("blur").on("blur", function () {
+                    var username = me.username;
+                    if (username.length < 5)return;
+                    me.$http.get("/checkUsername", {
+                        params: {
+                            username: username
+                        }
+                    }).then(function (response) {
+                        var data = response.data;
+                        jQuery.fn.codeState(data.code, {
+                            200: function () {
+
+                            },
+                            505: function () {
+                                jQuery.fn.error_msg("当前用户名已经存在!");
+                            }
+                        })
+                    }, function (response) {
+
+                    })
                 });
             }
         });

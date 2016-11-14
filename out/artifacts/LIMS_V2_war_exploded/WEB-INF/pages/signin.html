@@ -7,10 +7,12 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png">
 
-    <title>邦达城科技有限公司欢迎您!</title>
+    <title>邦达诚环境监测中心（江苏）有限公司欢迎您!</title>
 
     <link href="/assets/css/style.default.css" rel="stylesheet">
 
+    <!--弹出层-->
+    <link href="/assets/css/jquery.gritter.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="/assets/js/html5shiv.js"></script>
@@ -31,59 +33,105 @@
 
                 <div class="signin-info">
                     <div class="logopanel">
-                        <h1><span>[</span> 邦达诚科技有限公司 <span>]</span></h1>
+                        <h2>邦达诚环境监测中心欢迎您!</h2>
                     </div><!-- logopanel -->
-
                     <div class="mb20"></div>
-
-                    <h5><strong>欢迎使用邦达诚科技实验室信息管理系统！</strong></h5>
+                    <h5><strong>欢迎使用邦达诚实验室信息管理系统！</strong></h5>
                     <ul>
-                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> 响应式网站,电脑、手机、平板多平台登录</li>
-                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> 精准的流程控制,进度实时掌握</li>
-                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> 数据加密,贴心的安全防护</li>
-                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> 流畅的操作体验,准确的消息反馈</li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> 跨平台技术</li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> 开放式数据交互</li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> 实验室管理规范化</li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> 表单化功能配置</li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> 仪器数据采集</li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> 行业检测标准库</li>
                         <li><i class="fa fa-arrow-circle-o-right mr5"></i> 其他更多...</li>
                     </ul>
                     <div class="mb20"></div>
-                    <strong>公司新成员? <a href="/signup" target="_blank">点此注册</a></strong>
+                    <strong>新入职员工? <a href="/signup" target="_blank">点此注册</a></strong>
                 </div><!-- signin0-info -->
 
             </div><!-- col-sm-7 -->
-
             <div class="col-md-5">
-
                 <form method="post" action="/dashboard">
                     <h4 class="nomargin">登 录</h4>
                     <p class="mt5 mb20">使用您的员工账号登陆</p>
 
-                    <input type="text" class="form-control uname" placeholder="用户名"/>
-                    <input type="password" class="form-control pword" placeholder="密码"/>
-                    <a href="">
+                    <input type="text" class="form-control uname" placeholder="用户名" id="username"/>
+                    <input type="password" class="form-control pword" placeholder="密码" id="password"/>
+                    <a href="javascript:;" data-toggle="modal"
+                       data-target=".forget-modal-lg">
                         <small>忘记密码？</small>
                     </a>
-                    <button class="btn btn-success btn-block">登 录</button>
-
+                    <a class="btn btn-success btn-block" id="login">登 录</a>
                 </form>
             </div><!-- col-sm-5 -->
-
         </div><!-- row -->
-
         <div class="signup-footer">
             <div class="pull-left">
                 <span class="footer_copy_text">Copyright &copy; 2016 Powered By <a
-                        href="javascript:;">邦达诚科技有限公司</a>  - All Rights Reserved / <a
+                        href="javascript:;">邦达诚环境监测中心（江苏）有限公司</a>  - All Rights Reserved / <a
                         href="http://www.miitbeian.gov.cn" target="_blank">苏ICP备16022318号</a></span>
             </div>
             <div class="pull-right">
-                Created By: <a href="http://themepixels.com/" target="_blank"> 瞿龙俊 </a>
+                Created By: <a href="javascript:;" target="_blank"> 瞿龙俊 </a>
             </div>
-
-
         </div>
-
     </div><!-- signin -->
 
 </section>
+
+<div class="modal fade forget-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>
+                <h4 class="modal-title">找回密码</h4>
+            </div>
+            <div class="modal-body">
+                <form id="forgetForm" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">用户名 <span class="asterisk">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="username" minlength="5" class="form-control"
+                                   placeholder="请输入您的登录用户名"
+                                   required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">证件号 <span class="asterisk">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="idCard" class="form-control"
+                                   placeholder="请输入您注册时填写的证件号" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">新密码 <span class="asterisk">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="password" id="setNewPWD" class="form-control"
+                                   placeholder="请输入登录使用的新密码,不少于6位字符" minlength="6" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">重复密码 <span class="asterisk">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="newPassword" class="form-control"
+                                   placeholder="请再次输入登录使用的新密码" equalTo="#setNewPWD" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="btn-demo text-center">
+                            <a class="btn btn-success-alt" style="float: none;" id="findMyPWD">修 改</a>
+                            <a class="btn btn-default-alt" data-dismiss="modal" style="float: none;">取
+                                消
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
      aria-hidden="true" id="custom_lg_modal">
@@ -91,7 +139,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>
-                <h4 class="modal-title">邀您参与《邦达诚科技实验室信息管理系统》内测！</h4>
+                <h4 class="modal-title">邀您参与《邦达诚实验室信息管理系统》内测！</h4>
             </div>
             <div class="modal-body" id="contentpanel">
 
@@ -111,22 +159,87 @@
 <script src="/assets/js/retina.min.js"></script>
 
 <script src="/assets/js/template.js"></script>
+<!--弹出层-->
+<script src="/assets/js/jquery.gritter.min.js"></script>
+<!--表单验证-->
+<script src="/assets/js/jquery.validate.min.js"></script>
+<script src="/assets/js/messages_zh.js"></script>
 
 <script src="/assets/js/custom.js"></script>
 <script>
     jQuery(document).ready(function () {
-        // Please do not use the code below
-        // This is for demo purposes only
-        var c = jQuery.cookie('change-skin');
-        if (c && c == 'greyjoy') {
-            jQuery('.btn-success').addClass('btn-orange').removeClass('btn-success');
-        } else if (c && c == 'dodgerblue') {
-            jQuery('.btn-success').addClass('btn-primary').removeClass('btn-success');
-        } else if (c && c == 'katniss') {
-            jQuery('.btn-success').addClass('btn-primary').removeClass('btn-success');
+        function loginFun() {
+            var data = {
+                username: jQuery("#username").val(),
+                password: jQuery("#password").val()
+            };
+            if (!data.username || !data.password) {
+                jQuery.fn.error_msg("用户名或者密码不能为空!");
+                return;
+            }
+            jQuery.ajax({
+                url: "/loginCheck",
+                type: 'post',
+                data: data,
+                success: function (data) {
+                    jQuery.fn.codeState(data.code, {
+                        200: function () {
+                            window.location.href = "/dashboard";
+                        },
+                        502: "用户名或者密码错误,请重新输入!",
+                        504: "服务器无法保存当前登录信息,请刷新后重新尝试!",
+                        501: "用户名和密码不能为空!"
+                    });
+                }
+            });
         }
 
-
+        /**
+         * 用户登录
+         */
+        jQuery("#login").off("click").on("click", function () {
+            //点击登录按钮,登录
+            loginFun();
+        });
+        jQuery("#password").on("keyup", function (event) {
+            if (event.keyCode == 13) {
+                //按下回车,登录
+                loginFun();
+            }
+        });
+        jQuery("#forgetForm").validate({
+            highlight: function (element) {
+                jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            success: function (element) {
+                jQuery(element).closest('.form-group').removeClass('has-error');
+            }
+        });
+        jQuery('#findMyPWD').off("click").on("click", function () {
+            if (jQuery('#forgetForm').valid()) {
+                jQuery.ajax({
+                    url: "/forget",
+                    type: 'post',
+                    data: jQuery('#forgetForm').serialize(),
+                    success: function (data) {
+                        jQuery.fn.codeState(data.code, {
+                            200: function () {
+                                jQuery.fn.alert_msg("密码重置成功!");
+                                jQuery('#forgetForm')[0].reset();
+                                jQuery(".forget-modal-lg").modal("hide");
+                            },
+                            502: "服务器异常,无法重置密码,请刷新后重新尝试!",
+                            503: "您填写的证件号错误,请重新输入!",
+                            504: "当前用户名不存在,请重新输入用户名!",
+                            501: "用户名和密码不能为空!"
+                        });
+                    }
+                });
+            }
+        });
+        /**
+         * 内测通知
+         */
         setTimeout(function () {
             jQuery.get("/assets/template/test.tpl", function (data) {
                 $('#contentpanel').html(data);

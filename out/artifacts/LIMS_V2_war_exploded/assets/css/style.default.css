@@ -1003,7 +1003,7 @@ p {
 
 .ckbox label,
 .rdio label {
-    padding-left: 10px;
+    /*padding-left: 10px;*/
     cursor: pointer;
     margin-bottom: 7px !important;
 }
@@ -3237,7 +3237,7 @@ div.error label.error:before {
 
 .signuppanel {
     margin: 5% auto 0 auto;
-    width: 780px;
+    width: 980px;
 }
 
 .signuppanel .row {
