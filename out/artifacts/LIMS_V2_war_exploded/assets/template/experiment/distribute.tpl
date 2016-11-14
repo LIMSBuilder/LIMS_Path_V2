@@ -360,6 +360,10 @@
                         selected.push(oChecked[i].value);
                         values.push(jQuery(oChecked[i]).data("value"));
                     }
+                    if (selected.length == 0) {
+                        jQuery.fn.error_msg("至少选择一个监测项目任务!");
+                        return;
+                    }
                     jQuery("#charge_user").modal("show");
                     jQuery("#saveOpt").off("click").on("click", function () {
                         var user_name = jQuery("#user_select").find('option:selected').html();
@@ -401,6 +405,10 @@
                     for (var i = 0; i < oChecked.length; i++) {
                         selected.push(oChecked[i].value);
                         values.push(jQuery(oChecked[i]).data("value"));
+                    }
+                    if (selected.length == 0) {
+                        jQuery.fn.error_msg("至少选择一个监测项目任务!");
+                        return;
                     }
                     jQuery.fn.check_msg({
                         msg: "是否将任务【" + me.identify + "】的【" + values.toString() + "】检测项目的分析员、审核员、复核员全部清空?",
