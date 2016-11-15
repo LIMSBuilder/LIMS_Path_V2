@@ -1,5 +1,10 @@
 <div class="row">
     <div class="col-sm-12">
+        <div class="btn-demo">
+            <a class="btn btn-success-alt" @click="pass" style="float: none;">审核通过</a>
+            <a class="btn btn-danger-alt" @click="reject" style="float: none;">审核拒绝</a>
+            <a class="btn btn-default-alt" style="float: none;" data-dismiss="modal">关 闭</a>
+        </div>
         <div class="table-responsive">
             <table class="table table-bordered  mb30">
                 <thead>
