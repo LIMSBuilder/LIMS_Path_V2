@@ -472,9 +472,8 @@
             <h2 id="title"><i class="fa fa-home"></i> 仪表盘 <span>Subtitle goes here...</span></h2>
             <div class="breadcrumb-wrapper">
                 <span class="label">当前位置:</span>
-                <ol class="breadcrumb">
-                    <li><a href="index.html">BonContact</a></li>
-                    <li class="active">仪表盘</li>
+                <ol class="breadcrumb" id="nav_li">
+
                 </ol>
             </div>
         </div>
@@ -914,6 +913,12 @@
                     return;
                 }
                 var title = jQuery(me).data("title");
+                var parentTitle = jQuery(me).parents(".nav-parent") ? jQuery(me).parents(".nav-parent").find("a span").html() : "";
+                jQuery("#nav_li").empty().append("<li><a href='javascript:;'>BonContact</a></li>");
+                if (parentTitle) {
+                    jQuery("#nav_li").append("<li><a href='javascript:;'>" + parentTitle + "</a></li>");
+                }
+                jQuery("#nav_li").append("<li class='active'>" + title + "</li>");
                 var desp = jQuery(me).data("desp");
                 var icon = jQuery(me).parents('ul:eq(0)').data("icon");
                 jQuery('#title').html('<i class="' + icon + '"></i> ' + title + ' <span>' + desp + '</span>');
