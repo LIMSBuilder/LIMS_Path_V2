@@ -4,7 +4,7 @@
             <div class="panel-body">
                 <div class="alert alert-info">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <strong>推荐操作！</strong> 建议使用"从合同中导入"功能,系统会自动抓取合同中已经设置的信息并自动填充至任务书中。
+                    <strong>推荐操作！</strong> 建议使用"从合同中导入"功能,系统会自动抓取合同中已经设置的信息并自动填充至任务书中,选择从合同中导入会屏蔽对任务项的修改。
                 </div>
                 <div class="col-md-11">
                     <form class="form-horizontal" id="task_form">
@@ -31,8 +31,8 @@
                                        required>
                             </div>
                             <div class="col-sm-2">
-                                <a class="btn btn-sm btn-success-alt pull-right" data-toggle="modal"
-                                   data-target=".bs-example-modal-static" @click="from_contract">从现有合同导入</a>
+                                <a class="btn btn-sm btn-warning-alt pull-right" data-toggle="modal"
+                                   data-target=".bs-example-modal-lg" @click="from_contract">从现有合同导入</a>
                             </div>
                         </div>
                         <div class="form-group">
@@ -43,7 +43,7 @@
                                        required>
                             </div>
                             <div class="col-sm-2">
-                                <a class="btn btn-sm btn-success-alt pull-right" data-toggle="modal"
+                                <a class="btn btn-sm btn-info-alt pull-right" data-toggle="modal"
                                    data-target=".bs-example-modal-static" @click="from_customer">从客户资料导入</a>
                             </div>
                         </div>
@@ -330,7 +330,7 @@
                         },
                         methods: {
                             import_into: function (data) {
-                                jQuery('#custom_modal').modal("hide");
+                                jQuery('#custom_lg_modal').modal("hide");
                                 jQuery.fn.check_msg({
                                     msg: "是否将合同【" + data.project_name + "】导入到任务书中？当前任务书将与合同项绑定，对任务书的修改将不会生效。",
                                     success: function () {
@@ -366,7 +366,6 @@
                             view_info: function (contract) {
                                 var me = this;
                                 var id = contract.id;
-                                jQuery('#custom_modal').modal("hide");
                                 me.$http.get("/constarct/getById", {
                                     params: {
                                         id: id
@@ -485,8 +484,8 @@
                             me.load_list("state=1", 1);
                         }
                     });
-                    LIMS.dialog.$set('title', '从现有合同导入');
-                    LIMS.dialog.currentView = name;
+                    LIMS.dialog_lg.$set('title', '从现有合同导入');
+                    LIMS.dialog_lg.currentView = name;
                 },
                 /**
                  * 增加检测项
