@@ -15,7 +15,7 @@
                 <div class="ckbox ckbox-success">
                     <input type="checkbox" name="monitor_type" v-model="monitor_type_selected" value="{{type}}"
                            id="checkbox_{{type}}">
-                    <label for="checkbox_{{type}}">{{type}}</label>
+                    <label for="checkbox_{{type}}">&nbsp;{{type}}</label>
                 </div>
             </li>
         </ul>
@@ -34,6 +34,13 @@
             <input type="text" v-model="search_createTime_end" class="form-control" placeholder="mm/dd/yyyy"
                    id="date_end">
             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+
+        <div class="mb20"></div>
+        <h4 class="subtitle mb5">显示合同模板</h4>
+        <div class="ckbox ckbox-danger">
+            <input type="checkbox" name="show_template" id="show_template" v-model="show_template" value="true">
+            <label for="show_template">&nbsp;显示 </label>
         </div>
 
         <div class="mb20"></div>
@@ -68,8 +75,6 @@
                                 <div class="btn-demo pull-right">
                                     <a class="btn btn-default-alt" data-toggle="modal"
                                        data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
-                                    <a class="btn btn-info-alt" data-toggle="modal"
-                                       data-target=".bs-example-modal-lg" @click="view_process(result)">流程查询</a>
                                 </div>
                                 <h4 class="filename text-primary">{{result.project_name}}</h4>
                                 <small class="text-muted">合同编号: {{result.identify}}</small>
@@ -108,6 +113,7 @@
                     monitor_type_selected: [],//
                     search_createTime_start: '',//创建开始时间
                     search_createTime_end: '',//创建结束时间
+                    show_template: true,//显示模板
 
                     customer_list: [],//客户单位列表
                     result_list: [],//结果集
@@ -117,12 +123,9 @@
                 }
             },
             methods: {
-                search_by_type: function (type) {
-                    console.log(type);
-                },
                 search_btn: function () {
                     var me = this;
-                    var condition = "identify=" + me.identify + "&&project_name=" + encodeURI(me.project_name) + "&&client_unit=" + encodeURI(me.client_unit) + "&&search_createTime_start=" + me.search_createTime_start + "&&search_createTime_end=" + me.search_createTime_end + "&&monitor_type_selected=" + encodeURI(me.monitor_type_selected);
+                    var condition = "identify=" + me.identify + "&&project_name=" + encodeURI(me.project_name) + "&&client_unit=" + encodeURI(me.client_unit) + "&&search_createTime_start=" + me.search_createTime_start + "&&search_createTime_end=" + me.search_createTime_end + "&&monitor_type_selected=" + encodeURI(me.monitor_type_selected) + "&&show_template=" + me.show_template;
                     me.load_list(condition, 1);
                 },
                 view_info: function (contract) {
@@ -192,10 +195,6 @@
                         jQuery.fn.error_msg("合同数据请求异常,请刷新后重新尝试。");
                     });
                 },
-                view_process: function (contract) {
-                    var id = contract.id;
-                    jQuery.fn.alert_msg("查看流程功能即将上线");
-                },
                 load_list: function (condition, currentPage) {
                     var me = this;
                     var dom = jQuery(me.$el);
@@ -253,7 +252,6 @@
                     max: 100,
                     value: 50
                 });
-                debugger
                 // Date Picker
                 dom.find('#date_start').datepicker({
                     numberOfMonths: 3,
