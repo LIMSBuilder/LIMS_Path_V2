@@ -76,7 +76,12 @@
                                     <a class="btn btn-default-alt" data-toggle="modal"
                                        data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
                                 </div>
-                                <h4 class="filename text-primary">{{result.project_name}}</h4>
+                                <h4 class="filename text-primary">
+                                    <template v-if="result.state==-1">
+                                        <span class="text-success">【合同模板】</span>
+                                    </template>
+                                    {{result.project_name}}
+                                </h4>
                                 <small class="text-muted">合同编号: {{result.identify}}</small>
                                 <br/>
                                 <small class="text-muted">监测类型: {{result.monitor_type}}</small>
