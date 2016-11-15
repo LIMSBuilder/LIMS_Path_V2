@@ -62,6 +62,12 @@ public class ContractController extends Controller {
             if (key.equals("monitor_type_selected")) {
                 paras += (" AND monitor_type in ('" + value.toString().replace(",", "','") + "')");
             }
+            if (key.equals("show_template")) {//显示模板
+                if (!value.equals("true")) {
+                    paras += " AND state != -1";
+                }
+            }
+            //合同起草开始时间
             if (key.equals("search_createTime_start")) {
                 try {
                     Date date = format_date.parse(value.toString());
@@ -71,6 +77,7 @@ public class ContractController extends Controller {
                 }
                 paras += (" AND create_time >= '" + value + "'");
             }
+            //合同起草结束时间
             if (key.equals("search_createTime_end")) {
                 try {
                     Date date = format_date.parse(value.toString());
