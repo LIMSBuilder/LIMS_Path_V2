@@ -382,14 +382,14 @@ jQuery(document).ready(function () {
 
     jQuery.fn.check_msg = function (opt) {
         jQuery('#msg_body').html(opt.msg);
-        jQuery('#myModal').modal('show');
+        jQuery('#myMSG').modal('show');
         jQuery('#check_true').off('click').on('click', function () {
             opt.success && opt.success();
-            jQuery('#myModal').modal('hide');
+            jQuery('#myMSG').modal('hide');
         });
         jQuery("#check_false").off("click").on("click", function () {
             opt.cancel && opt.cancel();
-            jQuery('#myModal').modal('hide');
+            jQuery('#myMSG').modal('hide');
         });
     };
 

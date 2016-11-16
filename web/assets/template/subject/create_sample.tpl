@@ -54,17 +54,18 @@
         </div>
         <form id="sample_form">
             <div class="form-group col-sm-2">
-                <input type="text" placeholder="样品名称" id="name" v-model="name" class="form-control">
+                <input type="text" placeholder="样品名称" id="name" v-model="name" class="form-control" required>
             </div>
             <div class="form-group col-sm-4">
-                <select class="select2" multiple="multiple" data-placeholder="检测项目" id="projectList">
+                <select class="select2" multiple="multiple" data-placeholder="检测项目" id="projectList" required>
+                    <option value=""></option>
                     <template v-for="item in projectList">
                         <option value="{{item.id}}">{{item.name}}</option>
                     </template>
                 </select>
             </div>
             <div class="form-group col-sm-2">
-                <select class="select2" data-placeholder="样品状态" id="feature">
+                <select class="select2" data-placeholder="样品状态" id="feature" required>
                     <option value=""></option>
                     <option value="G">气态</option>
                     <option value="L">液态</option>
@@ -73,11 +74,11 @@
             </div>
 
             <div class="form-group col-sm-2">
-                <input type="text" placeholder="颜色" id="color" v-model="color" class="form-control">
+                <input type="text" placeholder="颜色" id="color" v-model="color" class="form-control" required>
             </div>
 
             <div class="form-group col-sm-2">
-                <select class="select2" data-placeholder="是否完好" id="condition">
+                <select class="select2" data-placeholder="是否完好" id="condition" required>
                     <option value=""></option>
                     <option value="+">完好</option>
                     <option value="-">瑕疵</option>
