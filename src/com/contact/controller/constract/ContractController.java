@@ -1,9 +1,6 @@
 package com.contact.controller.constract;
 
-import com.contact.model.Contract;
-import com.contact.model.Identify;
-import com.contact.model.Item_Project;
-import com.contact.model.MonitorItem;
+import com.contact.model.*;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
@@ -12,6 +9,8 @@ import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.IAtom;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.render.Render;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 
 import java.sql.SQLException;
@@ -24,6 +23,7 @@ import java.util.*;
  * state
  * 0-合同正常创建完成并进入项目流中,待审核
  * 1-合同审核通过,待进入任务书环节
+ * 2-任务书创建完成
  * -1 -合同模板
  * -2中止合同
  * -3删除合同
@@ -41,55 +41,66 @@ public class ContractController extends Controller {
     SimpleDateFormat new_format_date = new SimpleDateFormat("yyyy-MM-dd");
 
     public void list() {
-        int rowCount = getParaToInt("rowCount");
-        int currentPage = getParaToInt("currentPage");
-        String condition_temp = getPara("condition");
-        Map condition = ParaUtils.getSplitCondition(condition_temp);
-        if (rowCount == 0) {
-            rowCount = ParaUtils.getRowCount();
-        }
-        String paras = " WHERE state != -3";
-        Object[] keys = condition.keySet().toArray();
-        for (int i = 0; i < keys.length; i++) {
-            String key = (String) keys[i];
-            Object value = condition.get(key);
-            if (key.equals("identify") || key.equals("project_name") || key.equals("client_unit")) {
-                paras += (" AND " + key + " like \"%" + value + "%\"");
+        try {
+            int rowCount = getParaToInt("rowCount");
+            int currentPage = getParaToInt("currentPage");
+            String condition_temp = getPara("condition");
+            Map condition = ParaUtils.getSplitCondition(condition_temp);
+            if (rowCount == 0) {
+                rowCount = ParaUtils.getRowCount();
             }
-            if (key.equals("state")) {
-                paras += (" AND state=" + value);
-            }
-            if (key.equals("monitor_type_selected")) {
-                paras += (" AND monitor_type in ('" + value.toString().replace(",", "','") + "')");
-            }
-            if (key.equals("search_createTime_start")) {
-                try {
-                    Date date = format_date.parse(value.toString());
-                    value = new_format_date.format(date);
-                } catch (Exception e) {
-                    renderError(500);
+            String paras = " WHERE state != -3";
+            Object[] keys = condition.keySet().toArray();
+            for (int i = 0; i < keys.length; i++) {
+                String key = (String) keys[i];
+                Object value = condition.get(key);
+                if (key.equals("identify") || key.equals("project_name") || key.equals("client_unit")) {
+                    paras += (" AND " + key + " like \"%" + value + "%\"");
                 }
-                paras += (" AND create_time >= '" + value + "'");
-            }
-            if (key.equals("search_createTime_end")) {
-                try {
-                    Date date = format_date.parse(value.toString());
-                    value = new_format_date.format(date);
-                } catch (Exception e) {
-                    renderError(500);
+                if (key.equals("state")) {
+                    paras += (" AND state=" + value);
                 }
-                paras += (" AND create_time <= '" + value + "'");
+                if (key.equals("monitor_type_selected")) {
+                    paras += (" AND monitor_type in ('" + value.toString().replace(",", "','") + "')");
+                }
+                if (key.equals("show_template")) {//显示模板
+                    if (!value.equals("true")) {
+                        paras += " AND state != -1";
+                    }
+                }
+                //合同起草开始时间
+                if (key.equals("search_createTime_start")) {
+                    try {
+                        Date date = format_date.parse(value.toString());
+                        value = new_format_date.format(date);
+                    } catch (Exception e) {
+                        renderError(500);
+                    }
+                    paras += (" AND create_time >= '" + value + "'");
+                }
+                //合同起草结束时间
+                if (key.equals("search_createTime_end")) {
+                    try {
+                        Date date = format_date.parse(value.toString());
+                        value = new_format_date.format(date);
+                    } catch (Exception e) {
+                        renderError(500);
+                    }
+                    paras += (" AND create_time <= '" + value + "'");
+                }
             }
+            Page<Contract> contractPage = Contract.contractDao.paginate(currentPage, rowCount, "SELECT *", " FROM `db_contract`" + paras);
+            List<Contract> contractList = contractPage.getList();
+            Map results = toJson(contractList);
+            results.put("currentPage", currentPage);
+            results.put("totalPage", contractPage.getTotalPage());
+            results.put("rowCount", rowCount);
+            results.put("condition", condition_temp);
+            results.put("totalRowCount", contractPage.getTotalRow());
+            renderJson(results);
+        } catch (Exception e) {
+            renderError(500);
         }
-        Page<Contract> contractPage = Contract.contractDao.paginate(currentPage, rowCount, "SELECT *", " FROM `db_contract`" + paras);
-        List<Contract> contractList = contractPage.getList();
-        Map results = toJson(contractList);
-        results.put("currentPage", currentPage);
-        results.put("totalPage", contractPage.getTotalPage());
-        results.put("rowCount", rowCount);
-        results.put("condition", condition_temp);
-        results.put("totalRowCount", contractPage.getTotalRow());
-        renderJson(results);
     }
 
     /**
@@ -361,5 +372,33 @@ public class ContractController extends Controller {
         return results;
     }
 
+
+    /**
+     * 中止合同
+     */
+    public void stop() {
+        try {
+            Boolean result = Db.tx(new IAtom() {
+                @Override
+                public boolean run() throws SQLException {
+                    int id = getParaToInt("id");
+                    Contract contract = Contract.contractDao.findById(id);
+                    Boolean result = true;
+                    Boolean taskResult = true;
+                    if (contract != null) {
+                        result = contract.set("state", -2).update();
+                        Task task = Task.taskDao.findFirst("SELECT * FROM `db_task` WHERE contract_id=" + contract.get("id"));
+                        if (task != null) {
+                            taskResult = task.set("state", -2).update();
+                        }
+                    }
+                    return result && taskResult;
+                }
+            });
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
 
 }

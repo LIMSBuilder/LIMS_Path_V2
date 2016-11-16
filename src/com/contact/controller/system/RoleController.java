@@ -4,6 +4,7 @@ import com.contact.model.Department;
 import com.contact.model.Role;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
+import com.jfinal.aop.Clear;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 
@@ -187,6 +188,7 @@ public class RoleController extends Controller {
     }
 
 
+    @Clear
     public void getRoleByDepartment() {
         try {
             int id = getParaToInt("id");
@@ -200,7 +202,7 @@ public class RoleController extends Controller {
 
     public void getList() {
         try {
-            int department_id = Role.roleDao.findById(ParaUtils.getCurrentUser().get("role_id")).getInt("department_id");
+            int department_id = Role.roleDao.findById(ParaUtils.getCurrentUser(getRequest()).get("role_id")).getInt("department_id");
             List<Role> roleList = Role.roleDao.find(" SELECT * FROM `db_role` WHERE state=0 AND department_id=" + department_id);
             renderJson(toJson(roleList));
         } catch (Exception e) {

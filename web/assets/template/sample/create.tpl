@@ -91,8 +91,10 @@
                                         color: me.color,
                                         projects: me.projects
                                     };
-
-
+                                    if (!data.name || !data.feature || !data.condition || !data.color || !data.projects) {
+                                        jQuery.fn.error_msg("样品登记项目不能为空!");
+                                        return;
+                                    }
                                     me.$http.post("/sample/addItem", data).then(function (response) {
                                         var data = response.data;
                                         jQuery.fn.codeState(data.code, {
@@ -177,7 +179,6 @@
                                 changeBtn: function () {
                                     var me = this;
                                     var id = me.id;
-                                    debugger
                                     var data = {
                                         id: id,
                                         name: me.name,
@@ -186,6 +187,10 @@
                                         color: me.color,
                                         projects: me.projects
                                     };
+                                    if (!data.name || !data.feature || !data.condition || !data.color || !data.projects) {
+                                        jQuery.fn.error_msg("样品登记项目不能为空!");
+                                        return;
+                                    }
                                     me.$http.post("/sample/changeItem", data).then(function (response) {
                                         var data = response.data;
                                         jQuery.fn.codeState(data.code, {
@@ -241,6 +246,15 @@
                                     width: '100%'
                                 }).on("change", function (event) {
                                     me.$set("projects", event.val)
+                                });
+                                // Basic Form
+                                jQuery("#sample_form").validate({
+                                    highlight: function (element) {
+                                        jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+                                    },
+                                    success: function (element) {
+                                        jQuery(element).closest('.form-group').removeClass('has-error');
+                                    }
                                 });
 
                             }

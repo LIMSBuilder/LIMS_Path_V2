@@ -36,7 +36,7 @@ public class FlowController extends Controller {
                         renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
                         Task task = Task.taskDao.findById(id);
                         task.set("sample_time", sdf.format(new Date()));
-                        task.set("sample_user", ParaUtils.getCurrentUser().get("id"));
+                        task.set("sample_user", ParaUtils.getCurrentUser(getRequest()).get("id"));
                         return result && task.update();
                     } else {
                         renderJson(RenderUtils.CODE_NOTEMPTY);
@@ -54,6 +54,28 @@ public class FlowController extends Controller {
 
     public void sampleFlow() {
         try {
+            Boolean result = Db.tx(new IAtom() {
+                @Override
+                public boolean run() throws SQLException {
+                    int id = getParaToInt("id");
+                    Task task = Task.taskDao.findById(id);
+                    Boolean taskResult = true;
+                    if (task != null) {
+                        taskResult = task.set("sample_user", ParaUtils.getCurrentUser(getRequest()).get("id")).set("sample_time", sdf.format(new Date())).update();
+                    }
+                    Boolean result = flow(Integer.parseInt(ParaUtils.flows.get("create_sample").toString()), id);
+                    return result && taskResult;
+                }
+            });
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+    public void connectionFlow() {
+        try {
             int id = getParaToInt("id");
             Boolean result = flow(Integer.parseInt(ParaUtils.flows.get("connect_sample").toString()), id);
             renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
@@ -66,7 +88,7 @@ public class FlowController extends Controller {
         try {
             int id = getParaToInt("id");
             Task task = Task.taskDao.findById(id);
-            Boolean update = task.set("quality_user", ParaUtils.getCurrentUser().get("id")).set("quality_time", sdf.format(new Date())).update();
+            Boolean update = task.set("quality_user", ParaUtils.getCurrentUser(getRequest()).get("id")).set("quality_time", sdf.format(new Date())).update();
             Boolean result = flow(Integer.parseInt(ParaUtils.flows.get("create_quality").toString()), id);
             renderJson(result && update ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
         } catch (Exception e) {
@@ -78,7 +100,7 @@ public class FlowController extends Controller {
         try {
             int id = getParaToInt("id");
             Task task = Task.taskDao.findById(id);
-            Boolean update = task.set("receive_user", ParaUtils.getCurrentUser().get("id")).set("receive_time", sdf.format(new Date())).update();
+            Boolean update = task.set("receive_user", ParaUtils.getCurrentUser(getRequest()).get("id")).set("receive_time", sdf.format(new Date())).update();
             Boolean result = flow(Integer.parseInt(ParaUtils.flows.get("receive_delivery").toString()), id);
             renderJson(result && update ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
         } catch (Exception e) {
@@ -90,7 +112,7 @@ public class FlowController extends Controller {
         try {
             int id = getParaToInt("id");
             Task task = Task.taskDao.findById(id);
-            Boolean update = task.set("charge_user", ParaUtils.getCurrentUser().get("id")).set("distribute_time", sdf.format(new Date())).update();
+            Boolean update = task.set("charge_user", ParaUtils.getCurrentUser(getRequest()).get("id")).set("distribute_time", sdf.format(new Date())).update();
             Boolean result = flow(Integer.parseInt(ParaUtils.flows.get("task_dstribute").toString()), id);
             renderJson(result && update ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
         } catch (Exception e) {

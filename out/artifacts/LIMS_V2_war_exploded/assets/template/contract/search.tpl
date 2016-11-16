@@ -15,7 +15,7 @@
                 <div class="ckbox ckbox-success">
                     <input type="checkbox" name="monitor_type" v-model="monitor_type_selected" value="{{type}}"
                            id="checkbox_{{type}}">
-                    <label for="checkbox_{{type}}">{{type}}</label>
+                    <label for="checkbox_{{type}}">&nbsp;{{type}}</label>
                 </div>
             </li>
         </ul>
@@ -34,6 +34,13 @@
             <input type="text" v-model="search_createTime_end" class="form-control" placeholder="mm/dd/yyyy"
                    id="date_end">
             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+
+        <div class="mb20"></div>
+        <h4 class="subtitle mb5">显示合同模板</h4>
+        <div class="ckbox ckbox-danger">
+            <input type="checkbox" name="show_template" id="show_template" v-model="show_template" value="true">
+            <label for="show_template">&nbsp;显示 </label>
         </div>
 
         <div class="mb20"></div>
@@ -68,10 +75,20 @@
                                 <div class="btn-demo pull-right">
                                     <a class="btn btn-default-alt" data-toggle="modal"
                                        data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
-                                    <a class="btn btn-info-alt" data-toggle="modal"
-                                       data-target=".bs-example-modal-lg" @click="view_process(result)">流程查询</a>
+                                    <template v-if="result.state!=-1">
+                                        <a class="btn btn-info-alt" data-toggle="modal"
+                                           data-target=".bs-example-modal-lg" @click="view_process(result)">流程查询</a>
+                                        <template v-if="result.state!=-2">
+                                            <a class="btn btn-danger-alt" @click="stop_contract(result)">中止合同</a>
+                                        </template>
+                                    </template>
                                 </div>
-                                <h4 class="filename text-primary">{{result.project_name}}</h4>
+                                <h4 class="filename text-primary">
+                                    <template v-if="result.state==-1">
+                                        <span class="text-success">【合同模板】</span>
+                                    </template>
+                                    {{result.project_name}}
+                                </h4>
                                 <small class="text-muted">合同编号: {{result.identify}}</small>
                                 <br/>
                                 <small class="text-muted">监测类型: {{result.monitor_type}}</small>
@@ -108,6 +125,7 @@
                     monitor_type_selected: [],//
                     search_createTime_start: '',//创建开始时间
                     search_createTime_end: '',//创建结束时间
+                    show_template: true,//显示模板
 
                     customer_list: [],//客户单位列表
                     result_list: [],//结果集
@@ -117,13 +135,34 @@
                 }
             },
             methods: {
-                search_by_type: function (type) {
-                    console.log(type);
-                },
                 search_btn: function () {
                     var me = this;
-                    var condition = "identify=" + me.identify + "&&project_name=" + encodeURI(me.project_name) + "&&client_unit=" + encodeURI(me.client_unit) + "&&search_createTime_start=" + me.search_createTime_start + "&&search_createTime_end=" + me.search_createTime_end + "&&monitor_type_selected=" + encodeURI(me.monitor_type_selected);
+                    var condition = "identify=" + me.identify + "&&project_name=" + encodeURI(me.project_name) + "&&client_unit=" + encodeURI(me.client_unit) + "&&search_createTime_start=" + me.search_createTime_start + "&&search_createTime_end=" + me.search_createTime_end + "&&monitor_type_selected=" + encodeURI(me.monitor_type_selected) + "&&show_template=" + me.show_template;
                     me.load_list(condition, 1);
+                },
+                stop_contract: function (contract) {
+                    var id = contract.id;
+                    var me = this;
+                    jQuery.fn.check_msg({
+                        msg: "是否中止编号为【" + contract.identify + "】的合同？该操作不可逆,请谨慎操作!",
+                        success: function () {
+                            me.$http.get("/constarct/stop", {
+                                params: {
+                                    id: id
+                                }
+                            }).then(function (response) {
+                                var data = response.data;
+                                jQuery.fn.codeState(data.code, {
+                                    200: function () {
+                                        jQuery.fn.alert_msg("合同中止成功!");
+                                        me.load_list("state=0", 1);
+                                    }
+                                })
+                            }, function (response) {
+                                jQuery.fn.error_msg("数据异常,无法中止合同!");
+                            });
+                        }
+                    });
                 },
                 view_info: function (contract) {
                     var me = this;
@@ -192,9 +231,37 @@
                         jQuery.fn.error_msg("合同数据请求异常,请刷新后重新尝试。");
                     });
                 },
-                view_process:function(contract){
+                view_process: function (contract) {
+                    var me = this;
                     var id = contract.id;
-                    jQuery.fn.alert_msg("查看流程功能即将上线");
+                    me.$http.get("/constarct/getById", {
+                        params: {
+                            id: id
+                        }
+                    }).then(function (response) {
+                        var data = response.data;
+                        var template = jQuery.fn.loadTemplate("/assets/template/subject/contract_process_view.tpl");
+                        Vue.component('contract_process_view' + id, {
+                            template: template,
+                            data: function () {
+                                return {
+                                    state: data.results[0].state
+                                };
+                            },
+                            methods: {
+                                state: function (process) {
+                                    alert(process);
+                                }
+                            },
+                            ready: function () {
+                                var me = this;
+                            }
+                        });
+                        LIMS.dialog_lg.$set('title', '合同进度一览表');
+                        LIMS.dialog_lg.currentView = 'contract_process_view' + id;
+                    }, function (response) {
+                        jQuery.fn.error_msg("合同数据请求异常,请刷新后重新尝试。");
+                    });
                 },
                 load_list: function (condition, currentPage) {
                     var me = this;
@@ -247,14 +314,21 @@
             },
             ready: function () {
                 var me = this;
+                var dom = jQuery(me.$el);
                 jQuery('#slider').slider({
                     range: "min",
                     max: 100,
                     value: 50
                 });
                 // Date Picker
-                jQuery('#date_start').datepicker();
-                jQuery('#date_end').datepicker();
+                dom.find('#date_start').datepicker({
+                    numberOfMonths: 3,
+                    showButtonPanel: true
+                });
+                dom.find('#date_end').datepicker({
+                    numberOfMonths: 3,
+                    showButtonPanel: true
+                });
 
                 me.$http.get("/constarct/monitorType").then(function (response) {
                     var data = response.data;
@@ -266,7 +340,6 @@
                 }, function (response) {
                     jQuery.fn.error_msg("获取监测类型列表失败！");
                 });
-
 
 
                 me.load_list("", 1);

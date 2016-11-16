@@ -14,10 +14,8 @@
                             </a>
                             <div class="media-body">
                                 <div class="btn-demo pull-right">
-                                    <a class="btn btn-success-alt " @click="import_into(result)">导入</a>
-
-                                    <a class="btn btn-success-alt " data-toggle="modal"
-                                       data-target=".bs-example-modal-lg" @click="view_info(result)">查看合同</a>
+                                    <a class="btn btn-info-alt " @click="import_into(result)">导入</a>
+                                    <a class="btn btn-default-alt " @click="view_info(result)">查看合同</a>
                                 </div>
                                 <h4 class="filename text-primary">{{result.project_name}}</h4>
                                 <small class="text-muted">合同编号: {{result.identify}}</small>

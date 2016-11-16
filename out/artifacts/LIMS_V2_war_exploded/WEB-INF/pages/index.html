@@ -9,6 +9,7 @@
 
     <title>实验室信息管理系统</title>
 
+
     <link href="/assets/css/style.default.css" rel="stylesheet">
 
     <!--表格CSS-->
@@ -23,6 +24,8 @@
     <link rel="stylesheet" href="/assets/css/jquery.tagsinput.css"/>
 
 
+    <!--进度条插件-->
+    <link href="/assets/css/bs-is-fun.css" rel="stylesheet">
     <!--DropZone-->
     <!--<link rel="stylesheet" href="/assets/css/dropzone/basic.css">-->
     <link rel="stylesheet" href="/assets/css/dropzone/dropzone.css">
@@ -75,29 +78,29 @@
 
             <h5 class="sidebartitle">菜单栏</h5>
             <ul class="nav nav-pills nav-stacked nav-bracket">
-                <li><a href="index.html"><i class="fa fa-home"></i> <span>仪表盘</span></a></li>
+                <li><a href="javascript:;" class="nav-item" data-type="comming_soon" data-title="电子邮箱"
+                       data-desp="此处省略15个字"><i class="fa fa-home"></i> <span>仪表盘</span></a></li>
                 <li><a href="javascript:;" class="nav-item" data-type="email/email" data-title="电子邮箱"
                        data-desp="此处省略15个字"><span class="pull-right badge badge-success">2</span><i
                         class="fa fa-envelope-o"></i> <span>Email</span></a></li>
                 <li class="nav-parent"><a href=""><i class="fa fa-edit"></i> <span>合同管理</span></a>
                     <ul class="children" data-icon="fa fa-edit">
                         <li><a href="javascript:;" class="nav-item" data-type="contract/create" data-title="合同起草"
-                               data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 合同起草 </a></li>
+                               data-desp="创建环境监测业务合同"><i class="fa fa-caret-right"></i> 合同起草 </a></li>
                         <li><a href="javascript:;" class="nav-item" data-type="contract/search" data-title="合同查询"
-                               data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 合同查询 </a></li>
+                               data-desp="查询已经创建的合同、模板"><i class="fa fa-caret-right"></i> 合同查询 </a></li>
+                        <li><a href="javascript:;" class="nav-item" data-type="comming_soon" data-title="合同修改"
+                               data-desp="修改流程中的合同内容"><i class="fa fa-caret-right"></i> 合同修改 </a></li>
                         <li><a href="javascript:;" class="nav-item" data-type="contract/review" data-title="合同审核"
-                               data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 合同审核 </a></li>
-                        <li class="hidden"><a href="javascript:;" class="nav-item" data-type="contract/change"
-                                              data-title="合同变更"
-                                              data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 合同变更 </a></li>
+                               data-desp="审核环境监测业务合同"><i class="fa fa-caret-right"></i> 合同审核 </a></li>
                         <li><a href="javascript:;" class="nav-item" data-type="contract/preInfo" data-title="预设信息管理"
-                               data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 预设信息管理 </a></li>
+                               data-desp="监测业务合同中乙方信息"><i class="fa fa-caret-right"></i> 预设信息管理 </a></li>
                         <li><a href="javascript:;" class="nav-item" data-type="contract/frequency" data-title="监测频次管理"
-                               data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 监测频次管理 </a></li>
+                               data-desp="监测项目的监测频率"><i class="fa fa-caret-right"></i> 监测频次管理 </a></li>
                         <li><a href="javascript:;" class="nav-item" data-type="contract/category" data-title="环境要素管理"
-                               data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 环境要素管理 </a></li>
+                               data-desp="监测项目分类列表"><i class="fa fa-caret-right"></i> 环境要素管理 </a></li>
                         <li><a href="javascript:;" class="nav-item" data-type="contract/project" data-title="监测项目管理"
-                               data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 监测项目管理 </a></li>
+                               data-desp="管理合同、任务的监测项目清单"><i class="fa fa-caret-right"></i> 监测项目管理 </a></li>
                     </ul>
                 </li>
                 <li class="nav-parent"><a href=""><i class="fa fa-edit"></i> <span>任务管理</span></a>
@@ -135,7 +138,7 @@
                     <ul class="children" data-icon="fa fa-sitemap">
                         <li><a href="javascript:;" class="nav-item" data-type="experiment/distribute" data-title="任务分配"
                                data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 任务分配 </a></li>
-                        <li><a href="javascript:;" class="nav-item" data-type="experiment/analysis" data-title="实验分析"
+                        <li><a href="javascript:;" class="nav-item" data-type="comming_soon" data-title="实验分析"
                                data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 实验分析 </a></li>
                         <li><a href="javascript:;"><i class="fa fa-caret-right"></i> 实验人员审核</a></li>
                         <li><a href="javascript:;"><i class="fa fa-caret-right"></i> 实验人员复核</a></li>
@@ -472,9 +475,8 @@
             <h2 id="title"><i class="fa fa-home"></i> 仪表盘 <span>Subtitle goes here...</span></h2>
             <div class="breadcrumb-wrapper">
                 <span class="label">当前位置:</span>
-                <ol class="breadcrumb">
-                    <li><a href="index.html">BonContact</a></li>
-                    <li class="active">仪表盘</li>
+                <ol class="breadcrumb" id="nav_li">
+
                 </ol>
             </div>
         </div>
@@ -777,7 +779,7 @@
 
 
     <!-- 消息提示框 -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myMSG" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -901,6 +903,9 @@
 <!--Tag输入框-->
 <script src="/assets/js/jquery.tagsinput.min.js"></script>
 
+<!--进度插件-->
+<script src="/assets/js/brush.js" type="text/javascript"></script>
+
 <script src="/assets/js/custom.js"></script>
 <script type="text/javascript">
     jQuery(document).ready(function () {
@@ -914,6 +919,12 @@
                     return;
                 }
                 var title = jQuery(me).data("title");
+                var parentTitle = jQuery(me).parents(".nav-parent") ? jQuery(me).parents(".nav-parent").find("a span").html() : "";
+                jQuery("#nav_li").empty().append("<li><a href='javascript:;'>BonContact</a></li>");
+                if (parentTitle) {
+                    jQuery("#nav_li").append("<li><a href='javascript:;'>" + parentTitle + "</a></li>");
+                }
+                jQuery("#nav_li").append("<li class='active'>" + title + "</li>");
                 var desp = jQuery(me).data("desp");
                 var icon = jQuery(me).parents('ul:eq(0)').data("icon");
                 jQuery('#title').html('<i class="' + icon + '"></i> ' + title + ' <span>' + desp + '</span>');

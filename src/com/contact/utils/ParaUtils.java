@@ -1,10 +1,12 @@
 package com.contact.utils;
 
 import com.contact.model.User;
+import com.jfinal.core.Controller;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 import sun.misc.BASE64Encoder;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.security.MessageDigest;
@@ -15,8 +17,9 @@ import java.util.Map;
 /**
  * Created by qulongjun on 2016/10/26.
  */
-public class ParaUtils {
+public class ParaUtils extends Controller {
     public final static Map flows = new HashMap() {{
+        put("stop_task", -2);//中止任务书
         put("create_task", 0);//任务创建成功,进入样品登记环节
         put("create_sample", 1);//样品登记成功,进入交接联单环节
         put("connect_sample", 2);//交接联单生成完成,进入质量控制环节
@@ -110,9 +113,9 @@ public class ParaUtils {
      *
      * @return
      */
-    public static User getCurrentUser() {
+    public static User getCurrentUser(HttpServletRequest request) {
         //User user = User.userDao.findById(1);
-        User user = User.userDao.findFirst("SELECT * FROM `db_user`");
+        User user = (User) request.getSession().getAttribute("user");
         return user;
     }
 
