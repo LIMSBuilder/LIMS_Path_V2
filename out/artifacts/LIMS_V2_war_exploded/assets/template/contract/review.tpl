@@ -14,8 +14,12 @@
                                 <img alt="" src="/assets/images/photos/contract.png" class="media-object">
                             </a>
                             <div class="media-body">
-                                <a class="btn btn-success-alt pull-right" data-toggle="modal"
-                                   data-target=".bs-example-modal-lg" @click="view_info(result)">合同审核</a>
+                                <div class="btn-demo pull-right">
+                                    <a class="btn btn-success-alt" data-toggle="modal"
+                                       data-target=".bs-example-modal-lg" @click="view_info(result)">合同审核</a>
+                                    <a class="btn btn-danger-alt" @click="stop_contract(result)">中止合同</a>
+                                </div>
+
                                 <h4 class="filename text-primary">{{result.project_name}}</h4>
                                 <small class="text-muted">合同编号: {{result.identify}}</small>
                                 <br/>
@@ -159,6 +163,30 @@
                         LIMS.dialog_lg.currentView = 'contract_view' + id;
                     }, function (response) {
                         jQuery.fn.error_msg("合同数据请求异常,请刷新后重新尝试。");
+                    });
+                },
+                stop_contract: function (contract) {
+                    var id = contract.id;
+                    var me = this;
+                    jQuery.fn.check_msg({
+                        msg: "是否中止编号为【" + contract.identify + "】的合同？该操作不可逆,请谨慎操作!",
+                        success: function () {
+                            me.$http.get("/constarct/stop", {
+                                params: {
+                                    id: id
+                                }
+                            }).then(function (response) {
+                                var data = response.data;
+                                jQuery.fn.codeState(data.code, {
+                                    200: function () {
+                                        jQuery.fn.alert_msg("合同中止成功!");
+                                        me.load_list("state=0", 1);
+                                    }
+                                })
+                            }, function (response) {
+                                jQuery.fn.error_msg("数据异常,无法中止合同!");
+                            });
+                        }
                     });
                 },
                 load_list: function (condition, currentPage) {

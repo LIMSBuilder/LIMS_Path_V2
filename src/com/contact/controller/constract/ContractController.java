@@ -12,6 +12,8 @@ import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.IAtom;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.render.Render;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 
 import java.sql.SQLException;
@@ -373,5 +375,23 @@ public class ContractController extends Controller {
         return results;
     }
 
+
+    /**
+     * 中止合同
+     */
+    public void stop() {
+        try {
+            int id = getParaToInt("id");
+            Contract contract = Contract.contractDao.findById(id);
+            if (contract != null) {
+                Boolean result = contract.set("state", -2).update();
+                renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+            } else {
+                renderJson(RenderUtils.CODE_EMPTY);
+            }
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
 
 }
