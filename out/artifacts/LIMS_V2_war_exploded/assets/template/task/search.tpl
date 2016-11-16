@@ -68,6 +68,9 @@
                                        data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
                                     <a class="btn btn-info-alt" data-toggle="modal"
                                        data-target=".bs-example-modal-lg" @click="view_process(result)">流程查询</a>
+                                    <template v-if="result.state!=-2">
+                                        <a class="btn btn-danger-alt" @click="stop_task(result)">中止任务</a>
+                                    </template>
                                 </div>
                                 <h4 class="filename text-primary">{{result.project_name}}</h4>
                                 <small class="text-muted">合同编号: {{result.identify}}</small>
@@ -124,6 +127,31 @@
                     var me = this;
                     var condition = "identify=" + me.identify + "&&project_name=" + encodeURI(me.project_name) + "&&client_unit=" + encodeURI(me.client_unit) + "&&search_createTime_start=" + me.search_createTime_start + "&&search_createTime_end=" + me.search_createTime_end + "&&sample_type=" + me.sample_type;
                     me.load_list(condition, 1);
+                },
+                stop_task: function (task) {
+                    var id = task.id;
+                    var me = this;
+                    jQuery.fn.check_msg({
+                        msg: "是否中止编号为【" + task.identify + "】的任务书？该操作不可逆,请谨慎操作!",
+                        success: function () {
+                            me.$http.get("/task/stop", {
+                                params: {
+                                    id: id
+                                }
+                            }).then(function (response) {
+                                var data = response.data;
+                                jQuery.fn.codeState(data.code, {
+                                    200: function () {
+                                        jQuery.fn.alert_msg("任务书中止成功!");
+                                        me.load_list("", 1);
+                                    }
+                                })
+                            }, function (response) {
+                                jQuery.fn.error_msg("数据异常,无法中止任务书!");
+                            });
+                        }
+                    });
+
                 },
                 view_info: function (contract) {
                     var me = this;
@@ -191,8 +219,8 @@
                             template: template,
                             data: function () {
                                 return {
-                                    task:data,
-                                    state:data.state
+                                    task: data,
+                                    state: data.state
                                 };
                             },
                             methods: {

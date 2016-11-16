@@ -115,6 +115,7 @@ public class TaskController extends Controller {
             map.put("create_time", task.get("create_time"));
             map.put("project_name", task.get("project_name"));
             map.put("client_unit", task.get("client_unit"));
+            map.put("state",task.get("state"));
             map.put("receive_deparment", Department.departmentDao.findById(task.get("receive_deparment")));
             results.add(map);
         }
@@ -265,6 +266,24 @@ public class TaskController extends Controller {
         result.put("create_user", User.userDao.findById(task.get("create_user")));
         result.put("create_time", task.get("create_time"));
         return result;
+    }
+
+    /**
+     * 中止任务
+     */
+    public void stop() {
+        try {
+            int task_id = getParaToInt("id");
+            Task task = Task.taskDao.findById(task_id);
+            if (task != null) {
+                Boolean result = task.set("state", Integer.parseInt(ParaUtils.flows.get("stop_task").toString())).update();
+                renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+            } else {
+                renderJson(RenderUtils.CODE_EMPTY);
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     /**
