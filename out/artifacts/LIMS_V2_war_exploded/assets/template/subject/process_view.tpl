@@ -1,25 +1,32 @@
 <div class="row">
     <ul class="nav nav-pills nav-justified step step-progress">
-        <li @click="state(0)" :class="state>=0?'active':''"><a>创建任务<span class="caret"></span></a>
-        </li>
-        <li @click="state(1)" :class="state>=1?'active':''"><a>样品管理<span class="caret"></span></a>
-        </li>
-        <li @click="state(2)" :class="state>=2?'active':''"><a>任务交接<span class="caret"></span></a>
-        </li>
-        <li @click="state(3)" :class="state>=3?'active':''"><a>质量控制<span class="caret"></span></a>
-        </li>
-        <li @click="state(4)" :class="state>=4?'active':''"><a>样品接收<span class="caret"></span></a>
-        </li>
-        <li @click="state(5)" :class="state>=5?'active':''"><a>任务分配<span class="caret"></span></a>
-        </li>
-        <li><a>实验分析<span class="caret"></span></a>
-        </li>
-        <li><a>结果审核<span class="caret"></span></a>
-        </li>
-        <li><a>报告编写<span class="caret"></span></a>
-        </li>
-        <li><a>报告审核<span class="caret"></span></a>
-        </li>
+        <template v-if="state>=0">
+            <li @click="state(0)" :class="state>=0?'active':''"><a>创建任务<span class="caret"></span></a>
+            </li>
+            <li @click="state(1)" :class="state>=1?'active':''"><a>样品管理<span class="caret"></span></a>
+            </li>
+            <li @click="state(2)" :class="state>=2?'active':''"><a>任务交接<span class="caret"></span></a>
+            </li>
+            <li @click="state(3)" :class="state>=3?'active':''"><a>质量控制<span class="caret"></span></a>
+            </li>
+            <li @click="state(4)" :class="state>=4?'active':''"><a>样品接收<span class="caret"></span></a>
+            </li>
+            <li @click="state(5)" :class="state>=5?'active':''"><a>任务分配<span class="caret"></span></a>
+            </li>
+            <li><a>实验分析<span class="caret"></span></a>
+            </li>
+            <li><a>结果审核<span class="caret"></span></a>
+            </li>
+            <li><a>报告编写<span class="caret"></span></a>
+            </li>
+            <li><a>报告审核<span class="caret"></span></a>
+            </li>
+        </template>
+        <template v-if="state==-2">
+            <li class="active"><a>任务已中止<span class="caret"></span></a>
+            </li>
+        </template>
+
     </ul>
     <div class="mb15"></div>
     <div class="col-sm-12">
@@ -32,7 +39,7 @@
     </div>
     <div class="col-md-12 text-center">
         <div class="btn-demo">
-            <a class="btn btn-info-alt" style="float: none;" >显示细节</a>
+            <a class="btn btn-info-alt" style="float: none;">显示细节</a>
             <a class="btn btn-default-alt" style="float: none;" data-dismiss="modal">关 闭</a>
         </div>
     </div>

@@ -1,9 +1,6 @@
 package com.contact.controller.constract;
 
-import com.contact.model.Contract;
-import com.contact.model.Identify;
-import com.contact.model.Item_Project;
-import com.contact.model.MonitorItem;
+import com.contact.model.*;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
@@ -381,14 +378,24 @@ public class ContractController extends Controller {
      */
     public void stop() {
         try {
-            int id = getParaToInt("id");
-            Contract contract = Contract.contractDao.findById(id);
-            if (contract != null) {
-                Boolean result = contract.set("state", -2).update();
-                renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
-            } else {
-                renderJson(RenderUtils.CODE_EMPTY);
-            }
+            Boolean result = Db.tx(new IAtom() {
+                @Override
+                public boolean run() throws SQLException {
+                    int id = getParaToInt("id");
+                    Contract contract = Contract.contractDao.findById(id);
+                    Boolean result = true;
+                    Boolean taskResult = true;
+                    if (contract != null) {
+                        result = contract.set("state", -2).update();
+                        Task task = Task.taskDao.findFirst("SELECT * FROM `db_task` WHERE contract_id=" + contract.get("id"));
+                        if (task != null) {
+                            taskResult = task.set("state", -2).update();
+                        }
+                    }
+                    return result && taskResult;
+                }
+            });
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
         } catch (Exception e) {
             renderError(500);
         }

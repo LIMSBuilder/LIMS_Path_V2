@@ -78,6 +78,9 @@
                                     <template v-if="result.state!=-1">
                                         <a class="btn btn-info-alt" data-toggle="modal"
                                            data-target=".bs-example-modal-lg" @click="view_process(result)">流程查询</a>
+                                        <template v-if="result.state!=-2">
+                                            <a class="btn btn-danger-alt" @click="stop_contract(result)">中止合同</a>
+                                        </template>
                                     </template>
                                 </div>
                                 <h4 class="filename text-primary">
@@ -136,6 +139,30 @@
                     var me = this;
                     var condition = "identify=" + me.identify + "&&project_name=" + encodeURI(me.project_name) + "&&client_unit=" + encodeURI(me.client_unit) + "&&search_createTime_start=" + me.search_createTime_start + "&&search_createTime_end=" + me.search_createTime_end + "&&monitor_type_selected=" + encodeURI(me.monitor_type_selected) + "&&show_template=" + me.show_template;
                     me.load_list(condition, 1);
+                },
+                stop_contract: function (contract) {
+                    var id = contract.id;
+                    var me = this;
+                    jQuery.fn.check_msg({
+                        msg: "是否中止编号为【" + contract.identify + "】的合同？该操作不可逆,请谨慎操作!",
+                        success: function () {
+                            me.$http.get("/constarct/stop", {
+                                params: {
+                                    id: id
+                                }
+                            }).then(function (response) {
+                                var data = response.data;
+                                jQuery.fn.codeState(data.code, {
+                                    200: function () {
+                                        jQuery.fn.alert_msg("合同中止成功!");
+                                        me.load_list("state=0", 1);
+                                    }
+                                })
+                            }, function (response) {
+                                jQuery.fn.error_msg("数据异常,无法中止合同!");
+                            });
+                        }
+                    });
                 },
                 view_info: function (contract) {
                     var me = this;
@@ -218,7 +245,7 @@
                             template: template,
                             data: function () {
                                 return {
-                                    state:data.results[0].state
+                                    state: data.results[0].state
                                 };
                             },
                             methods: {
