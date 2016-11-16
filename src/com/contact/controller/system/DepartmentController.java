@@ -4,6 +4,7 @@ import com.contact.model.Department;
 import com.contact.model.Role;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
+import com.jfinal.aop.Clear;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
@@ -201,6 +202,7 @@ public class DepartmentController extends Controller {
     }
 
 
+    @Clear
     public void getList() {
         List<Department> departmentList = Department.departmentDao.find("SELECT * FROM `db_department` WHERE state=0");
         renderJson(toJson(departmentList));

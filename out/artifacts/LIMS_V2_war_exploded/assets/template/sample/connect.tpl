@@ -21,7 +21,7 @@
                                                @click="connect_sample(result)">样品交联</a>
                                             <a class="btn btn-default-alt" data-toggle="modal"
                                                data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
-                                            <a class="btn btn-danger-alt" @click="flow(result)">业务流转</a>
+                                            <!--<a class="btn btn-danger-alt" @click="flow(result)">业务流转</a>-->
                                         </div>
                                         <h4 class="filename text-primary">{{result.project_name}}</h4>
                                         <small class="text-muted">合同编号: {{result.identify}}</small>
@@ -105,7 +105,7 @@
                                                 if (data.code != 200) {
                                                     jQuery.fn.error_msg("数据异常,无法保存交接联单信息!");
                                                 } else {
-                                                    me.$http.post("/flow/sampleFlow", {id: id}).then(function (response) {
+                                                    me.$http.post("/flow/connectionFlow", {id: id}).then(function (response) {
                                                         var data = response.data;
                                                         jQuery.fn.codeState(data.code, {
                                                             200: function () {
@@ -254,7 +254,7 @@
                     jQuery.fn.check_msg({
                         msg: "您即将进行任务编号为【" + item.identify + "】的进度流转,是否继续?",
                         success: function () {
-                            me.$http.post("/flow/sampleFlow", {id: item.id}).then(function (response) {
+                            me.$http.post("/flow/connectionFlow", {id: item.id}).then(function (response) {
                                 var data = response.data;
                                 jQuery.fn.codeState(data.code, {
                                     200: function () {

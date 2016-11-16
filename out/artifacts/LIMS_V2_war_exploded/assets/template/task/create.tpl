@@ -528,7 +528,7 @@
 
                                     var data = {
                                         environment: dom.find("select[name=environment]").val(),
-                                        environment_text: dom.find("select[name=environment] option:selected").html(),
+                                        environment_text: {name:dom.find("select[name=environment] option:selected").html()},
                                         monitor_point: dom.find("#tags").val(),
                                         monitor_item: dom.find("#monitor_item").val(),
                                         monitor_item_text: items,

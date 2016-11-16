@@ -43,8 +43,9 @@
                         <td>{{project.name}}</td>
                         <td>{{project.samples.length}}</td>
                         <td class="table-action">
-                            <a href="javascript:;"><i class="fa fa-eye" @click="showInfo(project.samples)"></i></a>
-                            <a href="javascript:;"><i class="fa fa-download" @click="download"></i></a>
+                            <!--<a href="javascript:;"><i class="fa fa-eye" @click="showInfo(project.samples)"></i></a>-->
+                            <!--<a href="javascript:;"><i class="fa fa-download" @click="download"></i></a>-->
+                            <a class="btn btn-sm btn-danger-alt" @click="showInfo(project.samples)">清单</a>
                         </td>
                     </tr>
                 </template>

@@ -154,8 +154,9 @@ public class SampleController extends Controller {
         try {
             int id = getParaToInt("id");
             Task task = Task.taskDao.findById(id);
-            Map<Monitor_Project, List<Sample>> project_sample = new HashMap<>();
+            Map<Monitor_Project, List<Sample>> project_sample = new LinkedHashMap<>();
             List<Sample> sampleList = Sample.sampleDao.find("SELECT * FROM `db_sample` WHERE state!=-1 AND `db_sample`.`task_id`=" + id);
+
             for (Sample sample : sampleList) {
                 List<Sample_Project> sample_projects = Sample_Project.sample_projectDao.find("SELECT * FROM `db_sampleProject` WHERE `db_sampleProject`.`sample_id`=" + sample.get("id"));
                 for (Sample_Project sample_project : sample_projects) {
@@ -169,11 +170,15 @@ public class SampleController extends Controller {
                     }
                 }
             }
+
+
             Map temp = ProjecttoJson(project_sample);
             temp.put("sampleFrom", sampleList.get(0).get("identify"));
             temp.put("sampleTo", sampleList.get(sampleList.size() - 1).get("identify"));
             temp.put("sample_create", task.get("sample_time"));
             temp.put("sample_user", User.userDao.findById(task.getInt("sample_user")));
+
+
             renderJson(temp);
         } catch (Exception e) {
             renderError(500);
@@ -186,7 +191,7 @@ public class SampleController extends Controller {
      */
     public void getProjectListByDelivery() {
         try {
-            Map<Delivery, List<Sample>> project_sample = new LinkedHashMap();
+            Map<Delivery, List<Sample>> project_sample = new HashMap();
             int task_id = getParaToInt("id");
             List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM db_delivery WHERE task_id =" + task_id);
             List<Sample> sampleList = Sample.sampleDao.find("SELECT * FROM `db_sample` WHERE state!=-1 AND `db_sample`.`task_id`=" + task_id);
@@ -197,8 +202,8 @@ public class SampleController extends Controller {
                 project_sample.put(delivery, sampleProjectList);
             }
             Map temp = DeliverytoJson(project_sample);
-            temp.put("sampleFrom", sampleList.get(0).get("identify"));
-            temp.put("sampleTo", sampleList.get(sampleList.size() - 1).get("identify"));
+            temp.put("sampleFrom", sampleList.size() != 0 ? sampleList.get(0).get("identify") : 0);
+            temp.put("sampleTo", sampleList.size() != 0 ? sampleList.get(sampleList.size() - 1).get("identify") : 0);
             temp.put("sample_create", task.get("sample_time"));
             temp.put("sample_user", User.userDao.findById(task.getInt("sample_user")));
             renderJson(temp);
@@ -214,12 +219,19 @@ public class SampleController extends Controller {
      * @return
      */
     public static Map ProjecttoJson(Map<Monitor_Project, List<Sample>> map) {
-        Set result = new TreeSet();
+        Set result = new TreeSet(new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                Map temp1 = (Map) o1;
+                Map temp2 = (Map) o2;
+                return Integer.parseInt(temp1.get("id").toString()) - Integer.parseInt(temp2.get("id").toString());
+            }
+        });
         int count = 0;
         for (Monitor_Project project : map.keySet()) {
             if (project != null) {
                 List<Sample> value = map.get(project);
-                Map temp = new HashMap();
+                Map<String, Object> temp = new TreeMap<String, Object>();
                 temp.put("id", project.get("id"));
                 temp.put("name", project.get("name"));
                 temp.put("category", Monitor_Category.monitorCategoryDao.findById(project.getInt("category_id")));
@@ -228,7 +240,7 @@ public class SampleController extends Controller {
                 result.add(temp);
             }
         }
-        Map returnTemp = new HashMap();
+        Map returnTemp = new TreeMap();
         returnTemp.put("results", result.toArray());
         returnTemp.put("sampleCount", count);
         return returnTemp;
