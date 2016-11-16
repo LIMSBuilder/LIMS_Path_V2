@@ -61,7 +61,7 @@ public class FlowController extends Controller {
                     Task task = Task.taskDao.findById(id);
                     Boolean taskResult = true;
                     if (task != null) {
-                        taskResult = task.set("sample_user", ParaUtils.getCurrentUser(getRequest())).set("sample_time", sdf.format(new Date())).update();
+                        taskResult = task.set("sample_user", ParaUtils.getCurrentUser(getRequest()).get("id")).set("sample_time", sdf.format(new Date())).update();
                     }
                     Boolean result = flow(Integer.parseInt(ParaUtils.flows.get("create_sample").toString()), id);
                     return result && taskResult;

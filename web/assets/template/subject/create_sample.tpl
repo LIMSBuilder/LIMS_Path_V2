@@ -58,7 +58,6 @@
             </div>
             <div class="form-group col-sm-4">
                 <select class="select2" multiple="multiple" data-placeholder="检测项目" id="projectList" required>
-                    <option value=""></option>
                     <template v-for="item in projectList">
                         <option value="{{item.id}}">{{item.name}}</option>
                     </template>
