@@ -9,6 +9,7 @@
 
     <title>实验室信息管理系统</title>
 
+
     <link href="/assets/css/style.default.css" rel="stylesheet">
 
     <!--表格CSS-->
@@ -23,6 +24,8 @@
     <link rel="stylesheet" href="/assets/css/jquery.tagsinput.css"/>
 
 
+    <!--进度条插件-->
+    <link href="/assets/css/bs-is-fun.css" rel="stylesheet">
     <!--DropZone-->
     <!--<link rel="stylesheet" href="/assets/css/dropzone/basic.css">-->
     <link rel="stylesheet" href="/assets/css/dropzone/dropzone.css">
@@ -82,22 +85,21 @@
                 <li class="nav-parent"><a href=""><i class="fa fa-edit"></i> <span>合同管理</span></a>
                     <ul class="children" data-icon="fa fa-edit">
                         <li><a href="javascript:;" class="nav-item" data-type="contract/create" data-title="合同起草"
-                               data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 合同起草 </a></li>
+                               data-desp="创建环境监测业务合同"><i class="fa fa-caret-right"></i> 合同起草 </a></li>
                         <li><a href="javascript:;" class="nav-item" data-type="contract/search" data-title="合同查询"
-                               data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 合同查询 </a></li>
+                               data-desp="查询已经创建的合同、模板"><i class="fa fa-caret-right"></i> 合同查询 </a></li>
+                        <li><a href="javascript:;" class="nav-item" data-type="comming_soon" data-title="合同修改"
+                               data-desp="修改流程中的合同内容"><i class="fa fa-caret-right"></i> 合同修改 </a></li>
                         <li><a href="javascript:;" class="nav-item" data-type="contract/review" data-title="合同审核"
-                               data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 合同审核 </a></li>
-                        <li class="hidden"><a href="javascript:;" class="nav-item" data-type="contract/change"
-                                              data-title="合同变更"
-                                              data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 合同变更 </a></li>
+                               data-desp="审核环境监测业务合同"><i class="fa fa-caret-right"></i> 合同审核 </a></li>
                         <li><a href="javascript:;" class="nav-item" data-type="contract/preInfo" data-title="预设信息管理"
-                               data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 预设信息管理 </a></li>
+                               data-desp="监测业务合同中乙方信息"><i class="fa fa-caret-right"></i> 预设信息管理 </a></li>
                         <li><a href="javascript:;" class="nav-item" data-type="contract/frequency" data-title="监测频次管理"
-                               data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 监测频次管理 </a></li>
+                               data-desp="监测项目的监测频率"><i class="fa fa-caret-right"></i> 监测频次管理 </a></li>
                         <li><a href="javascript:;" class="nav-item" data-type="contract/category" data-title="环境要素管理"
-                               data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 环境要素管理 </a></li>
+                               data-desp="监测项目分类列表"><i class="fa fa-caret-right"></i> 环境要素管理 </a></li>
                         <li><a href="javascript:;" class="nav-item" data-type="contract/project" data-title="监测项目管理"
-                               data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 监测项目管理 </a></li>
+                               data-desp="管理合同、任务的监测项目清单"><i class="fa fa-caret-right"></i> 监测项目管理 </a></li>
                     </ul>
                 </li>
                 <li class="nav-parent"><a href=""><i class="fa fa-edit"></i> <span>任务管理</span></a>
@@ -899,6 +901,9 @@
 
 <!--Tag输入框-->
 <script src="/assets/js/jquery.tagsinput.min.js"></script>
+
+<!--进度插件-->
+<script src="/assets/js/brush.js" type="text/javascript"></script>
 
 <script src="/assets/js/custom.js"></script>
 <script type="text/javascript">

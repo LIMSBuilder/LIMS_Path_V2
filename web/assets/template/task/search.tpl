@@ -178,8 +178,39 @@
                     });
                 },
                 view_process: function (task) {
+                    var me = this;
                     var id = task.id;
-                    jQuery.fn.alert_msg("查看流程功能即将上线");
+                    me.$http.get("/task/getById", {
+                        params: {
+                            id: id
+                        }
+                    }).then(function (response) {
+                        var data = response.data;
+                        var template = jQuery.fn.loadTemplate("/assets/template/subject/process_view.tpl");
+                        Vue.component('process_view' + id, {
+                            template: template,
+                            data: function () {
+                                return {
+                                    task:data,
+                                    state:data.state
+                                };
+                            },
+                            methods: {
+                                state: function (process) {
+                                    alert(process);
+                                }
+                            },
+                            ready: function () {
+                                var me = this;
+                            }
+                        });
+                        LIMS.dialog_lg.$set('title', '项目进度一览表');
+                        LIMS.dialog_lg.currentView = 'process_view' + id;
+                    }, function (response) {
+                        jQuery.fn.error_msg("任务书数据请求异常,请刷新后重新尝试。");
+                    });
+
+
                 },
                 load_list: function (condition, currentPage) {
                     var me = this;

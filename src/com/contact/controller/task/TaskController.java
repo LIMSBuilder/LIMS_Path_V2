@@ -62,9 +62,6 @@ public class TaskController extends Controller {
             if (key.equals("sample_type")) {
                 String[] ids = value.toString().split(",");
                 String temp = "";
-//                Properties properties = Properties.propertiesDao.findById(1);
-//                int sample_self = properties.getInt("sample_receive_self");
-//                int sample_scene = properties.getInt("sample_receive_scene");
                 for (int k = 0; k < ids.length; k++) {
                     int id = Integer.parseInt(ids[k]);
                     switch (id) {
@@ -131,36 +128,43 @@ public class TaskController extends Controller {
      */
     public void addByContract() {
         try {
-            int contract_id = getParaToInt("contract_id");
-            if (contract_id != 0) {
-                if (Task.taskDao.find("SELECT * FROM `db_task` WHERE state>=0 AND contract_id=" + contract_id).size() != 0) {
-                    renderJson(RenderUtils.CODE_REPEAT);
-                    return;
+            final Boolean result = Db.tx(new IAtom() {
+                @Override
+                public boolean run() throws SQLException {
+                    int contract_id = getParaToInt("contract_id");
+                    Boolean result = false;
+                    Boolean update_result = false;
+                    if (contract_id != 0) {
+                        if (Task.taskDao.find("SELECT * FROM `db_task` WHERE state>=0 AND contract_id=" + contract_id).size() != 0) {
+                            return false;
+                        }
+                        Task task = new Task();
+                        Contract contract = Contract.contractDao.findById(contract_id);
+                        task.set("contract_id", contract_id)
+                                .set("receive_deparment", getParaToInt("receive_deparment"))
+                                .set("other", getPara("other"))
+                                .set("create_time", sdf.format(new Date()))
+                                .set("create_user", ParaUtils.getCurrentUser(getRequest()).getInt("id"))
+                                .set("state", 0)
+                                .set("identify", contract.get("identify"))
+                                .set("client_unit", contract.get("client_unit"))
+                                .set("client_address", contract.get("client_address"))
+                                .set("client_code", contract.get("client_code"))
+                                .set("client_tel", contract.get("client_tel"))
+                                .set("client", contract.get("client"))
+                                .set("project_name", contract.get("project_name"))
+                                .set("monitor_aim", contract.get("monitor_aim"))
+                                .set("monitor_way", contract.get("monitor_way"))
+                                .set("monitor_way_desp", contract.get("monitor_way_desp"))
+                                .set("sample_type", getPara("sample_type"))
+                                .set("monitor_type", contract.get("monitor_type"));
+                        result = task.save();
+                        update_result = contract.set("state", 2).update();//更新当前合同列表
+                    }
+                    return result && update_result;
                 }
-                Task task = new Task();
-                Contract contract = Contract.contractDao.findById(contract_id);
-                task.set("contract_id", contract_id)
-                        .set("receive_deparment", getParaToInt("receive_deparment"))
-                        .set("other", getPara("other"))
-                        .set("create_time", sdf.format(new Date()))
-                        .set("create_user", ParaUtils.getCurrentUser().getInt("id"))
-                        .set("state", 0)
-                        .set("identify", contract.get("identify"))
-                        .set("client_unit", contract.get("client_unit"))
-                        .set("client_address", contract.get("client_address"))
-                        .set("client_code", contract.get("client_code"))
-                        .set("client_tel", contract.get("client_tel"))
-                        .set("client", contract.get("client"))
-                        .set("project_name", contract.get("project_name"))
-                        .set("monitor_aim", contract.get("monitor_aim"))
-                        .set("monitor_way", contract.get("monitor_way"))
-                        .set("monitor_way_desp", contract.get("monitor_way_desp"))
-                        .set("sample_type", getPara("sample_type"))
-                        .set("monitor_type", contract.get("monitor_type"));
-
-                Boolean result = task.save();
-                renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
-            }
+            });
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
         } catch (Exception e) {
             renderError(500);
         }
@@ -187,7 +191,7 @@ public class TaskController extends Controller {
                         task.set(key.toString(), value);
                     }
                 }
-                task.set("create_time", sdf.format(new Date())).set("state", 0).set("create_user", ParaUtils.getCurrentUser().getInt("id")).set("sample_type", getPara("sample_type"));
+                task.set("create_time", sdf.format(new Date())).set("state", 0).set("create_user", ParaUtils.getCurrentUser(getRequest()).getInt("id")).set("sample_type", getPara("sample_type"));
                 Boolean result = task.save();
                 Boolean item_result = true;
                 Boolean item_project_result = true;
