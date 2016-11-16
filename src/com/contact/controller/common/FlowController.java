@@ -54,6 +54,28 @@ public class FlowController extends Controller {
 
     public void sampleFlow() {
         try {
+            Boolean result = Db.tx(new IAtom() {
+                @Override
+                public boolean run() throws SQLException {
+                    int id = getParaToInt("id");
+                    Task task = Task.taskDao.findById(id);
+                    Boolean taskResult = true;
+                    if (task != null) {
+                        taskResult = task.set("sample_user", ParaUtils.getCurrentUser(getRequest())).set("sample_time", sdf.format(new Date())).update();
+                    }
+                    Boolean result = flow(Integer.parseInt(ParaUtils.flows.get("create_sample").toString()), id);
+                    return result && taskResult;
+                }
+            });
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+    public void connectionFlow() {
+        try {
             int id = getParaToInt("id");
             Boolean result = flow(Integer.parseInt(ParaUtils.flows.get("connect_sample").toString()), id);
             renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);

@@ -4,6 +4,7 @@ import com.contact.model.Department;
 import com.contact.model.Role;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
+import com.jfinal.aop.Clear;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 
@@ -187,6 +188,7 @@ public class RoleController extends Controller {
     }
 
 
+    @Clear
     public void getRoleByDepartment() {
         try {
             int id = getParaToInt("id");

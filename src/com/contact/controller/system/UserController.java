@@ -5,6 +5,7 @@ import com.contact.model.User;
 import com.contact.utils.MD5Tools;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
+import com.jfinal.aop.Clear;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 import com.sun.org.apache.xpath.internal.operations.Bool;
@@ -69,8 +70,7 @@ public class UserController extends Controller {
         json.put("results", results);
         return json;
     }
-
-
+    @Clear
     public void add() {
         String username = getPara("username");
         String idCard = getPara("idCard");
