@@ -75,6 +75,10 @@
                                 <div class="btn-demo pull-right">
                                     <a class="btn btn-default-alt" data-toggle="modal"
                                        data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
+                                    <template v-if="result.state!=-1">
+                                        <a class="btn btn-info-alt" data-toggle="modal"
+                                           data-target=".bs-example-modal-lg" @click="view_process(result)">流程查询</a>
+                                    </template>
                                 </div>
                                 <h4 class="filename text-primary">
                                     <template v-if="result.state==-1">
@@ -196,6 +200,38 @@
                         });
                         LIMS.dialog_lg.$set('title', '查看合同详情');
                         LIMS.dialog_lg.currentView = 'contract_view' + id;
+                    }, function (response) {
+                        jQuery.fn.error_msg("合同数据请求异常,请刷新后重新尝试。");
+                    });
+                },
+                view_process: function (contract) {
+                    var me = this;
+                    var id = contract.id;
+                    me.$http.get("/constarct/getById", {
+                        params: {
+                            id: id
+                        }
+                    }).then(function (response) {
+                        var data = response.data;
+                        var template = jQuery.fn.loadTemplate("/assets/template/subject/contract_process_view.tpl");
+                        Vue.component('contract_process_view' + id, {
+                            template: template,
+                            data: function () {
+                                return {
+                                    state:data.results[0].state
+                                };
+                            },
+                            methods: {
+                                state: function (process) {
+                                    alert(process);
+                                }
+                            },
+                            ready: function () {
+                                var me = this;
+                            }
+                        });
+                        LIMS.dialog_lg.$set('title', '合同进度一览表');
+                        LIMS.dialog_lg.currentView = 'contract_process_view' + id;
                     }, function (response) {
                         jQuery.fn.error_msg("合同数据请求异常,请刷新后重新尝试。");
                     });
