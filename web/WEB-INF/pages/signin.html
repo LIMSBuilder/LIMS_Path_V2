@@ -139,7 +139,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>
-                <h4 class="modal-title">邀您参与《邦达诚实验室信息管理系统》内测！</h4>
+                <h4 class="modal-title">邀您参与《邦达诚实验室信息管理系统》内测！ <a class="btn btn-sm btn-info-alt" id="noMark">不再提醒</a>
+                </h4>
             </div>
             <div class="modal-body" id="contentpanel">
 
@@ -237,15 +238,23 @@
                 });
             }
         });
+
+        jQuery("#noMark").on("click", function () {
+            localStorage.setItem("test", "v2.2");
+            jQuery.fn.alert_msg("设置成功!当前版本将不再弹出内测提醒!");
+        });
         /**
          * 内测通知
          */
-        setTimeout(function () {
-            jQuery.get("/assets/template/test.tpl", function (data) {
-                $('#contentpanel').html(data);
-                $("#custom_lg_modal").modal("show");
-            });
-        }, 1000);
+        var test = localStorage.getItem("test");
+        if (test != "v2.2") {
+            setTimeout(function () {
+                jQuery.get("/assets/template/test.tpl", function (data) {
+                    $('#contentpanel').html(data);
+                    $("#custom_lg_modal").modal("show");
+                });
+            }, 1000);
+        }
     });
 </script>
 
