@@ -32,6 +32,7 @@
     </div>
     <div class="col-md-12 text-center">
         <div class="btn-demo">
+            <a class="btn btn-info-alt" style="float: none;" >显示细节</a>
             <a class="btn btn-default-alt" style="float: none;" data-dismiss="modal">关 闭</a>
         </div>
     </div>
