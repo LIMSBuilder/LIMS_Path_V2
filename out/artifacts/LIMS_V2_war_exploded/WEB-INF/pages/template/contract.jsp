@@ -1,53 +1,86 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 瞿龙俊
-  Date: 2016/11/14
-  Time: 22:47
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java"
-         import="com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*,java.util.*,java.io.*,javax.servlet.*,javax.servlet.http.*"
+         import="java.util.*,com.zhuozhengsoft.pageoffice.*"
          pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po" %>
+<%@ page import="com.jfinal.core.JFinal" %>
+<%@ page import="com.zhuozhengsoft.pageoffice.wordwriter.WordDocument" %>
+<%@ page import="com.contact.model.Contract" %>
+<%@ page import="com.zhuozhengsoft.pageoffice.wordwriter.Table" %>
+<%@ page import="com.contact.model.Monitor_Category" %>
+<%@ page import="com.contact.model.Monitor_Project" %>
+<%@ page import="com.contact.utils.ParaUtils" %>
+<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
-    String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
+//设置服务器页面
+    poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
+//添加自定义按钮
+    poCtrl.addCustomToolButton("保存","Save",1);
+    poCtrl.addCustomToolButton("打印", "ShowPrintDlg()", 6);
+    poCtrl.addCustomToolButton("-", "", 0);
+    poCtrl.addCustomToolButton("全屏切换", "SwitchFullScreen()", 4);
 
-//******************************卓正PageOffice组件的使用*******************************
-
-    String id = request.getAttribute("id").toString();
-    System.out.println("传过来的id为"+id);
+    //数据填充
     WordDocument doc = new WordDocument();
-    doc.openDataRegion("PO_ReceiveDate").setValue("2012年10月15日");
-    doc.openDataRegion("PO_Job").setValue("技术总监");
-    doc.openDataRegion("PO_Date").setValue("2013年2月25日");
-
-    doc.openDataTag("【单位名称】").setValue("北京幻想科技有限公司");
-    doc.openDataTag("{姓名}").setValue("张志成");
-
-
-    FileMakerCtrl fmCtrl1 = new FileMakerCtrl(request);
-    fmCtrl1.setServerPage("/poserver.do"); //此行必须
-    fmCtrl1.setSaveFilePage("/savefile.jsp");//如要保存文件，此行必须
-    fmCtrl1.setWriter(doc);
-    //打开文件
-    fmCtrl1.setJsFunction_OnProgressComplete("OnProgressComplete()");
-    fmCtrl1.fillDocument(request.getSession().getServletContext().getRealPath("doc/test.doc"), DocumentOpenType.Word);
-    fmCtrl1.setTagId("FileMakerCtrl1"); //此行必须
+    Map<String,String> entry =(Map<String, String>) request.getAttribute("entry");
+    for(String name:entry.keySet()){
+        doc.openDataRegion("PO_"+name).setValue(entry.get(name));
+    }
+    List<Map> tableData = (List<Map>)request.getAttribute("table");
+    Table table = doc.openDataRegion("PO_T001").openTable(1);
+    int oldRowCount =7;
+    int dataRowCount=tableData.size();
+    for (int j = 0; j < dataRowCount - oldRowCount; j++)
+    {
+        table.insertRowAfter(table.openCellRC(14, 6));
+    }
+    for(int i=8;i<=7+dataRowCount;i++){
+        Map temps = tableData.get(i-8);
+        List<Monitor_Project> projects =  (List)temps.get("monitor_item_text");
+        String tempProject="";
+        for(int m=0;m<projects.size();m++){
+            tempProject+=projects.get(m).getStr("name")+" ";
+        }
+        table.openCellRC(i,2).setValue(((Monitor_Category)temps.get("environment_text")).getStr("name"));
+        table.openCellRC(i,3).setValue(temps.get("monitor_point").toString().split(";").length+"");
+        table.openCellRC(i,4).setValue(tempProject);
+        table.openCellRC(i,5).setValue(temps.get("frequency").toString());
+        table.openCellRC(i,6).setValue(temps.get("other").toString());
+    }
+    poCtrl.setWriter(doc);
+    //设置保存页面
+    poCtrl.setSaveFilePage("/export/save");
+    //设置页面
+    poCtrl.setCaption(entry.get("project_name"));
+    poCtrl.setFileTitle(entry.get("project_name"));
+//打开Word文档
+    poCtrl.webOpen("/doc/contract.doc",OpenModeType.docNormalEdit, ParaUtils.getCurrentUser(request)!=null?ParaUtils.getCurrentUser(request).getStr("name"):"佚名");
+    poCtrl.setTagId("PageOfficeCtrl1");//此行必需
 %>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-    <title>Title</title>
+    <title>合同导出</title>
 </head>
 <body>
-<script language="javascript" type="text/javascript">
-    function OnProgressComplete() {
-        debugger
-        window.location.href="/export/save?id="+id;
-        //如果需要在导出word文件成功之后弹出保存文件对话框，请取消对下面这句代码的注释
-        //document.getElementById("FileMakerCtrl1").ShowDialog(2);
+<script type="text/javascript">
+    function Save() {
+        var result = document.getElementById("PageOfficeCtrl1").ShowDialog(3);
+        console.log(result);
+        //document.getElementById("PageOfficeCtrl1").WebSave();
+    }
+    function ShowPrintDlg() {
+        document.getElementById("PageOfficeCtrl1").ShowDialog(4); //打印对话框
+    }
+    function SwitchFullScreen() {
+        document.getElementById("PageOfficeCtrl1").FullScreen = !document.getElementById("PageOfficeCtrl1").FullScreen;
     }
 </script>
-<po:FileMakerCtrl id="FileMakerCtrl1" />
+<form id="form1" >
+    <div style=" width:auto; height:auto;">
+        <po:PageOfficeCtrl id="PageOfficeCtrl1">
+        </po:PageOfficeCtrl>
+    </div>
+</form>
 </body>
 </html>
