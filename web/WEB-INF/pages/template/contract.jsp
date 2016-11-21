@@ -60,7 +60,8 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-    <title>合同导出</title>
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png">
+    <title>实验室信息管理系统</title>
 </head>
 <body>
 <script type="text/javascript">
