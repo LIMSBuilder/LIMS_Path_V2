@@ -165,4 +165,9 @@ public class DistributeController extends Controller {
             renderError(500);
         }
     }
+
+
+    public void createOriginRecord(){
+        render("template/create_originRecord.jsp");
+    }
 }

@@ -316,6 +316,12 @@
                             },
                             add_record: function () {
                                 //新增原始记录
+                                jQuery("#custom_lg_modal").modal("hide");
+                                debugger
+                                jQuery("#create_originRecord").modal({
+                                    remote:"/distribute/createOriginRecord"
+                                });
+
                             },
                             select_all: function () {
                                 //全选操作
