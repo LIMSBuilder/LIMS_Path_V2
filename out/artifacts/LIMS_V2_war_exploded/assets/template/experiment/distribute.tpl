@@ -1,7 +1,7 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#home" data-toggle="tab"><strong>待下达清单</strong></a></li>
+            <li id="tab_task_list" class="active"><a href="#home" data-toggle="tab"><strong>待下达清单</strong></a></li>
             <li id="tab-task"><a href="#task" data-toggle="tab"><strong>下达列表</strong></a></li>
             <li><a href="#profile" data-toggle="tab"><strong>已下达任务</strong></a></li>
         </ul>
@@ -45,10 +45,11 @@
                     <div class="col-sm-12">
                         <div class="btn-demo">
                             <a class="btn btn-default-alt" @click="select_all">全 选</a>
-                            <a class="btn btn-primary-alt" @click="user('analyst','分析员')">分析员</a>
-                            <a class="btn btn-success-alt" @click="user('assessor','审核员')">审核员</a>
-                            <a class="btn btn-warning-alt" @click="user('checker','复核员')">复核员</a>
-                            <a class="btn btn-danger-alt" @click="clearAll">清 空</a>
+                            <a class="btn btn-info-alt" @click="user('analyst','分析员')">分析员</a>
+                            <a class="btn btn-primary-alt" @click="user('assessor','审核员')">审核员</a>
+                            <a class="btn btn-success-alt" @click="user('checker','复核员')">复核员</a>
+                            <a class="btn btn-warning-alt" @click="clearAll">清 空</a>
+                            <a class="btn btn-danger-alt" @click="flowItem">业务流转</a>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-info mb30">
@@ -507,7 +508,47 @@
                                             jQuery.fn.codeState(data.code, {
                                                 200: function () {
                                                     jQuery.fn.alert_msg("任务流转成功!");
+                                                    me.projectList = [];
+                                                    me.sample_list = [];
                                                     me.load_list("state=receive_delivery", 1);
+
+                                                }
+                                            })
+                                        }, function (response) {
+                                            jQuery.fn.error_msg("数据异常,无法流转任务,请刷新后重新尝试!");
+                                        });
+                                    },
+                                    504: function () {
+                                        jQuery.fn.error_msg("当前任务书尚有未分配监测项目,任务无法流转!");
+                                    }
+                                })
+                            }, function (response) {
+                                jQuery.fn.error_msg("数据异常,无法进行项目流转!");
+                            });
+                        }
+                    })
+                },
+                flowItem: function (task) {
+                    var me = this;
+                    jQuery.fn.check_msg({
+                        msg: "您即将进行任务编号为【" + me.identify + "】的进度流转,是否继续?",
+                        success: function () {
+                            var data = {
+                                task_id: me.id
+                            };
+                            me.$http.post("/distribute/checkUser", data).then(function (response) {
+                                var data = response.data;
+                                jQuery.fn.codeState(data.code, {
+                                    200: function () {
+                                        me.$http.post("/flow/distributeFlow", {id: me.id}).then(function (response) {
+                                            var data = response.data;
+                                            jQuery.fn.codeState(data.code, {
+                                                200: function () {
+                                                    jQuery.fn.alert_msg("任务流转成功!");
+                                                    me.load_list("state=receive_delivery", 1);
+                                                    me.projectList = [];
+                                                    me.sample_list = [];
+                                                    jQuery("#tab_task_list a").tab("show");
                                                 }
                                             })
                                         }, function (response) {
