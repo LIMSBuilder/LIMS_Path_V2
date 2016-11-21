@@ -49,7 +49,6 @@ public class TaskController extends Controller {
             if (key.equals("state")) {
                 paras += (" AND state=" + ParaUtils.flows.get(value));
             }
-
             if (key.equals("search_createTime_start")) {
                 try {
                     Date date = format_date.parse(value.toString());
@@ -99,6 +98,28 @@ public class TaskController extends Controller {
         renderJson(results);
     }
 
+
+    /**
+     * 实验分析获取Task列表
+     * 如果有需要当前用户进行实验分析的,则才显示当前用户
+     */
+    public void experienceList() {
+        int rowCount = getParaToInt("rowCount");
+        int currentPage = getParaToInt("currentPage");
+        if (rowCount == 0) {
+            rowCount = ParaUtils.getRowCount();
+        }
+        String paras = "FROM `db_task` t WHERE state="+ParaUtils.flows.get("task_dstribute")+" AND  EXISTS(SELECT `db_delivery`.* FROM `db_delivery`,`db_task` m  WHERE `db_delivery`.`task_id`=t.`id` AND `db_delivery`.`analyst`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + " )";
+        Page<Task> taskPage = Task.taskDao.paginate(currentPage, rowCount, "SELECT t.* ", paras);
+        List<Task> taskList = taskPage.getList();
+        Map results = toJson(taskList);
+        results.put("currentPage", currentPage);
+        results.put("totalPage", taskPage.getTotalPage());
+        results.put("rowCount", rowCount);
+        results.put("totalRowCount", taskPage.getTotalRow());
+        renderJson(results);
+    }
+
     /**
      * 将查询结果生成JSON
      *
@@ -115,7 +136,7 @@ public class TaskController extends Controller {
             map.put("create_time", task.get("create_time"));
             map.put("project_name", task.get("project_name"));
             map.put("client_unit", task.get("client_unit"));
-            map.put("state",task.get("state"));
+            map.put("state", task.get("state"));
             map.put("receive_deparment", Department.departmentDao.findById(task.get("receive_deparment")));
             results.add(map);
         }
