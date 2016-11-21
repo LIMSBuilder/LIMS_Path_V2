@@ -139,6 +139,41 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade originRecord" id="create_originRecord" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>
+                <h4 class="modal-title">请选择使用的原始记录模板</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body panel-body-nopadding">
+                    <form class="form-horizontal form-bordered">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">选择模板</label>
+                            <div class="col-sm-6">
+                                <select class="select2" id="originRecord_template"
+                                        data-placeholder="选择原始记录模板">
+                                    <option value=""></option>
+                                    <template v-for="item in originRecordTemplate">
+                                        <option value="{{item.id}}">{{item.name}}</option>
+                                    </template>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="text-center col-md-12 btn-demo">
+                        <a class="btn btn-primary-alt clear-float" @click="choose_template">选 择</a>
+                        <a class="btn btn-default-alt clear-float" data-dismiss="modal">取 消</a>
+                    </div>
+                </div><!-- panel-body -->
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     jQuery(document).ready(function () {
         "use strict";
@@ -152,9 +187,7 @@
                     isShow: false,
                     projectList: [],
                     sample_list: [],
-
-                    roleList: [],//岗位列表
-                    userList: []
+                    originRecordTemplate: []
                 }
             },
             methods: {
@@ -317,11 +350,14 @@
                             add_record: function () {
                                 //新增原始记录
                                 jQuery("#custom_lg_modal").modal("hide");
-                                debugger
-                                jQuery("#create_originRecord").modal({
-                                    remote:"/distribute/createOriginRecord"
-                                });
+                                jQuery("#create_originRecord").modal("show");
 
+                                me.$http.get("/template/getInspection").then(function (response) {
+                                    var data = response.data;
+                                    me.$set("originRecordTemplate", data.results);
+                                }, function (response) {
+                                    jQuery.fn.error_msg("服务器异常,无法获取原始记录模板列表!");
+                                });
                             },
                             select_all: function () {
                                 //全选操作
@@ -367,7 +403,7 @@
                                             jQuery.fn.error_msg("数据异常,无法删除原始记录");
                                         });
                                     },
-                                    cancel:function(){
+                                    cancel: function () {
                                         jQuery('#custom_lg_modal').modal("show");
                                     }
                                 })
@@ -418,6 +454,10 @@
                             });
                         }
                     })
+                },
+                choose_template: function () {
+                    //选择原始记录模板
+
                 },
                 flow: function (task) {
                     var me = this;
@@ -497,29 +537,7 @@
             ready: function () {
                 var me = this;
                 me.load_list("", 1);
-                me.$http.get("/role/getList").then(function (response) {
-                    var data = response.data;
-                    me.$set("roleList", data.results);
-                }, function (response) {
-                    jQuery.fn.error_msg("服务器异常,无法获取岗位列表!");
-                });
-
-                jQuery("#role_select").select2({
-                    width: '100%'
-                }).on("change", function (event) {
-                    var id = event.val;
-                    me.$http.get("/user/getListByRole", {
-                        params: {
-                            id: id
-                        }
-                    }).then(function (response) {
-                        var data = response.data;
-                        me.$set("userList", data.results);
-                    }, function (response) {
-                        jQuery.fn.error_msg("服务器异常,无法获取用户列表!");
-                    });
-                });
-                jQuery("#user_select").select2({
+                jQuery("#originRecord_template").select2({
                     width: '100%'
                 });
             }
