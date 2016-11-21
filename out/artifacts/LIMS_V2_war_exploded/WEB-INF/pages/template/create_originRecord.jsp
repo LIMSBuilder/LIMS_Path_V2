@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 瞿龙俊
-  Date: 2016/11/21
-  Time: 13:27
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,9 +7,15 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png">
     <title>实验室信息管理系统</title>
+
+    <link href="/assets/css/style.default.css" rel="stylesheet">
 </head>
 <body>
-    aaabbb
 
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+    });
+</script>
 </body>
 </html>

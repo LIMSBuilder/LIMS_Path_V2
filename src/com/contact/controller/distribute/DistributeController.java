@@ -167,7 +167,16 @@ public class DistributeController extends Controller {
     }
 
 
-    public void createOriginRecord(){
-        render("template/create_originRecord.jsp");
+    public void createOriginRecord() {
+        try {
+            int delivery_id = getParaToInt("delivery_id");
+            int template_id = getParaToInt("template_id");
+            System.out.println(delivery_id);
+            System.out.println(template_id);
+            render("template/create_originRecord.jsp");
+        } catch (Exception e) {
+            renderError(500);
+        }
+
     }
 }

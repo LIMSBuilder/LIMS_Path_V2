@@ -2,6 +2,7 @@ package com.contact.controller.template;
 
 import com.contact.model.InspectionTemplate;
 import com.contact.model.Monitor_Category;
+import com.contact.model.OriginRecordTemplate;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
@@ -48,6 +49,21 @@ public class TemplateController extends Controller {
         renderJson(results);
     }
 
+    public void originRecordList() {
+        int rowCount = getParaToInt("rowCount");
+        int currentPage = getParaToInt("currentPage");
+        if (rowCount == 0) {
+            rowCount = ParaUtils.getRowCount();
+        }
+        Page<OriginRecordTemplate> originRecordTemplatePage = OriginRecordTemplate.originRecordTemplateDao.paginate(currentPage, rowCount, "SELECT *", " FROM `db_originRecordTemplate`");
+        List<OriginRecordTemplate> originRecordTemplateList = originRecordTemplatePage.getList();
+        Map results = toOriginRecordJson(originRecordTemplateList);
+        results.put("currentPage", currentPage);
+        results.put("totalPage", originRecordTemplatePage.getTotalPage());
+        results.put("rowCount", rowCount);
+        renderJson(results);
+    }
+
     /**
      * 将查询结果生成JSON
      *
@@ -59,6 +75,23 @@ public class TemplateController extends Controller {
         List results = new ArrayList();
         for (InspectionTemplate inspectionTemplate : entityList) {
             results.add(inspectionTemplate);
+        }
+        json.put("results", results);
+        return json;
+    }
+
+
+    /**
+     * 将原始记录查询结果生成JSON
+     *
+     * @param entityList
+     * @return
+     */
+    public Map toOriginRecordJson(List<OriginRecordTemplate> entityList) {
+        Map<String, Object> json = new HashMap<>();
+        List results = new ArrayList();
+        for (OriginRecordTemplate originRecordTemplate : entityList) {
+            results.add(originRecordTemplate);
         }
         json.put("results", results);
         return json;
@@ -136,6 +169,37 @@ public class TemplateController extends Controller {
             int id = getParaToInt("id");
             Boolean result = InspectionTemplate.inspectionTemplateDao.findById(id).set("name", getPara("name")).update();
             renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+
+    public void originRecord() {
+        try {
+            Boolean result = Db.tx(new IAtom() {
+                @Override
+                public boolean run() throws SQLException {
+                    String name = getPara("name");
+                    String path = getPara("path");
+                    OriginRecordTemplate originRecordTemplate = new OriginRecordTemplate();
+                    Boolean result = originRecordTemplate.set("name", name).set("path", path).save();
+                    return result;
+                }
+            });
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+
+    public void getOriginRecord() {
+        try {
+            List<OriginRecordTemplate> originRecordTemplates = OriginRecordTemplate.originRecordTemplateDao.find("SELECT * FROM `db_originRecordTemplate`");
+            Map map = new HashMap();
+            map.put("results", originRecordTemplates);
+            renderJson(map);
         } catch (Exception e) {
             renderError(500);
         }

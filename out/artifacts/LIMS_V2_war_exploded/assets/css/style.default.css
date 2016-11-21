@@ -1367,6 +1367,9 @@ div.error label.error:before {
     margin: 0 10px 10px 0;
 }
 
+.btn-demo .clear-float {
+    float: none;
+}
 .fonticon-list {
     list-style: none;
     margin: 20px 0;

@@ -16,7 +16,8 @@ public class FileController extends Controller {
         try {
             UploadFile uploadFile = getFile();
             Map result = RenderUtils.codeFactory(200);
-            result.put("path", uploadFile.getUploadPath());
+
+            result.put("path", uploadFile.getUploadPath()+"/"+uploadFile.getFileName());
             renderJson(result);
         } catch (Exception e) {
             renderError(500);
