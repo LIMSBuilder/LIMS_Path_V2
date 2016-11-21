@@ -178,6 +178,7 @@
                             template: template,
                             data: function () {
                                 return {
+                                    id:"",
                                     identify: "",
                                     client_unit: "",
                                     client_code: "",

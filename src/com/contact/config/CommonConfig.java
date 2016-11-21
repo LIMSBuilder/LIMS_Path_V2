@@ -79,7 +79,7 @@ public class CommonConfig extends JFinalConfig {
 
     @Override
     public void configInterceptor(Interceptors me) {
-        me.addGlobalActionInterceptor(new LoginInterceptor());//全局的登录拦截器
+        //me.addGlobalActionInterceptor(new LoginInterceptor());//全局的登录拦截器
     }
 
     @Override

@@ -149,7 +149,7 @@
     </div>
     <div class="col-md-12 text-center">
         <div class="btn-demo">
-            <a class="btn btn-primary-alt" @click="print" style="float: none;">导出合同</a>
+            <a class="btn btn-primary-alt" target="_blank" href="/export/exportContract/{{id}}" style="float: none;">导出合同</a>
         </div>
     </div>
 </div>

@@ -20,5 +20,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="pageoffice3" level="project" />
+    <orderEntry type="library" name="freemarker-2.3.15" level="project" />
   </component>
 </module>

@@ -2,12 +2,12 @@
   <artifact type="exploded-war" name="LIMS_V2:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="LIMS_V2/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="LIMS_V2" />
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="LIMS_V2/web/Web" />
     </root>
   </artifact>
 </component>
