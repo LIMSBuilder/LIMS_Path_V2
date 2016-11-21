@@ -224,7 +224,6 @@ public class SampleController extends Controller {
             int task_id = getParaToInt("id");
             User user = ParaUtils.getCurrentUser(getRequest());
             List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM db_delivery WHERE task_id =" + task_id + " AND analyst=" + user.get("id"));
-//            List<Sample> sampleList = Sample.sampleDao.find("SELECT * FROM `db_sample` WHERE state!=1 AND `db_sample`.`task_id`=" + task_id);
             Task task = Task.taskDao.findById(task_id);
             for (Delivery delivery : deliveryList) {
                 Monitor_Project monitor_project = Monitor_Project.monitor_projectDao.findById(delivery.get("project_id"));
@@ -232,10 +231,6 @@ public class SampleController extends Controller {
                 project_sample.put(delivery, sampleProjectList);
             }
             Map temp = DeliverytoJson(project_sample);
-//            temp.put("sampleFrom", sampleList.size() != 0 ? sampleList.get(0).get("identify") : 0);
-//            temp.put("sampleTo", sampleList.size() != 0 ? sampleList.get(sampleList.size() - 1).get("identify") : 0);
-//            temp.put("sample_create", task.get("sample_time"));
-//            temp.put("sample_user", User.userDao.findById(task.getInt("sample_user")));
             renderJson(temp);
         } catch (Exception e) {
             renderError(500);
@@ -297,6 +292,9 @@ public class SampleController extends Controller {
                 temp.put("samples", value);
                 temp.put("character", delivery.get("character"));
                 temp.put("storage", delivery.get("storage"));
+
+                temp.put("delivery",delivery);
+
 
                 temp.put("state", project.get("state"));
                 temp.put("analyst", delivery.get("analyst") != null ? User.userDao.findById(delivery.get("analyst")) : null);

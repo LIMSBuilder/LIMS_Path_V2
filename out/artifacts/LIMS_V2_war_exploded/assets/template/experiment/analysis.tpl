@@ -183,6 +183,7 @@
                 return {
                     result_list: [],//结果集
                     id: "",
+                    delivery_id: "",
                     identify: "",
                     isShow: false,
                     projectList: [],
@@ -352,12 +353,13 @@
                                 jQuery("#custom_lg_modal").modal("hide");
                                 jQuery("#create_originRecord").modal("show");
 
-                                me.$http.get("/template/getInspection").then(function (response) {
+                                me.$http.get("/template/getOriginRecord").then(function (response) {
                                     var data = response.data;
                                     me.$set("originRecordTemplate", data.results);
                                 }, function (response) {
                                     jQuery.fn.error_msg("服务器异常,无法获取原始记录模板列表!");
                                 });
+                                me.delivery_id = project.delivery.id;
                             },
                             select_all: function () {
                                 //全选操作
@@ -457,7 +459,9 @@
                 },
                 choose_template: function () {
                     //选择原始记录模板
-
+                    var me = this;
+                    var id = jQuery('#originRecord_template').val();
+                    window.open("/distribute/createOriginRecord?template_id=" + id + "&&delivery_id=" + me.delivery_id);
                 },
                 flow: function (task) {
                     var me = this;
@@ -537,32 +541,6 @@
             ready: function () {
                 var me = this;
                 me.load_list("", 1);
-                me.$http.get("/role/getList").then(function (response) {
-                    var data = response.data;
-                    me.$set("roleList", data.results);
-                }, function (response) {
-                    jQuery.fn.error_msg("服务器异常,无法获取岗位列表!");
-                });
-
-                jQuery("#role_select").select2({
-                    width: '100%'
-                }).on("change", function (event) {
-                    var id = event.val;
-                    me.$http.get("/user/getListByRole", {
-                        params: {
-                            id: id
-                        }
-                    }).then(function (response) {
-                        var data = response.data;
-                        me.$set("userList", data.results);
-                    }, function (response) {
-                        jQuery.fn.error_msg("服务器异常,无法获取用户列表!");
-                    });
-                });
-                jQuery("#user_select").select2({
-                    width: '100%'
-                });
-
                 jQuery("#originRecord_template").select2({
                     width: '100%'
                 });
