@@ -2,6 +2,7 @@ package com.contact.controller.sample;
 
 import com.contact.model.*;
 import com.contact.model.Properties;
+import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.Prop;
@@ -17,6 +18,8 @@ import java.util.*;
  * 样品:
  * 0:正常
  * -1:删除
+ * 1:已接收
+ * 2.实验分析完成
  */
 public class SampleController extends Controller {
     public void getSignleSample() {
@@ -212,6 +215,33 @@ public class SampleController extends Controller {
         }
     }
 
+    /**
+     * 通过交联单和当前登录用户获取需要当前用户进行实验分析的项目
+     */
+    public void getProjectListByDeliveryExperience() {
+        try {
+            Map<Delivery, List<Sample>> project_sample = new HashMap();
+            int task_id = getParaToInt("id");
+            User user = ParaUtils.getCurrentUser(getRequest());
+            List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM db_delivery WHERE task_id =" + task_id + " AND analyst=" + user.get("id"));
+//            List<Sample> sampleList = Sample.sampleDao.find("SELECT * FROM `db_sample` WHERE state!=1 AND `db_sample`.`task_id`=" + task_id);
+            Task task = Task.taskDao.findById(task_id);
+            for (Delivery delivery : deliveryList) {
+                Monitor_Project monitor_project = Monitor_Project.monitor_projectDao.findById(delivery.get("project_id"));
+                List<Sample> sampleProjectList = Sample.sampleDao.find("SELECT `db_sample`.* FROM `db_sample`,`db_sampleProject` WHERE `db_sample`.receive=1 AND `db_sample`.`id`=`db_sampleProject`.`sample_id` AND `db_sampleProject`.`project_id`=" + monitor_project.get("id") + " AND`db_sample`.`task_id`=" + task_id);
+                project_sample.put(delivery, sampleProjectList);
+            }
+            Map temp = DeliverytoJson(project_sample);
+//            temp.put("sampleFrom", sampleList.size() != 0 ? sampleList.get(0).get("identify") : 0);
+//            temp.put("sampleTo", sampleList.size() != 0 ? sampleList.get(sampleList.size() - 1).get("identify") : 0);
+//            temp.put("sample_create", task.get("sample_time"));
+//            temp.put("sample_user", User.userDao.findById(task.getInt("sample_user")));
+            renderJson(temp);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
 
     /**
      * 将根据项目查找样品转换成合适的JSON并返回
@@ -263,10 +293,12 @@ public class SampleController extends Controller {
                 temp.put("id", project.get("id"));
                 temp.put("name", project.get("name"));
                 temp.put("category", Monitor_Category.monitorCategoryDao.findById(project.getInt("category_id")));
+                temp.put("inspection", InspectionTemplate.inspectionTemplateDao.findById(Monitor_Category.monitorCategoryDao.findById(project.getInt("category_id")).get("inspection_template")));
                 temp.put("samples", value);
                 temp.put("character", delivery.get("character"));
                 temp.put("storage", delivery.get("storage"));
 
+                temp.put("state", project.get("state"));
                 temp.put("analyst", delivery.get("analyst") != null ? User.userDao.findById(delivery.get("analyst")) : null);
                 temp.put("assessor", delivery.get("assessor") != null ? User.userDao.findById(delivery.get("assessor")) : null);
                 temp.put("checker", delivery.get("checker") != null ? User.userDao.findById(delivery.get("checker")) : null);
@@ -283,7 +315,6 @@ public class SampleController extends Controller {
         returnTemp.put("sampleCount", count);
         return returnTemp;
     }
-
 
     /**
      * 将查询结果生成JSON

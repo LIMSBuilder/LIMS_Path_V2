@@ -74,6 +74,7 @@ public class CommonConfig extends JFinalConfig {
         arp.addMapping("db_qualityMark", QualityMark.class);
         arp.addMapping("db_delivery", Delivery.class);
         arp.addMapping("db_taskDeliveryReceive", DeliveryReceiveInfo.class);
+        arp.addMapping("db_deliveryOriginRecord", Delivery_OriginRecord.class);
     }
 
     @Override
