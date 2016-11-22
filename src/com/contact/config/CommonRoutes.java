@@ -1,11 +1,9 @@
 package com.contact.config;
 
-import com.contact.controller.common.FileController;
-import com.contact.controller.common.FlowController;
-import com.contact.controller.common.PropertiesController;
+import com.contact.controller.common.*;
 import com.contact.controller.constract.*;
-import com.contact.controller.common.SignController;
 import com.contact.controller.distribute.DistributeController;
+import com.contact.controller.mail.MailController;
 import com.contact.controller.office.ExportController;
 import com.contact.controller.quality.QualityController;
 import com.contact.controller.sample.DeliveryController;
@@ -38,8 +36,10 @@ public class CommonRoutes extends Routes {
         add("/quality", QualityController.class, "/");
         add("/delivery", DeliveryController.class, "/");
         add("/distribute", DistributeController.class, "/");
-        add("/export", ExportController.class,"/");
+        add("/export", ExportController.class, "/");
 
+        add("/mail", MailController.class, "/");
         add("/file", FileController.class, "/");
+        add("/push", PushController.class, "/");
     }
 }

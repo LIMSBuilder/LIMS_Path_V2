@@ -19,7 +19,6 @@ import java.util.Map;
  * Created by qulongjun on 2016/10/27.
  */
 public class UserController extends Controller {
-
     public void list() {
         int rowCount = getParaToInt("rowCount");
         int currentPage = getParaToInt("currentPage");

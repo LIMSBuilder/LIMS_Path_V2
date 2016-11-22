@@ -64,14 +64,14 @@
         },
         methods: {
             new_mail: function () {
-                var me =this;
+                var me = this;
                 var tpl = jQuery.fn.loadTemplate("/assets/template/subject/compose.tpl");
-                me.$http.get("/assets/json/mail_receiver_list.json").then(function (response) {
+                me.$http.get("/user/getList").then(function (response) {
                     var data = response.data;
                     var render = template.compile(tpl);
                     jQuery('#mail_right').html(render({receiver_list: data.results}));
                 }, function (response) {
-
+                    jQuery.fn.error_msg("数据异常,无法获取用户列表!");
                 });
 
             },
@@ -117,7 +117,7 @@
                     var tpl = jQuery.fn.loadTemplate("/assets/template/subject/mail_box.tpl");
                     var render = template.compile(tpl);
                     data.box_type = msg;
-                    data.folder_list=me.$get("folder_list");
+                    data.folder_list = me.$get("folder_list");
                     jQuery('#mail_right').html(render(data));
 
 
@@ -151,7 +151,7 @@
                 var tpl = jQuery.fn.loadTemplate("/assets/template/subject/mail_box.tpl");
                 var render = template.compile(tpl);
                 data.box_type = '收件箱';
-                data.folder_list=me.$get("folder_list");
+                data.folder_list = me.$get("folder_list");
                 jQuery('#mail_right').html(render(data));
 
             }, function (response) {
