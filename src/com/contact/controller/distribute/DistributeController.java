@@ -2,6 +2,7 @@ package com.contact.controller.distribute;
 
 import com.contact.model.Delivery;
 import com.contact.model.Delivery_OriginRecord;
+import com.contact.model.OriginRecordTemplate;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
@@ -171,8 +172,11 @@ public class DistributeController extends Controller {
         try {
             int delivery_id = getParaToInt("delivery_id");
             int template_id = getParaToInt("template_id");
-            System.out.println(delivery_id);
-            System.out.println(template_id);
+            OriginRecordTemplate originRecordTemplate = OriginRecordTemplate.originRecordTemplateDao.findById(template_id);
+            getRequest().setAttribute("originRecord",originRecordTemplate);
+            getRequest().setAttribute("delivery_id",delivery_id);
+
+
             render("template/create_originRecord.jsp");
         } catch (Exception e) {
             renderError(500);
