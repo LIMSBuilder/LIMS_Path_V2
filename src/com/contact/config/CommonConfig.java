@@ -30,7 +30,7 @@ public class CommonConfig extends JFinalConfig {
         //设置下载路径
         // me.setBaseDownloadPath("/WEB-INF/download");
         //设置上传路径
-        me.setBaseUploadPath(PathKit.getWebRootPath() + "/WEB-INF/upload");
+        //me.setBaseUploadPath(PathKit.getWebRootPath() + "/upload");
         //http://localhost:8080/blog/1-3
         me.setUrlParaSeparator("-");
         //me.setError403View("/WEB-INF/pages/common/404.html");
