@@ -76,6 +76,11 @@ public class CommonConfig extends JFinalConfig {
         arp.addMapping("db_taskDeliveryReceive", DeliveryReceiveInfo.class);
         arp.addMapping("db_deliveryOriginRecord", Delivery_OriginRecord.class);
         arp.addMapping("db_originRecordTemplate", OriginRecordTemplate.class);
+        arp.addMapping("db_mail", Mail.class);
+        arp.addMapping("db_mailReceiver",MailReceiver.class);
+
+
+
     }
 
     @Override

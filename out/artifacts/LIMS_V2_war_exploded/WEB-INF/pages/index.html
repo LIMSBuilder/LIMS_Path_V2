@@ -81,8 +81,8 @@
                 <li><a href="javascript:;" class="nav-item" data-type="comming_soon" data-title="电子邮箱"
                        data-desp="此处省略15个字"><i class="fa fa-home"></i> <span>仪表盘</span></a></li>
                 <li><a href="javascript:;" class="nav-item" data-type="email/email" data-title="电子邮箱"
-                       data-desp="此处省略15个字"><span class="pull-right badge badge-success">2</span><i
-                        class="fa fa-envelope-o"></i> <span>Email</span></a></li>
+                       data-desp="此处省略15个字"><i
+                        class="fa fa-envelope-o"></i><span id="mail_alert"></span> <span>Email</span></a></li>
                 <li class="nav-parent"><a href=""><i class="fa fa-edit"></i> <span>合同管理</span></a>
                     <ul class="children" data-icon="fa fa-edit">
                         <li><a href="javascript:;" class="nav-item" data-type="contract/create" data-title="合同起草"
@@ -142,7 +142,7 @@
                                data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 实验分析 </a></li>
                         <li><a href="javascript:;" class="nav-item" data-type="experiment/assess" data-title="实验审核"
                                data-desp="此处省略15个字"><i class="fa fa-caret-right"></i> 实验审核 </a></li>
-                        
+
                         <li><a href="javascript:;"><i class="fa fa-caret-right"></i> 实验人员复核</a></li>
                         <li><a href="javascript:;"><i class="fa fa-caret-right"></i> 科室主任复核</a></li>
                     </ul>
@@ -323,61 +323,8 @@
                                 <span class="badge">1</span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-head pull-right">
-                                <h5 class="title">您有 1 条新消息</h5>
-                                <ul class="dropdown-list gen-list">
-                                    <li class="new">
-                                        <a href="">
-                                            <span class="thumb"><img src="/assets/images/photos/user1.png"
-                                                                     alt=""/></span>
-                                                    <span class="desc">
-                                                        <span class="name">Draniem Daamul <span
-                                                                class="badge badge-success">new</span></span>
-                                                        <span class="msg">Lorem ipsum dolor sit amet...</span>
-                                                    </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <span class="thumb"><img src="/assets/images/photos/user2.png"
-                                                                     alt=""/></span>
-                                                    <span class="desc">
-                                                        <span class="name">Nusja Nawancali</span>
-                                                        <span class="msg">Lorem ipsum dolor sit amet...</span>
-                                                    </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <span class="thumb"><img src="/assets/images/photos/user3.png"
-                                                                     alt=""/></span>
-                                                    <span class="desc">
-                                                        <span class="name">Weno Carasbong</span>
-                                                        <span class="msg">Lorem ipsum dolor sit amet...</span>
-                                                    </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <span class="thumb"><img src="/assets/images/photos/user4.png"
-                                                                     alt=""/></span>
-                                                    <span class="desc">
-                                                        <span class="name">Zaham Sindilmaca</span>
-                                                        <span class="msg">Lorem ipsum dolor sit amet...</span>
-                                                    </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <span class="thumb"><img src="/assets/images/photos/user5.png"
-                                                                     alt=""/></span>
-                                                    <span class="desc">
-                                                        <span class="name">Veno Leongal</span>
-                                                        <span class="msg">Lorem ipsum dolor sit amet...</span>
-                                                    </span>
-                                        </a>
-                                    </li>
-                                    <li class="new"><a href="">Read All Messages</a></li>
-                                </ul>
+                                <h5 class="title">您有 <span id="mail_count">0</span> 条新邮件</h5>
+                                <ul class="dropdown-list gen-list" id="mail_list"></ul>
                             </div>
                         </div>
                     </li>
@@ -1011,6 +958,48 @@
             });
         });
 
+
+        //轮循最新消息
+        if (!localStorage.getItem("no_msg")) {
+            //如果localStorage不存在"禁止轮循"的tag
+            var msg = window.msg = setInterval(function () {
+                if (localStorage.getItem("no_msg")) clearInterval(msg); //如果检测到本地不让弹出消息,则停止
+                jQuery.get("/push/push", function (data) {
+                    if (data) {
+                        //获取返回消息
+                        for (var i in data) {
+                            for (var key in data) {
+                                switch (key) {
+                                    case "receive_mail":
+                                        var html = '<span class="pull-right badge badge-success">' + data[key].length + '</span>';
+                                        jQuery("#mail_alert").html(html);
+                                        jQuery("#mail_count").html(data[key].length);
+                                        jQuery("#mail_list").empty();
+                                        for (var i = 0; i < data[key].length; i++) {
+                                            var mail = data[key][i];
+                                            var mail_li = '<li><a href="javascript:;" data-id="' + mail.id + '" class="mail_msg" "> <span class="thumb"><img src="/assets/images/photos/user5.png" alt=""/></span> <span class="desc"> <span class="name">' + mail.sender.name + '<span class="badge badge-success">标为已读</span></span> <span class="msg">' + mail.title + '</span> </span> </a> </li>';
+                                            jQuery("#mail_list").prepend(mail_li);
+                                        }
+                                        jQuery("#mail_list").append('<li class="new text-right"><a href="javascript:;"><span class="label label-info">全部已读</span></a></li>');
+                                        break;
+                                }
+                            }
+                        }
+
+                        console.log(data)
+                    }
+                })
+
+            }, 5000);
+        }
+
+        jQuery("#mail_list").off("click").on("click", function (event) {
+            var target = jQuery(event.target);
+            if (target.parents('.mail_msg')) {
+                var id = target.parents('.mail_msg').data("id");
+                alert("打开编号为" + id + "的信件");
+            }
+        })
 
     });
 </script>
