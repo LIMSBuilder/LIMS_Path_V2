@@ -416,6 +416,8 @@
                             },
                             delItem: function (item) {
                                 //删除当前原始记录
+
+
                             }
 
                         },

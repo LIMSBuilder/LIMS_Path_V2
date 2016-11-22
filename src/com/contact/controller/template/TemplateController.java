@@ -97,7 +97,9 @@ public class TemplateController extends Controller {
         return json;
     }
 
-
+    /**
+     * 新增送检单模板
+     */
     public void inspection() {
         try {
             Boolean result = Db.tx(new IAtom() {
@@ -121,6 +123,9 @@ public class TemplateController extends Controller {
         }
     }
 
+    /**
+     * 获取送检单模板列表
+     */
     public void getInspection() {
         try {
             List<InspectionTemplate> inspectionTemplates = InspectionTemplate.inspectionTemplateDao.find("SELECT * FROM `db_inspectionTemplate`");
@@ -132,6 +137,9 @@ public class TemplateController extends Controller {
         }
     }
 
+    /**
+     * 设置环境要素的送检单模板
+     */
     public void setInspection() {
         try {
             int id = getParaToInt("id");
@@ -143,6 +151,9 @@ public class TemplateController extends Controller {
         }
     }
 
+    /**
+     * 删除环境要素的送检单模板
+     */
     public void deleteInspection() {
         try {
             int id = getParaToInt("id");
@@ -153,6 +164,22 @@ public class TemplateController extends Controller {
         }
     }
 
+    /**
+     * 删除原始记录模板
+     */
+    public void delOriginRecord() {
+        try {
+            int id = getParaToInt("id");
+            Boolean result = OriginRecordTemplate.originRecordTemplateDao.deleteById(id);
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+    /**
+     * 删除送检单模板
+     */
     public void delInspectionTemplate() {
         try {
             int id = getParaToInt("id");
@@ -164,10 +191,26 @@ public class TemplateController extends Controller {
 
     }
 
+    /**
+     * 修改送检单模板名称
+     */
     public void changeInspectionTemplate() {
         try {
             int id = getParaToInt("id");
             Boolean result = InspectionTemplate.inspectionTemplateDao.findById(id).set("name", getPara("name")).update();
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+    /**
+     * 修改原始记录模板名称
+     */
+    public void changeOriginRecordTemplate() {
+        try {
+            int id = getParaToInt("id");
+            Boolean result = OriginRecordTemplate.originRecordTemplateDao.findById(id).set("name", getPara("name")).update();
             renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
         } catch (Exception e) {
             renderError(500);

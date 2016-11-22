@@ -2,20 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94492654-fabd-46c1-bc69-031022f7d3fb" name="默认的" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/contact/model/OriginRecordTemplate.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/template/originRecord.tpl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/subject/template_originRecord_change.tpl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war/LIMS_V2_war.war" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war/LIMS_V2_war.war" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/template/TemplateController$2.class" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/template/TemplateController$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/template/TemplateController.class" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/classes/com/contact/controller/template/TemplateController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/template/TemplateController$2.class" afterPath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/template/TemplateController$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/template/TemplateController.class" afterPath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/template/TemplateController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/pages/index.html" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/WEB-INF/pages/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/experiment/analysis.tpl" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/experiment/analysis.tpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/config/CommonConfig.java" afterPath="$PROJECT_DIR$/src/com/contact/config/CommonConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/common/FileController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/common/FileController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/sample/SampleController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/sample/SampleController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/template/originRecord.tpl" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/template/originRecord.tpl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/template/TemplateController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/template/TemplateController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/pages/index.html" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/pages/template/create_originRecord.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/template/create_originRecord.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl" afterPath="$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/template/originRecord.tpl" afterPath="$PROJECT_DIR$/web/assets/template/template/originRecord.tpl" />
     </list>
     <ignored path="LIMS_V2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,11 +36,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="create_originRecord.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="create_originRecord.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/create_originRecord.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2819237">
-              <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+            <state vertical-scroll-proportion="-11.769231">
+              <caret line="18" column="9" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -51,8 +49,8 @@
       <file leaf-file-name="analysis.tpl" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="24.923077">
-              <caret line="462" column="68" selection-start-line="462" selection-start-column="68" selection-end-line="462" selection-end-column="68" />
+            <state vertical-scroll-proportion="-62.03846">
+              <caret line="388" column="46" selection-start-line="388" selection-start-column="42" selection-end-line="388" selection-end-column="46" />
               <folding>
                 <element signature="e#10711#13173#0" expanded="false" />
                 <element signature="e#13236#15489#0" expanded="false" />
@@ -85,9 +83,12 @@
       <file leaf-file-name="originRecord.tpl" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/assets/template/template/originRecord.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-51.0">
-              <caret line="147" column="60" selection-start-line="147" selection-start-column="44" selection-end-line="147" selection-end-column="60" />
-              <folding />
+            <state vertical-scroll-proportion="-9.846154">
+              <caret line="95" column="83" selection-start-line="95" selection-start-column="57" selection-end-line="95" selection-end-column="83" />
+              <folding>
+                <element signature="e#5347#6748#0" expanded="false" />
+                <element signature="e#6815#9103#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -110,12 +111,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TemplateController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TemplateController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/contact/controller/template/TemplateController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="183" column="50" selection-start-line="183" selection-start-column="50" selection-end-line="183" selection-end-column="50" />
-              <folding />
+            <state vertical-scroll-proportion="0.858804">
+              <caret line="214" column="31" selection-start-line="214" selection-start-column="31" selection-end-line="214" selection-end-column="31" />
+              <folding>
+                <element signature="e#7673#8134#0" expanded="true" />
+                <element signature="e#8133#8134#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -135,16 +139,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="77" column="78" selection-start-line="77" selection-start-column="78" selection-end-line="77" selection-end-column="78" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="create_originRecord.tpl" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/assets/template/subject/create_originRecord.tpl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.346153">
-              <caret line="25" column="67" selection-start-line="25" selection-start-column="67" selection-end-line="25" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -188,13 +182,13 @@
         <option value="$PROJECT_DIR$/src/com/contact/model/OriginRecordTemplate.java" />
         <option value="$PROJECT_DIR$/src/com/contact/config/CommonConfig.java" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/common/FileController.java" />
-        <option value="$PROJECT_DIR$/web/assets/template/template/originRecord.tpl" />
-        <option value="$PROJECT_DIR$/src/com/contact/controller/template/TemplateController.java" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/sample/SampleController.java" />
-        <option value="$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl" />
         <option value="$PROJECT_DIR$/web/WEB-INF/pages/index.html" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/pages/template/create_originRecord.jsp" />
+        <option value="$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl" />
+        <option value="$PROJECT_DIR$/web/assets/template/template/originRecord.tpl" />
+        <option value="$PROJECT_DIR$/src/com/contact/controller/template/TemplateController.java" />
       </list>
     </option>
   </component>
@@ -423,7 +417,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="experiment" />
+              <option name="myItemId" value="subject" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -581,7 +575,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="SearchEverywhereHistoryKey" value="Dist&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/distribute/DistributeController.java&#10;Sample&#9;PSI&#9;JAVA://com.contact.controller.sample.SampleController&#10;def&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/css/style.default.css&#10;defa&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/css/style.default.css&#10;crea&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/WEB-INF/pages/template/create_originRecord.jsp&#10;create&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/create_originRecord.tpl&#10;index.&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/pages/index.html&#10;we&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/web.xml" />
+    <property name="SearchEverywhereHistoryKey" value="origin&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/template/originRecord.tpl&#10;Dist&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/distribute/DistributeController.java&#10;Sample&#9;PSI&#9;JAVA://com.contact.controller.sample.SampleController&#10;def&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/css/style.default.css&#10;defa&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/css/style.default.css&#10;crea&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/WEB-INF/pages/template/create_originRecord.jsp&#10;create&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/create_originRecord.tpl&#10;index.&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/pages/index.html&#10;we&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/web.xml" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
   </component>
   <component name="RecentsManager">
@@ -590,11 +584,11 @@
       <recent name="G:\LIMS_V2\web\doc" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/web/assets/template/subject" />
       <recent name="$PROJECT_DIR$/web/assets/template/template" />
       <recent name="G:\LIMS_V2\web\WEB-INF\doc" />
       <recent name="G:\LIMS_V2\src\com\contact\template" />
       <recent name="G:\LIMS_V2\web\WEB-INF" />
-      <recent name="G:\LIMS_V2\web" />
     </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.未命名">
@@ -1160,12 +1154,12 @@
       <workItem from="1479346961525" duration="3716000" />
       <workItem from="1479350745285" duration="10983000" />
       <workItem from="1479697280998" duration="4043000" />
-      <workItem from="1479710054854" duration="7753000" />
+      <workItem from="1479710054854" duration="10756000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43222000" />
+    <option name="totallyTimeSpent" value="46225000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -1240,14 +1234,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/contract.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/subject/contract_view.tpl">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1577,10 +1563,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/template/template/originRecord.tpl">
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-51.0">
-          <caret line="147" column="60" selection-start-line="147" selection-start-column="44" selection-end-line="147" selection-end-column="60" />
+        <state vertical-scroll-proportion="-15.692307">
+          <caret line="156" column="73" selection-start-line="156" selection-start-column="73" selection-end-line="156" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/create_originRecord.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.769231">
+          <caret line="18" column="9" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -1593,18 +1587,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/index.html">
+    <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.692307">
-          <caret line="156" column="73" selection-start-line="156" selection-start-column="73" selection-end-line="156" selection-end-column="73" />
-          <folding />
+        <state vertical-scroll-proportion="-62.03846">
+          <caret line="388" column="46" selection-start-line="388" selection-start-column="42" selection-end-line="388" selection-end-column="46" />
+          <folding>
+            <element signature="e#10711#13173#0" expanded="false" />
+            <element signature="e#13236#15489#0" expanded="false" />
+            <element signature="e#16331#16476#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/template/TemplateController.java">
+    <entry file="file://$PROJECT_DIR$/web/assets/template/subject/template_originRecord_change.tpl">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="183" column="50" selection-start-line="183" selection-start-column="50" selection-end-line="183" selection-end-column="50" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1625,23 +1623,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl">
+    <entry file="file://$PROJECT_DIR$/web/assets/template/template/originRecord.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="24.923077">
-          <caret line="462" column="68" selection-start-line="462" selection-start-column="68" selection-end-line="462" selection-end-column="68" />
+        <state vertical-scroll-proportion="-9.846154">
+          <caret line="95" column="83" selection-start-line="95" selection-start-column="57" selection-end-line="95" selection-end-column="83" />
           <folding>
-            <element signature="e#10711#13173#0" expanded="false" />
-            <element signature="e#13236#15489#0" expanded="false" />
-            <element signature="e#16331#16476#0" expanded="false" />
+            <element signature="e#5347#6748#0" expanded="false" />
+            <element signature="e#6815#9103#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/create_originRecord.jsp">
+    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/template/TemplateController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2819237">
-          <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
-          <folding />
+        <state vertical-scroll-proportion="0.858804">
+          <caret line="214" column="31" selection-start-line="214" selection-start-column="31" selection-end-line="214" selection-end-column="31" />
+          <folding>
+            <element signature="e#7673#8134#0" expanded="true" />
+            <element signature="e#8133#8134#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
