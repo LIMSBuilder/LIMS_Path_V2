@@ -2,6 +2,7 @@ package com.contact.controller.mail;
 
 import com.contact.model.Mail;
 import com.contact.model.MailReceiver;
+import com.contact.model.User;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
@@ -11,9 +12,14 @@ import com.jfinal.plugin.activerecord.IAtom;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 电子邮箱
+ * 状态:
+ * 0-未读
+ * 1-已读
  */
 public class MailController extends Controller {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -21,7 +27,6 @@ public class MailController extends Controller {
 
     /**
      * 发送邮件
-     *
      */
     public void send() {
         try {
@@ -49,5 +54,30 @@ public class MailController extends Controller {
         } catch (Exception e) {
             renderError(500);
         }
+    }
+
+    /**
+     * 根据邮件id获取邮件信息
+     */
+    public void getById() {
+        try {
+            int mail_id = getParaToInt("id");
+            MailReceiver mailReceiver = MailReceiver.mailReceiver.findFirst("SELECT * FROM `db_mailReceiver` WHERE mail_id=" + mail_id + " AND user_id=" + ParaUtils.getCurrentUser(getRequest()).get("id"));
+            if (mailReceiver != null) {
+                mailReceiver.set("state", 1).update();//标记为已读
+                renderJson(toMailJSON(Mail.mailDao.findById(mail_id)));
+            }
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+    private static Map toMailJSON(Mail mail) {
+        Map result = new HashMap();
+        result.put("title", mail.get("title"));
+        result.put("content", mail.get("content"));
+        result.put("send_time", mail.get("send_time"));
+        result.put("sender", User.userDao.findById(mail.get("sender")).getUserInfo());
+        return result;
     }
 }
