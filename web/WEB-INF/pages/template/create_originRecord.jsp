@@ -23,6 +23,7 @@
 //设置服务器页面
     poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
 //添加自定义按钮
+    poCtrl.addCustomToolButton("生成","Create",3);
     poCtrl.addCustomToolButton("保存","Save",1);
     poCtrl.addCustomToolButton("打印", "ShowPrintDlg()", 6);
     poCtrl.addCustomToolButton("-", "", 0);
@@ -53,6 +54,10 @@
 </div>
 
 <script type="text/javascript">
+    function Create() {
+        var result = document.getElementById("PageOfficeCtrl1").WebSave();
+        debugger
+    }
     function Save() {
         var result = document.getElementById("PageOfficeCtrl1").ShowDialog(3);
         console.log(result);
