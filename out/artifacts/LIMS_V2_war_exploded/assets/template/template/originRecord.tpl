@@ -78,8 +78,8 @@
                 edit_template: function (data) {
                     var me = this;
                     var index = data.id;
-                    var template = jQuery.fn.loadTemplate("/assets/template/subject/template_inspection_change.tpl");
-                    Vue.component('template_change_item' + index, {
+                    var template = jQuery.fn.loadTemplate("/assets/template/subject/template_originRecord_change.tpl");
+                    Vue.component('template_change_originrecord_item' + index, {
                         template: template,
                         data: function () {
                             return {
@@ -93,26 +93,24 @@
                                     id: index,
                                     name: that.name
                                 };
-                                me.$http.post("/template/changeInspectionTemplate", data).then(function (response) {
+                                me.$http.post("/template/changeOriginRecordTemplate", data).then(function (response) {
                                     var data = response.data;
                                     jQuery.fn.codeState(data.code, {
                                         200: function () {
-                                            jQuery.fn.alert_msg("送检模板修改成功!");
+                                            jQuery.fn.alert_msg("原始记录模板修改成功!");
                                             var currentPage = parseInt(jQuery('#template_paging span').html());
                                             me.load_template("", currentPage);
-                                            var currentCategoryPage = parseInt(jQuery('#category_paging span').html());
-                                            me.load_list("", currentCategoryPage);
                                             jQuery("#custom_modal").modal("hide");
                                         }
                                     });
                                 }, function (response) {
-                                    jQuery.fn.error_msg("无法获取送检模板列表信息,请尝试刷新操作。");
+                                    jQuery.fn.error_msg("无法获取送原始记录板列表信息,请尝试刷新操作。");
                                 });
                             }
                         }
                     });
-                    LIMS.dialog.$set('title', '修改送检模板');
-                    LIMS.dialog.currentView = 'template_change_item' + index;
+                    LIMS.dialog.$set('title', '修改原始记录模板');
+                    LIMS.dialog.currentView = 'template_change_originrecord_item' + index;
                 },
                 delete_template: function (data) {
                     var me = this;
@@ -120,7 +118,7 @@
                     jQuery.fn.check_msg({
                         msg: "是否删除【" + data.name + "】模板?",
                         success: function () {
-                            me.$http.get("/template/delInspectionTemplate", {
+                            me.$http.get("/template/delOriginRecord", {
                                 params: {
                                     id: id
                                 }
@@ -128,7 +126,7 @@
                                 var data = response.data;
                                 jQuery.fn.codeState(data.code, {
                                     200: function () {
-                                        jQuery.fn.alert_msg("模板删除成功!");
+                                        jQuery.fn.alert_msg("原始记录模板删除成功!");
                                         var currentPage = parseInt(jQuery('#template_paging span').html());
                                         me.load_template("", currentPage);
                                         var currentCategoryPage = parseInt(jQuery('#category_paging span').html());
@@ -238,7 +236,7 @@
 
                         jQuery("#save_template").off("click").on("click", function () {
                             jQuery.fn.check_msg({
-                                msg: "是否保存当前送检单模板?",
+                                msg: "是否保存当前原始记录模板?",
                                 success: function () {
                                     var data = dropObj.processQueue();
                                     dropObj.removeAllFiles();

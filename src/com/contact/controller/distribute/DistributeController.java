@@ -22,6 +22,9 @@ import java.util.Map;
 public class DistributeController extends Controller {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+    /**
+     * 任务分配下达
+     */
     public void task_distribute() {
         try {
             Boolean result = Db.tx(new IAtom() {
@@ -53,6 +56,9 @@ public class DistributeController extends Controller {
         }
     }
 
+    /**
+     * 清除任务分配下单
+     */
     public void clear_distribute() {
         try {
             Boolean result = Db.tx(new IAtom() {
@@ -80,6 +86,9 @@ public class DistributeController extends Controller {
         }
     }
 
+    /**
+     * 清除任务分配的人员
+     */
     public void delUser() {
         try {
             int task_id = getParaToInt("task_id");
@@ -95,6 +104,9 @@ public class DistributeController extends Controller {
         }
     }
 
+    /**
+     * 检查当前是否有未设置的分配用户
+     */
     public void checkUser() {
         try {
             int task_id = getParaToInt("task_id");
@@ -106,6 +118,9 @@ public class DistributeController extends Controller {
     }
 
 
+    /**
+     * 获取送检单列表
+     */
     public void getInspectionList() {
         try {
             int task_id = getParaToInt("task_id");
@@ -125,6 +140,9 @@ public class DistributeController extends Controller {
     }
 
 
+    /**
+     * 保存实验分析结果
+     */
     public void analystSave() {
         try {
             int project_id = getParaToInt("project_id");
@@ -147,6 +165,9 @@ public class DistributeController extends Controller {
     }
 
 
+    /**
+     * 批量删除选中原始记录
+     */
     public void deleteOrignRecord() {
         try {
             Boolean result = Db.tx(new IAtom() {
@@ -168,13 +189,16 @@ public class DistributeController extends Controller {
     }
 
 
+    /**
+     * 创建原始记录
+     */
     public void createOriginRecord() {
         try {
             int delivery_id = getParaToInt("delivery_id");
             int template_id = getParaToInt("template_id");
             OriginRecordTemplate originRecordTemplate = OriginRecordTemplate.originRecordTemplateDao.findById(template_id);
-            getRequest().setAttribute("originRecord",originRecordTemplate);
-            getRequest().setAttribute("delivery_id",delivery_id);
+            getRequest().setAttribute("originRecord", originRecordTemplate);
+            getRequest().setAttribute("delivery_id", delivery_id);
 
 
             render("template/create_originRecord.jsp");
@@ -183,4 +207,20 @@ public class DistributeController extends Controller {
         }
 
     }
+
+    /**
+     * 创建当前任务的监测项目的送检单
+     */
+    public void createInspection() {
+        try {
+            int delivery_id = getParaToInt("delivery_id");
+            Delivery delivery = Delivery.deliveryDao.findById(delivery_id);
+            getRequest().setAttribute("delivery", delivery);
+            render("template/create_inspection.jsp");
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+
 }
