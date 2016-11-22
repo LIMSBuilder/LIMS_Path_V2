@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,6 +49,30 @@ public class MailController extends Controller {
                         }
                         return receiverResult;
                     } else return false;
+                }
+            });
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+
+    /**
+     * 读取全部邮件
+     */
+    public void all_read() {
+        try {
+            Boolean result = Db.tx(new IAtom() {
+                @Override
+                public boolean run() throws SQLException {
+                    List<MailReceiver> mailReceivers = MailReceiver.mailReceiver.find("SELECT * FROM `db_mailReceiver` WHERE state=0 AND user_id=" + ParaUtils.getCurrentUser(getRequest()).get("id"));
+                    Boolean result = true;
+                    for (MailReceiver mailReceiver : mailReceivers) {
+                        result = mailReceiver.set("state", 1).update();
+                        if (!result) break;
+                    }
+                    return result;
                 }
             });
             renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
