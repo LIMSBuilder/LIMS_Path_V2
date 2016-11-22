@@ -77,8 +77,7 @@
                                                                                      @click="originRecord(project)"></i></a>
                                         </td>
                                         <td>
-                                            <a href="javascript:;"><i class="fa fa-edit"
-                                                                      @click="inspection(project)"></i></a>
+                                            <a href="/distribute/createInspection?delivery_id={{project.delivery.id}}" target="_blank" ><i class="fa fa-edit"></i></a>
                                         </td>
                                         <td>{{project.samples.length}}</td>
                                         <td>{{project.state==0?"待分析":"待审核"}}</td>
@@ -431,10 +430,10 @@
 
 
                 },
-                inspection: function (project) {
-                    //填写送检单
-                    alert("填写送检单");
-                },
+//                inspection: function (project) {
+//                    //填写送检单
+//                    //alert("填写送检单");
+//                },
                 save: function (project) {
                     var me = this;
                     jQuery.fn.check_msg({
