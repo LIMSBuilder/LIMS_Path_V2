@@ -20,6 +20,7 @@
     <link href="/assets/css/jquery.gritter.css" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/bootstrap-wysihtml5.css"/>
+    <link rel="stylesheet" href="/assets/css/wysiwyg-color.css">
 
     <link rel="stylesheet" href="/assets/css/jquery.tagsinput.css"/>
 
@@ -323,7 +324,7 @@
                                 <span class="badge">1</span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-head pull-right">
-                                <h5 class="title">您有 <span id="mail_count">0</span> 条新邮件</h5>
+                                <h5 class="title">您有 <span id="mail_count">0</span> 封新邮件</h5>
                                 <ul class="dropdown-list gen-list" id="mail_list"></ul>
                             </div>
                         </div>
@@ -997,8 +998,39 @@
             var target = jQuery(event.target);
             if (target.parents('.mail_msg')) {
                 var id = target.parents('.mail_msg').data("id");
-                alert("打开编号为" + id + "的信件");
-                
+                jQuery("#custom_lg_modal").modal("show");
+                var template = jQuery.fn.loadTemplate("/assets/template/subject/read_mail.tpl");
+                Vue.component('read_mail', {
+                    template: template,
+                    data: function () {
+                        return {
+                            title: "",
+                            content: "",
+                            sender: "",
+                            send_time: ""
+                        };
+                    },
+                    methods: {},
+                    ready: function () {
+                        var me = this;
+                        me.$http.get("/mail/getById", {
+                            params: {
+                                id: id
+                            }
+                        }).then(function (response) {
+                            var data = response.data;
+                            for (var key in data) {
+                                if (me[key] != undefined) {
+                                    me.$set(key,data[key]);
+                                }
+                            }
+                        }, function (response) {
+
+                        });
+                    }
+                });
+                LIMS.dialog_lg.$set('title', '阅读邮件');
+                LIMS.dialog_lg.currentView = 'read_mail';
 
             }
         })
