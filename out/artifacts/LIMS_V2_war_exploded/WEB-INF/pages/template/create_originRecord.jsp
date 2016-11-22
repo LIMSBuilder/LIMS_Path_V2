@@ -1,4 +1,40 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java"
+         import="java.util.*,com.zhuozhengsoft.pageoffice.*"
+         pageEncoding="gb2312"%>
+<%@ page import="com.jfinal.core.JFinal" %>
+<%@ page import="com.zhuozhengsoft.pageoffice.wordwriter.WordDocument" %>
+<%@ page import="com.contact.model.Contract" %>
+<%@ page import="com.zhuozhengsoft.pageoffice.wordwriter.Table" %>
+<%@ page import="com.contact.model.Monitor_Category" %>
+<%@ page import="com.contact.model.Monitor_Project" %>
+<%@ page import="com.contact.utils.ParaUtils" %>
+<%@ page import="com.contact.model.OriginRecordTemplate" %>
+<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+<%
+    PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
+
+
+    //ªÒ»°Request ˝æ›
+    OriginRecordTemplate originRecordTemplate =  (OriginRecordTemplate) request.getAttribute("originRecord");
+    String path ="";
+    if(originRecordTemplate!=null){
+        path=originRecordTemplate.getStr("path");
+    }
+//…Ë÷√∑˛ŒÒ∆˜“≥√Ê
+    poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
+//ÃÌº”◊‘∂®“Â∞¥≈•
+    poCtrl.addCustomToolButton("±£¥Ê","Save",1);
+    poCtrl.addCustomToolButton("¥Ú”°", "ShowPrintDlg()", 6);
+    poCtrl.addCustomToolButton("-", "", 0);
+    poCtrl.addCustomToolButton("»´∆¡«–ªª", "SwitchFullScreen()", 4);
+
+    //…Ë÷√±£¥Ê“≥√Ê
+    poCtrl.setSaveFilePage("/export/save");
+    //…Ë÷√“≥√Ê
+    //¥Úø™WordŒƒµµ
+    poCtrl.webOpen(path,OpenModeType.docNormalEdit, ParaUtils.getCurrentUser(request)!=null?ParaUtils.getCurrentUser(request).getStr("name"):"ÿ˝√˚");
+    poCtrl.setTagId("PageOfficeCtrl1");//¥À––±ÿ–Ë
+%>
 <html>
 <head>
     <meta charset="utf-8">
@@ -6,16 +42,28 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png">
-    <title>ÂÆûÈ™åÂÆ§‰ø°ÊÅØÁÆ°ÁêÜÁ≥ªÁªü</title>
+    <title> µ—È “–≈œ¢π‹¿ÌœµÕ≥</title>
 
     <link href="/assets/css/style.default.css" rel="stylesheet">
 </head>
 <body>
+<div style=" width:auto; height:auto;">
+    <po:PageOfficeCtrl id="PageOfficeCtrl1">
+    </po:PageOfficeCtrl>
+</div>
 
 <script type="text/javascript">
-    jQuery(document).ready(function () {
-
-    });
+    function Save() {
+        var result = document.getElementById("PageOfficeCtrl1").ShowDialog(3);
+        console.log(result);
+        //document.getElementById("PageOfficeCtrl1").WebSave();
+    }
+    function ShowPrintDlg() {
+        document.getElementById("PageOfficeCtrl1").ShowDialog(4); //¥Ú”°∂‘ª∞øÚ
+    }
+    function SwitchFullScreen() {
+        document.getElementById("PageOfficeCtrl1").FullScreen = !document.getElementById("PageOfficeCtrl1").FullScreen;
+    }
 </script>
 </body>
 </html>
