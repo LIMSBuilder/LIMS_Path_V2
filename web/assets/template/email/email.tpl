@@ -50,11 +50,11 @@
                 <div class="pull-right">
                     <div class="btn-group mr10">
                         <button class="btn btn-sm btn-white tooltips" type="button" data-toggle="tooltip"
-                                title="设为星标" id="star_all"><i class="glyphicon glyphicon-star"></i></button>
+                                title="设为星标" @click="star_all"><i class="glyphicon glyphicon-star"></i></button>
                         <button class="btn btn-sm btn-white tooltips" type="button" data-toggle="tooltip"
-                                title="标记已读" id="read_all"><i class="glyphicon glyphicon-eye-open"></i></button>
+                                title="标记已读" @click="read_all"><i class="glyphicon glyphicon-eye-open"></i></button>
                         <button class="btn btn-sm btn-white tooltips" type="button" data-toggle="tooltip"
-                                title="删除邮件" id="del_all"><i class="glyphicon glyphicon-trash"></i></button>
+                                title="删除邮件" @click="del_all"><i class="glyphicon glyphicon-trash"></i></button>
                     </div>
 
                     <div class="btn-group mr10">
@@ -90,11 +90,12 @@
                     <table class="table table-email">
                         <tbody>
                         <template v-for="item in mail_list">
-                            <tr :class="item.state==0?'unread':''" @click="read_mail(item)">
+                            <tr :class="item.state==0?'unread':''">
                                 <td>
                                     <div class="ckbox ckbox-success">
-                                        <input type="checkbox" id="checkbox{{item.id}}">
-                                        <label for="checkbox{{item.id}}"></label>
+                                        <input type="checkbox" value="{{item.mailReceive_id}}" v-model="selected_mail"
+                                               id="checkbox{{item.mailReceive_id}}">
+                                        <label for="checkbox{{item.mailReceive_id}}"></label>
                                     </div>
                                 </td>
                                 <td>
@@ -102,7 +103,7 @@
                                        :class="item.state==2?'star star-checked':'star'"><i
                                             class="glyphicon glyphicon-star"></i></a>
                                 </td>
-                                <td>
+                                <td @click="read_mail(item)">
                                     <div class="media">
                                         <a href="#" class="pull-left">
                                             <img alt="" src="/assets/images/photos/user3.png" class="media-object">
@@ -143,7 +144,8 @@
             mail_list: [],
             box_type: "",
             currentPage: 1,
-            totalPage: 1
+            totalPage: 1,
+            selected_mail: []
         },
         methods: {
             new_mail: function () {
@@ -188,6 +190,20 @@
 
                 LIMS.dialog.$set('title', '增加分类文件夹');
                 LIMS.dialog.currentView = 'mail_folder_addItem';
+            },
+            star_all: function () {
+                var me = this;
+                me.change_StateList(me.selected_mail, 2);
+            },
+            read_all: function () {
+                var me = this;
+                if (me.getState() == '0,1') {
+                    me.change_StateList(me.selected_mail, 1);
+                }
+            },
+            del_all: function () {
+                var me = this;
+                me.change_StateList(me.selected_mail, -2);
             },
             read_mail: function (item) {
                 var me = this;
@@ -267,6 +283,24 @@
                     jQuery.fn.error_msg("服务器异常,无法设置星标邮件!");
                 });
             },
+            change_StateList: function (changeList, state) {
+                var me = this;
+                me.$http.post("/mail/changeState", {
+                    mailReceive_id: changeList,
+                    state: state
+                }).then(function (response) {
+                    var data = response.data;
+                    jQuery.fn.codeState(data.code, {
+                        200: function () {
+                            me.load_count();
+                            me.load_list(me.getState(), me.box_type, me.currentPage);
+                            jQuery.fn.alert_msg("邮件分类设置成功!");
+                        }
+                    })
+                }, function (response) {
+                    jQuery.fn.error_msg("服务器异常,无法设置邮件类别!");
+                });
+            },
             prev_list: function () {
                 var me = this;
                 me.load_list(me.getState(), me.box_type, me.currentPage - 1);
@@ -283,7 +317,6 @@
                     me.$set("unsend", data.unsend == 0 ? "" : data.unsend);
                 });
             },
-
             load_list: function (state, desp, currentPage) {
                 var me = this;
                 me.$set("box_type", desp);
@@ -342,6 +375,7 @@
             });
             //左侧邮箱分类点击事件
             jQuery('.nav-email-box li').off("click").on("click", function () {
+                me.selected_mail = [];
                 jQuery(this).addClass('active').siblings('li').removeClass('active');
             });
 

@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94492654-fabd-46c1-bc69-031022f7d3fb" name="默认的" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war/LIMS_V2_war.war" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war/LIMS_V2_war.war" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/email/email.tpl" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/email/email.tpl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/mail/MailController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/mail/MailController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/css/style.default.css" afterPath="$PROJECT_DIR$/web/assets/css/style.default.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/email/email.tpl" afterPath="$PROJECT_DIR$/web/assets/template/email/email.tpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/subject/read_mail.tpl" afterPath="$PROJECT_DIR$/web/assets/template/subject/read_mail.tpl" />
     </list>
     <ignored path="LIMS_V2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,10 +32,21 @@
       <file leaf-file-name="email.tpl" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/assets/template/email/email.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.63349915">
-              <caret line="221" column="27" selection-start-line="221" selection-start-column="27" selection-end-line="221" selection-end-column="27" />
+            <state vertical-scroll-proportion="0.52902156">
+              <caret line="205" column="55" selection-start-line="205" selection-start-column="55" selection-end-line="205" selection-end-column="55" />
               <folding>
-                <element signature="e#11050#12350#0" expanded="false" />
+                <element signature="e#7482#8001#0" expanded="false" />
+                <element signature="e#8039#9167#0" expanded="false" />
+                <element signature="e#9696#11398#0" expanded="false" />
+                <element signature="e#11434#11524#0" expanded="false" />
+                <element signature="e#11567#11657#0" expanded="false" />
+                <element signature="e#11708#13008#0" expanded="false" />
+                <element signature="e#13069#13800#0" expanded="false" />
+                <element signature="e#13837#13961#0" expanded="false" />
+                <element signature="e#13998#14122#0" expanded="false" />
+                <element signature="e#14160#14500#0" expanded="false" />
+                <element signature="e#14561#15351#0" expanded="false" />
+                <element signature="e#15387#15894#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -79,7 +91,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/contact/controller/mail/MailController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="116" column="0" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
+              <caret line="183" column="41" selection-start-line="183" selection-start-column="41" selection-end-line="183" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1120,12 +1132,12 @@
       <workItem from="1479346961525" duration="3716000" />
       <workItem from="1479350745285" duration="10983000" />
       <workItem from="1479697280998" duration="4043000" />
-      <workItem from="1479710054854" duration="49063000" />
+      <workItem from="1479710054854" duration="50879000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84532000" />
+    <option name="totallyTimeSpent" value="86348000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -1626,14 +1638,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/css/style.default.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.076923">
-          <caret line="1833" column="22" selection-start-line="1833" selection-start-column="22" selection-end-line="1833" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-13.076923">
@@ -1647,6 +1651,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/css/style.default.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.076923">
+          <caret line="1833" column="22" selection-start-line="1833" selection-start-column="22" selection-end-line="1833" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/mail/MailController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="183" column="41" selection-start-line="183" selection-start-column="41" selection-end-line="183" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/subject/read_mail.tpl">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-12.423077">
@@ -1655,22 +1677,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/mail/MailController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="116" column="0" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/email/email.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.63349915">
-          <caret line="221" column="27" selection-start-line="221" selection-start-column="27" selection-end-line="221" selection-end-column="27" />
+        <state vertical-scroll-proportion="0.52902156">
+          <caret line="205" column="55" selection-start-line="205" selection-start-column="55" selection-end-line="205" selection-end-column="55" />
           <folding>
-            <element signature="e#11050#12350#0" expanded="false" />
+            <element signature="e#7482#8001#0" expanded="false" />
+            <element signature="e#8039#9167#0" expanded="false" />
+            <element signature="e#9696#11398#0" expanded="false" />
+            <element signature="e#11434#11524#0" expanded="false" />
+            <element signature="e#11567#11657#0" expanded="false" />
+            <element signature="e#11708#13008#0" expanded="false" />
+            <element signature="e#13069#13800#0" expanded="false" />
+            <element signature="e#13837#13961#0" expanded="false" />
+            <element signature="e#13998#14122#0" expanded="false" />
+            <element signature="e#14160#14500#0" expanded="false" />
+            <element signature="e#14561#15351#0" expanded="false" />
+            <element signature="e#15387#15894#0" expanded="false" />
           </folding>
         </state>
       </provider>
