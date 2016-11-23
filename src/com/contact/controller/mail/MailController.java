@@ -8,6 +8,8 @@ import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.IAtom;
+import com.jfinal.plugin.activerecord.Page;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -81,6 +83,27 @@ public class MailController extends Controller {
         }
     }
 
+    public void changeState() {
+        try {
+            Boolean result = Db.tx(new IAtom() {
+                @Override
+                public boolean run() throws SQLException {
+                    Integer[] mailReceive_id = getParaValuesToInt("mailReceive_id[]");
+                    int state = getParaToInt("state");
+                    Boolean result = true;
+                    for (int id : mailReceive_id) {
+                        result = MailReceiver.mailReceiver.findById(id).set("state", state).update();
+                        if (!result) break;
+                    }
+                    return result;
+                }
+            });
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
 
     /**
      * 统计各种状态的邮件共有多少封
@@ -104,8 +127,18 @@ public class MailController extends Controller {
     public void getList() {
         try {
             String state = getPara("state");
-            List<Mail> mailList = Mail.mailDao.find("SELECT `db_mail`.* FROM `db_mail`,`db_mailReceiver` WHERE `db_mailReceiver`.`mail_id`=`db_mail`.`id` AND `db_mailReceiver`.`user_id`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + " AND `db_mailReceiver`.`state` in (" + state + ")");
-            renderJson(toListJson(mailList, ParaUtils.getCurrentUser(getRequest())));
+            int rowCount = getParaToInt("rowCount");
+            int currentPage = getParaToInt("currentPage");
+            if (rowCount == 0) {
+                rowCount = ParaUtils.getRowCount();
+            }
+            Page<Mail> mailPage = Mail.mailDao.paginate(currentPage, rowCount, "SELECT `db_mail`.* ", "FROM `db_mail`,`db_mailReceiver` WHERE `db_mailReceiver`.`mail_id`=`db_mail`.`id` AND `db_mailReceiver`.`user_id`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + " AND `db_mailReceiver`.`state` in (" + state + ")");
+            List<Mail> mailList = mailPage.getList();
+            //List<Mail> mailList = Mail.mailDao.find("SELECT `db_mail`.* FROM `db_mail`,`db_mailReceiver` WHERE `db_mailReceiver`.`mail_id`=`db_mail`.`id` AND `db_mailReceiver`.`user_id`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + " AND `db_mailReceiver`.`state` in (" + state + ")");
+            Map result = toListJson(mailList, ParaUtils.getCurrentUser(getRequest()));
+            result.put("currentPage", currentPage);
+            result.put("totalPage", mailPage.getTotalPage());
+            renderJson(result);
         } catch (Exception e) {
             renderError(500);
         }
@@ -135,6 +168,7 @@ public class MailController extends Controller {
         result.put("send_time", mail.get("send_time"));
         result.put("sender", User.userDao.findById(mail.get("sender")).getUserInfo());
         result.put("state", mailReceiver.get("state"));
+        result.put("mailReceive_id", mailReceiver.get("id"));
         return result;
     }
 

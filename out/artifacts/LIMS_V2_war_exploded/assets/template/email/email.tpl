@@ -4,12 +4,12 @@
 
         <ul class="nav nav-pills nav-stacked nav-email nav-email-box">
             <li class="active">
-                <a href="javascript:;" @click="load_list('0,1','收件箱')">
+                <a href="javascript:;" @click="load_list('0,1','收件箱',1)">
                     <span class="badge pull-right ">{{unread}}</span>
                     <i class="glyphicon glyphicon-inbox"></i> 收件箱
                 </a>
             </li>
-            <li><a href="javascript:;" @click="load_list('2','星标邮件')"><i class="glyphicon glyphicon-star"></i>
+            <li><a href="javascript:;" @click="load_list('2','星标邮件',1)"><i class="glyphicon glyphicon-star"></i>
                 星标邮件</a></li>
             <!--<li><a href="javascript:;" @click="view_box('send','发件箱')"><i class="glyphicon glyphicon-send"></i> 发件箱</a>-->
             <!--</li>-->
@@ -19,7 +19,8 @@
             <!--<i class="glyphicon glyphicon-pencil"></i> 草稿箱-->
             <!--</a>-->
             <!--</li>-->
-            <li><a href="javascript:;" @click="load_list('-2','垃圾箱')"><i class="glyphicon glyphicon-trash"></i> 垃圾箱</a>
+            <li><a href="javascript:;" @click="load_list('-2','垃圾箱',1)"><i class="glyphicon glyphicon-trash"></i>
+                垃圾箱</a>
             </li>
         </ul>
 
@@ -74,10 +75,12 @@
                     </div>
 
                     <div class="btn-group">
-                        <button class="btn btn-sm btn-white" title="上一封" type="button"><i
-                                class="glyphicon glyphicon-chevron-left" id="prev_mail"></i></button>
-                        <button class="btn btn-sm btn-white" title="下一封" type="button"><i
-                                class="glyphicon glyphicon-chevron-right" id="next_mail"></i></button>
+                        <button :disabled="currentPage==1" class="btn btn-sm btn-white" title="上一封"
+                                type="button"><i
+                                class="glyphicon glyphicon-chevron-left" @click="prev_list"></i></button>
+                        <button :disabled="currentPage==totalPage" class="btn btn-sm btn-white"
+                                title="下一封" type="button"><i
+                                class="glyphicon glyphicon-chevron-right" @click="next_list"></i></button>
                     </div>
                 </div><!-- pull-right -->
 
@@ -95,7 +98,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="javascript:;" @click="star(item)" :class="item.state==2?'star star-checked':'star'"><i
+                                    <a href="javascript:;" @click="item.state==2?cancel_star(item):star(item)"
+                                       :class="item.state==2?'star star-checked':'star'"><i
                                             class="glyphicon glyphicon-star"></i></a>
                                 </td>
                                 <td>
@@ -137,7 +141,9 @@
             unread: "",
             unsend: "",
             mail_list: [],
-            box_type: ""
+            box_type: "",
+            currentPage: 1,
+            totalPage: 1
         },
         methods: {
             new_mail: function () {
@@ -184,7 +190,51 @@
                 LIMS.dialog.currentView = 'mail_folder_addItem';
             },
             star: function (item) {
-
+                var me = this;
+                me.change_State(item, '2');
+            },
+            cancel_star: function (item) {
+                var me = this;
+                me.change_State(item, '1');
+            },
+            change_State: function (item, state) {
+                var me = this;
+                var temp_state = item.state;
+                me.$http.post("/mail/changeState", {
+                    mailReceive_id: [item.mailReceive_id],
+                    state: state
+                }).then(function (response) {
+                    var data = response.data;
+                    jQuery.fn.codeState(data.code, {
+                        200: function () {
+                            var state = "";
+                            switch (temp_state) {
+                                case 0:
+                                case 1:
+                                    state = '0,1';
+                                    break;
+                                case 2:
+                                    state = '2';
+                                    break;
+                                case -2:
+                                    state = '-2';
+                            }
+                            me.load_count();
+                            me.load_list(state, me.box_type, me.currentPage);
+                            jQuery.fn.alert_msg("邮件分类设置成功!");
+                        }
+                    })
+                }, function (response) {
+                    jQuery.fn.error_msg("服务器异常,无法设置星标邮件!");
+                });
+            },
+            prev_list: function () {
+                var me = this;
+                me.load_list(me.getState(), me.box_type, me.currentPage - 1);
+            },
+            next_list: function () {
+                var me = this;
+                me.load_list(me.getState(), me.box_type, me.currentPage + 1);
             },
             load_count: function () {
                 var me = this;
@@ -195,19 +245,41 @@
                 });
             },
 
-            load_list: function (state, desp) {
+            load_list: function (state, desp, currentPage) {
                 var me = this;
                 me.$set("box_type", desp);
+                var rowCount = localStorage.getItem("rowCount") || 0;
                 me.$http.get("/mail/getList", {
                     params: {
-                        state: state
+                        state: state,
+                        currentPage: currentPage,
+                        rowCount: rowCount
                     }
                 }).then(function (response) {
                     var data = response.data;
                     me.$set("mail_list", data.results);
+                    me.currentPage = data.currentPage;
+                    me.totalPage = data.totalPage == 0 ? 1 : data.totalPage;
                 }, function (response) {
                     jQuery.fn.error_msg("服务器异常,无法加载邮件清单");
                 });
+            },
+            getState: function () {
+                var me = this;
+                var type = me.box_type;
+                var result = "";
+                switch (type) {
+                    case "收件箱":
+                        result = "0,1";
+                        break;
+                    case "星标邮件":
+                        result = "2";
+                        break;
+                    case "垃圾箱":
+                        result = "-2";
+                        break;
+                }
+                return result;
             }
 
         },
@@ -235,7 +307,7 @@
             });
 
             me.load_count();
-            me.load_list('0,1', '收件箱');
+            me.load_list('0,1', '收件箱', 1);
         }
     });
 
