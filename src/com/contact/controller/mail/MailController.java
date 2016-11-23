@@ -11,16 +11,16 @@ import com.jfinal.plugin.activerecord.IAtom;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 电子邮箱
  * 状态:
- * 0-未读
- * 1-已读
+ * 0 未读
+ * 1 已读
+ * 2 星标邮件
+ * -1 存为草稿
+ * -2 已删除
  */
 public class MailController extends Controller {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -81,6 +81,36 @@ public class MailController extends Controller {
         }
     }
 
+
+    /**
+     * 统计各种状态的邮件共有多少封
+     * 收件箱 未读:state=0
+     * 草稿箱 未发 state=-1
+     */
+    public void mail_count() {
+        try {
+            int unread = Db.find("SELECT * FROM `db_mailReceiver` WHERE state=0 AND user_id=" + ParaUtils.getCurrentUser(getRequest()).get("id")).size();
+            int unsend = Db.find("SELECT * FROM `db_mailReceiver` WHERE state=-1 AND user_id=" + ParaUtils.getCurrentUser(getRequest()).get("id")).size();
+            Map result = new HashMap();
+            result.put("unread", unread);
+            result.put("unsend", unsend);
+            renderJson(result);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+
+    public void getList() {
+        try {
+            String state = getPara("state");
+            List<Mail> mailList = Mail.mailDao.find("SELECT `db_mail`.* FROM `db_mail`,`db_mailReceiver` WHERE `db_mailReceiver`.`mail_id`=`db_mail`.`id` AND `db_mailReceiver`.`user_id`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + " AND `db_mailReceiver`.`state` in (" + state + ")");
+            renderJson(toListJson(mailList, ParaUtils.getCurrentUser(getRequest())));
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
     /**
      * 根据邮件id获取邮件信息
      */
@@ -90,19 +120,33 @@ public class MailController extends Controller {
             MailReceiver mailReceiver = MailReceiver.mailReceiver.findFirst("SELECT * FROM `db_mailReceiver` WHERE mail_id=" + mail_id + " AND user_id=" + ParaUtils.getCurrentUser(getRequest()).get("id"));
             if (mailReceiver != null) {
                 mailReceiver.set("state", 1).update();//标记为已读
-                renderJson(toMailJSON(Mail.mailDao.findById(mail_id)));
+                renderJson(toMailJSON(Mail.mailDao.findById(mail_id), ParaUtils.getCurrentUser(getRequest())));
             }
         } catch (Exception e) {
             renderError(500);
         }
     }
 
-    private static Map toMailJSON(Mail mail) {
+    private static Map toMailJSON(Mail mail, User user) {
+        MailReceiver mailReceiver = MailReceiver.mailReceiver.findFirst("SELECT * FROM `db_mailReceiver` WHERE user_id=" + user.get("id") + " AND mail_id=" + mail.get("id"));
         Map result = new HashMap();
         result.put("title", mail.get("title"));
         result.put("content", mail.get("content"));
         result.put("send_time", mail.get("send_time"));
         result.put("sender", User.userDao.findById(mail.get("sender")).getUserInfo());
+        result.put("state", mailReceiver.get("state"));
         return result;
     }
+
+    private static Map toListJson(List<Mail> mailList, User user) {
+        Map result = new HashMap();
+        List<Map> maps = new ArrayList<>();
+        for (Mail mail : mailList) {
+            maps.add(toMailJSON(mail, user));
+        }
+        result.put("results", maps);
+        return result;
+    }
+
+
 }

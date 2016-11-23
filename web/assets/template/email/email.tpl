@@ -4,22 +4,22 @@
 
         <ul class="nav nav-pills nav-stacked nav-email nav-email-box">
             <li class="active">
-                <a href="javascript:;" @click="view_box('receive','收件箱')">
-                    <span class="badge pull-right">2</span>
+                <a href="javascript:;" @click="load_list('0,1','收件箱')">
+                    <span class="badge pull-right ">{{unread}}</span>
                     <i class="glyphicon glyphicon-inbox"></i> 收件箱
                 </a>
             </li>
-            <li><a href="javascript:;" @click="view_box('star','星标邮件')"><i class="glyphicon glyphicon-star"></i>
+            <li><a href="javascript:;" @click="load_list('2','星标邮件')"><i class="glyphicon glyphicon-star"></i>
                 星标邮件</a></li>
-            <li><a href="javascript:;" @click="view_box('send','发件箱')"><i class="glyphicon glyphicon-send"></i> 发件箱</a>
-            </li>
-            <li>
-                <a href="javascript:;" @click="view_box('draft','草稿箱')">
-                    <span class="badge pull-right">3</span>
-                    <i class="glyphicon glyphicon-pencil"></i> 草稿箱
-                </a>
-            </li>
-            <li><a href="javascript:;" @click="view_box('dustbin','垃圾箱')"><i class="glyphicon glyphicon-trash"></i> 垃圾箱</a>
+            <!--<li><a href="javascript:;" @click="view_box('send','发件箱')"><i class="glyphicon glyphicon-send"></i> 发件箱</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="javascript:;" @click="load_list('-1','草稿箱')">-->
+            <!--<span class="badge pull-right ">{{unsend}}</span>-->
+            <!--<i class="glyphicon glyphicon-pencil"></i> 草稿箱-->
+            <!--</a>-->
+            <!--</li>-->
+            <li><a href="javascript:;" @click="load_list('-2','垃圾箱')"><i class="glyphicon glyphicon-trash"></i> 垃圾箱</a>
             </li>
         </ul>
 
@@ -44,7 +44,80 @@
 
         <div class="panel panel-default" id="email_content">
             <div class="panel-body" id="mail_right">
-                <!--<component :is="currentView"></component>-->
+
+
+                <div class="pull-right">
+                    <div class="btn-group mr10">
+                        <button class="btn btn-sm btn-white tooltips" type="button" data-toggle="tooltip"
+                                title="设为星标" id="star_all"><i class="glyphicon glyphicon-star"></i></button>
+                        <button class="btn btn-sm btn-white tooltips" type="button" data-toggle="tooltip"
+                                title="标记已读" id="read_all"><i class="glyphicon glyphicon-eye-open"></i></button>
+                        <button class="btn btn-sm btn-white tooltips" type="button" data-toggle="tooltip"
+                                title="删除邮件" id="del_all"><i class="glyphicon glyphicon-trash"></i></button>
+                    </div>
+
+                    <div class="btn-group mr10">
+                        <div class="btn-group nomargin">
+                            <button data-toggle="dropdown"
+                                    class="btn btn-sm btn-white dropdown-toggle tooltips" type="button"
+                                    title="归档">
+                                <i class="glyphicon glyphicon-folder-close mr5"></i>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <template v-for="item in folder_list">
+                                    <li><a href="#"><i class="glyphicon glyphicon-folder-open mr5"></i>
+                                        {{item.name}}</a></li>
+                                </template>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-white" title="上一封" type="button"><i
+                                class="glyphicon glyphicon-chevron-left" id="prev_mail"></i></button>
+                        <button class="btn btn-sm btn-white" title="下一封" type="button"><i
+                                class="glyphicon glyphicon-chevron-right" id="next_mail"></i></button>
+                    </div>
+                </div><!-- pull-right -->
+
+                <h5 class="subtitle mb5">{{box_type}}</h5>
+                <p class="text-muted">当前第 {{currentPage}} 页，共 {{totalPage}} 页</p>
+                <div class="table-responsive">
+                    <table class="table table-email">
+                        <tbody>
+                        <template v-for="item in mail_list">
+                            <tr class="unread">
+                                <td>
+                                    <div class="ckbox ckbox-success">
+                                        <input type="checkbox" id="checkbox{{item.id}}">
+                                        <label for="checkbox{{item.id}}"></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="javascript:;" @click="star(item)" :class="item.state==2?'star star-checked':'star'"><i
+                                            class="glyphicon glyphicon-star"></i></a>
+                                </td>
+                                <td>
+                                    <div class="media">
+                                        <a href="#" class="pull-left">
+                                            <img alt="" src="/assets/images/photos/user3.png" class="media-object">
+                                        </a>
+                                        <div class="media-body">
+                                            <span class="media-meta pull-right">{{item.send_time}}</span>
+                                            <h4 class="text-primary">{{item.sender.name}}</h4>
+                                            <small class="text-muted"></small>
+                                            <p class="email-summary">{{item.title}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                        </tbody>
+                    </table>
+                </div><!-- table-responsive -->
+
+
             </div><!-- panel-body -->
         </div><!-- panel -->
 
@@ -60,7 +133,11 @@
         data: {
             folder_list: [],
             currentView: "",
-            result: []
+            result: [],
+            unread: "",
+            unsend: "",
+            mail_list: [],
+            box_type: ""
         },
         methods: {
             new_mail: function () {
@@ -106,29 +183,37 @@
                 LIMS.dialog.$set('title', '增加分类文件夹');
                 LIMS.dialog.currentView = 'mail_folder_addItem';
             },
-            view_folder: function (item) {
-                console.log("查看" + item.name + "的方法,id为" + item.id);
+            star: function (item) {
+
             },
-            view_box: function (item, msg) {
-                console.log(item);
+            load_count: function () {
                 var me = this;
-                me.$http.get("/assets/json/mail_list.json").then(function (response) {
+                me.$http.get("/mail/mail_count").then(function (response) {
                     var data = response.data;
-                    var tpl = jQuery.fn.loadTemplate("/assets/template/subject/mail_box.tpl");
-                    var render = template.compile(tpl);
-                    data.box_type = msg;
-                    data.folder_list = me.$get("folder_list");
-                    jQuery('#mail_right').html(render(data));
-
-
-                }, function (response) {
-
+                    me.$set("unread", data.unread == 0 ? "" : data.unread);
+                    me.$set("unsend", data.unsend == 0 ? "" : data.unsend);
                 });
+            },
 
+            load_list: function (state, desp) {
+                var me = this;
+                me.$set("box_type", desp);
+                me.$http.get("/mail/getList", {
+                    params: {
+                        state: state
+                    }
+                }).then(function (response) {
+                    var data = response.data;
+                    me.$set("mail_list", data.results);
+                }, function (response) {
+                    jQuery.fn.error_msg("服务器异常,无法加载邮件清单");
+                });
             }
+
         },
         ready: function () {
             var me = this;
+            //checkbox
             jQuery('.ckbox input').click(function () {
                 var t = jQuery(this);
                 if (t.is(':checked')) {
@@ -138,28 +223,19 @@
                 }
             });
 
-
             me.$http.get("/assets/json/mail_folder.json").then(function (response) {
                 var data = response.data;
                 me.$set("folder_list", data.results);
             }, function (response) {
-
+                jQuery.fn.error_msg("数据异常,无法获取分类文件夹信息!");
             });
-
-            me.$http.get("/assets/json/mail_list.json").then(function (response) {
-                var data = response.data;
-                var tpl = jQuery.fn.loadTemplate("/assets/template/subject/mail_box.tpl");
-                var render = template.compile(tpl);
-                data.box_type = '收件箱';
-                data.folder_list = me.$get("folder_list");
-                jQuery('#mail_right').html(render(data));
-
-            }, function (response) {
-            });
-
-            jQuery('.nav-email-box li').on("click", function () {
+            //左侧邮箱分类点击事件
+            jQuery('.nav-email-box li').off("click").on("click", function () {
                 jQuery(this).addClass('active').siblings('li').removeClass('active');
-            })
+            });
+
+            me.load_count();
+            me.load_list('0,1', '收件箱');
         }
     });
 
