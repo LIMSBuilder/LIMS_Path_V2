@@ -181,6 +181,7 @@ public class MailController extends Controller {
     private static Map toMailJSON(Mail mail, User user) {
         MailReceiver mailReceiver = MailReceiver.mailReceiver.findFirst("SELECT * FROM `db_mailReceiver` WHERE user_id=" + user.get("id") + " AND mail_id=" + mail.get("id"));
         Map result = new HashMap();
+        result.put("id", mail.get("id"));
         result.put("title", mail.get("title"));
         result.put("content", mail.get("content"));
         result.put("send_time", mail.get("send_time"));
