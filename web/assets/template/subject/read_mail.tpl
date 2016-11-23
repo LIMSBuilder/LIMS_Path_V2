@@ -17,10 +17,7 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                {{each folder_list as item}}
-                <li><a href="#"><i class="glyphicon glyphicon-folder-open mr5"></i>
-                    {{item.name}}</a></li>
-                {{/each}}
+                <li><a href="#"><i class="glyphicon glyphicon-folder-open mr5"></i>aaa</a></li>
             </ul>
         </div>
     </div>

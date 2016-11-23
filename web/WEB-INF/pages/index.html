@@ -83,7 +83,9 @@
                        data-desp="此处省略15个字"><i class="fa fa-home"></i> <span>仪表盘</span></a></li>
                 <li><a href="javascript:;" class="nav-item" data-type="email/email" data-title="电子邮箱"
                        data-desp="此处省略15个字"><i
-                        class="fa fa-envelope-o"></i><span id="mail_alert"></span> <span>Email</span></a></li>
+                        class="fa fa-envelope-o"></i><span
+                        class="pull-right badge badge-success mail_count"></span><span>Email</span></a>
+                </li>
                 <li class="nav-parent"><a href=""><i class="fa fa-edit"></i> <span>合同管理</span></a>
                     <ul class="children" data-icon="fa fa-edit">
                         <li><a href="javascript:;" class="nav-item" data-type="contract/create" data-title="合同起草"
@@ -262,7 +264,7 @@
 
             <form class="searchform" action="index.html" method="post">
                 <input type="text" class="form-control" name="keyword" placeholder="搜索..."/>
-                <a class="btn btn-sm btn-danger-alt pull-left" id="feedback">问题反馈</a>
+                <!--<a class="btn btn-sm btn-danger-alt pull-left" id="feedback">问题反馈</a>-->
             </form>
             <div class="header-right">
                 <ul class="headermenu">
@@ -321,10 +323,10 @@
                         <div class="btn-group">
                             <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
                                 <i class="glyphicon glyphicon-envelope"></i>
-                                <span class="badge">1</span>
+                                <span class="badge mail_count"></span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-head pull-right">
-                                <h5 class="title">您有 <span id="mail_count">0</span> 封新邮件</h5>
+                                <h5 class="title">您有 <span class="mail_count">0</span> 封新邮件</h5>
                                 <ul class="dropdown-list gen-list" id="mail_list"></ul>
                             </div>
                         </div>
@@ -783,46 +785,46 @@
 
 
     <!--问题反馈专用-->
-    <div class="modal fade bs-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-         aria-hidden="true" id="feedback_modal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>
-                    <h4 class="modal-title">问题反馈</h4>
-                </div>
-                <div class="modal-body">
-                    <form id="feedback_form" class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">问题类型</label>
-                            <div class="col-sm-10">
-                                <select id="type" class="select2" required data-placeholder="选择需要反馈的问题类型">
-                                    <option value=""></option>
-                                    <option value="系统缺陷(bug)">系统缺陷(bug)</option>
-                                    <option value="功能缺失">功能缺失</option>
-                                    <option value="个人建议">个人建议</option>
-                                    <option value="其他">其他</option>
-                                </select>
-                                <label class="error" for="type"></label>
-                            </div>
-                        </div><!-- form-group -->
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">反馈内容 <span class="asterisk">*</span></label>
-                            <div class="col-sm-10">
-                                <textarea id="feedback_content" class="form-control" rows="5" required></textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-9 col-sm-offset-3">
-                                <a class="btn btn-primary" id="save_feedback">提 交</a>
-                                <button type="reset" class="btn btn-default">清 空</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!--<div class="modal fade bs-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"-->
+    <!--aria-hidden="true" id="feedback_modal">-->
+    <!--<div class="modal-dialog modal-lg">-->
+    <!--<div class="modal-content">-->
+    <!--<div class="modal-header">-->
+    <!--<button aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>-->
+    <!--<h4 class="modal-title">问题反馈</h4>-->
+    <!--</div>-->
+    <!--<div class="modal-body">-->
+    <!--<form id="feedback_form" class="form-horizontal">-->
+    <!--<div class="form-group">-->
+    <!--<label class="col-sm-2 control-label">问题类型</label>-->
+    <!--<div class="col-sm-10">-->
+    <!--<select id="type" class="select2" required data-placeholder="选择需要反馈的问题类型">-->
+    <!--<option value=""></option>-->
+    <!--<option value="系统缺陷(bug)">系统缺陷(bug)</option>-->
+    <!--<option value="功能缺失">功能缺失</option>-->
+    <!--<option value="个人建议">个人建议</option>-->
+    <!--<option value="其他">其他</option>-->
+    <!--</select>-->
+    <!--<label class="error" for="type"></label>-->
+    <!--</div>-->
+    <!--</div>&lt;!&ndash; form-group &ndash;&gt;-->
+    <!--<div class="form-group">-->
+    <!--<label class="col-sm-2 control-label">反馈内容 <span class="asterisk">*</span></label>-->
+    <!--<div class="col-sm-10">-->
+    <!--<textarea id="feedback_content" class="form-control" rows="5" required></textarea>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col-sm-9 col-sm-offset-3">-->
+    <!--<a class="btn btn-primary" id="save_feedback">提 交</a>-->
+    <!--<button type="reset" class="btn btn-default">清 空</button>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</form>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
 </section>
 
 
@@ -921,43 +923,43 @@
 
 
         //问题反馈
-        jQuery("#feedback").on("click", function () {
-            jQuery('#feedback_modal').modal("show");
-        });
+//        jQuery("#feedback").on("click", function () {
+//            jQuery('#feedback_modal').modal("show");
+//        });
 
         //反馈问题类型
-        jQuery("#type").select2({
-            width: '100%',
-            minimumResultsForSearch: -1
-        });
+//        jQuery("#type").select2({
+//            width: '100%',
+//            minimumResultsForSearch: -1
+//        });
 
         //问题反馈清单
-        jQuery("#feedback_form").validate({
-            highlight: function (element) {
-                jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-            },
-            success: function (element) {
-                jQuery(element).closest('.form-group').removeClass('has-error');
-            }
-        });
+//        jQuery("#feedback_form").validate({
+//            highlight: function (element) {
+//                jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+//            },
+//            success: function (element) {
+//                jQuery(element).closest('.form-group').removeClass('has-error');
+//            }
+//        });
 
         //问题反馈
-        jQuery("#save_feedback").on("click", function () {
-            var data = {
-                type: jQuery("#type").val(),
-                content: jQuery("#feedback_content").val()
-            };
-            jQuery.ajax({
-                type: 'post',
-                url: '/feedback/add',
-                data: data,
-                success: function (data) {
-                    jQuery.fn.codeState(data.code, {
-                        200: "问题反馈成功!"
-                    });
-                }
-            });
-        });
+//        jQuery("#save_feedback").on("click", function () {
+//            var data = {
+//                type: jQuery("#type").val(),
+//                content: jQuery("#feedback_content").val()
+//            };
+//            jQuery.ajax({
+//                type: 'post',
+//                url: '/feedback/add',
+//                data: data,
+//                success: function (data) {
+//                    jQuery.fn.codeState(data.code, {
+//                        200: "问题反馈成功!"
+//                    });
+//                }
+//            });
+//        });
 
 
         //轮循最新消息
@@ -972,16 +974,14 @@
                             for (var key in data) {
                                 switch (key) {
                                     case "receive_mail":
-                                        var html = '<span class="pull-right badge badge-success">' + data[key].length + '</span>';
-                                        jQuery("#mail_alert").html(html);
-                                        jQuery("#mail_count").html(data[key].length);
+                                        jQuery(".mail_count").html(data[key].length == 0 ? "" : data[key].length);
                                         jQuery("#mail_list").empty();
                                         for (var i = 0; i < data[key].length; i++) {
                                             var mail = data[key][i];
-                                            var mail_li = '<li><a href="javascript:;" data-id="' + mail.id + '" class="mail_msg" "> <span class="thumb"><img src="/assets/images/photos/user5.png" alt=""/></span> <span class="desc"> <span class="name">' + mail.sender.name + '<span class="badge badge-success">标为已读</span></span> <span class="msg">' + mail.title + '</span> </span> </a> </li>';
+                                            var mail_li = '<li><a href="javascript:;" data-id="' + mail.id + '" class="mail_msg" "> <span class="thumb"><img src="/assets/images/photos/user5.png" alt=""/></span> <span class="desc"> <span class="name">' + mail.sender.name + '</span> <span class="msg">' + mail.title + '</span> </span> </a> </li>';
                                             jQuery("#mail_list").prepend(mail_li);
                                         }
-                                        jQuery("#mail_list").append('<li class="new text-right"><a href="javascript:;"><span class="label label-info">全部已读</span></a></li>');
+                                        jQuery("#mail_list").append('<li class="new text-right"><a href="javascript:;" class="all_mail_read"><span class="label label-info">全部已读</span></a></li>');
                                         break;
                                 }
                             }
@@ -996,11 +996,11 @@
 
         jQuery("#mail_list").off("click").on("click", function (event) {
             var target = jQuery(event.target);
-            if (target.parents('.mail_msg')) {
+            if (target.parents('.mail_msg').length > 0) {
                 var id = target.parents('.mail_msg').data("id");
                 jQuery("#custom_lg_modal").modal("show");
                 var template = jQuery.fn.loadTemplate("/assets/template/subject/read_mail.tpl");
-                Vue.component('read_mail', {
+                Vue.component('read_mail' + id, {
                     template: template,
                     data: function () {
                         return {
@@ -1021,7 +1021,7 @@
                             var data = response.data;
                             for (var key in data) {
                                 if (me[key] != undefined) {
-                                    me.$set(key,data[key]);
+                                    me.$set(key, data[key]);
                                 }
                             }
                         }, function (response) {
@@ -1030,7 +1030,20 @@
                     }
                 });
                 LIMS.dialog_lg.$set('title', '阅读邮件');
-                LIMS.dialog_lg.currentView = 'read_mail';
+                LIMS.dialog_lg.currentView = 'read_mail' + id;
+            }
+            if (target.parents('.all_mail_read').length > 0) {
+                Vue.http.get("/mail/all_read").then(function (response) {
+                    var data = response.data;
+                    jQuery.fn.codeState(data.code, {
+                        200: function () {
+
+                        }
+                    })
+                }, function (response) {
+                    jQuery.fn.error_msg("服务器异常,无法全部读取邮件");
+                });
+
 
             }
         })

@@ -1831,7 +1831,7 @@ div.error label.error:before {
 }
 
 .table-email tr.unread td {
-    background-color: #fff;
+    background-color: #FFD;
 }
 
 .table-email tbody > tr > td {
