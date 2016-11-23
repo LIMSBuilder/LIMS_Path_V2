@@ -90,7 +90,7 @@
                     <table class="table table-email">
                         <tbody>
                         <template v-for="item in mail_list">
-                            <tr class="unread">
+                            <tr :class="item.state==0?'unread':''" @click="read_mail(item)">
                                 <td>
                                     <div class="ckbox ckbox-success">
                                         <input type="checkbox" id="checkbox{{item.id}}">
@@ -188,6 +188,45 @@
 
                 LIMS.dialog.$set('title', '增加分类文件夹');
                 LIMS.dialog.currentView = 'mail_folder_addItem';
+            },
+            read_mail: function (item) {
+                var me = this;
+                jQuery("#custom_lg_modal").modal("show");
+                var template = jQuery.fn.loadTemplate("/assets/template/subject/read_mail.tpl");
+                Vue.component('read_mail' + item.mailReceive_id, {
+                    template: template,
+                    data: function () {
+                        return {
+                            title: "",
+                            content: "",
+                            sender: {},
+                            send_time: ""
+                        };
+                    },
+                    methods: {},
+                    ready: function () {
+                        var that = this;
+                        that.$http.get("/mail/getByReceiveId", {
+                            params: {
+                                mailReceive_id: item.mailReceive_id
+                            }
+                        }).then(function (response) {
+                            var data = response.data;
+                            for (var key in data) {
+                                if (that[key] != undefined) {
+                                    that.$set(key, data[key]);
+                                }
+                            }
+                        }, function (response) {
+                            jQuery.fn.error_msg("数据异常,无法获取邮件信息!");
+                        });
+                        me.load_list(me.getState(), me.box_type, me.currentPage);
+                        me.load_count();
+                    }
+                });
+                LIMS.dialog_lg.$set('title', '阅读邮件');
+                LIMS.dialog_lg.currentView = 'read_mail' + item.mailReceive_id;
+
             },
             star: function (item) {
                 var me = this;

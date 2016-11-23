@@ -160,6 +160,24 @@ public class MailController extends Controller {
         }
     }
 
+
+    /**
+     * 根据邮件-接收id获取邮件信息
+     */
+    public void getByReceiveId() {
+        try {
+            int mailReceive_id = getParaToInt("mailReceive_id");
+            MailReceiver mailReceiver = MailReceiver.mailReceiver.findById(mailReceive_id);
+            if (mailReceiver != null) {
+                Mail mail = Mail.mailDao.findById(mailReceiver.get("mail_id"));
+                if (mailReceiver.get("state") == 0) mailReceiver.set("state", 1).update();
+                renderJson(toMailJSON(mail, ParaUtils.getCurrentUser(getRequest())));
+            }
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
     private static Map toMailJSON(Mail mail, User user) {
         MailReceiver mailReceiver = MailReceiver.mailReceiver.findFirst("SELECT * FROM `db_mailReceiver` WHERE user_id=" + user.get("id") + " AND mail_id=" + mail.get("id"));
         Map result = new HashMap();
