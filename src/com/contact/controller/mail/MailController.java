@@ -144,6 +144,29 @@ public class MailController extends Controller {
         }
     }
 
+
+    /**
+     * 处理发件箱和草稿箱
+     */
+    public void getSenderList() {
+        try {
+            String state = getPara("state");
+            int rowCount = getParaToInt("rowCount");
+            int currentPage = getParaToInt("currentPage");
+            if (rowCount == 0) {
+                rowCount = ParaUtils.getRowCount();
+            }
+            Page<Mail> mailPage = Mail.mailDao.paginate(currentPage, rowCount, "SELECT * ", "FROM `db_mail` WHERE `db_mail`.`state`=" + state + " AND `db_mail`.`sender`=" + ParaUtils.getCurrentUser(getRequest()).get("id"));
+            List<Mail> mailList = mailPage.getList();
+            Map result = toMailSendListJSON(mailList, ParaUtils.getCurrentUser(getRequest()));
+            result.put("currentPage", currentPage);
+            result.put("totalPage", mailPage.getTotalPage());
+            renderJson(result);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
     /**
      * 根据邮件id获取邮件信息
      */
@@ -189,6 +212,39 @@ public class MailController extends Controller {
         result.put("state", mailReceiver.get("state"));
         result.put("mailReceive_id", mailReceiver.get("id"));
         return result;
+    }
+
+
+    private static Map toMailSendJSON(Mail mail, User user) {
+        List<MailReceiver> mailReceivers = MailReceiver.mailReceiver.find("SELECT * FROM `db_mailReceiver` WHERE mail_id=" + mail.get("id"));
+        List<Map> userList = new ArrayList<>();
+        for (MailReceiver mailReceiver : mailReceivers) {
+            userList.add(User.userDao.findById(mailReceiver.get("user_id")).getUserInfo());
+        }
+        Map result = new HashMap();
+        result.put("id", mail.get("id"));
+        result.put("title", mail.get("title"));
+        result.put("content", mail.get("content"));
+        result.put("send_time", mail.get("send_time"));
+        result.put("state", mail.get("state"));
+        result.put("receiver", userList);
+        return result;
+    }
+
+    /**
+     * @param mailList
+     * @param user
+     * @return
+     */
+    private static Map toMailSendListJSON(List<Mail> mailList, User user) {
+        Map result = new HashMap();
+        List<Map> maps = new ArrayList<>();
+        for (Mail mail : mailList) {
+            maps.add(toMailSendJSON(mail, user));
+        }
+        result.put("results", maps);
+        return result;
+
     }
 
     private static Map toListJson(List<Mail> mailList, User user) {
