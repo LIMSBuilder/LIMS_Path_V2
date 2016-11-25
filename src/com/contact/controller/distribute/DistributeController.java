@@ -143,18 +143,18 @@ public class DistributeController extends Controller {
     /**
      * 获取原始记录列表
      */
-    public void getOriginRecordList(){
+    public void getOriginRecordList() {
         try {
             int task_id = getParaToInt("task_id");
             int project_id = getParaToInt("project_id");
-            Delivery delivery = Delivery.deliveryDao.findFirst("SELECT * FROM db_delivery` WHERE task_id="+task_id+" AND project_id="+project_id);
-            if(delivery!=null){
-                List<Delivery_OriginRecord> delivery_originRecordList = Delivery_OriginRecord.delivery_originRecordDao.find("SELECT * FROM `db_deliveryOriginRecord` WHERE delivery_id="+delivery.get("id"));
+            Delivery delivery = Delivery.deliveryDao.findFirst("SELECT * FROM `db_delivery` WHERE task_id=" + task_id + " AND project_id=" + project_id);
+            if (delivery != null) {
+                List<Delivery_OriginRecord> delivery_originRecordList = Delivery_OriginRecord.delivery_originRecordDao.find("SELECT * FROM `db_deliveryOriginRecord` WHERE delivery_id=" + delivery.get("id"));
                 Map result = new HashMap();
-                result.put("results",delivery_originRecordList);
+                result.put("results", delivery_originRecordList);
                 renderJson(result);
-            }else renderJson(RenderUtils.CODE_EMPTY);
-        }catch (Exception e){
+            } else renderJson(RenderUtils.CODE_EMPTY);
+        } catch (Exception e) {
             renderError(500);
         }
     }
@@ -231,15 +231,29 @@ public class DistributeController extends Controller {
     /**
      * 查看填写完成的原始记录表格
      */
-    public void viewOriginRecord(){
+    public void viewOriginRecord() {
         try {
-            int id  = getParaToInt("record_id");
-            Delivery_OriginRecord delivery_originRecord  = Delivery_OriginRecord.delivery_originRecordDao.findById(id);
-            if(delivery_originRecord!=null){
-                getRequest().setAttribute("delivery_originRecord",delivery_originRecord);
+            int id = getParaToInt("record_id");
+            Delivery_OriginRecord delivery_originRecord = Delivery_OriginRecord.delivery_originRecordDao.findById(id);
+            if (delivery_originRecord != null) {
+                getRequest().setAttribute("delivery_originRecord", delivery_originRecord);
                 render("template/view_originRecord.jsp");
-            }else renderNull();
-        }catch (Exception e){
+            } else renderNull();
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+
+    public void changeOriginRecord() {
+        try {
+            int id = getParaToInt("record_id");
+            Delivery_OriginRecord delivery_originRecord = Delivery_OriginRecord.delivery_originRecordDao.findById(id);
+            if (delivery_originRecord != null) {
+                getRequest().setAttribute("delivery_originRecord", delivery_originRecord);
+                render("template/change_originRecord.jsp");
+            } else renderNull();
+        } catch (Exception e) {
             renderError(500);
         }
     }
@@ -260,24 +274,21 @@ public class DistributeController extends Controller {
     }
 
 
-
-
-
     /**
      * 保存原始记录表
      */
-    public void saveOriginRecord(){
+    public void saveOriginRecord() {
         try {
-            int delivery_id =getParaToInt("delivery_id");
-            String name =getPara("name");
-            String path=getPara("path");
+            int delivery_id = getParaToInt("delivery_id");
+            String name = getPara("name");
+            String path = getPara("path");
             Delivery delivery = Delivery.deliveryDao.findById(delivery_id);
-            if(delivery!=null){
+            if (delivery != null) {
                 Delivery_OriginRecord delivery_originRecord = new Delivery_OriginRecord();
-                Boolean result = delivery_originRecord.set("delivery_id",delivery_id).set("originRecord_path",path).set("name",name).save();
-                renderJson(result?RenderUtils.CODE_SUCCESS:RenderUtils.CODE_ERROR);
-            }else renderJson(RenderUtils.CODE_EMPTY);
-        }catch (Exception e){
+                Boolean result = delivery_originRecord.set("delivery_id", delivery_id).set("originRecord_path", path).set("name", name).save();
+                renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+            } else renderJson(RenderUtils.CODE_EMPTY);
+        } catch (Exception e) {
             renderError(500);
         }
     }

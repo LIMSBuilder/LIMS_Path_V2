@@ -77,7 +77,8 @@
                                                                                      @click="originRecord(project)"></i></a>
                                         </td>
                                         <td>
-                                            <a href="/distribute/createInspection?delivery_id={{project.delivery.id}}" target="_blank" ><i class="fa fa-edit"></i></a>
+                                            <a href="/distribute/createInspection?delivery_id={{project.delivery.id}}"
+                                               target="_blank"><i class="fa fa-edit"></i></a>
                                         </td>
                                         <td>{{project.samples.length}}</td>
                                         <td>{{project.state==0?"待分析":"待审核"}}</td>
@@ -411,36 +412,15 @@
 
                             },
                             viewItem: function (item) {
-                                //查看当前原始记录
+                                //查看当前送检单
 
                             },
-                            changeItem:function () {
-                              //修改当前原始记录
+                            changeItem: function () {
+                                //修改当前送检单
                             },
                             delItem: function (item) {
-                                //删除当前原始记录
-                                var me = this;
-                                jQuery.fn.check_msg({
-                                   msg:"是否删除名称为"+item.name+"的原始记录？该行为不可逆，请谨慎操作！",
-                                    success:function () {
-                                        var id = item.id;
-                                        me.$http.get("/distribute/deleteOrignRecord",{
-                                            params:{
-                                                ids:[id]
-                                            }
-                                        }).then(function(response){
-                                            var data =response.data;
-                                            jQuery.fn.codeState(data.code,{
-                                                200:function(){
-                                                    jQuery.fn.alert_msg("原始记录删除成功！");
-                                                    me.load_list();
-                                                }
-                                            });
-                                        },function(response){
-                                            jQuery.fn.error_msg("数据异常，无法删除当前原始记录！");
-                                        });
-                                    }
-                                });
+                                //删除当前送检单
+
                             }
                         },
                         ready: function () {
