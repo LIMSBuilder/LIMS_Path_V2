@@ -245,6 +245,17 @@ public class DistributeController extends Controller {
     }
 
 
+    public void uploadOriginRecord() {
+        try {
+            String name = getPara("name");
+            String path = getPara("path");
+            int delivery_id= getParaToInt("delivery_id");
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+
     public void changeOriginRecord() {
         try {
             int id = getParaToInt("record_id");
