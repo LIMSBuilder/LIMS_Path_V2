@@ -31,7 +31,7 @@
                         <td class="text-center">{{index+1}}</td>
                         <td class="text-center">{{item.name}}</td>
                         <td class="table-action text-center">
-                            <a class="btn btn-sm btn-info-alt" @click="viewItem(item)">查看</a>
+                            <a class="btn btn-sm btn-info-alt" href="/distribute/viewOriginRecord?record_id={{item.id}}" target="_blank">查看</a>
                             <a class="btn btn-sm btn-success-alt" @click="changeItem(item)">修改</a>
                             <a class="btn btn-sm btn-warning-alt" @click="del_record(item)">删除</a>
                         </td>

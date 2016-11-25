@@ -227,6 +227,24 @@ public class DistributeController extends Controller {
 
     }
 
+
+    /**
+     * 查看填写完成的原始记录表格
+     */
+    public void viewOriginRecord(){
+        try {
+            int id  = getParaToInt("record_id");
+            Delivery_OriginRecord delivery_originRecord  = Delivery_OriginRecord.delivery_originRecordDao.findById(id);
+            if(delivery_originRecord!=null){
+                getRequest().setAttribute("delivery_originRecord",delivery_originRecord);
+                render("template/view_originRecord.jsp");
+            }else renderNull();
+        }catch (Exception e){
+            renderError(500);
+        }
+    }
+
+
     /**
      * 创建当前任务的监测项目的送检单
      */
@@ -240,6 +258,9 @@ public class DistributeController extends Controller {
             renderError(500);
         }
     }
+
+
+
 
 
     /**
