@@ -335,7 +335,7 @@
                         methods: {
                             load_list: function () {
                                 var that = this;
-                                me.$http.get("/distribute/getInspectionList", {
+                                me.$http.get("/distribute/getOriginRecordList", {
                                     params: {
                                         task_id: me.id,
                                         project_id: project.id
@@ -410,15 +410,38 @@
                                 })
 
                             },
-                            changeItem: function (item) {
-                                //变更当前原始记录
+                            viewItem: function (item) {
+                                //查看当前原始记录
+
+                            },
+                            changeItem:function () {
+                              //修改当前原始记录
                             },
                             delItem: function (item) {
                                 //删除当前原始记录
-
-
+                                var me = this;
+                                jQuery.fn.check_msg({
+                                   msg:"是否删除名称为"+item.name+"的原始记录？该行为不可逆，请谨慎操作！",
+                                    success:function () {
+                                        var id = item.id;
+                                        me.$http.get("/distribute/deleteOrignRecord",{
+                                            params:{
+                                                ids:[id]
+                                            }
+                                        }).then(function(response){
+                                            var data =response.data;
+                                            jQuery.fn.codeState(data.code,{
+                                                200:function(){
+                                                    jQuery.fn.alert_msg("原始记录删除成功！");
+                                                    me.load_list();
+                                                }
+                                            });
+                                        },function(response){
+                                            jQuery.fn.error_msg("数据异常，无法删除当前原始记录！");
+                                        });
+                                    }
+                                });
                             }
-
                         },
                         ready: function () {
                             var that = this;

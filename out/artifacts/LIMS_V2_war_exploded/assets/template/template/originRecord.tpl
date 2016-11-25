@@ -34,11 +34,11 @@
     <div class="tab-pane" id="template_page">
         <div class="row">
             <div class="table-responsive">
-                <table class="table table-info table-hover mb30 text-center">
+                <table class="table table-info table-hover mb30 ">
                     <thead>
                     <tr>
                     <tr>
-                        <th class="text-center">模板名称</th>
+                        <th>模板名称</th>
                         <th class="text-center">操作</th>
                     </tr>
                     </tr>
@@ -46,7 +46,7 @@
                     <tbody>
                     <template v-for="item in template_list">
                         <tr>
-                            <td class="text-center">{{item.name}}</td>
+                            <td>{{item.name}}</td>
                             <td class="table-action text-center">
                                 <a href="javascript:;" data-toggle="modal"
                                    data-target=".bs-example-modal-static"

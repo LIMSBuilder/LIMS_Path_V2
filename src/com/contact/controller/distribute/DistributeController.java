@@ -141,6 +141,25 @@ public class DistributeController extends Controller {
 
 
     /**
+     * 获取原始记录列表
+     */
+    public void getOriginRecordList(){
+        try {
+            int task_id = getParaToInt("task_id");
+            int project_id = getParaToInt("project_id");
+            Delivery delivery = Delivery.deliveryDao.findFirst("SELECT * FROM db_delivery` WHERE task_id="+task_id+" AND project_id="+project_id);
+            if(delivery!=null){
+                List<Delivery_OriginRecord> delivery_originRecordList = Delivery_OriginRecord.delivery_originRecordDao.find("SELECT * FROM `db_deliveryOriginRecord` WHERE delivery_id="+delivery.get("id"));
+                Map result = new HashMap();
+                result.put("results",delivery_originRecordList);
+                renderJson(result);
+            }else renderJson(RenderUtils.CODE_EMPTY);
+        }catch (Exception e){
+            renderError(500);
+        }
+    }
+
+    /**
      * 保存实验分析结果
      */
     public void analystSave() {
@@ -223,4 +242,22 @@ public class DistributeController extends Controller {
     }
 
 
+    /**
+     * 保存原始记录表
+     */
+    public void saveOriginRecord(){
+        try {
+            int delivery_id =getParaToInt("delivery_id");
+            String name =getPara("name");
+            String path=getPara("path");
+            Delivery delivery = Delivery.deliveryDao.findById(delivery_id);
+            if(delivery!=null){
+                Delivery_OriginRecord delivery_originRecord = new Delivery_OriginRecord();
+                Boolean result = delivery_originRecord.set("delivery_id",delivery_id).set("originRecord_path",path).set("name",name).save();
+                renderJson(result?RenderUtils.CODE_SUCCESS:RenderUtils.CODE_ERROR);
+            }else renderJson(RenderUtils.CODE_EMPTY);
+        }catch (Exception e){
+            renderError(500);
+        }
+    }
 }
