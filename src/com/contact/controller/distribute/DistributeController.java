@@ -141,6 +141,25 @@ public class DistributeController extends Controller {
 
 
     /**
+     * 获取原始记录列表
+     */
+    public void getOriginRecordList(){
+        try {
+            int task_id = getParaToInt("task_id");
+            int project_id = getParaToInt("project_id");
+            Delivery delivery = Delivery.deliveryDao.findFirst("SELECT * FROM db_delivery` WHERE task_id="+task_id+" AND project_id="+project_id);
+            if(delivery!=null){
+                List<Delivery_OriginRecord> delivery_originRecordList = Delivery_OriginRecord.delivery_originRecordDao.find("SELECT * FROM `db_deliveryOriginRecord` WHERE delivery_id="+delivery.get("id"));
+                Map result = new HashMap();
+                result.put("results",delivery_originRecordList);
+                renderJson(result);
+            }else renderJson(RenderUtils.CODE_EMPTY);
+        }catch (Exception e){
+            renderError(500);
+        }
+    }
+
+    /**
      * 保存实验分析结果
      */
     public void analystSave() {

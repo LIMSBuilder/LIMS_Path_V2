@@ -4,7 +4,6 @@
 <%
     String fileName = request.getAttribute("fileName").toString();
     String realPath = request.getSession().getServletContext().getRealPath("attachment/") + "\\" +fileName;
-    System.out.println(realPath);
     FileSaver fs = new FileSaver(request, response);
     fs.saveToFile(realPath);
     Map result = new HashMap();
