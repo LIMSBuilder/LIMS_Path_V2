@@ -12,20 +12,15 @@
     //获取Request数据
     Delivery_OriginRecord delivery_originRecord = (Delivery_OriginRecord)request.getAttribute("delivery_originRecord");
     String path =delivery_originRecord.getStr("originRecord_path");
-//设置服务器页面
+    //设置服务器页面
     poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
     poCtrl.setFileTitle(delivery_originRecord.getStr("name"));
     poCtrl.setCaption(delivery_originRecord.getStr("name"));
-//添加自定义按钮
+    //添加自定义按钮
     poCtrl.addCustomToolButton("保存","Save",1);
     poCtrl.addCustomToolButton("打印", "ShowPrintDlg()", 6);
     poCtrl.addCustomToolButton("-", "", 0);
     poCtrl.addCustomToolButton("全屏切换", "SwitchFullScreen()", 4);
-
-    //设置保存页面
-    //poCtrl.setSaveFilePage("/export/save?type=originRecord&&template_id="+originRecordTemplate.get("id")+"&&delivery_id="+delivery_id);
-    //poCtrl.setSaveFilePage("/export/save");
-    //设置页面
     //打开Word文档
     poCtrl.webOpen(path,OpenModeType.docReadOnly, ParaUtils.getCurrentUser(request)!=null?ParaUtils.getCurrentUser(request).getStr("name"):"佚名");
     poCtrl.setTagId("PageOfficeCtrl1");//此行必需
@@ -37,8 +32,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png">
-    <!--弹出层-->
-    <link href="/assets/css/jquery.gritter.css" rel="stylesheet">
     <title>实验室信息管理系统</title>
 
     <link href="/assets/css/style.default.css" rel="stylesheet">
@@ -50,10 +43,6 @@
     </po:PageOfficeCtrl>
 </div>
 
-
-<script src="/assets/js/jquery-1.11.1.min.js"></script>
-<!--弹出层-->
-<script src="/assets/js/jquery.gritter.min.js"></script>
 <script type="text/javascript">
     function Save() {
         var result = document.getElementById("PageOfficeCtrl1").ShowDialog(3);

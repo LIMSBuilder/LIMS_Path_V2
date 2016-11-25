@@ -50,6 +50,7 @@
                     <div class="col-sm-12">
                         <div class="btn-demo">
                             <a class="btn btn-danger-alt" @click="flowItem">业务流转</a>
+                            <a class="btn btn-success-alt" @click="frash">刷 新</a>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-info mb30">
@@ -72,12 +73,16 @@
                                         <td>{{project.category.name}}</td>
                                         <td>{{project.name}}</td>
                                         <td>
-                                            <a href="javascript:;" data-toggle="modal"
-                                               data-target=".bs-example-modal-lg"><i class="fa fa-edit"
-                                                                                     @click="originRecord(project)"></i></a>
+                                            记录数:{{project.originRecond_count}}个&nbsp;
+                                            <a data-toggle="modal"
+                                               data-target=".bs-example-modal-lg" class="btn btn-sm btn-warning-alt"
+                                               @click="originRecord(project)">列 表</a>
                                         </td>
                                         <td>
-                                            <a href="/distribute/createInspection?delivery_id={{project.delivery.id}}" target="_blank" ><i class="fa fa-edit"></i></a>
+                                            <!--<a href="/distribute/createInspection?delivery_id={{project.delivery.id}}"-->
+                                            <!--target="_blank"><i class="fa fa-edit"></i></a>-->
+                                            <a href="/distribute/createInspection?delivery_id={{project.delivery.id}}"
+                                               target="_blank" class="btn btn-sm btn-info-alt">填 写</a>
                                         </td>
                                         <td>{{project.samples.length}}</td>
                                         <td>{{project.state==0?"待分析":"待审核"}}</td>
@@ -173,6 +178,7 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="/assets/js/dropzone.min.js"></script>
 <script>
     jQuery(document).ready(function () {
         "use strict";
@@ -298,6 +304,10 @@
                         jQuery.fn.error_msg("无法获取任务书列表信息,请尝试刷新操作。");
                     });
                 },
+                frash: function () {
+                    var me = this;
+                    me.load_projectlist(me.id);
+                },
                 load_projectlist: function (id) {
                     var me = this;
                     me.$http.get("/sample/getProjectListByDeliveryExperience", {
@@ -410,37 +420,79 @@
                                 })
 
                             },
-                            viewItem: function (item) {
-                                //查看当前原始记录
+                            add_record_upload: function () {
+                                jQuery("#custom_lg_modal").modal("hide");
+                                jQuery("#custom_modal").modal("show");
+                                var template = jQuery.fn.loadTemplate("/assets/template/subject/upload_originRecord.tpl");
+                                Vue.component('upload_self_originRecord', {
+                                    template: template,
+                                    data: function () {
+                                        return {
+                                            name: ""
+                                        };
+                                    },
+                                    methods: {},
+                                    ready: function () {
+                                        var that = this;
+                                        jQuery("#dropz").dropzone({
+                                            url: "/file/upload",
+                                            maxFilesize: 2,
+                                            method: "post",
+                                            maxFiles: 1,
+                                            paramName: 'inspection_template',
+                                            addRemoveLinks: true,//添加移除文,
+                                            autoProcessQueue: false,//不自动上传
+                                            dictMaxFilesExceeded: "您一次最多只能上传{{maxFiles}}个文件",
+                                            dictResponseError: '文件上传失败!',
+                                            dictInvalidFileType: "你不能上传该类型文件,文件类型只能是Word文档。",
+                                            dictCancelUpload: "取消上传",
+                                            dictCancelUploadConfirmation: "你确定要取消上传吗?",
+                                            dictRemoveFile: "移除文件",
+                                            uploadMultiple: false,
+                                            init: function () {
+                                                var dropObj = this;
+                                                dropObj.on("success", function (file) {
+                                                    if (file.xhr.status != 200) {
+                                                        jQuery.fn.error_msg("服务器异常,无法上传文件!");
+                                                        return;
+                                                    }
+                                                    var data = JSON.parse(file.xhr.responseText);
+                                                    if (data.code == 200) {
+                                                        me.$http.post("/distribute/uploadOriginRecord", {
+                                                            name: that.name,
+                                                            path: data.path,
+                                                            delivery_id: project.delivery.id
+                                                        }).then(function (response) {
+                                                            var data = response.data;
+                                                            jQuery.fn.codeState(data.code, {
+                                                                200: function () {
+                                                                    jQuery.fn.alert_msg("原始记录保存成功!");
 
-                            },
-                            changeItem:function () {
-                              //修改当前原始记录
-                            },
-                            delItem: function (item) {
-                                //删除当前原始记录
-                                var me = this;
-                                jQuery.fn.check_msg({
-                                   msg:"是否删除名称为"+item.name+"的原始记录？该行为不可逆，请谨慎操作！",
-                                    success:function () {
-                                        var id = item.id;
-                                        me.$http.get("/distribute/deleteOrignRecord",{
-                                            params:{
-                                                ids:[id]
+
+                                                                }
+                                                            })
+                                                        }, function (response) {
+                                                            jQuery.fn.error_msg("原始记录模板保存失败,请刷新后重新尝试!");
+                                                        });
+                                                    }
+                                                });
+
+                                                jQuery("#save_originRecord").off("click").on("click", function () {
+                                                    jQuery.fn.check_msg({
+                                                        msg: "是否保存当前原始记录?",
+                                                        success: function () {
+                                                            var data = dropObj.processQueue();
+                                                            dropObj.removeAllFiles();
+                                                        }
+                                                    });
+                                                });
                                             }
-                                        }).then(function(response){
-                                            var data =response.data;
-                                            jQuery.fn.codeState(data.code,{
-                                                200:function(){
-                                                    jQuery.fn.alert_msg("原始记录删除成功！");
-                                                    me.load_list();
-                                                }
-                                            });
-                                        },function(response){
-                                            jQuery.fn.error_msg("数据异常，无法删除当前原始记录！");
                                         });
                                     }
                                 });
+                                LIMS.dialog.$set('title', "上传自定义原始记录");
+                                LIMS.dialog.currentView = 'upload_self_originRecord';
+
                             }
                         },
                         ready: function () {

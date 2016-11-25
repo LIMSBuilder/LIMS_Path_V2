@@ -293,7 +293,10 @@ public class SampleController extends Controller {
                 temp.put("character", delivery.get("character"));
                 temp.put("storage", delivery.get("storage"));
 
-                temp.put("delivery",delivery);
+                temp.put("delivery", delivery);
+
+                temp.put("originRecond_count", Delivery_OriginRecord.delivery_originRecordDao.find("SELECT * FROM `db_deliveryOriginRecord` WHERE delivery_id=" + delivery.get("id")).size());
+                temp.put("inspection_path", delivery.get("inspection_path"));
 
 
                 temp.put("state", project.get("state"));
