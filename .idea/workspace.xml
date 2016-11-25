@@ -25,21 +25,51 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="create_originRecord.tpl" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/assets/template/subject/create_originRecord.tpl">
+      <file leaf-file-name="create_originRecord.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/create_originRecord.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="35" column="82" selection-start-line="35" selection-start-column="82" selection-end-line="35" selection-end-column="82" />
+            <state relative-caret-position="553">
+              <caret line="83" column="45" selection-start-line="83" selection-start-column="45" selection-end-line="83" selection-end-column="45" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="analysis.tpl" pinned="false" current-in-tab="true">
+      <file leaf-file-name="view_originRecord.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/view_originRecord.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DistributeController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="307">
+              <caret line="238" column="64" selection-start-line="238" selection-start-column="43" selection-end-line="238" selection-end-column="64" />
+              <folding>
+                <element signature="method#task_distribute#0;class#DistributeController#0" expanded="false" />
+                <element signature="method#clear_distribute#0;class#DistributeController#0" expanded="false" />
+                <element signature="method#delUser#0;class#DistributeController#0" expanded="false" />
+                <element signature="method#checkUser#0;class#DistributeController#0" expanded="false" />
+                <element signature="method#getInspectionList#0;class#DistributeController#0" expanded="false" />
+                <element signature="method#getOriginRecordList#0;class#DistributeController#0" expanded="false" />
+                <element signature="method#analystSave#0;class#DistributeController#0" expanded="false" />
+                <element signature="method#createOriginRecord#0;class#DistributeController#0" expanded="false" />
+                <element signature="method#saveOriginRecord#0;class#DistributeController#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="analysis.tpl" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="414" column="0" selection-start-line="414" selection-start-column="0" selection-end-line="414" selection-end-column="0" />
+            <state relative-caret-position="330">
+              <caret line="320" column="37" selection-start-line="320" selection-start-column="37" selection-end-line="320" selection-end-column="37" />
               <folding>
                 <element signature="e#17063#17807#0" expanded="false" />
                 <element signature="e#17861#18575#0" expanded="false" />
@@ -50,23 +80,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DistributeController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java">
+      <file leaf-file-name="create_originRecord.tpl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/assets/template/subject/create_originRecord.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="189" column="33" selection-start-line="189" selection-start-column="16" selection-end-line="189" selection-end-column="33" />
-              <folding>
-                <element signature="method#task_distribute#0;class#DistributeController#0" expanded="false" />
-                <element signature="method#clear_distribute#0;class#DistributeController#0" expanded="false" />
-                <element signature="method#delUser#0;class#DistributeController#0" expanded="false" />
-                <element signature="method#checkUser#0;class#DistributeController#0" expanded="false" />
-                <element signature="method#getInspectionList#0;class#DistributeController#0" expanded="false" />
-                <element signature="method#getOriginRecordList#0;class#DistributeController#0" expanded="false" />
-                <element signature="method#analystSave#0;class#DistributeController#0" expanded="false" />
-                <element signature="method#createOriginRecord#0;class#DistributeController#0" expanded="false" />
-                <element signature="method#createInspection#0;class#DistributeController#0" expanded="false" />
-                <element signature="method#saveOriginRecord#0;class#DistributeController#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="375">
+              <caret line="33" column="107" selection-start-line="33" selection-start-column="98" selection-end-line="33" selection-end-column="107" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -126,9 +145,10 @@
         <option value="$PROJECT_DIR$/web/WEB-INF/pages/template/create_originRecord.jsp" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/office/ExportController.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/pages/template/savefile.jsp" />
-        <option value="$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java" />
-        <option value="$PROJECT_DIR$/web/assets/template/subject/create_originRecord.tpl" />
         <option value="$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl" />
+        <option value="$PROJECT_DIR$/web/assets/template/subject/create_originRecord.tpl" />
+        <option value="$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/pages/template/view_originRecord.jsp" />
       </list>
     </option>
   </component>
@@ -217,6 +237,72 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="template" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -384,6 +470,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="distribute" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contact" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="config" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -416,7 +528,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="SearchEverywhereHistoryKey" value="common&#9;PSI&#9;JAVA://com.contact.config.CommonConfig&#10;Comm&#9;FILE&#9;file://G:/LIMS_V2/src/com/contact/config/CommonRoutes.java&#10;Dist&#9;FILE&#9;file://G:/LIMS_V2/src/com/contact/controller/distribute/DistributeController.java&#10;c&#9;FILE&#9;file://G:/LIMS_V2/web/assets/js/custom.js&#10;sign&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/pages/signin.html&#10;index&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/pages/index.html&#10;Exp&#9;FILE&#9;file://G:/LIMS_V2/src/com/contact/controller/office/ExportController.java&#10;origin&#9;FILE&#9;file://G:/LIMS_V2/web/assets/template/template/originRecord.tpl&#10;read&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/read_mail.tpl&#10;index.h&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/WEB-INF/pages/index.html&#10;defa&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/css/style.default.css&#10;MAI&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/mail/MailController.java&#10;MailC&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/mail/MailController.java&#10;mail_bo&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/mail_box.tpl&#10;mail_l&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/json/mail_list.json&#10;User&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/system/UserController.java&#10;Par&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/utils/ParaUtils.java&#10;Para&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/utils/ParaUtils.java&#10;ass&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/experiment/assess.tpl.jsp&#10;Sample&#9;PSI&#9;JAVA://com.contact.controller.sample.SampleController&#10;def&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/css/style.default.css&#10;crea&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/WEB-INF/pages/template/create_originRecord.jsp&#10;create&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/create_originRecord.tpl&#10;index.&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/pages/index.html&#10;we&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/web.xml" />
+    <property name="SearchEverywhereHistoryKey" value="create&#9;FILE&#9;file://G:/LIMS_V2/web/assets/template/subject/create_originRecord.tpl&#10;ｃｒｅａｔｅ&#9;null&#9;null&#10;common&#9;PSI&#9;JAVA://com.contact.config.CommonConfig&#10;Comm&#9;FILE&#9;file://G:/LIMS_V2/src/com/contact/config/CommonRoutes.java&#10;Dist&#9;FILE&#9;file://G:/LIMS_V2/src/com/contact/controller/distribute/DistributeController.java&#10;c&#9;FILE&#9;file://G:/LIMS_V2/web/assets/js/custom.js&#10;sign&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/pages/signin.html&#10;index&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/pages/index.html&#10;Exp&#9;FILE&#9;file://G:/LIMS_V2/src/com/contact/controller/office/ExportController.java&#10;origin&#9;FILE&#9;file://G:/LIMS_V2/web/assets/template/template/originRecord.tpl&#10;read&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/read_mail.tpl&#10;index.h&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/WEB-INF/pages/index.html&#10;defa&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/css/style.default.css&#10;MAI&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/mail/MailController.java&#10;MailC&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/mail/MailController.java&#10;mail_bo&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/mail_box.tpl&#10;mail_l&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/json/mail_list.json&#10;User&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/system/UserController.java&#10;Par&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/utils/ParaUtils.java&#10;Para&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/utils/ParaUtils.java&#10;ass&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/experiment/assess.tpl.jsp&#10;Sample&#9;PSI&#9;JAVA://com.contact.controller.sample.SampleController&#10;def&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/css/style.default.css&#10;crea&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/WEB-INF/pages/template/create_originRecord.jsp&#10;index.&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/pages/index.html&#10;we&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/web.xml" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
     <property name="FullScreen" value="true" />
   </component>
@@ -426,11 +538,11 @@
       <recent name="G:\LIMS_V2\web\doc" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\LIMS_V2\web\WEB-INF\pages\template" />
       <recent name="G:\LIMS_V2\web\attachment" />
       <recent name="$PROJECT_DIR$/web" />
       <recent name="$PROJECT_DIR$/web/assets/template/subject" />
       <recent name="$PROJECT_DIR$/web/assets/template/template" />
-      <recent name="G:\LIMS_V2\web\WEB-INF\doc" />
     </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.未命名">
@@ -991,12 +1103,12 @@
       <workItem from="1479697280998" duration="4043000" />
       <workItem from="1479710054854" duration="55672000" />
       <workItem from="1480049963598" duration="34000" />
-      <workItem from="1480050371853" duration="13110000" />
+      <workItem from="1480050371853" duration="15686000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104285000" />
+    <option name="totallyTimeSpent" value="106861000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
@@ -1091,7 +1203,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="60" />
+      <option name="time" value="62" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
@@ -1104,20 +1216,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/assets/template/subject/power.tpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="38" column="14" selection-start-line="35" selection-start-column="7" selection-end-line="38" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/sample/SampleController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="288" column="52" selection-start-line="288" selection-start-column="52" selection-end-line="288" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/subject/template_originRecord_change.tpl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1424,14 +1522,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/create_originRecord.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="76" column="23" selection-start-line="76" selection-start-column="23" selection-end-line="76" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/contact/controller/template/TemplateController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="400">
@@ -1488,18 +1578,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/distribute.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-550">
+          <caret line="14" column="47" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="320" column="37" selection-start-line="320" selection-start-column="37" selection-end-line="320" selection-end-column="37" />
+          <folding>
+            <element signature="e#17063#17807#0" expanded="false" />
+            <element signature="e#17861#18575#0" expanded="false" />
+            <element signature="e#18629#18780#0" expanded="false" />
+            <element signature="e#18838#21480#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/subject/create_originRecord.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="35" column="82" selection-start-line="35" selection-start-column="82" selection-end-line="35" selection-end-column="82" />
+        <state relative-caret-position="375">
+          <caret line="33" column="107" selection-start-line="33" selection-start-column="98" selection-end-line="33" selection-end-column="107" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/create_originRecord.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="553">
+          <caret line="83" column="45" selection-start-line="83" selection-start-column="45" selection-end-line="83" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="189" column="33" selection-start-line="189" selection-start-column="16" selection-end-line="189" selection-end-column="33" />
+        <state relative-caret-position="307">
+          <caret line="238" column="64" selection-start-line="238" selection-start-column="43" selection-end-line="238" selection-end-column="64" />
           <folding>
             <element signature="method#task_distribute#0;class#DistributeController#0" expanded="false" />
             <element signature="method#clear_distribute#0;class#DistributeController#0" expanded="false" />
@@ -1509,22 +1628,16 @@
             <element signature="method#getOriginRecordList#0;class#DistributeController#0" expanded="false" />
             <element signature="method#analystSave#0;class#DistributeController#0" expanded="false" />
             <element signature="method#createOriginRecord#0;class#DistributeController#0" expanded="false" />
-            <element signature="method#createInspection#0;class#DistributeController#0" expanded="false" />
             <element signature="method#saveOriginRecord#0;class#DistributeController#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl">
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/view_originRecord.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="414" column="0" selection-start-line="414" selection-start-column="0" selection-end-line="414" selection-end-column="0" />
-          <folding>
-            <element signature="e#17063#17807#0" expanded="false" />
-            <element signature="e#17861#18575#0" expanded="false" />
-            <element signature="e#18629#18780#0" expanded="false" />
-            <element signature="e#18838#21480#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="200">
+          <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
