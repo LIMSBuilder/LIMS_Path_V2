@@ -1,8 +1,6 @@
 package com.contact.controller.office;
 
-import com.contact.model.Contract;
-import com.contact.model.MonitorItem;
-import com.contact.model.User;
+import com.contact.model.*;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
@@ -50,6 +48,25 @@ public class ExportController extends Controller {
     }
 
     public void save(){
+        String type = getPara("type");
+        switch (type){
+            case "originRecord":
+                int delivery_id = getParaToInt("delivery_id");//交联单ID
+                int template_id = getParaToInt("template_id");//套用的模板ID
+                OriginRecordTemplate originRecordTemplate =  OriginRecordTemplate.originRecordTemplateDao.findById(template_id);
+                Delivery delivery = Delivery.deliveryDao.findById(delivery_id);
+                if(originRecordTemplate!=null && delivery!=null){
+                    Task task = Task.taskDao.findById(delivery.get("task_id"));
+                    String name =  originRecordTemplate.get("name");
+                    int size = Delivery_OriginRecord.delivery_originRecordDao.find("SELECT * FROM `db_deliveryOriginRecord` WHERE delivery_id="+delivery_id+" AND name like '"+name+"%'").size();
+                    if (size!=0)name+=(size+1);
+                    String fileName="("+task.get("identify")+")"+name+originRecordTemplate.getStr("path").substring(originRecordTemplate.getStr("path").lastIndexOf("."));
+                    getRequest().setAttribute("name",name);
+                    getRequest().setAttribute("fileName",fileName);
+                    getRequest().setAttribute("delivery_id",delivery_id);
+                }
+                break;
+        }
         render("template/savefile.jsp");
     }
 }

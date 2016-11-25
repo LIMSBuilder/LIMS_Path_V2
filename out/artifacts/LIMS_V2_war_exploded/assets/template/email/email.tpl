@@ -77,7 +77,7 @@
                                         </a>
                                         <div class="media-body">
                                             <span class="media-meta pull-right">{{item.send_time}}</span>
-                                            <h4 class="text-primary">{{item.sender.name}}</h4>
+                                            <h4 class="text-primary">{{1}}</h4>
                                             <small class="text-muted"></small>
                                             <p class="email-summary">{{item.title}}</p>
                                         </div>
