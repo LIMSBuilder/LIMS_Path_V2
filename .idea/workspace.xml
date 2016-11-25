@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94492654-fabd-46c1-bc69-031022f7d3fb" name="默认的" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/mail/MailController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/mail/MailController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/email/email.tpl" afterPath="$PROJECT_DIR$/web/assets/template/email/email.tpl" />
     </list>
     <ignored path="LIMS_V2.iws" />
@@ -29,22 +28,22 @@
       <file leaf-file-name="email.tpl" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/assets/template/email/email.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.51077944">
-              <caret line="79" column="87" selection-start-line="79" selection-start-column="71" selection-end-line="79" selection-end-column="87" />
+            <state vertical-scroll-proportion="0.64842457">
+              <caret line="158" column="23" selection-start-line="158" selection-start-column="23" selection-end-line="158" selection-end-column="23" />
               <folding>
-                <element signature="e#9197#9716#0" expanded="false" />
-                <element signature="e#9777#9881#0" expanded="false" />
-                <element signature="e#9949#10054#0" expanded="false" />
-                <element signature="e#10112#10217#0" expanded="false" />
-                <element signature="e#10277#11979#0" expanded="false" />
-                <element signature="e#12034#12124#0" expanded="false" />
-                <element signature="e#12186#12276#0" expanded="false" />
-                <element signature="e#12354#13654#0" expanded="false" />
-                <element signature="e#13742#14473#0" expanded="false" />
-                <element signature="e#14528#14652#0" expanded="false" />
-                <element signature="e#14707#14831#0" expanded="false" />
-                <element signature="e#14890#15230#0" expanded="false" />
-                <element signature="e#17112#17619#0" expanded="false" />
+                <element signature="e#9182#9701#0" expanded="false" />
+                <element signature="e#9762#9866#0" expanded="false" />
+                <element signature="e#9934#10039#0" expanded="false" />
+                <element signature="e#10097#10202#0" expanded="false" />
+                <element signature="e#10262#11964#0" expanded="false" />
+                <element signature="e#12019#12109#0" expanded="false" />
+                <element signature="e#12171#12261#0" expanded="false" />
+                <element signature="e#12339#13639#0" expanded="false" />
+                <element signature="e#13727#14458#0" expanded="false" />
+                <element signature="e#14513#14637#0" expanded="false" />
+                <element signature="e#14692#14816#0" expanded="false" />
+                <element signature="e#14875#15215#0" expanded="false" />
+                <element signature="e#17097#17604#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -552,6 +551,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="SearchEverywhereHistoryKey" value="read&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/read_mail.tpl&#10;index.h&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/WEB-INF/pages/index.html&#10;defa&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/css/style.default.css&#10;MAI&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/mail/MailController.java&#10;MailC&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/mail/MailController.java&#10;mail_bo&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/mail_box.tpl&#10;mail_l&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/json/mail_list.json&#10;index&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/WEB-INF/pages/index.html&#10;User&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/system/UserController.java&#10;Par&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/utils/ParaUtils.java&#10;Para&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/utils/ParaUtils.java&#10;ass&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/experiment/assess.tpl.jsp&#10;origin&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/template/originRecord.tpl&#10;Dist&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/distribute/DistributeController.java&#10;Sample&#9;PSI&#9;JAVA://com.contact.controller.sample.SampleController&#10;def&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/css/style.default.css&#10;crea&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/WEB-INF/pages/template/create_originRecord.jsp&#10;create&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/create_originRecord.tpl&#10;index.&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/pages/index.html&#10;we&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/web.xml" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
+    <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -1130,19 +1130,19 @@
       <workItem from="1479346961525" duration="3716000" />
       <workItem from="1479350745285" duration="10983000" />
       <workItem from="1479697280998" duration="4043000" />
-      <workItem from="1479710054854" duration="54910000" />
+      <workItem from="1479710054854" duration="55672000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="90379000" />
+    <option name="totallyTimeSpent" value="91141000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
@@ -1677,22 +1677,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/email/email.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.51077944">
-          <caret line="79" column="87" selection-start-line="79" selection-start-column="71" selection-end-line="79" selection-end-column="87" />
+        <state vertical-scroll-proportion="0.64842457">
+          <caret line="158" column="23" selection-start-line="158" selection-start-column="23" selection-end-line="158" selection-end-column="23" />
           <folding>
-            <element signature="e#9197#9716#0" expanded="false" />
-            <element signature="e#9777#9881#0" expanded="false" />
-            <element signature="e#9949#10054#0" expanded="false" />
-            <element signature="e#10112#10217#0" expanded="false" />
-            <element signature="e#10277#11979#0" expanded="false" />
-            <element signature="e#12034#12124#0" expanded="false" />
-            <element signature="e#12186#12276#0" expanded="false" />
-            <element signature="e#12354#13654#0" expanded="false" />
-            <element signature="e#13742#14473#0" expanded="false" />
-            <element signature="e#14528#14652#0" expanded="false" />
-            <element signature="e#14707#14831#0" expanded="false" />
-            <element signature="e#14890#15230#0" expanded="false" />
-            <element signature="e#17112#17619#0" expanded="false" />
+            <element signature="e#9182#9701#0" expanded="false" />
+            <element signature="e#9762#9866#0" expanded="false" />
+            <element signature="e#9934#10039#0" expanded="false" />
+            <element signature="e#10097#10202#0" expanded="false" />
+            <element signature="e#10262#11964#0" expanded="false" />
+            <element signature="e#12019#12109#0" expanded="false" />
+            <element signature="e#12171#12261#0" expanded="false" />
+            <element signature="e#12339#13639#0" expanded="false" />
+            <element signature="e#13727#14458#0" expanded="false" />
+            <element signature="e#14513#14637#0" expanded="false" />
+            <element signature="e#14692#14816#0" expanded="false" />
+            <element signature="e#14875#15215#0" expanded="false" />
+            <element signature="e#17097#17604#0" expanded="false" />
           </folding>
         </state>
       </provider>
