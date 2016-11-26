@@ -94,7 +94,7 @@
                     var me = this;
                     var dom = jQuery(me.$el);
                     var rowCount = localStorage.getItem("rowCount") || 0;
-                    me.$http.get("/task/experienceList", {
+                    me.$http.get("/task/assessList", {
                         params: {
                             rowCount: rowCount,
                             currentPage: currentPage,
