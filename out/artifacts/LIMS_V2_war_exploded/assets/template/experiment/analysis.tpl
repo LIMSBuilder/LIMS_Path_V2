@@ -22,7 +22,7 @@
                                            @click="task_experience(result)">实验分析</a>
                                         <a class="btn btn-default-alt" data-toggle="modal"
                                            data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
-                                        <a class="btn btn-danger-alt" @click="flow(result)">业务流转</a>
+                                        <a class="btn btn-danger-alt" @click="flow(result.id,result.identify)">业务流转</a>
                                     </div>
                                     <h4 class="filename text-primary">{{result.project_name}}</h4>
                                     <small class="text-muted">合同编号: {{result.identify}}</small>
@@ -49,7 +49,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="btn-demo">
-                            <a class="btn btn-danger-alt" @click="flowItem">业务流转</a>
+                            <a class="btn btn-danger-alt" @click="flow(id,identify)">业务流转</a>
                             <a class="btn btn-success-alt" @click="frash">刷 新</a>
                         </div>
                         <div class="table-responsive">
@@ -79,13 +79,16 @@
                                                @click="originRecord(project)">列 表</a>
                                         </td>
                                         <td>
-                                            <!--<a href="/distribute/createInspection?delivery_id={{project.delivery.id}}"-->
-                                            <!--target="_blank"><i class="fa fa-edit"></i></a>-->
                                             <a href="/distribute/createInspection?delivery_id={{project.delivery.id}}"
                                                target="_blank" class="btn btn-sm btn-info-alt">填 写</a>
                                         </td>
                                         <td>{{project.samples.length}}</td>
-                                        <td>{{project.state==0?"待分析":"待审核"}}</td>
+                                        <td v-show="project.state==0">
+                                            <span class="label label-info">待分析</span>
+                                        </td>
+                                        <td v-show="project.state==1">
+                                            <span class="label label-success">已分析</span>
+                                        </td>
                                         <td class="table-action">
                                             <a class="btn btn-sm btn-success-alt" @click="save(project)">完成</a>
                                             <a class="btn btn-sm btn-danger-alt"
@@ -335,11 +338,12 @@
                     //填写原始记录表格
                     var me = this;
                     var template = jQuery.fn.loadTemplate("/assets/template/subject/create_originRecord.tpl");
-                    Vue.component('originRecord' + project.id, {
+                    Vue.component('originRecord' + project.id+project.delivery.state, {
                         template: template,
                         data: function () {
                             return {
-                                originRecordList: []
+                                originRecordList: [],
+                                delivery: null
                             };
                         },
                         methods: {
@@ -353,6 +357,7 @@
                                 }).then(function (response) {
                                     var data = response.data;
                                     that.$set("originRecordList", data.results);
+                                    that.$set("delivery", data.delivery);
                                 }, function (response) {
                                     jQuery.fn.error_msg("原始记录数据请求异常,请刷新后重新尝试。");
                                 });
@@ -501,27 +506,22 @@
                         }
                     });
                     LIMS.dialog_lg.$set('title', project.name + '原始记录列表');
-                    LIMS.dialog_lg.currentView = 'originRecord' + project.id;
-
-
+                    LIMS.dialog_lg.currentView = 'originRecord' + project.id+project.delivery.state;
                 },
-//                inspection: function (project) {
-//                    //填写送检单
-//                    //alert("填写送检单");
-//                },
                 save: function (project) {
                     var me = this;
                     jQuery.fn.check_msg({
                         msg: "是否保存当前【" + project.name + "】的实验分析结果？",
                         success: function () {
                             me.$http.post("/distribute/analystSave", {
-                                project_id: project.id,
-                                task_id: me.id
+                                delivery_id: project.delivery.id
                             }).then(function (response) {
                                 var data = response.data;
                                 jQuery.fn.codeState(data.code, {
                                     200: function () {
                                         jQuery.fn.alert_msg(project.name + "检测结果保存成功!");
+                                        me.load_list("", 1);
+                                        me.load_projectlist(me.id);
                                     },
                                     505: function () {
                                         jQuery.fn.error_msg("您尚未填写送检单,无法保存检测结果!");
@@ -539,77 +539,42 @@
                     var id = jQuery('#originRecord_template').val();
                     window.open("/distribute/createOriginRecord?template_id=" + id + "&&delivery_id=" + me.delivery_id);
                 },
-                flow: function (task) {
+                flow: function (task_id, identify) {
                     var me = this;
                     jQuery.fn.check_msg({
-                        msg: "您即将进行任务编号为【" + task.identify + "】的进度流转,是否继续?",
+                        msg: "您即将进行任务编号为【" + identify + "】的进度流转,是否继续?",
                         success: function () {
                             var data = {
-                                task_id: task.id
+                                task_id: task_id
                             };
-                            me.$http.post("/distribute/checkUser", data).then(function (response) {
+                            me.$http.post("/distribute/checkAnalyst", data).then(function (response) {
                                 var data = response.data;
                                 jQuery.fn.codeState(data.code, {
                                     200: function () {
-                                        me.$http.post("/flow/distributeFlow", {id: task.id}).then(function (response) {
+                                        me.$http.post("/flow/experienceFlow", {id: task_id}).then(function (response) {
                                             var data = response.data;
                                             jQuery.fn.codeState(data.code, {
                                                 200: function () {
                                                     jQuery.fn.alert_msg("任务流转成功!");
                                                     me.projectList = [];
                                                     me.sample_list = [];
-                                                    me.load_list("state=receive_delivery", 1);
+                                                    //me.load_list("state=receive_delivery", 1);
+                                                    me.load_list("", 1);
+                                                }
+                                            })
+                                        }, function (response) {
+                                            jQuery.fn.error_msg("数据异常,无法流转任务,请刷新后重新尝试!");
+                                        });
+                                    },
+                                    504: function () {
+                                        jQuery.fn.error_msg("当前任务书尚有未完成的监测项目,任务无法流转!");
+                                    }
+                                })
+                            }, function (response) {
+                                jQuery.fn.error_msg("数据异常,无法进行项目流转!");
+                            });
 
-                                                }
-                                            })
-                                        }, function (response) {
-                                            jQuery.fn.error_msg("数据异常,无法流转任务,请刷新后重新尝试!");
-                                        });
-                                    },
-                                    504: function () {
-                                        jQuery.fn.error_msg("当前任务书尚有未分配监测项目,任务无法流转!");
-                                    }
-                                })
-                            }, function (response) {
-                                jQuery.fn.error_msg("数据异常,无法进行项目流转!");
-                            });
-                        }
-                    })
-                },
-                flowItem: function (task) {
-                    var me = this;
-                    jQuery.fn.check_msg({
-                        msg: "您即将进行任务编号为【" + me.identify + "】的进度流转,是否继续?",
-                        success: function () {
-                            var data = {
-                                task_id: me.id
-                            };
-                            me.$http.post("/distribute/checkUser", data).then(function (response) {
-                                var data = response.data;
-                                jQuery.fn.codeState(data.code, {
-                                    200: function () {
-                                        me.$http.post("/flow/distributeFlow", {id: me.id}).then(function (response) {
-                                            var data = response.data;
-                                            jQuery.fn.codeState(data.code, {
-                                                200: function () {
-                                                    jQuery.fn.alert_msg("任务流转成功!");
-                                                    me.load_list("state=receive_delivery", 1);
-                                                    me.projectList = [];
-                                                    me.sample_list = [];
-                                                    jQuery("#tab_task_list a").tab("show");
-                                                }
-                                            })
-                                        }, function (response) {
-                                            jQuery.fn.error_msg("数据异常,无法流转任务,请刷新后重新尝试!");
-                                        });
-                                    },
-                                    504: function () {
-                                        jQuery.fn.error_msg("当前任务书尚有未分配监测项目,任务无法流转!");
-                                    }
-                                })
-                            }, function (response) {
-                                jQuery.fn.error_msg("数据异常,无法进行项目流转!");
-                            });
+
                         }
                     })
                 }
