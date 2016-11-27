@@ -349,6 +349,22 @@ public class DistributeController extends Controller {
         } catch (Exception e) {
             renderError(500);
         }
+    }
+
+    /**
+     * 修改送检单
+     */
+    public void changeInspection(){
+        try {
+            int delivery_id = getParaToInt("delivery_id");
+            Delivery delivery = Delivery.deliveryDao.findById(delivery_id);
+            if (delivery != null) {
+                getRequest().setAttribute("delivery", delivery);
+                render("template/change_inspection.jsp");
+            } else renderNull();
+        }catch (Exception e){
+            renderError(500);
+        }
 
     }
 }
