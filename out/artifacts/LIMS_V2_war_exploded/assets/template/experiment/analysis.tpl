@@ -84,7 +84,7 @@
                                                target="_blank" class="btn btn-sm btn-info-alt">填 写</a>
                                             <a v-if="project.inspection_path != null" href="/distribute/viewInspection?delivery_id={{project.delivery.id}}"
                                                target="_blank" class="btn btn-sm btn-success-alt">查 看</a>
-                                            <a v-if="project.inspection_path != null" href="/distribute/createInspection?delivery_id={{project.delivery.id}}"
+                                            <a v-if="project.inspection_path != null" href="/distribute/changeInspection?delivery_id={{project.delivery.id}}"
                                                target="_blank" class="btn btn-sm btn-primary-alt">修 改</a>
                                             <a v-if="project.inspection_path != null" class="btn btn-sm btn-danger-alt" @click="deleteInspection(project)">删 除</a>
                                         </td>

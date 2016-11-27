@@ -91,7 +91,14 @@ public class ExportController extends Controller {
                         getRequest().setAttribute("isChange", false);
                         System.out.println("执行了inspection");
                     }
-
+                    break;
+                case "inspectionChange":
+                    delivery_id = getParaToInt("delivery_id");
+                    delivery = Delivery.deliveryDao.findById(delivery_id);
+                    if (delivery != null) {
+                        getRequest().setAttribute("realPath", delivery.getStr("inspection_path"));
+                        getRequest().setAttribute("isChange", true);
+                    }
                     break;
                 default:
                     break;
