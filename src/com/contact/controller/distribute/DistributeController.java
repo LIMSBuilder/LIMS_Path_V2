@@ -319,6 +319,9 @@ public class DistributeController extends Controller {
         }else renderJson(RenderUtils.CODE_EMPTY);
     }
 
+    /**
+     * 删除送检单
+     */
     public void deleteInspection(){
         try {
             int delivery_id =getParaToInt("delivery_id");
@@ -330,5 +333,22 @@ public class DistributeController extends Controller {
         }catch (Exception e){
             renderError(500);
         }
+    }
+
+    /**
+     * 查看送检单
+     */
+    public void viewInspection(){
+        try {
+            int delivery_id = getParaToInt("delivery_id");
+           Delivery delivery = Delivery.deliveryDao.findById(delivery_id);
+            if (delivery != null) {
+                getRequest().setAttribute("delivery", delivery);
+                render("template/view_inspection.jsp");
+            } else renderNull();
+        } catch (Exception e) {
+            renderError(500);
+        }
+
     }
 }

@@ -28,8 +28,8 @@
       <file leaf-file-name="DistributeController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="323" column="54" selection-start-line="323" selection-start-column="43" selection-end-line="323" selection-end-column="54" />
+            <state relative-caret-position="110">
+              <caret line="340" column="30" selection-start-line="340" selection-start-column="16" selection-end-line="340" selection-end-column="30" />
               <folding>
                 <element signature="method#task_distribute#0;class#DistributeController#0" expanded="false" />
                 <element signature="method#clear_distribute#0;class#DistributeController#0" expanded="false" />
@@ -74,31 +74,41 @@
       <file leaf-file-name="analysis.tpl" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="526" column="18" selection-start-line="526" selection-start-column="18" selection-end-line="526" selection-end-column="18" />
+            <state relative-caret-position="885">
+              <caret line="84" column="118" selection-start-line="84" selection-start-column="118" selection-end-line="84" selection-end-column="118" />
               <folding>
-                <element signature="e#11281#11614#0" expanded="false" />
-                <element signature="e#11663#14125#0" expanded="false" />
-                <element signature="e#14188#16441#0" expanded="false" />
-                <element signature="e#16478#16580#0" expanded="false" />
-                <element signature="e#16630#17375#0" expanded="false" />
-                <element signature="e#17422#17567#0" expanded="false" />
-                <element signature="e#17618#27965#0" expanded="false" />
-                <element signature="e#28757#29926#0" expanded="false" />
-                <element signature="e#29973#30248#0" expanded="false" />
-                <element signature="e#30288#32322#0" expanded="false" />
-                <element signature="e#32366#34485#0" expanded="false" />
-                <marker date="1480213863951" expanded="true" signature="27549:27579" ph="{...}" />
+                <element signature="e#11279#11612#0" expanded="false" />
+                <element signature="e#11661#14123#0" expanded="false" />
+                <element signature="e#14186#16439#0" expanded="false" />
+                <element signature="e#16476#16578#0" expanded="false" />
+                <element signature="e#16628#17373#0" expanded="false" />
+                <element signature="e#17420#17565#0" expanded="false" />
+                <element signature="e#17616#27963#0" expanded="false" />
+                <element signature="e#28755#29924#0" expanded="false" />
+                <element signature="e#29971#30246#0" expanded="false" />
+                <element signature="e#30286#32320#0" expanded="false" />
+                <element signature="e#32364#34483#0" expanded="false" />
+                <marker date="1480214483375" expanded="true" signature="27547:27577" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="inspection.tpl" pinned="false" current-in-tab="true">
+      <file leaf-file-name="inspection.tpl" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/assets/template/template/inspection.tpl">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="view_inspection.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/view_inspection.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -175,6 +185,7 @@
         <option value="$PROJECT_DIR$/web/WEB-INF/pages/template/create_originRecord.jsp" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java" />
         <option value="$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/pages/template/view_inspection.jsp" />
       </list>
     </option>
   </component>
@@ -445,16 +456,16 @@
     <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/web/WEB-INF/pages/template" />
-      <recent name="G:\LIMS_V2\web\WEB-INF\pages\template" />
-      <recent name="G:\LIMS_V2\web\attachment" />
-      <recent name="$PROJECT_DIR$/web" />
-      <recent name="$PROJECT_DIR$/web/assets/template/subject" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="G:\LIMS_V2\web\WEB-INF\pages\template" />
       <recent name="G:\LIMS_V2\web\doc" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\LIMS_V2\web\WEB-INF\pages\template" />
+      <recent name="$PROJECT_DIR$/web/WEB-INF/pages/template" />
+      <recent name="G:\LIMS_V2\web\attachment" />
+      <recent name="$PROJECT_DIR$/web" />
+      <recent name="$PROJECT_DIR$/web/assets/template/subject" />
     </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.未命名">
@@ -1017,12 +1028,12 @@
       <workItem from="1480049963598" duration="34000" />
       <workItem from="1480050371853" duration="16265000" />
       <workItem from="1480072265575" duration="6105000" />
-      <workItem from="1480207297668" duration="6600000" />
+      <workItem from="1480207297668" duration="7529000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="120145000" />
+    <option name="totallyTimeSpent" value="121074000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1125,7 +1136,7 @@
           <option name="timeStamp" value="63" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="78" />
+      <option name="time" value="79" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
@@ -1133,6 +1144,9 @@
         <watch expression="inspectionTemplate" language="JSP" />
         <watch expression="inspectionTemplate.get(&quot;id&quot;)" language="JSP" />
         <watch expression="inspectionTemplate.get(&quot;path&quot;)" language="JSP" />
+        <watch expression="path.lastIndexOf(&quot;/&quot;))" language="JSP" />
+        <watch expression="path.substring(path.lastIndexOf(&quot;/&quot;))" language="JSP" />
+        <watch expression="path" language="JSP" />
       </configuration>
     </watches-manager>
   </component>
@@ -1141,13 +1155,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/constract/ContractController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="196" column="25" selection-start-line="196" selection-start-column="25" selection-end-line="196" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/contact/model/MailReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1506,10 +1513,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/template/template/inspection.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="323" column="54" selection-start-line="323" selection-start-column="43" selection-end-line="323" selection-end-column="54" />
+        <state relative-caret-position="110">
+          <caret line="340" column="30" selection-start-line="340" selection-start-column="16" selection-end-line="340" selection-end-column="30" />
           <folding>
             <element signature="method#task_distribute#0;class#DistributeController#0" expanded="false" />
             <element signature="method#clear_distribute#0;class#DistributeController#0" expanded="false" />
@@ -1522,29 +1537,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="526" column="18" selection-start-line="526" selection-start-column="18" selection-end-line="526" selection-end-column="18" />
+        <state relative-caret-position="885">
+          <caret line="84" column="118" selection-start-line="84" selection-start-column="118" selection-end-line="84" selection-end-column="118" />
           <folding>
-            <element signature="e#11281#11614#0" expanded="false" />
-            <element signature="e#11663#14125#0" expanded="false" />
-            <element signature="e#14188#16441#0" expanded="false" />
-            <element signature="e#16478#16580#0" expanded="false" />
-            <element signature="e#16630#17375#0" expanded="false" />
-            <element signature="e#17422#17567#0" expanded="false" />
-            <element signature="e#17618#27965#0" expanded="false" />
-            <element signature="e#28757#29926#0" expanded="false" />
-            <element signature="e#29973#30248#0" expanded="false" />
-            <element signature="e#30288#32322#0" expanded="false" />
-            <element signature="e#32366#34485#0" expanded="false" />
-            <marker date="1480213863951" expanded="true" signature="27549:27579" ph="{...}" />
+            <element signature="e#11279#11612#0" expanded="false" />
+            <element signature="e#11661#14123#0" expanded="false" />
+            <element signature="e#14186#16439#0" expanded="false" />
+            <element signature="e#16476#16578#0" expanded="false" />
+            <element signature="e#16628#17373#0" expanded="false" />
+            <element signature="e#17420#17565#0" expanded="false" />
+            <element signature="e#17616#27963#0" expanded="false" />
+            <element signature="e#28755#29924#0" expanded="false" />
+            <element signature="e#29971#30246#0" expanded="false" />
+            <element signature="e#30286#32320#0" expanded="false" />
+            <element signature="e#32364#34483#0" expanded="false" />
+            <marker date="1480214483375" expanded="true" signature="27547:27577" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/template/template/inspection.tpl">
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/view_inspection.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="375">
+          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
           <folding />
         </state>
       </provider>
