@@ -250,6 +250,12 @@ public class DistributeController extends Controller {
             String name = getPara("name");
             String path = getPara("path");
             int delivery_id= getParaToInt("delivery_id");
+            Delivery delivery = Delivery.deliveryDao.findById(delivery_id);
+            if(delivery!=null){
+                Delivery_OriginRecord delivery_originRecord =  new Delivery_OriginRecord();
+                Boolean result = delivery_originRecord.set("name",name).set("originRecord_path",path).set("delivery_id",delivery_id).save();
+                renderJson(result?RenderUtils.CODE_SUCCESS:RenderUtils.CODE_ERROR);
+            }else renderJson(RenderUtils.CODE_EMPTY);
         } catch (Exception e) {
             renderError(500);
         }
@@ -365,6 +371,22 @@ public class DistributeController extends Controller {
         }catch (Exception e){
             renderError(500);
         }
+    }
 
+    /**
+     * 上传送检单
+     */
+    public void uploadInspection(){
+        try {
+            int delivery_id = getParaToInt("delivery_id");
+            String path = getPara("path");
+            Delivery delivery = Delivery.deliveryDao.findById(delivery_id);
+            if(delivery!=null){
+                Boolean result = delivery.set("inspection_path",path).update();
+                renderJson(result?RenderUtils.CODE_SUCCESS:RenderUtils.CODE_ERROR);
+            }else renderJson(RenderUtils.CODE_EMPTY);
+        }catch (Exception e){
+            renderError(500);
+        }
     }
 }

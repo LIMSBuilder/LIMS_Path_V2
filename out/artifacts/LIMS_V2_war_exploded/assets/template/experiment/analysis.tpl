@@ -82,6 +82,7 @@
 
                                             <a v-if="project.inspection_path == null" href="/distribute/createInspection?delivery_id={{project.delivery.id}}"
                                                target="_blank" class="btn btn-sm btn-info-alt">填 写</a>
+                                            <a v-if="project.inspection_path == null" class="btn btn-sm btn-info-alt" @click="upload_inspection(project)">上 传</a>
                                             <a v-if="project.inspection_path != null" href="/distribute/viewInspection?delivery_id={{project.delivery.id}}"
                                                target="_blank" class="btn btn-sm btn-success-alt">查 看</a>
                                             <a v-if="project.inspection_path != null" href="/distribute/changeInspection?delivery_id={{project.delivery.id}}"
@@ -425,6 +426,7 @@
 
                             },
                             add_record_upload: function () {
+                                var add_upload = this;
                                 jQuery("#custom_lg_modal").modal("hide");
                                 jQuery("#custom_modal").modal("show");
                                 var template = jQuery.fn.loadTemplate("/assets/template/subject/upload_originRecord.tpl");
@@ -471,8 +473,8 @@
                                                             jQuery.fn.codeState(data.code, {
                                                                 200: function () {
                                                                     jQuery.fn.alert_msg("原始记录保存成功!");
-
-
+                                                                    me.load_projectlist(me.id);
+                                                                    add_upload.load_list();
                                                                 }
                                                             })
                                                         }, function (response) {
@@ -482,6 +484,7 @@
                                                 });
 
                                                 jQuery("#save_originRecord").off("click").on("click", function () {
+                                                    jQuery("#custom_modal").modal("hide");
                                                     jQuery.fn.check_msg({
                                                         msg: "是否保存当前原始记录?",
                                                         success: function () {
@@ -524,6 +527,81 @@
                     },function () {
                         jQuery.fn.error_msg("服务器异常，无法删除送检单！");
                     })
+                },
+                upload_inspection:function (project) {
+                  //上传送检单
+                    var me = this;
+                    var delivery_id = project.delivery.id;
+                    var template = jQuery.fn.loadTemplate("/assets/template/subject/upload_inspection.tpl");
+                    jQuery("#custom_modal").modal("show");
+                    Vue.component('upload_inspection'+delivery_id, {
+                        template: template,
+                        data: function () {
+                            return {};
+                        },
+                        methods: {},
+                        ready: function () {
+                            var that = this;
+                            jQuery("#dropz").dropzone({
+                                url: "/file/upload",
+                                maxFilesize: 2,
+                                method: "post",
+                                maxFiles: 1,
+                                paramName: 'inspection_template',
+                                addRemoveLinks: true,//添加移除文,
+                                autoProcessQueue: false,//不自动上传
+                                dictMaxFilesExceeded: "您一次最多只能上传{{maxFiles}}个文件",
+                                dictResponseError: '文件上传失败!',
+                                dictInvalidFileType: "你不能上传该类型文件,文件类型只能是Word文档。",
+                                dictCancelUpload: "取消上传",
+                                dictCancelUploadConfirmation: "你确定要取消上传吗?",
+                                dictRemoveFile: "移除文件",
+                                uploadMultiple: false,
+                                init: function () {
+                                    var dropObj = this;
+                                    dropObj.on("success", function (file) {
+                                        if (file.xhr.status != 200) {
+                                            jQuery.fn.error_msg("服务器异常,无法上传文件!");
+                                            return;
+                                        }
+                                        var data = JSON.parse(file.xhr.responseText);
+                                        if (data.code == 200) {
+                                            me.$http.post("/distribute/uploadInspection", {
+                                                path: data.path,
+                                                delivery_id: delivery_id
+                                            }).then(function (response) {
+                                                var data = response.data;
+                                                jQuery.fn.codeState(data.code, {
+                                                    200: function () {
+                                                        jQuery.fn.alert_msg("送检单保存成功!");
+                                                        me.load_projectlist(me.id);
+                                                    }
+                                                })
+                                            }, function (response) {
+                                                jQuery.fn.error_msg("送检单保存失败,请刷新后重新尝试!");
+                                            });
+                                        }
+                                    });
+
+                                    jQuery("#save_originRecord").off("click").on("click", function () {
+                                        jQuery("#custom_modal").modal("hide");
+                                        jQuery.fn.check_msg({
+                                            msg: "是否保存当前自定义送检单?",
+                                            success: function () {
+                                                var data = dropObj.processQueue();
+                                                dropObj.removeAllFiles();
+                                            }
+                                        });
+                                    });
+                                }
+                            });
+                        }
+                    });
+                    LIMS.dialog.$set('title', "上传自定义送检单");
+                    LIMS.dialog.currentView = 'upload_inspection'+delivery_id;
+
+
+
                 },
                 save: function (project) {
                     var me = this;
