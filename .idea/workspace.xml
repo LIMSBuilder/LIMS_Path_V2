@@ -29,8 +29,8 @@
       <file leaf-file-name="DistributeController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="356" column="32" selection-start-line="356" selection-start-column="16" selection-end-line="356" selection-end-column="32" />
+            <state relative-caret-position="175">
+              <caret line="374" column="32" selection-start-line="374" selection-start-column="16" selection-end-line="374" selection-end-column="32" />
               <folding>
                 <element signature="method#task_distribute#0;class#DistributeController#0" expanded="false" />
                 <element signature="method#clear_distribute#0;class#DistributeController#0" expanded="false" />
@@ -45,7 +45,7 @@
       <file leaf-file-name="ExportController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/contact/controller/office/ExportController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
+            <state relative-caret-position="2250">
               <caret line="98" column="59" selection-start-line="98" selection-start-column="51" selection-end-line="98" selection-end-column="59" />
               <folding />
             </state>
@@ -55,7 +55,7 @@
       <file leaf-file-name="create_inspection.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/create_inspection.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
+            <state relative-caret-position="25">
               <caret line="34" column="133" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="133" />
               <folding />
             </state>
@@ -65,7 +65,7 @@
       <file leaf-file-name="savefile.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/savefile.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="625">
+            <state relative-caret-position="539">
               <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
               <folding />
             </state>
@@ -75,22 +75,33 @@
       <file leaf-file-name="analysis.tpl" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="86" column="120" selection-start-line="86" selection-start-column="120" selection-end-line="86" selection-end-column="120" />
+            <state relative-caret-position="1539">
+              <caret line="569" column="73" selection-start-line="569" selection-start-column="73" selection-end-line="569" selection-end-column="73" />
               <folding>
-                <element signature="e#11279#11612#0" expanded="false" />
-                <element signature="e#11661#14123#0" expanded="false" />
-                <element signature="e#14186#16439#0" expanded="false" />
-                <element signature="e#16476#16578#0" expanded="false" />
-                <element signature="e#16628#17373#0" expanded="false" />
-                <element signature="e#17420#17565#0" expanded="false" />
-                <element signature="e#17616#27963#0" expanded="false" />
-                <element signature="e#28755#29924#0" expanded="false" />
-                <element signature="e#29971#30246#0" expanded="false" />
-                <element signature="e#30286#32320#0" expanded="false" />
-                <element signature="e#32364#34483#0" expanded="false" />
-                <marker date="1480215617293" expanded="true" signature="27547:27577" ph="{...}" />
+                <element signature="e#11441#11774#0" expanded="false" />
+                <element signature="e#11823#14285#0" expanded="false" />
+                <element signature="e#14348#16601#0" expanded="false" />
+                <element signature="e#16638#16740#0" expanded="false" />
+                <element signature="e#16790#17535#0" expanded="false" />
+                <element signature="e#17582#17727#0" expanded="false" />
+                <element signature="e#17778#28125#0" expanded="false" />
+                <element signature="e#28179#28874#0" expanded="false" />
+                <element signature="e#33142#34311#0" expanded="false" />
+                <element signature="e#34358#34633#0" expanded="false" />
+                <element signature="e#34673#36707#0" expanded="false" />
+                <element signature="e#36751#38870#0" expanded="false" />
+                <marker date="1480247029455" expanded="true" signature="27709:27739" ph="{...}" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="upload_inspection.tpl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/assets/template/subject/upload_inspection.tpl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="275">
+              <caret line="11" column="79" selection-start-line="11" selection-start-column="79" selection-end-line="11" selection-end-column="79" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -118,7 +129,7 @@
       <file leaf-file-name="change_inspection.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/change_inspection.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
+            <state relative-caret-position="1475">
               <caret line="59" column="40" selection-start-line="59" selection-start-column="40" selection-end-line="59" selection-end-column="40" />
               <folding />
             </state>
@@ -128,7 +139,7 @@
       <file leaf-file-name="create_originRecord.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/create_originRecord.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-500">
+            <state relative-caret-position="625">
               <caret line="25" column="52" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="52" />
               <folding />
             </state>
@@ -196,6 +207,7 @@
         <option value="$PROJECT_DIR$/web/WEB-INF/pages/template/view_inspection.jsp" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/office/ExportController.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/pages/template/change_inspection.jsp" />
+        <option value="$PROJECT_DIR$/web/assets/template/subject/upload_inspection.tpl" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java" />
         <option value="$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl" />
       </list>
@@ -222,10 +234,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -258,7 +268,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -427,6 +436,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="subject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="template" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="experiment" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -451,6 +486,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
@@ -468,16 +504,16 @@
     <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="G:\LIMS_V2\web\WEB-INF\pages\template" />
-      <recent name="G:\LIMS_V2\web\doc" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\LIMS_V2\web\assets\template\subject" />
       <recent name="G:\LIMS_V2\web\WEB-INF\pages\template" />
       <recent name="$PROJECT_DIR$/web/WEB-INF/pages/template" />
       <recent name="G:\LIMS_V2\web\attachment" />
       <recent name="$PROJECT_DIR$/web" />
-      <recent name="$PROJECT_DIR$/web/assets/template/subject" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\LIMS_V2\web\WEB-INF\pages\template" />
+      <recent name="G:\LIMS_V2\web\doc" />
     </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.未命名">
@@ -1041,14 +1077,15 @@
       <workItem from="1480050371853" duration="16265000" />
       <workItem from="1480072265575" duration="6105000" />
       <workItem from="1480207297668" duration="8327000" />
+      <workItem from="1480244354422" duration="2808000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="121872000" />
+    <option name="totallyTimeSpent" value="124680000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1068,12 +1105,10 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297769" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Dynamic Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3678647" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36760426" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1081,11 +1116,13 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="设计师" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Dynamic Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="消息" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3112245" sideWeight="0.49791667" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="控制板" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297769" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="找到" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -1167,13 +1204,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/contact/model/Mail.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="8" column="44" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/subject/compose.tpl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1234,9 +1264,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="28" column="75" selection-start-line="28" selection-start-column="75" selection-end-line="28" selection-end-column="75" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1293,7 +1320,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="34" column="51" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1358,12 +1384,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="832" column="32" selection-start-line="832" selection-start-column="32" selection-end-line="832" selection-end-column="32" />
-          <folding>
-            <element signature="e#48790#48796#0" expanded="false" />
-            <element signature="e#48931#48939#0" expanded="false" />
-            <element signature="e#49070#49078#0" expanded="false" />
-            <element signature="e#49461#49467#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1424,7 +1444,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="76" column="47" selection-start-line="76" selection-start-column="24" selection-end-line="76" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1440,7 +1459,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6900">
           <caret line="300" column="0" selection-start-line="300" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1472,9 +1490,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
           <caret line="116" column="0" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
-          <folding>
-            <element signature="e#3515#3516#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1488,32 +1503,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/create_originRecord.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-500">
+        <state relative-caret-position="625">
           <caret line="25" column="52" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/create_inspection.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="34" column="133" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="133" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/contact/controller/office/ExportController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
+        <state relative-caret-position="2250">
           <caret line="98" column="59" selection-start-line="98" selection-start-column="51" selection-end-line="98" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/savefile.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="625">
-          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -1528,23 +1527,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/change_inspection.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
+        <state relative-caret-position="1475">
           <caret line="59" column="40" selection-start-line="59" selection-start-column="40" selection-end-line="59" selection-end-column="40" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="356" column="32" selection-start-line="356" selection-start-column="16" selection-end-line="356" selection-end-column="32" />
-          <folding>
-            <element signature="method#task_distribute#0;class#DistributeController#0" expanded="false" />
-            <element signature="method#clear_distribute#0;class#DistributeController#0" expanded="false" />
-            <element signature="method#delUser#0;class#DistributeController#0" expanded="false" />
-            <element signature="method#checkUser#0;class#DistributeController#0" expanded="false" />
-            <element signature="method#getInspectionList#0;class#DistributeController#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1556,23 +1541,62 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/savefile.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="539">
+          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/create_inspection.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="34" column="133" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="133" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="374" column="32" selection-start-line="374" selection-start-column="16" selection-end-line="374" selection-end-column="32" />
+          <folding>
+            <element signature="method#task_distribute#0;class#DistributeController#0" expanded="false" />
+            <element signature="method#clear_distribute#0;class#DistributeController#0" expanded="false" />
+            <element signature="method#delUser#0;class#DistributeController#0" expanded="false" />
+            <element signature="method#checkUser#0;class#DistributeController#0" expanded="false" />
+            <element signature="method#getInspectionList#0;class#DistributeController#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/template/subject/upload_inspection.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="11" column="79" selection-start-line="11" selection-start-column="79" selection-end-line="11" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="86" column="120" selection-start-line="86" selection-start-column="120" selection-end-line="86" selection-end-column="120" />
+        <state relative-caret-position="1539">
+          <caret line="569" column="73" selection-start-line="569" selection-start-column="73" selection-end-line="569" selection-end-column="73" />
           <folding>
-            <element signature="e#11279#11612#0" expanded="false" />
-            <element signature="e#11661#14123#0" expanded="false" />
-            <element signature="e#14186#16439#0" expanded="false" />
-            <element signature="e#16476#16578#0" expanded="false" />
-            <element signature="e#16628#17373#0" expanded="false" />
-            <element signature="e#17420#17565#0" expanded="false" />
-            <element signature="e#17616#27963#0" expanded="false" />
-            <element signature="e#28755#29924#0" expanded="false" />
-            <element signature="e#29971#30246#0" expanded="false" />
-            <element signature="e#30286#32320#0" expanded="false" />
-            <element signature="e#32364#34483#0" expanded="false" />
-            <marker date="1480215617293" expanded="true" signature="27547:27577" ph="{...}" />
+            <element signature="e#11441#11774#0" expanded="false" />
+            <element signature="e#11823#14285#0" expanded="false" />
+            <element signature="e#14348#16601#0" expanded="false" />
+            <element signature="e#16638#16740#0" expanded="false" />
+            <element signature="e#16790#17535#0" expanded="false" />
+            <element signature="e#17582#17727#0" expanded="false" />
+            <element signature="e#17778#28125#0" expanded="false" />
+            <element signature="e#28179#28874#0" expanded="false" />
+            <element signature="e#33142#34311#0" expanded="false" />
+            <element signature="e#34358#34633#0" expanded="false" />
+            <element signature="e#34673#36707#0" expanded="false" />
+            <element signature="e#36751#38870#0" expanded="false" />
+            <marker date="1480247029455" expanded="true" signature="27709:27739" ph="{...}" />
           </folding>
         </state>
       </provider>
