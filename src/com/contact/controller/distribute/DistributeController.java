@@ -303,4 +303,32 @@ public class DistributeController extends Controller {
             renderError(500);
         }
     }
+
+
+    /**
+     * 保存送检单
+     */
+    public void saveInspection(){
+        int delivery_id = getParaToInt("delivery_id");
+        String name = getPara("name");
+        String path = getPara("path");
+        Delivery delivery = Delivery.deliveryDao.findById(delivery_id);
+        if(delivery!=null){
+            Boolean result = delivery.set("inspection_path",path).update();
+            renderJson(result?RenderUtils.CODE_SUCCESS:RenderUtils.CODE_ERROR);
+        }else renderJson(RenderUtils.CODE_EMPTY);
+    }
+
+    public void deleteInspection(){
+        try {
+            int delivery_id =getParaToInt("delivery_id");
+            Delivery delivery = Delivery.deliveryDao.findById(delivery_id);
+            if(delivery!=null){
+                Boolean result = delivery.set("inspection_path",null).update();
+                renderJson(result?RenderUtils.CODE_SUCCESS:RenderUtils.CODE_ERROR);
+            }else renderJson(RenderUtils.CODE_EMPTY);
+        }catch (Exception e){
+            renderError(500);
+        }
+    }
 }

@@ -49,32 +49,53 @@ public class ExportController extends Controller {
 
     public void save() {
         String type = getPara("type");
-        switch (type) {
-            case "originRecord":
-                int delivery_id = getParaToInt("delivery_id");//交联单ID
-                int template_id = getParaToInt("template_id");//套用的模板ID
-                OriginRecordTemplate originRecordTemplate = OriginRecordTemplate.originRecordTemplateDao.findById(template_id);
-                Delivery delivery = Delivery.deliveryDao.findById(delivery_id);
-                if (originRecordTemplate != null && delivery != null) {
-                    Task task = Task.taskDao.findById(delivery.get("task_id"));
-                    String name = originRecordTemplate.get("name");
-                    int size = Delivery_OriginRecord.delivery_originRecordDao.find("SELECT * FROM `db_deliveryOriginRecord` WHERE delivery_id=" + delivery_id + " AND name like '" + name + "%'").size();
-                    if (size != 0) name += (size + 1);
-                    String fileName = "(" + task.get("identify") + ")" + name + originRecordTemplate.getStr("path").substring(originRecordTemplate.getStr("path").lastIndexOf("."));
-                    getRequest().setAttribute("name", name);
-                    getRequest().setAttribute("fileName", fileName);
-                    getRequest().setAttribute("delivery_id", delivery_id);
-                    getRequest().setAttribute("isChange", false);
-                }
-                break;
-            case "originRecordChange":
-                int record_id = getParaToInt("record_id");
-                Delivery_OriginRecord delivery_originRecord = Delivery_OriginRecord.delivery_originRecordDao.findById(record_id);
-                if (delivery_originRecord != null) {
-                    getRequest().setAttribute("realPath", delivery_originRecord.getStr("originRecord_path"));
-                    getRequest().setAttribute("isChange", true);
-                }
-                break;
+        if(type!=null) {
+            switch (type) {
+                case "originRecord":
+                    int delivery_id = getParaToInt("delivery_id");//交联单ID
+                    int template_id = getParaToInt("template_id");//套用的模板ID
+                    OriginRecordTemplate originRecordTemplate = OriginRecordTemplate.originRecordTemplateDao.findById(template_id);
+                    Delivery delivery = Delivery.deliveryDao.findById(delivery_id);
+                    if (originRecordTemplate != null && delivery != null) {
+                        Task task = Task.taskDao.findById(delivery.get("task_id"));
+                        String name = originRecordTemplate.get("name");
+                        int size = Delivery_OriginRecord.delivery_originRecordDao.find("SELECT * FROM `db_deliveryOriginRecord` WHERE delivery_id=" + delivery_id + " AND name like '" + name + "%'").size();
+                        if (size != 0) name += (size + 1);
+                        String fileName = "(" + task.get("identify") + ")" + name + originRecordTemplate.getStr("path").substring(originRecordTemplate.getStr("path").lastIndexOf("."));
+                        getRequest().setAttribute("name", name);
+                        getRequest().setAttribute("fileName", fileName);
+                        getRequest().setAttribute("delivery_id", delivery_id);
+                        getRequest().setAttribute("isChange", false);
+                    }
+                    break;
+                case "originRecordChange":
+                    int record_id = getParaToInt("record_id");
+                    Delivery_OriginRecord delivery_originRecord = Delivery_OriginRecord.delivery_originRecordDao.findById(record_id);
+                    if (delivery_originRecord != null) {
+                        getRequest().setAttribute("realPath", delivery_originRecord.getStr("originRecord_path"));
+                        getRequest().setAttribute("isChange", true);
+                    }
+                    break;
+                case "inspection":
+                    delivery_id = getParaToInt("delivery_id");
+                    int inspection_id = getParaToInt("inspection_id");
+                    delivery = Delivery.deliveryDao.findById(delivery_id);
+                    InspectionTemplate inspectionTemplate = InspectionTemplate.inspectionTemplateDao.findById(inspection_id);
+                    if (delivery != null && inspectionTemplate != null) {
+                        Task task = Task.taskDao.findById(delivery.get("task_id"));
+                        String name = inspectionTemplate.get("name");
+                        String fileName = "(" + task.get("identify") + ")" + name + inspectionTemplate.getStr("path").substring(inspectionTemplate.getStr("path").lastIndexOf("."));
+                        getRequest().setAttribute("name", name);
+                        getRequest().setAttribute("fileName", fileName);
+                        getRequest().setAttribute("delivery_id", delivery_id);
+                        getRequest().setAttribute("isChange", false);
+                        System.out.println("执行了inspection");
+                    }
+
+                    break;
+                default:
+                    break;
+            }
         }
         render("template/savefile.jsp");
     }

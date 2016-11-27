@@ -17,26 +17,26 @@
     //获取Request数据
     OriginRecordTemplate originRecordTemplate =  (OriginRecordTemplate) request.getAttribute("originRecord");
     String delivery_id = request.getAttribute("delivery_id").toString();
-    String path ="";
     if(originRecordTemplate!=null){
-        path=originRecordTemplate.getStr("path");
-    }
-//设置服务器页面
-    poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-//添加自定义按钮
-    poCtrl.addCustomToolButton("生成","Create",3);
-    poCtrl.addCustomToolButton("保存","Save",1);
-    poCtrl.addCustomToolButton("打印", "ShowPrintDlg()", 6);
-    poCtrl.addCustomToolButton("-", "", 0);
-    poCtrl.addCustomToolButton("全屏切换", "SwitchFullScreen()", 4);
+        String path=originRecordTemplate.getStr("path");
+        //设置服务器页面
+        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
+        poCtrl.setCaption(originRecordTemplate.getStr("name"));
+        //添加自定义按钮
+        poCtrl.addCustomToolButton("生成","Create",3);
+        poCtrl.addCustomToolButton("保存","Save",1);
+        poCtrl.addCustomToolButton("打印", "ShowPrintDlg()", 6);
+        poCtrl.addCustomToolButton("-", "", 0);
+        poCtrl.addCustomToolButton("全屏切换", "SwitchFullScreen()", 4);
 
-    //设置保存页面
-    poCtrl.setSaveFilePage("/export/save?type=originRecord&&template_id="+originRecordTemplate.get("id")+"&&delivery_id="+delivery_id);
-    //poCtrl.setSaveFilePage("/export/save");
-    //设置页面
-    //打开Word文档
-    poCtrl.webOpen(path,OpenModeType.docNormalEdit, ParaUtils.getCurrentUser(request)!=null?ParaUtils.getCurrentUser(request).getStr("name"):"佚名");
-    poCtrl.setTagId("PageOfficeCtrl1");//此行必需
+        //设置保存页面
+        poCtrl.setFileTitle(originRecordTemplate.getStr("name"));
+        poCtrl.setSaveFilePage("/export/save?type=originRecord&&template_id="+originRecordTemplate.get("id")+"&&delivery_id="+delivery_id);
+        //设置页面
+        //打开Word文档
+        poCtrl.webOpen(path,OpenModeType.docNormalEdit, ParaUtils.getCurrentUser(request)!=null?ParaUtils.getCurrentUser(request).getStr("name"):"佚名");
+        poCtrl.setTagId("PageOfficeCtrl1");//此行必需
+    }
 %>
 <html>
 <head>
