@@ -3,10 +3,13 @@ package com.contact.controller.distribute;
 import com.contact.model.Delivery;
 import com.contact.model.Delivery_OriginRecord;
 import com.contact.model.OriginRecordTemplate;
+import com.contact.model.Task;
+import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.IAtom;
+import com.jfinal.render.Render;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.sql.SQLException;
@@ -18,9 +21,16 @@ import java.util.Map;
 
 /**
  * 任务分配下达
+ * <p/>
+ * <p/>
+ * <p/>
+ * Delivery的state类型:
+ * 0-待实验分析
+ * 1-实验分析已经完成,待实验分析人员业务流转
+ * 2-实验分析人员已经业务流转,被实验审核人员监测到。
  */
 public class DistributeController extends Controller {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     /**
      * 任务分配下达
@@ -119,6 +129,22 @@ public class DistributeController extends Controller {
 
 
     /**
+     * 检查当前实验分析人员是否已经完成了全部的实验分析
+     */
+    public void checkAnalyst() {
+        try {
+            int task_id = getParaToInt("task_id");
+            Task task = Task.taskDao.findById(task_id);
+            if (task != null) {
+                List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE state=0 AND task_id=" + task_id + " AND analyst=" + ParaUtils.getCurrentUser(getRequest()).get("id"));
+                renderJson(deliveryList.size() == 0 ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_EMPTY);
+            }
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+    /**
      * 获取送检单列表
      */
     public void getInspectionList() {
@@ -145,13 +171,16 @@ public class DistributeController extends Controller {
      */
     public void getOriginRecordList() {
         try {
-            int task_id = getParaToInt("task_id");
-            int project_id = getParaToInt("project_id");
-            Delivery delivery = Delivery.deliveryDao.findFirst("SELECT * FROM `db_delivery` WHERE task_id=" + task_id + " AND project_id=" + project_id);
+            //int task_id = getParaToInt("task_id");
+            //int project_id = getParaToInt("project_id");
+            //Delivery delivery = Delivery.deliveryDao.findFirst("SELECT * FROM `db_delivery` WHERE task_id=" + task_id + " AND project_id=" + project_id);
+            int delivery_id = getParaToInt("delivery_id");
+            Delivery delivery = Delivery.deliveryDao.findById(delivery_id);
             if (delivery != null) {
                 List<Delivery_OriginRecord> delivery_originRecordList = Delivery_OriginRecord.delivery_originRecordDao.find("SELECT * FROM `db_deliveryOriginRecord` WHERE delivery_id=" + delivery.get("id"));
                 Map result = new HashMap();
                 result.put("results", delivery_originRecordList);
+                result.put("delivery", delivery);
                 renderJson(result);
             } else renderJson(RenderUtils.CODE_EMPTY);
         } catch (Exception e) {
@@ -164,13 +193,16 @@ public class DistributeController extends Controller {
      */
     public void analystSave() {
         try {
-            int project_id = getParaToInt("project_id");
-            int task_id = getParaToInt("task_id");
+            //int project_id = getParaToInt("project_id");
+            //int task_id = getParaToInt("task_id");
 
-            Delivery delivery = Delivery.deliveryDao.findFirst("SELECT * FROM `db_delivery` WHERE task_id=" + task_id + " AND project_id=" + project_id);
+            int delivery_id = getParaToInt("delivery_id");
+            //Delivery delivery = Delivery.deliveryDao.findFirst("SELECT * FROM `db_delivery` WHERE task_id=" + task_id + " AND project_id=" + project_id);
+
+            Delivery delivery = Delivery.deliveryDao.findById(delivery_id);
             if (delivery != null) {
                 if (delivery.get("inspection_path") != null) {
-                    Boolean result = delivery.set("analyst_time", sdf.format(new Date())).update();
+                    Boolean result = delivery.set("analyst_time", sdf.format(new Date())).set("state", 1).update();
                     renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
                 } else {
                     renderJson(RenderUtils.CODE_UNIQUE);
@@ -249,7 +281,7 @@ public class DistributeController extends Controller {
         try {
             String name = getPara("name");
             String path = getPara("path");
-            int delivery_id= getParaToInt("delivery_id");
+            int delivery_id = getParaToInt("delivery_id");
         } catch (Exception e) {
             renderError(500);
         }
@@ -298,6 +330,25 @@ public class DistributeController extends Controller {
                 Delivery_OriginRecord delivery_originRecord = new Delivery_OriginRecord();
                 Boolean result = delivery_originRecord.set("delivery_id", delivery_id).set("originRecord_path", path).set("name", name).save();
                 renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+            } else renderJson(RenderUtils.CODE_EMPTY);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+
+    /**
+     * 通过Task_id找到Delivery的list并返回
+     */
+    public void getDeliveryByTaskId() {
+        try {
+            int task_id = getParaToInt("task_id");
+            Task task = Task.taskDao.findById(task_id);
+            if (task != null) {
+                List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE task_id=" + task_id);
+                Map result = new HashMap();
+                result.put("results", deliveryList);
+                renderJson(result);
             } else renderJson(RenderUtils.CODE_EMPTY);
         } catch (Exception e) {
             renderError(500);
