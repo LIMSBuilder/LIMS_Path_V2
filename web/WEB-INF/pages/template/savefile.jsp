@@ -2,8 +2,8 @@
 <%@ page import="com.zhuozhengsoft.pageoffice.*" %>
 <%@ page import="com.jfinal.kit.JsonKit" %>
 <%
-
-    if (request.getAttribute("isChange") == true) {
+    Boolean isChange =(Boolean) request.getAttribute("isChange");
+    if(isChange){
         String realPath = request.getAttribute("realPath").toString();
         FileSaver fs = new FileSaver(request, response);
         fs.saveToFile(realPath);

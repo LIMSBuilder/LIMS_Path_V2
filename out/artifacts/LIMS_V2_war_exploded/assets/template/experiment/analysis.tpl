@@ -79,10 +79,14 @@
                                                @click="originRecord(project)">列 表</a>
                                         </td>
                                         <td>
-                                            <!--<a href="/distribute/createInspection?delivery_id={{project.delivery.id}}"-->
-                                            <!--target="_blank"><i class="fa fa-edit"></i></a>-->
-                                            <a href="/distribute/createInspection?delivery_id={{project.delivery.id}}"
+
+                                            <a v-if="project.inspection_path == null" href="/distribute/createInspection?delivery_id={{project.delivery.id}}"
                                                target="_blank" class="btn btn-sm btn-info-alt">填 写</a>
+                                            <a v-if="project.inspection_path != null" href="/distribute/createInspection?delivery_id={{project.delivery.id}}"
+                                               target="_blank" class="btn btn-sm btn-success-alt">查 看</a>
+                                            <a v-if="project.inspection_path != null" href="/distribute/createInspection?delivery_id={{project.delivery.id}}"
+                                               target="_blank" class="btn btn-sm btn-primary-alt">修 改</a>
+                                            <a v-if="project.inspection_path != null" class="btn btn-sm btn-danger-alt" @click="deleteInspection(project)">删 除</a>
                                         </td>
                                         <td>{{project.samples.length}}</td>
                                         <td>{{project.state==0?"待分析":"待审核"}}</td>
@@ -505,10 +509,22 @@
 
 
                 },
-//                inspection: function (project) {
-//                    //填写送检单
-//                    //alert("填写送检单");
-//                },
+                deleteInspection:function (project) {
+                    var me =this;
+                    var delivery_id = project.delivery.id;
+                    me.$http.post("/distribute/deleteInspection",{delivery_id:delivery_id}).then(function (response) {
+                        var data =response.data;
+                        jQuery.fn.codeState(data.code,{
+                           200:function () {
+                               jQuery.fn.alert_msg("当前送检单删除成功！");
+                               me.frash();
+                           } 
+                        });
+                        
+                    },function () {
+                        jQuery.fn.error_msg("服务器异常，无法删除送检单！");
+                    })
+                },
                 save: function (project) {
                     var me = this;
                     jQuery.fn.check_msg({

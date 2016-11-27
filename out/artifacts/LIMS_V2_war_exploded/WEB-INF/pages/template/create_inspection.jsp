@@ -19,23 +19,25 @@
         InspectionTemplate inspectionTemplate = InspectionTemplate.inspectionTemplateDao.findById(category.get("inspection_template"));
         if (inspectionTemplate != null) {
             path = inspectionTemplate.get("path");
+            int inspection_id=inspectionTemplate.getInt("id");
+            //设置PageOffice服务器
+            poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");
+            poCtrl.setCaption(inspectionTemplate.getStr("name"));
+            //设置导航条
+            poCtrl.addCustomToolButton("生成", "Create", 3);
+            poCtrl.addCustomToolButton("保存", "Save", 1);
+            poCtrl.addCustomToolButton("打印", "ShowPrintDlg()", 6);
+            poCtrl.addCustomToolButton("-", "", 0);
+            poCtrl.addCustomToolButton("全屏切换", "SwitchFullScreen()", 4);
+
+            //设置保存页
+            poCtrl.setFileTitle(inspectionTemplate.getStr("name"));
+            poCtrl.setSaveFilePage("/export/save?type=inspection&&delivery_id="+delivery.get("id")+"&&inspection_id="+inspection_id);
+            //配置页面信息
+            poCtrl.webOpen(path, OpenModeType.docNormalEdit, ParaUtils.getCurrentUser(request) != null ? ParaUtils.getCurrentUser(request).getStr("name") : "佚名");
+            poCtrl.setTagId("PageOfficeCtrl1");
         }
     }
-    //设置PageOffice服务器
-    poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");
-    //设置导航条
-    poCtrl.addCustomToolButton("生成", "Create", 3);
-    poCtrl.addCustomToolButton("保存", "Save", 1);
-    poCtrl.addCustomToolButton("打印", "ShowPrintDlg()", 6);
-    poCtrl.addCustomToolButton("-", "", 0);
-    poCtrl.addCustomToolButton("全屏切换", "SwitchFullScreen()", 4);
-
-    //设置保存页
-    poCtrl.setSaveFilePage("/export/save");
-
-    //配置页面信息
-    poCtrl.webOpen(path, OpenModeType.docNormalEdit, ParaUtils.getCurrentUser(request) != null ? ParaUtils.getCurrentUser(request).getStr("name") : "佚名");
-    poCtrl.setTagId("PageOfficeCtrl1");
 %>
 <html>
 <head>
@@ -52,11 +54,34 @@
     <po:PageOfficeCtrl id="PageOfficeCtrl1">
     </po:PageOfficeCtrl>
 </div>
-
+<script src="/assets/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript">
     function Create() {
-        var result = document.getElementById("PageOfficeCtrl1").WebSave();
-        debugger
+        document.getElementById("PageOfficeCtrl1").WebSave();
+        var result  = JSON.parse(document.getElementById("PageOfficeCtrl1").CustomSaveResult);
+        if(result.code == 200){
+            var data={
+                delivery_id:result.delivery_id,
+                name:result.fileName,
+                path:result.path
+            };
+            jQuery.ajax({
+                type: "POST",
+                url: "/distribute/saveInspection",
+                data: data,
+                success:function (data) {
+                    if(data.code == 200){
+                        alert("当前送检单保存成功！");
+                    }
+                    if(data.code == 504){
+                        alert("未能定位当前检查项目，请刷新后重新尝试！");
+                    }
+                    if(data.code == 502){
+                        alert("服务器异常，无法保存当前送检单，请刷新后重新尝试！");
+                    }
+                }
+            });
+        }
     }
     function Save() {
         var result = document.getElementById("PageOfficeCtrl1").ShowDialog(3);
