@@ -426,6 +426,7 @@
 
                             },
                             add_record_upload: function () {
+                                var add_upload = this;
                                 jQuery("#custom_lg_modal").modal("hide");
                                 jQuery("#custom_modal").modal("show");
                                 var template = jQuery.fn.loadTemplate("/assets/template/subject/upload_originRecord.tpl");
@@ -472,8 +473,8 @@
                                                             jQuery.fn.codeState(data.code, {
                                                                 200: function () {
                                                                     jQuery.fn.alert_msg("原始记录保存成功!");
-
-
+                                                                    me.load_projectlist(me.id);
+                                                                    add_upload.load_list();
                                                                 }
                                                             })
                                                         }, function (response) {
@@ -483,6 +484,7 @@
                                                 });
 
                                                 jQuery("#save_originRecord").off("click").on("click", function () {
+                                                    jQuery("#custom_modal").modal("hide");
                                                     jQuery.fn.check_msg({
                                                         msg: "是否保存当前原始记录?",
                                                         success: function () {

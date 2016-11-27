@@ -250,8 +250,12 @@ public class DistributeController extends Controller {
             String name = getPara("name");
             String path = getPara("path");
             int delivery_id= getParaToInt("delivery_id");
-
-            //TODO
+            Delivery delivery = Delivery.deliveryDao.findById(delivery_id);
+            if(delivery!=null){
+                Delivery_OriginRecord delivery_originRecord =  new Delivery_OriginRecord();
+                Boolean result = delivery_originRecord.set("name",name).set("originRecord_path",path).set("delivery_id",delivery_id).save();
+                renderJson(result?RenderUtils.CODE_SUCCESS:RenderUtils.CODE_ERROR);
+            }else renderJson(RenderUtils.CODE_EMPTY);
         } catch (Exception e) {
             renderError(500);
         }
