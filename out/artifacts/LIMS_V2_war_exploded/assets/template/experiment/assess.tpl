@@ -176,6 +176,7 @@
                             },
                             originRecord: function (project) {
                                 console.log(JSON.parse(JSON.stringify(project)));
+
                             }
                         },
                         ready: function () {
