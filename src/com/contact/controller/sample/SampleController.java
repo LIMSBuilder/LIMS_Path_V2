@@ -223,7 +223,7 @@ public class SampleController extends Controller {
             Map<Delivery, List<Sample>> project_sample = new HashMap();
             int task_id = getParaToInt("id");
             User user = ParaUtils.getCurrentUser(getRequest());
-            List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM db_delivery WHERE state in (0,1) AND task_id =" + task_id + " AND analyst=" + user.get("id"));
+            List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM db_delivery WHERE state in (-3,0,1) AND task_id =" + task_id + " AND analyst=" + user.get("id"));
             Task task = Task.taskDao.findById(task_id);
             for (Delivery delivery : deliveryList) {
                 Monitor_Project monitor_project = Monitor_Project.monitor_projectDao.findById(delivery.get("project_id"));
