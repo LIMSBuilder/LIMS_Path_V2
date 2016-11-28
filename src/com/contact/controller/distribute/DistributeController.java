@@ -136,7 +136,7 @@ public class DistributeController extends Controller {
             int task_id = getParaToInt("task_id");
             Task task = Task.taskDao.findById(task_id);
             if (task != null) {
-                List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE state=0 AND task_id=" + task_id + " AND analyst=" + ParaUtils.getCurrentUser(getRequest()).get("id"));
+                List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE state in (0,-3) AND task_id=" + task_id + " AND analyst=" + ParaUtils.getCurrentUser(getRequest()).get("id"));
                 renderJson(deliveryList.size() == 0 ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_EMPTY);
             } else renderJson(RenderUtils.CODE_EMPTY);
         } catch (Exception e) {

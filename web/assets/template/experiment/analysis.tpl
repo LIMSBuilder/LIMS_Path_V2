@@ -88,10 +88,10 @@
                                             <a v-if="project.inspection_path != null"
                                                href="/distribute/viewInspection?delivery_id={{project.delivery.id}}"
                                                target="_blank" class="btn btn-sm btn-success-alt">查 看</a>
-                                            <a v-if="project.inspection_path != null && project.delivery.state==0"
+                                            <a v-if="project.inspection_path != null && (project.delivery.state==0||project.delivery.state==-3)"
                                                href="/distribute/changeInspection?delivery_id={{project.delivery.id}}"
                                                target="_blank" class="btn btn-sm btn-primary-alt">修 改</a>
-                                            <a v-if="project.inspection_path != null && project.delivery.state==0"
+                                            <a v-if="project.inspection_path != null && (project.delivery.state==0||project.delivery.state==-3)"
                                                class="btn btn-sm btn-danger-alt" @click="deleteInspection(project)">删
                                                 除</a>
                                         </td>
@@ -106,7 +106,7 @@
                                             <span class="label label-success">已分析</span>
                                         </td>
                                         <td class="table-action">
-                                            <a v-show="project.state==0" class="btn btn-sm btn-success-alt"
+                                            <a v-show="project.state==0||project.delivery.state==-3" class="btn btn-sm btn-success-alt"
                                                @click="save(project)">完成</a>
                                             <a class="btn btn-sm btn-danger-alt"
                                                @click="showInfo(project.samples)">清单</a>
