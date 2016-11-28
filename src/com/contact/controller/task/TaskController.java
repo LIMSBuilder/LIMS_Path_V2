@@ -130,7 +130,7 @@ public class TaskController extends Controller {
         if (rowCount == 0) {
             rowCount = ParaUtils.getRowCount();
         }
-        String paras = "FROM `db_task` t WHERE state=" + ParaUtils.flows.get("task_dstribute") + " AND  EXISTS(SELECT `db_delivery`.* FROM `db_delivery`,`db_task` m  WHERE `db_delivery`.`task_id`=t.`id` AND `db_delivery`.state=2 AND `db_delivery`.`assessor`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + " )";
+        String paras = "FROM `db_task` t WHERE state=" + ParaUtils.flows.get("task_dstribute") + " AND  EXISTS(SELECT `db_delivery`.* FROM `db_delivery`,`db_task` m  WHERE `db_delivery`.`task_id`=t.`id` AND `db_delivery`.state in (-1,2,3) AND `db_delivery`.`assessor`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + " )";
         Page<Task> taskPage = Task.taskDao.paginate(currentPage, rowCount, "SELECT t.* ", paras);
         List<Task> taskList = taskPage.getList();
         Map results = toJson(taskList);

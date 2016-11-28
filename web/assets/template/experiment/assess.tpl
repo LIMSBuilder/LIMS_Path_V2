@@ -139,7 +139,7 @@
                 },
                 review_item: function (item) {
                     var task_id = item.id;
-                    var me = this;
+                    var that = this;
                     var template = jQuery.fn.loadTemplate("/assets/template/subject/review_experiment.tpl");
                     Vue.component('review_experience' + task_id, {
                         template: template,
@@ -147,7 +147,8 @@
                             return {
                                 isShow: false,
                                 projectList: [],
-                                sample_list: []
+                                sample_list: [],
+                                originRecordList: []
                             };
                         },
                         methods: {
@@ -169,14 +170,66 @@
                                     jQuery.fn.error_msg("任务数据请求异常,请刷新后重新尝试。");
                                 });
                             },
-                            showInfo: function (samples) {
+                            showInfo: function (samples, originRecordList) {
                                 var me = this;
                                 me.isShow = true;
                                 me.$set("sample_list", samples);
+                                me.$set("originRecordList", originRecordList);
                             },
-                            originRecord: function (project) {
-                                console.log(JSON.parse(JSON.stringify(project)));
+                            review: function (project, state) {
+                                var me = this;
+                                me.$http.post("/distribute/reviewState", {
+                                    state: state,
+                                    delivery_id: project.delivery.id
+                                }).then(function (response) {
+                                    var data = response.data;
+                                    jQuery.fn.codeState(data.code, {
+                                        200: function () {
+                                            jQuery.fn.alert_msg("审核结果保存成功!");
+                                            //me.load_list();
+                                            project.delivery.state = state;
+                                        }
+                                    });
+                                }, function (response) {
+                                    jQuery.fn.error_msg("审核数据异常,无法完成审核!");
+                                });
+                            },
+                            flow: function () {
+                                var me = this;
+                                jQuery("#custom_lg_modal").modal("hide");
+                                jQuery.fn.check_msg({
+                                    msg: "您即将进行任务编号为【" + item.identify + "】的进度流转,是否继续?",
+                                    success: function () {
+                                        var data = {
+                                            task_id: task_id
+                                        };
+                                        me.$http.post("/distribute/checkAssessor", data).then(function (response) {
+                                            var data = response.data;
+                                            jQuery.fn.codeState(data.code, {
+                                                200: function () {
+                                                    me.$http.post("/flow/assessorFlow", {id: task_id}).then(function (response) {
+                                                        var data = response.data;
+                                                        jQuery.fn.codeState(data.code, {
+                                                            200: function () {
+                                                                jQuery.fn.alert_msg("任务流转成功!");
+                                                                that.load_list("", 1);
+                                                            }
+                                                        })
+                                                    }, function (response) {
+                                                        jQuery.fn.error_msg("数据异常,无法流转任务,请刷新后重新尝试!");
+                                                    });
+                                                },
+                                                504: function () {
+                                                    jQuery.fn.error_msg("当前任务书尚有未审核的实验分析结果,任务无法流转!");
+                                                }
+                                            })
+                                        }, function (response) {
+                                            jQuery.fn.error_msg("数据异常,无法进行项目流转!");
+                                        });
 
+
+                                    }
+                                })
                             }
                         },
                         ready: function () {
@@ -186,7 +239,7 @@
                     });
                     LIMS.dialog_lg.$set('title', '查看实验分析记录');
                     LIMS.dialog_lg.currentView = 'review_experience' + task_id;
-                }
+                },
             },
             ready: function () {
                 var me = this;

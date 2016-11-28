@@ -1,6 +1,7 @@
 package com.contact.controller.common;
 
 import com.contact.model.Delivery;
+import com.contact.model.Delivery_Assess_Reject;
 import com.contact.model.Sample;
 import com.contact.model.Task;
 import com.contact.utils.ParaUtils;
@@ -24,6 +25,7 @@ import java.util.Map;
  */
 public class FlowController extends Controller {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sdfMore = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public void taskFlow() {
         try {
@@ -109,6 +111,9 @@ public class FlowController extends Controller {
         }
     }
 
+    /**
+     * 任务下达流转
+     */
     public void distributeFlow() {
         try {
             int id = getParaToInt("id");
@@ -121,6 +126,9 @@ public class FlowController extends Controller {
         }
     }
 
+    /**
+     * 实验分析流转
+     */
     public void experienceFlow() {
         try {
             Boolean result = Db.tx(new IAtom() {
@@ -133,6 +141,44 @@ public class FlowController extends Controller {
                         Boolean result = true;
                         for (Delivery delivery : deliveryList) {
                             result = delivery.set("state", 2).update();
+                            if (!result) break;
+                        }
+                        return result;
+                    } else return false;
+                }
+            });
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+    /**
+     * 实验分析审核流转
+     * <p/>
+     * 如果是-1,则变成-3表示审核拒绝,需要修改
+     * 如果是3,则变成4,表示审核通过
+     */
+    public void assessorFlow() {
+        try {
+            Boolean result = Db.tx(new IAtom() {
+                @Override
+                public boolean run() throws SQLException {
+                    int task_id = getParaToInt("id");
+                    Task task = Task.taskDao.findById(task_id);
+                    if (task != null) {
+                        List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE state in (-1,3) AND task_id=" + task_id + " AND assessor=" + ParaUtils.getCurrentUser(getRequest()).get("id"));
+                        Boolean result = true;
+                        for (Delivery delivery : deliveryList) {
+                            if (delivery.get("state") == -1) {
+                                result = delivery.set("state", -3).set("assessor_time", sdf.format(new Date())).update();
+                                Delivery_Assess_Reject reject = new Delivery_Assess_Reject();
+                                result = result && reject.set("assessor", ParaUtils.getCurrentUser(getRequest()).get("id")).set("assessor_time", sdfMore.format(new Date())).set("delivery_id", delivery.get("id")).save();
+                            } else {
+                                if (delivery.get("state") == 3) {
+                                    result = delivery.set("state", 4).set("assessor_time", sdf.format(new Date())).update();
+                                }
+                            }
                             if (!result) break;
                         }
                         return result;
