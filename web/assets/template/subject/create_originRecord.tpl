@@ -5,7 +5,7 @@
             <a v-show="delivery.state==0" class="btn btn-success-alt" @click="add_record_upload">上传新增</a>
             <a class="btn btn-default-alt" @click="select_all">全 选</a>
             <a class="btn btn-black-alt" @click="load_list">刷 新</a>
-            <a class="btn btn-danger-alt del_all_select" @click="del_record(null)">删 除</a>
+            <a v-show="delivery.state==0" 【 class="btn btn-danger-alt del_all_select" @click="del_record(null)">删 除</a>
         </div>
     </div>
 </div>

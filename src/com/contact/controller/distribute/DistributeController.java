@@ -31,7 +31,7 @@ import java.util.Map;
  */
 public class DistributeController extends Controller {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-
+    SimpleDateFormat sdfMore = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     /**
      * 任务分配下达
      */
@@ -138,7 +138,24 @@ public class DistributeController extends Controller {
             if (task != null) {
                 List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE state=0 AND task_id=" + task_id + " AND analyst=" + ParaUtils.getCurrentUser(getRequest()).get("id"));
                 renderJson(deliveryList.size() == 0 ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_EMPTY);
-            }
+            } else renderJson(RenderUtils.CODE_EMPTY);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+
+    /**
+     * 检查当前实验审核人员是否已经完成了全部的实验审核
+     */
+    public void checkAssessor() {
+        try {
+            int task_id = getParaToInt("task_id");
+            Task task = Task.taskDao.findById(task_id);
+            if (task != null) {
+                List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE state=2 AND task_id=" + task_id + " AND assessor=" + ParaUtils.getCurrentUser(getRequest()).get("id"));
+                renderJson(deliveryList.size() == 0 ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_EMPTY);
+            } else renderJson(RenderUtils.CODE_EMPTY);
         } catch (Exception e) {
             renderError(500);
         }
@@ -202,7 +219,7 @@ public class DistributeController extends Controller {
             Delivery delivery = Delivery.deliveryDao.findById(delivery_id);
             if (delivery != null) {
                 if (delivery.get("inspection_path") != null) {
-                    Boolean result = delivery.set("analyst_time", sdf.format(new Date())).set("state", 1).update();
+                    Boolean result = delivery.set("analyst_time", sdfMore.format(new Date())).set("state", 1).update();
                     renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
                 } else {
                     renderJson(RenderUtils.CODE_UNIQUE);
@@ -435,6 +452,29 @@ public class DistributeController extends Controller {
                 Boolean result = delivery.set("inspection_path", path).update();
                 renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
             } else renderJson(RenderUtils.CODE_EMPTY);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+
+    /**
+     * 实验分析结果进行审核和复核
+     * 0-审核拒绝,返回修改
+     * 3-审核通过
+     * 4-复核通过
+     */
+    public void reviewState() {
+        try {
+            int state = getParaToInt("state");
+            int delovery_id = getParaToInt("delivery_id");
+            Delivery delivery = Delivery.deliveryDao.findById(delovery_id);
+            if (delivery != null) {
+                Boolean result = delivery.set("state", state).update();
+                renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+            } else
+                renderJson(RenderUtils.CODE_EMPTY);
+
         } catch (Exception e) {
             renderError(500);
         }
