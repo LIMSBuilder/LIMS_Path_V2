@@ -2,8 +2,8 @@
     <div class="col-sm-12">
         <div class="btn-demo">
             <a class="btn btn-warning-alt" @click="flow(id,identify)">业务流转</a>
-            <a class="btn btn-success-alt" @click="flow(id,identify)">全部通过</a>
-            <a class="btn btn-danger-alt" @click="flow(id,identify)">全部拒绝</a>
+            <a class="btn btn-success-alt" @click="review_all(3)">全部通过</a>
+            <a class="btn btn-danger-alt" @click="review_all(-1)">全部拒绝</a>
             <a class="btn btn-default-alt" @click="load_list">刷 新</a>
         </div>
         <div class="table-responsive">

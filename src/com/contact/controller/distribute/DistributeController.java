@@ -32,6 +32,7 @@ import java.util.Map;
 public class DistributeController extends Controller {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     SimpleDateFormat sdfMore = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     /**
      * 任务分配下达
      */
@@ -136,7 +137,7 @@ public class DistributeController extends Controller {
             int task_id = getParaToInt("task_id");
             Task task = Task.taskDao.findById(task_id);
             if (task != null) {
-                List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE state=0 AND task_id=" + task_id + " AND analyst=" + ParaUtils.getCurrentUser(getRequest()).get("id"));
+                List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE state in (0,-3) AND task_id=" + task_id + " AND analyst=" + ParaUtils.getCurrentUser(getRequest()).get("id"));
                 renderJson(deliveryList.size() == 0 ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_EMPTY);
             } else renderJson(RenderUtils.CODE_EMPTY);
         } catch (Exception e) {
@@ -475,6 +476,31 @@ public class DistributeController extends Controller {
             } else
                 renderJson(RenderUtils.CODE_EMPTY);
 
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+    public void reviewStateAll() {
+        try {
+            Boolean result = Db.tx(new IAtom() {
+                @Override
+                public boolean run() throws SQLException {
+                    int state = getParaToInt("state");
+                    int task_id = getParaToInt("task_id");
+                    Task task = Task.taskDao.findById(task_id);
+                    if (task != null) {
+                        List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE state in (-1,2,3) AND task_id=" + task_id);
+                        Boolean result = true;
+                        for (Delivery delivery : deliveryList) {
+                            result = delivery.set("state", state).update();
+                            if (!result) break;
+                        }
+                        return result;
+                    } else return false;
+                }
+            });
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
         } catch (Exception e) {
             renderError(500);
         }
