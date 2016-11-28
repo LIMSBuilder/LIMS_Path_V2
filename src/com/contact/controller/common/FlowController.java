@@ -1,5 +1,6 @@
 package com.contact.controller.common;
 
+import com.contact.model.Delivery;
 import com.contact.model.Sample;
 import com.contact.model.Task;
 import com.contact.utils.ParaUtils;
@@ -115,6 +116,30 @@ public class FlowController extends Controller {
             Boolean update = task.set("charge_user", ParaUtils.getCurrentUser(getRequest()).get("id")).set("distribute_time", sdf.format(new Date())).update();
             Boolean result = flow(Integer.parseInt(ParaUtils.flows.get("task_dstribute").toString()), id);
             renderJson(result && update ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+    public void experienceFlow() {
+        try {
+            Boolean result = Db.tx(new IAtom() {
+                @Override
+                public boolean run() throws SQLException {
+                    int task_id = getParaToInt("id");
+                    Task task = Task.taskDao.findById(task_id);
+                    if (task != null) {
+                        List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE state=1 AND task_id=" + task_id + " AND analyst=" + ParaUtils.getCurrentUser(getRequest()).get("id"));
+                        Boolean result = true;
+                        for (Delivery delivery : deliveryList) {
+                            result = delivery.set("state", 2).update();
+                            if (!result) break;
+                        }
+                        return result;
+                    } else return false;
+                }
+            });
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
         } catch (Exception e) {
             renderError(500);
         }

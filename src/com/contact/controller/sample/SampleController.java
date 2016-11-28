@@ -223,7 +223,27 @@ public class SampleController extends Controller {
             Map<Delivery, List<Sample>> project_sample = new HashMap();
             int task_id = getParaToInt("id");
             User user = ParaUtils.getCurrentUser(getRequest());
-            List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM db_delivery WHERE task_id =" + task_id + " AND analyst=" + user.get("id"));
+            List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM db_delivery WHERE state in (0,1) AND task_id =" + task_id + " AND analyst=" + user.get("id"));
+            Task task = Task.taskDao.findById(task_id);
+            for (Delivery delivery : deliveryList) {
+                Monitor_Project monitor_project = Monitor_Project.monitor_projectDao.findById(delivery.get("project_id"));
+                List<Sample> sampleProjectList = Sample.sampleDao.find("SELECT `db_sample`.* FROM `db_sample`,`db_sampleProject` WHERE `db_sample`.receive=1 AND `db_sample`.`id`=`db_sampleProject`.`sample_id` AND `db_sampleProject`.`project_id`=" + monitor_project.get("id") + " AND`db_sample`.`task_id`=" + task_id);
+                project_sample.put(delivery, sampleProjectList);
+            }
+            Map temp = DeliverytoJson(project_sample);
+            renderJson(temp);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+
+    public void getProjectListByDeliveryAssess() {
+        try {
+            Map<Delivery, List<Sample>> project_sample = new HashMap();
+            int task_id = getParaToInt("id");
+            User user = ParaUtils.getCurrentUser(getRequest());
+            List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM db_delivery WHERE state=2 AND task_id =" + task_id + " AND assessor=" + user.get("id"));
             Task task = Task.taskDao.findById(task_id);
             for (Delivery delivery : deliveryList) {
                 Monitor_Project monitor_project = Monitor_Project.monitor_projectDao.findById(delivery.get("project_id"));
@@ -299,7 +319,7 @@ public class SampleController extends Controller {
                 temp.put("inspection_path", delivery.get("inspection_path"));
 
 
-                temp.put("state", project.get("state"));
+                temp.put("state", delivery.get("state"));
                 temp.put("analyst", delivery.get("analyst") != null ? User.userDao.findById(delivery.get("analyst")) : null);
                 temp.put("assessor", delivery.get("assessor") != null ? User.userDao.findById(delivery.get("assessor")) : null);
                 temp.put("checker", delivery.get("checker") != null ? User.userDao.findById(delivery.get("checker")) : null);

@@ -8,7 +8,8 @@
                     </a>
                     <div class="media-body">
                         <div class="btn-demo pull-right">
-                            <a class="btn btn-info-alt">实验审核</a>
+                            <a class="btn btn-info-alt" data-toggle="modal"
+                               data-target=".bs-example-modal-lg" @click="review_item(result)">实验审核</a>
                             <a class="btn btn-default-alt" data-toggle="modal"
                                data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
                         </div>
@@ -94,7 +95,7 @@
                     var me = this;
                     var dom = jQuery(me.$el);
                     var rowCount = localStorage.getItem("rowCount") || 0;
-                    me.$http.get("/task/experienceList", {
+                    me.$http.get("/task/assessList", {
                         params: {
                             rowCount: rowCount,
                             currentPage: currentPage,
@@ -135,6 +136,56 @@
                     }, function (response) {
                         jQuery.fn.error_msg("无法获取任务书列表信息,请尝试刷新操作。");
                     });
+                },
+                review_item: function (item) {
+                    var task_id = item.id;
+                    var me = this;
+                    var template = jQuery.fn.loadTemplate("/assets/template/subject/review_experiment.tpl");
+                    Vue.component('review_experience' + task_id, {
+                        template: template,
+                        data: function () {
+                            return {
+                                isShow: false,
+                                projectList: [],
+                                sample_list: []
+                            };
+                        },
+                        methods: {
+                            load_list: function () {
+                                var me = this;
+                                me.$http.get("/sample/getProjectListByDeliveryAssess", {
+                                    params: {
+                                        id: task_id
+                                    }
+                                }).then(function (response) {
+                                    var data = response.data;
+                                    for (var key in data) {
+                                        if (me[key] != undefined) {
+                                            me.$set(key, data[key]);
+                                        }
+                                    }
+                                    me.$set("projectList", data.results);
+                                }, function (response) {
+                                    jQuery.fn.error_msg("任务数据请求异常,请刷新后重新尝试。");
+                                });
+                            },
+                            showInfo: function (samples) {
+                                var me = this;
+                                me.isShow = true;
+                                me.$set("sample_list", samples);
+                            },
+                            originRecord: function (project) {
+                                console.log(JSON.parse(JSON.stringify(project)));
+
+                            }
+                        },
+                        ready: function () {
+                            var that = this;
+                            that.load_list();
+                        }
+                    });
+                    LIMS.dialog_lg.$set('title', '查看实验分析记录');
+                    LIMS.dialog_lg.currentView = 'review_experience' + task_id;
                 }
             },
             ready: function () {
