@@ -80,16 +80,25 @@
                                         </td>
                                         <td>
 
-                                            <a v-if="project.inspection_path == null" href="/distribute/createInspection?delivery_id={{project.delivery.id}}"
+                                            <a v-if="project.inspection_path == null"
+                                               href="/distribute/createInspection?delivery_id={{project.delivery.id}}"
                                                target="_blank" class="btn btn-sm btn-info-alt">填 写</a>
-                                            <a v-if="project.inspection_path == null" class="btn btn-sm btn-info-alt" @click="upload_inspection(project)">上 传</a>
-                                            <a v-if="project.inspection_path != null" href="/distribute/viewInspection?delivery_id={{project.delivery.id}}"
+                                            <a v-if="project.inspection_path == null" class="btn btn-sm btn-info-alt"
+                                               @click="upload_inspection(project)">上 传</a>
+                                            <a v-if="project.inspection_path != null"
+                                               href="/distribute/viewInspection?delivery_id={{project.delivery.id}}"
                                                target="_blank" class="btn btn-sm btn-success-alt">查 看</a>
-                                            <a v-if="project.inspection_path != null && project.delivery.state==0" href="/distribute/changeInspection?delivery_id={{project.delivery.id}}"
+                                            <a v-if="project.inspection_path != null && project.delivery.state==0"
+                                               href="/distribute/changeInspection?delivery_id={{project.delivery.id}}"
                                                target="_blank" class="btn btn-sm btn-primary-alt">修 改</a>
-                                            <a v-if="project.inspection_path != null && project.delivery.state==0" class="btn btn-sm btn-danger-alt" @click="deleteInspection(project)">删 除</a>
+                                            <a v-if="project.inspection_path != null && project.delivery.state==0"
+                                               class="btn btn-sm btn-danger-alt" @click="deleteInspection(project)">删
+                                                除</a>
                                         </td>
                                         <td>{{project.samples.length}}</td>
+                                        <td v-show="project.state==-3">
+                                            <span class="label label-warning">待完善</span>
+                                        </td>
                                         <td v-show="project.state==0">
                                             <span class="label label-info">待分析</span>
                                         </td>
@@ -97,7 +106,8 @@
                                             <span class="label label-success">已分析</span>
                                         </td>
                                         <td class="table-action">
-                                            <a v-show="project.state==0" class="btn btn-sm btn-success-alt" @click="save(project)">完成</a>
+                                            <a v-show="project.state==0" class="btn btn-sm btn-success-alt"
+                                               @click="save(project)">完成</a>
                                             <a class="btn btn-sm btn-danger-alt"
                                                @click="showInfo(project.samples)">清单</a>
                                         </td>
@@ -345,7 +355,7 @@
                     //填写原始记录表格
                     var me = this;
                     var template = jQuery.fn.loadTemplate("/assets/template/subject/create_originRecord.tpl");
-                    Vue.component('originRecord' + project.id+project.delivery.state, {
+                    Vue.component('originRecord' + project.id + project.delivery.state, {
                         template: template,
                         data: function () {
                             return {
@@ -360,7 +370,7 @@
                                     params: {
                                         task_id: me.id,
                                         project_id: project.id,
-                                        delivery_id:project.delivery.id
+                                        delivery_id: project.delivery.id
                                     }
                                 }).then(function (response) {
                                     var data = response.data;
@@ -516,31 +526,31 @@
                         }
                     });
                     LIMS.dialog_lg.$set('title', project.name + '原始记录列表');
-                    LIMS.dialog_lg.currentView = 'originRecord' + project.id+project.delivery.state;
+                    LIMS.dialog_lg.currentView = 'originRecord' + project.id + project.delivery.state;
                 },
-                deleteInspection:function (project) {
-                    var me =this;
+                deleteInspection: function (project) {
+                    var me = this;
                     var delivery_id = project.delivery.id;
-                    me.$http.post("/distribute/deleteInspection",{delivery_id:delivery_id}).then(function (response) {
-                        var data =response.data;
-                        jQuery.fn.codeState(data.code,{
-                           200:function () {
-                               jQuery.fn.alert_msg("当前送检单删除成功！");
-                               me.frash();
-                           }
+                    me.$http.post("/distribute/deleteInspection", {delivery_id: delivery_id}).then(function (response) {
+                        var data = response.data;
+                        jQuery.fn.codeState(data.code, {
+                            200: function () {
+                                jQuery.fn.alert_msg("当前送检单删除成功！");
+                                me.frash();
+                            }
                         });
 
-                    },function () {
+                    }, function () {
                         jQuery.fn.error_msg("服务器异常，无法删除送检单！");
                     })
                 },
-                upload_inspection:function (project) {
-                  //上传送检单
+                upload_inspection: function (project) {
+                    //上传送检单
                     var me = this;
                     var delivery_id = project.delivery.id;
                     var template = jQuery.fn.loadTemplate("/assets/template/subject/upload_inspection.tpl");
                     jQuery("#custom_modal").modal("show");
-                    Vue.component('upload_inspection'+delivery_id, {
+                    Vue.component('upload_inspection' + delivery_id, {
                         template: template,
                         data: function () {
                             return {};
@@ -604,7 +614,7 @@
                         }
                     });
                     LIMS.dialog.$set('title', "上传自定义送检单");
-                    LIMS.dialog.currentView = 'upload_inspection'+delivery_id;
+                    LIMS.dialog.currentView = 'upload_inspection' + delivery_id;
                 },
                 save: function (project) {
                     var me = this;
