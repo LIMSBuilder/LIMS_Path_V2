@@ -100,6 +100,37 @@ public class TaskController extends Controller {
 
 
     /**
+     * 获取在流程中的Task列表
+     * role_type:角色类型:
+     * distribute:任务下达者
+     * analyst:分析者
+     * assessor:审核者
+     * checker:复核者
+     */
+    public void getProcessList() {
+        String roleType = getPara("role_type");
+        int rowCount = getParaToInt("rowCount");
+        int currentPage = getParaToInt("currentPage");
+        if (rowCount == 0) {
+            rowCount = ParaUtils.getRowCount();
+        }
+        String paras = "";
+        if (roleType.equals("distribute")) {
+            paras = "FROM `db_task` t WHERE state=" + ParaUtils.flows.get("task_dstribute");
+        } else {
+            paras = "FROM `db_task` t WHERE state=" + ParaUtils.flows.get("task_dstribute") + " AND  EXISTS(SELECT `db_delivery`.* FROM `db_delivery`,`db_task` m  WHERE `db_delivery`.`task_id`=t.`id` AND `db_delivery`.`" + roleType + "`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + " )";
+        }
+        Page<Task> taskPage = Task.taskDao.paginate(currentPage, rowCount, "SELECT t.* ", paras);
+        List<Task> taskList = taskPage.getList();
+        Map results = toJson(taskList);
+        results.put("currentPage", currentPage);
+        results.put("totalPage", taskPage.getTotalPage());
+        results.put("rowCount", rowCount);
+        results.put("totalRowCount", taskPage.getTotalRow());
+        renderJson(results);
+    }
+
+    /**
      * 实验分析获取Task列表
      * 如果有需要当前用户进行实验分析的,则才显示当前用户
      */
@@ -131,6 +162,26 @@ public class TaskController extends Controller {
             rowCount = ParaUtils.getRowCount();
         }
         String paras = "FROM `db_task` t WHERE state=" + ParaUtils.flows.get("task_dstribute") + " AND  EXISTS(SELECT `db_delivery`.* FROM `db_delivery`,`db_task` m  WHERE `db_delivery`.`task_id`=t.`id` AND `db_delivery`.state in (-1,2,3) AND `db_delivery`.`assessor`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + " )";
+        Page<Task> taskPage = Task.taskDao.paginate(currentPage, rowCount, "SELECT t.* ", paras);
+        List<Task> taskList = taskPage.getList();
+        Map results = toJson(taskList);
+        results.put("currentPage", currentPage);
+        results.put("totalPage", taskPage.getTotalPage());
+        results.put("rowCount", rowCount);
+        results.put("totalRowCount", taskPage.getTotalRow());
+        renderJson(results);
+    }
+
+    /**
+     * 实验复核获取Task列表
+     */
+    public void reviewList() {
+        int rowCount = getParaToInt("rowCount");
+        int currentPage = getParaToInt("currentPage");
+        if (rowCount == 0) {
+            rowCount = ParaUtils.getRowCount();
+        }
+        String paras = "FROM `db_task` t WHERE state=" + ParaUtils.flows.get("task_dstribute") + " AND  EXISTS(SELECT `db_delivery`.* FROM `db_delivery`,`db_task` m  WHERE `db_delivery`.`task_id`=t.`id` AND `db_delivery`.state in (-2,3,4) AND `db_delivery`.`assessor`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + " )";
         Page<Task> taskPage = Task.taskDao.paginate(currentPage, rowCount, "SELECT t.* ", paras);
         List<Task> taskList = taskPage.getList();
         Map results = toJson(taskList);

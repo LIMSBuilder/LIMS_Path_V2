@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94492654-fabd-46c1-bc69-031022f7d3fb" name="默认的" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war/LIMS_V2_war.war" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war/LIMS_V2_war.war" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/template/experiment/review.tpl" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/task/TaskController$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/task/TaskController$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/LIMS_V2/com/contact/controller/task/TaskController.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/experiment/assess.tpl" afterPath="$PROJECT_DIR$/out/artifacts/LIMS_V2_war_exploded/assets/template/experiment/assess.tpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java" afterPath="$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/pages/index.html" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl" afterPath="$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/experiment/assess.tpl" afterPath="$PROJECT_DIR$/web/assets/template/experiment/assess.tpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/template/subject/review_experiment.tpl" afterPath="$PROJECT_DIR$/web/assets/template/subject/review_experiment.tpl" />
     </list>
     <ignored path="LIMS_V2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,15 +39,15 @@
       <file leaf-file-name="assess.tpl" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/assess.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.6153846">
-              <caret line="198" column="73" selection-start-line="198" selection-start-column="59" selection-end-line="198" selection-end-column="73" />
+            <state vertical-scroll-proportion="-5.8846154">
+              <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
               <folding>
-                <element signature="e#1864#4326#0" expanded="false" />
-                <element signature="e#4389#6638#0" expanded="false" />
-                <element signature="e#7410#8360#0" expanded="false" />
-                <element signature="e#8437#8709#0" expanded="false" />
-                <element signature="e#8773#9763#0" expanded="false" />
-                <element signature="e#10778#13120#0" expanded="false" />
+                <element signature="e#2701#5367#0" expanded="false" />
+                <element signature="e#5434#7863#0" expanded="false" />
+                <element signature="e#8699#9717#0" expanded="false" />
+                <element signature="e#9798#10090#0" expanded="false" />
+                <element signature="e#10158#11216#0" expanded="false" />
+                <element signature="e#12303#14781#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -73,17 +76,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46434495">
-              <caret line="776" column="47" selection-start-line="776" selection-start-column="47" selection-end-line="776" selection-end-column="47" />
+            <state vertical-scroll-proportion="-9.076923">
+              <caret line="147" column="96" selection-start-line="147" selection-start-column="90" selection-end-line="147" selection-end-column="96" />
               <folding>
-                <element signature="e#48790#48796#0" expanded="false" />
-                <element signature="e#48931#48939#0" expanded="false" />
-                <element signature="e#49070#49078#0" expanded="false" />
-                <element signature="e#49461#49467#0" expanded="false" />
+                <element signature="e#49007#49013#0" expanded="false" />
+                <element signature="e#49148#49156#0" expanded="false" />
+                <element signature="e#49287#49295#0" expanded="false" />
+                <element signature="e#49678#49684#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="review.tpl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/review.tpl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-63.423077">
+              <caret line="97" column="50" selection-start-line="97" selection-start-column="50" selection-end-line="97" selection-end-column="50" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -91,8 +104,18 @@
       <file leaf-file-name="analysis.tpl" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.807693">
-              <caret line="655" column="46" selection-start-line="655" selection-start-column="46" selection-end-line="655" selection-end-column="46" />
+            <state vertical-scroll-proportion="-9.153846">
+              <caret line="14" column="47" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="distribute.tpl" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/distribute.tpl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5041459">
+              <caret line="301" column="43" selection-start-line="301" selection-start-column="43" selection-end-line="301" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -103,16 +126,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-7.230769">
               <caret line="26" column="67" selection-start-line="26" selection-start-column="67" selection-end-line="26" selection-end-column="67" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SampleController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/contact/controller/sample/SampleController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="226" column="46" selection-start-line="226" selection-start-column="46" selection-end-line="226" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -135,7 +148,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="111" column="233" selection-start-line="111" selection-start-column="233" selection-end-line="111" selection-end-column="233" />
+              <caret line="129" column="28" selection-start-line="129" selection-start-column="28" selection-end-line="129" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -184,7 +197,6 @@
         <option value="$PROJECT_DIR$/src/com/contact/config/CommonRoutes.java" />
         <option value="$PROJECT_DIR$/src/com/contact/model/User.java" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/common/PushController.java" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/pages/index.html" />
         <option value="$PROJECT_DIR$/web/assets/css/style.default.css" />
         <option value="$PROJECT_DIR$/web/assets/template/subject/read_mail.tpl" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/mail/MailController.java" />
@@ -199,13 +211,15 @@
         <option value="$PROJECT_DIR$/src/com/contact/config/CommonConfig.java" />
         <option value="$PROJECT_DIR$/src/com/contact/model/Delivery_Assess_Reject.java" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/common/FlowController.java" />
-        <option value="$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/sample/SampleController.java" />
         <option value="$PROJECT_DIR$/web/assets/template/subject/create_originRecord.tpl" />
-        <option value="$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl" />
         <option value="$PROJECT_DIR$/web/assets/template/subject/review_experiment.tpl" />
         <option value="$PROJECT_DIR$/src/com/contact/controller/distribute/DistributeController.java" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/pages/index.html" />
+        <option value="$PROJECT_DIR$/web/assets/template/experiment/review.tpl" />
         <option value="$PROJECT_DIR$/web/assets/template/experiment/assess.tpl" />
+        <option value="$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl" />
+        <option value="$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java" />
       </list>
     </option>
   </component>
@@ -351,15 +365,37 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pages" />
+              <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="template" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LIMS_V2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="template" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="experiment" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -448,17 +484,17 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="SearchEverywhereHistoryKey" value="dist&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/distribute/DistributeController.java&#10;rev&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/review_experiment.tpl&#10;index&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/WEB-INF/pages/index.html&#10;dis&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/distribute/DistributeController.java&#10;crea&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/create_originRecord.tpl&#10;ana&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/experiment/analysis.tpl&#10;Sa&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/sample/SampleController.java&#10;Tas&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/task/TaskController.java&#10;Task&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/task/TaskController.java&#10;Flow&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/common/FlowController.java&#10;anal&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/experiment/analysis.tpl&#10;taskc&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/task/TaskController.java&#10;Dist&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/distribute/DistributeController.java&#10;Sam&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/sample/SampleController.java&#10;create&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/create_originRecord.tpl&#10;review_experiment&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/review_experiment.tpl&#10;ass&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/experiment/assess.tpl&#10;origin&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/create_originRecord.tpl&#10;an&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/experiment/analysis.tpl&#10;Sample&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/sample/SampleController.java&#10;Distribu&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/distribute/DistributeController.java&#10;Deliver&#9;PSI&#9;JAVA://com.contact.controller.sample.DeliveryController&#10;Samp&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/sample/SampleController.java&#10;Template&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/template/TemplateController.java&#10;Common&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/config/CommonConfig.java&#10;save&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/WEB-INF/pages/template/savefile.jsp&#10;Ex&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/office/ExportController.java&#10;ｃｒｅａｔｅ&#9;null&#9;null&#10;common&#9;PSI&#9;JAVA://com.contact.config.CommonConfig&#10;Comm&#9;FILE&#9;file://G:/LIMS_V2/src/com/contact/config/CommonRoutes.java&#10;c&#9;FILE&#9;file://G:/LIMS_V2/web/assets/js/custom.js&#10;sign&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/pages/signin.html&#10;Exp&#9;FILE&#9;file://G:/LIMS_V2/src/com/contact/controller/office/ExportController.java&#10;read&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/read_mail.tpl&#10;index.h&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/WEB-INF/pages/index.html&#10;defa&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/css/style.default.css&#10;MAI&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/mail/MailController.java&#10;MailC&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/mail/MailController.java&#10;mail_bo&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/mail_box.tpl&#10;mail_l&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/json/mail_list.json&#10;User&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/system/UserController.java&#10;Par&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/utils/ParaUtils.java&#10;Para&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/utils/ParaUtils.java&#10;def&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/css/style.default.css&#10;index.&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/pages/index.html&#10;we&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/web.xml" />
+    <property name="SearchEverywhereHistoryKey" value="dis&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/experiment/distribute.tpl&#10;dist&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/task_distribute.tpl&#10;Tas&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/task/TaskController.java&#10;an&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/experiment/analysis.tpl&#10;ana&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/experiment/analysis.tpl&#10;ass&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/experiment/assess.tpl&#10;Task&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/task/TaskController.java&#10;index.ht&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/WEB-INF/pages/index.html&#10;index.&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/WEB-INF/pages/index.html&#10;rev&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/review_experiment.tpl&#10;index&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/WEB-INF/pages/index.html&#10;crea&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/create_originRecord.tpl&#10;Sa&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/sample/SampleController.java&#10;Flow&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/common/FlowController.java&#10;anal&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/experiment/analysis.tpl&#10;taskc&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/task/TaskController.java&#10;Dist&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/distribute/DistributeController.java&#10;Sam&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/sample/SampleController.java&#10;create&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/create_originRecord.tpl&#10;review_experiment&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/review_experiment.tpl&#10;origin&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/create_originRecord.tpl&#10;Sample&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/sample/SampleController.java&#10;Distribu&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/distribute/DistributeController.java&#10;Deliver&#9;PSI&#9;JAVA://com.contact.controller.sample.DeliveryController&#10;Samp&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/sample/SampleController.java&#10;Template&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/template/TemplateController.java&#10;Common&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/config/CommonConfig.java&#10;save&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/WEB-INF/pages/template/savefile.jsp&#10;Ex&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/office/ExportController.java&#10;ｃｒｅａｔｅ&#9;null&#9;null&#10;common&#9;PSI&#9;JAVA://com.contact.config.CommonConfig&#10;Comm&#9;FILE&#9;file://G:/LIMS_V2/src/com/contact/config/CommonRoutes.java&#10;c&#9;FILE&#9;file://G:/LIMS_V2/web/assets/js/custom.js&#10;sign&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/pages/signin.html&#10;Exp&#9;FILE&#9;file://G:/LIMS_V2/src/com/contact/controller/office/ExportController.java&#10;read&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/read_mail.tpl&#10;index.h&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/WEB-INF/pages/index.html&#10;defa&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/css/style.default.css&#10;MAI&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/mail/MailController.java&#10;MailC&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/mail/MailController.java&#10;mail_bo&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/template/subject/mail_box.tpl&#10;mail_l&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/json/mail_list.json&#10;User&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/controller/system/UserController.java&#10;Par&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/utils/ParaUtils.java&#10;Para&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/src/com/contact/utils/ParaUtils.java&#10;def&#9;FILE&#9;file:///Users/qulongjun/project/LIMS_V2/web/assets/css/style.default.css&#10;we&#9;FILE&#9;file://G:/LIMS_V2/web/WEB-INF/web.xml" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
     <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/web/assets/template/experiment" />
       <recent name="$PROJECT_DIR$/web/WEB-INF/pages/template" />
       <recent name="G:\LIMS_V2\web\WEB-INF\pages\template" />
       <recent name="G:\LIMS_V2\web\attachment" />
       <recent name="$PROJECT_DIR$/web" />
-      <recent name="$PROJECT_DIR$/web/assets/template/subject" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="G:\LIMS_V2\web\WEB-INF\pages\template" />
@@ -1032,19 +1068,19 @@
       <workItem from="1479710054854" duration="55672000" />
       <workItem from="1480049963598" duration="34000" />
       <workItem from="1480050371853" duration="16265000" />
-      <workItem from="1480072265575" duration="26771000" />
+      <workItem from="1480072265575" duration="28378000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="134211000" />
+    <option name="totallyTimeSpent" value="135818000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="调试" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
@@ -1156,14 +1192,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/contact/model/Mail.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="44" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/subject/compose.tpl">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1366,14 +1394,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/distribute.tpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="47" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/template/view_originRecord.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.9615386">
@@ -1462,14 +1482,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/template/subject/task_distribute.tpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="92" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/contact/config/CommonRoutes.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1486,26 +1498,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="111" column="233" selection-start-line="111" selection-start-column="233" selection-end-line="111" selection-end-column="233" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/contact/controller/sample/SampleController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="226" column="46" selection-start-line="226" selection-start-column="46" selection-end-line="226" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.807693">
-          <caret line="655" column="46" selection-start-line="655" selection-start-column="46" selection-end-line="655" selection-end-column="46" />
           <folding />
         </state>
       </provider>
@@ -1537,21 +1533,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/assess.tpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.6153846">
-          <caret line="198" column="73" selection-start-line="198" selection-start-column="59" selection-end-line="198" selection-end-column="73" />
-          <folding>
-            <element signature="e#1864#4326#0" expanded="false" />
-            <element signature="e#4389#6638#0" expanded="false" />
-            <element signature="e#7410#8360#0" expanded="false" />
-            <element signature="e#8437#8709#0" expanded="false" />
-            <element signature="e#8773#9763#0" expanded="false" />
-            <element signature="e#10778#13120#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/template/subject/review_experiment.tpl">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.6153846">
@@ -1573,14 +1554,69 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46434495">
-          <caret line="776" column="47" selection-start-line="776" selection-start-column="47" selection-end-line="776" selection-end-column="47" />
+        <state vertical-scroll-proportion="-9.076923">
+          <caret line="147" column="96" selection-start-line="147" selection-start-column="90" selection-end-line="147" selection-end-column="96" />
           <folding>
-            <element signature="e#48790#48796#0" expanded="false" />
-            <element signature="e#48931#48939#0" expanded="false" />
-            <element signature="e#49070#49078#0" expanded="false" />
-            <element signature="e#49461#49467#0" expanded="false" />
+            <element signature="e#49007#49013#0" expanded="false" />
+            <element signature="e#49148#49156#0" expanded="false" />
+            <element signature="e#49287#49295#0" expanded="false" />
+            <element signature="e#49678#49684#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/review.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-63.423077">
+          <caret line="97" column="50" selection-start-line="97" selection-start-column="50" selection-end-line="97" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/assess.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.8846154">
+          <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
+          <folding>
+            <element signature="e#2701#5367#0" expanded="false" />
+            <element signature="e#5434#7863#0" expanded="false" />
+            <element signature="e#8699#9717#0" expanded="false" />
+            <element signature="e#9798#10090#0" expanded="false" />
+            <element signature="e#10158#11216#0" expanded="false" />
+            <element signature="e#12303#14781#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/contact/controller/task/TaskController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="129" column="28" selection-start-line="129" selection-start-column="28" selection-end-line="129" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/template/subject/task_distribute.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="25" column="21" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/analysis.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.153846">
+          <caret line="14" column="47" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/template/experiment/distribute.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5041459">
+          <caret line="301" column="43" selection-start-line="301" selection-start-column="43" selection-end-line="301" selection-end-column="43" />
+          <folding />
         </state>
       </provider>
     </entry>
