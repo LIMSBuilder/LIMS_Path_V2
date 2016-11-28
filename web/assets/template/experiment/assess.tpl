@@ -194,6 +194,24 @@
                                     jQuery.fn.error_msg("审核数据异常,无法完成审核!");
                                 });
                             },
+                            review_all: function (state) {
+                                var me = this;
+                                me.$http.post("/distribute/reviewStateAll", {
+                                    task_id: task_id,
+                                    state: state
+                                }).then(function (response) {
+                                    var data = response.data;
+                                    jQuery.fn.codeState(data.code, {
+                                        200: function () {
+                                            jQuery.fn.alert_msg("实验分析纪录全部审核完成！");
+                                            me.load_list();
+                                        }
+                                    });
+                                }, function (response) {
+                                    jQuery.fn.error_msg("数据异常,无法完成实验分析记录审核!");
+                                });
+
+                            },
                             flow: function () {
                                 var me = this;
                                 jQuery("#custom_lg_modal").modal("hide");
@@ -226,8 +244,6 @@
                                         }, function (response) {
                                             jQuery.fn.error_msg("数据异常,无法进行项目流转!");
                                         });
-
-
                                     }
                                 })
                             }
@@ -239,7 +255,7 @@
                     });
                     LIMS.dialog_lg.$set('title', '查看实验分析记录');
                     LIMS.dialog_lg.currentView = 'review_experience' + task_id;
-                },
+                }
             },
             ready: function () {
                 var me = this;
