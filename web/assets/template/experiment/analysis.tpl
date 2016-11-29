@@ -36,12 +36,40 @@
                             </div>
 
                         </template>
-
                     </div><!-- results-list -->
+                    <div class="paging nomargin pull-right" id="currentPage"></div>
                 </div>
             </div>
             <div class="tab-pane" id="profile">
                 <div class="row">
+                    <div class="results-list">
+                        <template v-for="result in history_list">
+                            <div class="media">
+                                <a href="javascript:;" class="pull-left">
+                                    <img alt="" src="/assets/images/photos/contract.png" class="media-object">
+                                </a>
+                                <div class="media-body">
+                                    <div class="btn-demo pull-right">
+                                        <a class="btn btn-info-alt"
+                                           @click="view_process(result)" data-toggle="modal"
+                                           data-target=".bs-example-modal-lg">流程查询</a>
+                                        <a class="btn btn-default-alt" data-toggle="modal"
+                                           data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
+                                    </div>
+                                    <h4 class="filename text-primary">{{result.project_name}}</h4>
+                                    <small class="text-muted">合同编号: {{result.identify}}</small>
+                                    <br/>
+                                    <small class="text-muted">承接科室: {{result.receive_deparment.name}}</small>
+                                    <br/>
+                                    <small class="text-muted">创建时间: {{result.create_time}}</small>
+                                    <br/>
+                                    <small class="text-muted">客户单位: {{result.client_unit}}</small>
+                                </div>
+                            </div>
+
+                        </template>
+                    </div><!-- results-list -->
+                    <div class="paging nomargin pull-right" id="historyPage"></div>
 
                 </div>
             </div>
@@ -199,6 +227,7 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="/assets/js/toggles.min.js"></script>
 <script type="text/javascript" src="/assets/js/dropzone.min.js"></script>
 <script>
     jQuery(document).ready(function () {
@@ -214,7 +243,8 @@
                     isShow: false,
                     projectList: [],
                     sample_list: [],
-                    originRecordTemplate: []
+                    originRecordTemplate: [],
+                    history_list: []
                 }
             },
             methods: {
@@ -293,7 +323,7 @@
                         var data = response.data;
                         me.$set("result_list", data.results);
                         //页码事件
-                        dom.find('.paging').pagination({
+                        dom.find('#currentPage').pagination({
                             pageCount: data.totalPage != 0 ? data.totalPage : 1,
                             coping: true,
                             homePage: '首页',
@@ -303,7 +333,7 @@
                             current: data.currentPage,
                             callback: function (page) {
                                 var currentPage = page.getCurrent();
-                                me.$http.get("/task/list", {
+                                me.$http.get("/task/experienceList", {
                                     params: {
                                         rowCount: rowCount,
                                         currentPage: currentPage,
@@ -324,6 +354,122 @@
                     }, function (response) {
                         jQuery.fn.error_msg("无法获取任务书列表信息,请尝试刷新操作。");
                     });
+                },
+                load_history: function (condition, currentPage) {
+                    var me = this;
+                    var dom = jQuery(me.$el);
+                    var rowCount = localStorage.getItem("rowCount") || 0;
+                    me.$http.get("/task/getProcessList", {
+                        params: {
+                            rowCount: rowCount,
+                            currentPage: currentPage,
+                            condition: condition,
+                            role_type: 'analyst'
+                        }
+                    }).then(function (response) {
+                        var data = response.data;
+                        me.$set("history_list", data.results);
+                        //页码事件
+                        dom.find('#historyPage').pagination({
+                            pageCount: data.totalPage != 0 ? data.totalPage : 1,
+                            coping: true,
+                            homePage: '首页',
+                            endPage: '末页',
+                            prevContent: '上页',
+                            nextContent: '下页',
+                            current: data.currentPage,
+                            callback: function (page) {
+                                var currentPage = page.getCurrent();
+                                me.$http.get("/task/getProcessList", {
+                                    params: {
+                                        rowCount: rowCount,
+                                        currentPage: currentPage,
+                                        condition: data.condition,
+                                        role_type: 'analyst'
+                                    }
+                                }).then(function (response) {
+                                    var data = response.data;
+                                    me.$set("history_list", data.results);
+                                }, function (response) {
+                                    jQuery.fn.error_msg("无法获取流程中任务列表信息,请尝试刷新操作。");
+                                });
+                            }
+                        });
+                        jQuery.validator.setDefaults({
+                            submitHandler: function () {
+                            }
+                        });
+                    }, function (response) {
+                        jQuery.fn.error_msg("无法获取任务书列表信息,请尝试刷新操作。");
+                    });
+                },
+                view_process: function (task) {
+                    var task_id = task.id;
+                    var that = this;
+                    var template = jQuery.fn.loadTemplate("/assets/template/subject/view_experiment_process.tpl");
+                    Vue.component('view_experience_process' + task_id, {
+                        template: template,
+                        data: function () {
+                            var alert_info = jQuery.fn.loadTemplate("/assets/template/subject/alert_info.tpl");
+                            return {
+                                isShow: false,
+                                projectList: [],
+                                sample_list: [],
+                                originRecordList: [],
+                                alert_info: alert_info,
+                                analyst: {},
+                                analyst_time: "",
+                                assessor: {},
+                                assessor_time: "",
+                                checker: {},
+                                checker_time: "",
+                                state: ""
+                            };
+                        },
+                        methods: {
+                            load_list: function () {
+                                var me = this;
+                                me.$http.get("/sample/getProjectListByDeliveryProcess", {
+                                    params: {
+                                        id: task_id
+                                    }
+                                }).then(function (response) {
+                                    var data = response.data;
+                                    for (var key in data) {
+                                        if (me[key] != undefined) {
+                                            me.$set(key, data[key]);
+                                        }
+                                    }
+                                    me.$set("projectList", data.results);
+                                }, function (response) {
+                                    jQuery.fn.error_msg("任务数据请求异常,请刷新后重新尝试。");
+                                });
+                            },
+                            showInfo: function (project) {
+                                var me = this;
+                                me.isShow = true;
+                                me.$set("sample_list", project.samples);
+                                me.$set("originRecordList", project.originRecordList);
+                                me.$set("analyst", project.analyst);
+                                me.$set("analyst_time", project.analyst_time);
+                                me.$set("assessor", project.assessor);
+                                me.$set("assessor_time", project.assessor_time);
+                                me.$set("checker", project.checker);
+                                me.$set("checker_time", project.checker_time);
+                                debugger
+                                me.$set("state", project.delivery.state);
+                            }
+                        },
+                        ready: function () {
+                            var that = this;
+                            that.load_list();
+                            jQuery('.popovers').popover({
+                                html: "<h1>Hello World</h1>"
+                            });
+                        }
+                    });
+                    LIMS.dialog_lg.$set('title', '查看实验分析记录');
+                    LIMS.dialog_lg.currentView = 'view_experience_process' + task_id;
                 },
                 frash: function () {
                     var me = this;
@@ -691,6 +837,7 @@
             ready: function () {
                 var me = this;
                 me.load_list("", 1);
+                me.load_history("", 1);
                 jQuery("#originRecord_template").select2({
                     width: '100%'
                 });
