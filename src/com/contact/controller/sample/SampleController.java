@@ -344,6 +344,8 @@ public class SampleController extends Controller {
 
                 temp.put("originRecordList", Delivery_OriginRecord.delivery_originRecordDao.find("SELECT * FROM `db_deliveryOriginRecord` WHERE delivery_id=" + delivery.get("id")));
 
+                temp.put("assess_reject", assessorRejectToJson(Delivery_Assess_Reject.deliveryAssessRejectDao.find("SELECT * FROM `db_deliveryAssessReject` WHERE`db_deliveryAssessReject`.`delivery_id`=" + delivery.get("id"))));
+
                 temp.put("state", delivery.get("state"));
                 temp.put("analyst", delivery.get("analyst") != null ? User.userDao.findById(delivery.get("analyst")) : null);
                 temp.put("assessor", delivery.get("assessor") != null ? User.userDao.findById(delivery.get("assessor")) : null);
@@ -384,6 +386,24 @@ public class SampleController extends Controller {
         }
         json.put("results", results);
         return json;
+    }
+
+    /**
+     * 审核拒绝变成JSON
+     *
+     * @return
+     */
+    public static List assessorRejectToJson(List<Delivery_Assess_Reject> delivery_assess_rejectList) {
+        List<Map> results = new ArrayList<>();
+        for (Delivery_Assess_Reject reject : delivery_assess_rejectList) {
+            Map temp = new HashMap();
+            temp.put("id", reject.get("id"));
+            temp.put("assessor_time", reject.get("assessor_time"));
+            temp.put("reason", reject.get("reason"));
+            temp.put("assessor", User.userDao.findById(reject.get("assessor")).getUserInfo());
+            results.add(temp);
+        }
+        return results;
     }
 
 

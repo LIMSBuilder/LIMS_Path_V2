@@ -423,7 +423,8 @@
                                 assessor_time: "",
                                 checker: {},
                                 checker_time: "",
-                                state: ""
+                                state: "",
+                                assess_reject:[]
                             };
                         },
                         methods: {
@@ -456,8 +457,8 @@
                                 me.$set("assessor_time", project.assessor_time);
                                 me.$set("checker", project.checker);
                                 me.$set("checker_time", project.checker_time);
-                                debugger
                                 me.$set("state", project.delivery.state);
+                                me.$set("assess_reject",project.assess_reject);
                             }
                         },
                         ready: function () {
