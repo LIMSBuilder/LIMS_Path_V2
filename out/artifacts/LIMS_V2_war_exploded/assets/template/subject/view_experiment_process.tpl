@@ -113,6 +113,31 @@
             </table>
         </div><!-- table-responsive -->
     </div><!-- col-md-12 -->
+    <div class="col-md-12" v-if="isShow">
+        <div class="table-responsive">
+            <div class="col-sm-4 mb10">
+                <h4>审核拒绝记录</h4>
+            </div>
+            <table class="table table-info table-hover mb30 text-center">
+                <thead>
+                <tr>
+                    <th class="text-center">编号</th>
+                    <th class="text-center">审核者</th>
+                    <th class="text-center">拒绝时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <template v-for="(index,item) in assess_reject">
+                    <tr>
+                        <td class="text-center">{{index+1}}</td>
+                        <td class="text-center">{{item.assessor.name}}</td>
+                        <td class="text-center">{{item.assessor_time}}</td>
+                    </tr>
+                </template>
+                </tbody>
+            </table>
+        </div><!-- table-responsive -->
+    </div><!-- col-md-12 -->
 
     <div class="col-md-12" v-if="isShow">
         <div class="table-responsive">
