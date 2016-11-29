@@ -32,8 +32,8 @@
                                 </div>
                             </div>
                         </template>
-
                     </div><!-- results-list -->
+                    <div class="paging nomargin pull-right"></div>
                 </div>
             </div>
             <div class="tab-pane" id="profile">
@@ -128,7 +128,7 @@
                                 current: data.currentPage,
                                 callback: function (page) {
                                     var currentPage = page.getCurrent();
-                                    me.$http.get("/task/list", {
+                                    me.$http.get("/task/assessList", {
                                         params: {
                                             rowCount: rowCount,
                                             currentPage: currentPage,
