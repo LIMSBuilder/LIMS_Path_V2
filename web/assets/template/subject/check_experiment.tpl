@@ -1,11 +1,10 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="btn-demo">
+            <a class="btn btn-warning-alt" @click="flow(id,identify)">业务流转</a>
+            <a class="btn btn-success-alt" @click="review_all(3)">全部通过</a>
+            <a class="btn btn-danger-alt" @click="review_all(-1)">全部拒绝</a>
             <a class="btn btn-default-alt" @click="load_list">刷 新</a>
-            <a data-content="{{alert_info}}" data-trigger="hover" data-placement="bottom" data-toggle="popover"
-               data-container="body" class="btn btn-info-alt popovers" data-original-title="当前各状态介绍" title="">
-                状态指引
-            </a>
         </div>
         <div class="table-responsive">
             <table class="table table-info mb30">
@@ -35,33 +34,22 @@
                                target="_blank" class="btn btn-sm btn-info-alt">查 看</a>
                         </td>
                         <td>{{project.samples.length}}</td>
-                        <td v-show="project.delivery.state==-3">
-                            <span class="label label-default">待完善</span>
-                        </td>
-                        <td v-show="project.delivery.state==-2">
-                            <span class="label label-warning">复核拒绝</span>
-                        </td>
                         <td v-show="project.delivery.state==-1">
                             <span class="label label-warning">审核拒绝</span>
                         </td>
-                        <td v-show="project.delivery.state==0">
-                            <span class="label label-default">待分析</span>
-                        </td>
-                        <td v-show="project.delivery.state==1">
-                            <span class="label label-info">已完成</span>
-                        </td>
                         <td v-show="project.delivery.state==2">
-                            <span class="label label-primary">待审核</span>
+                            <span class="label label-info">待审核</span>
                         </td>
                         <td v-show="project.delivery.state==3">
                             <span class="label label-success">审核通过</span>
                         </td>
-                        <td v-show="project.delivery.state==4">
-                            <span class="label label-primary">待复核</span>
-                        </td>
                         <td class="table-action">
                             <a class="btn btn-sm btn-default-alt"
-                               @click="showInfo(project)">查看详情</a>
+                               @click="showInfo(project.samples,project.originRecordList)">清单</a>
+                            <a class="btn btn-sm btn-success-alt"
+                               @click="review(project,3)">通过</a>
+                            <a class="btn btn-sm btn-danger-alt"
+                               @click="review(project,-1)">拒绝</a>
                         </td>
                     </tr>
                 </template>
@@ -72,84 +60,16 @@
     <div class="col-md-12" v-if="isShow">
         <div class="table-responsive">
             <div class="col-sm-4 mb10">
-                <h4>流程详情</h4>
-            </div>
-            <ul class="col-sm-12 nav nav-pills nav-justified step step-progress">
-                <li :class="state>0?'active':''"><a>实验分析/修改<span class="caret"></span></a>
-                </li>
-                <li :class="state>=2?'active':''"><a>分析完成<span class="caret"></span></a>
-                </li>
-                <li :class="state>=3?'active':''"><a>待审核<span class="caret"></span></a>
-                </li>
-                <li :class="state>=4?'active':''"><a>审核完成<span class="caret"></span></a>
-                </li>
-                <li :class="state>=5?'active':''"><a>待复核<span class="caret"></span></a>
-                </li>
-                <li :class="state>=6?'active':''"><a>复核完成<span class="caret"></span></a>
-                </li>
-            </ul>
-            <div class="mb10"></div>
-            <table class="table table-info table-hover mb30 text-center">
-                <thead>
-                <tr>
-                    <th class="text-center">分析员</th>
-                    <th class="text-center">分析时间</th>
-                    <th class="text-center">审核员</th>
-                    <th class="text-center">审核时间</th>
-                    <th class="text-center">复核员</th>
-                    <th class="text-center">复核时间</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td class="text-center">{{analyst.name}}</td>
-                    <td class="text-center">{{analyst_time==null?"未完成":analyst_time}}</td>
-                    <td class="text-center">{{assessor.name}}</td>
-                    <td class="text-center">{{assessor_time==null?"未完成":assessor_time}}</td>
-                    <td class="text-center">{{checker.name}}</td>
-                    <td class="text-center">{{checker_time==null?"未完成":checker_time}}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div><!-- table-responsive -->
-    </div><!-- col-md-12 -->
-    <div class="col-md-12" v-if="isShow">
-        <div class="table-responsive">
-            <div class="col-sm-4 mb10">
-                <h4>审核拒绝记录</h4>
-            </div>
-            <table class="table table-info table-hover mb30 text-center">
-                <thead>
-                <tr>
-                    <th class="text-center">编号</th>
-                    <th class="text-center">审核者</th>
-                    <th class="text-center">拒绝时间</th>
-                </tr>
-                </thead>
-                <tbody>
-                <template v-for="(index,item) in assess_reject">
-                    <tr>
-                        <td class="text-center">{{index+1}}</td>
-                        <td class="text-center">{{item.assessor.name}}</td>
-                        <td class="text-center">{{item.assessor_time}}</td>
-                    </tr>
-                </template>
-                </tbody>
-            </table>
-        </div><!-- table-responsive -->
-    </div><!-- col-md-12 -->
-
-    <div class="col-md-12" v-if="isShow">
-        <div class="table-responsive">
-            <div class="col-sm-4 mb10">
                 <h4>原始记录列表</h4>
             </div>
             <table class="table table-info table-hover mb30 text-center">
                 <thead>
                 <tr>
+                <tr>
                     <th class="text-center">编号</th>
                     <th class="text-center">原始记录名称</th>
                     <th class="text-center">操作</th>
+                </tr>
                 </tr>
                 </thead>
                 <tbody>

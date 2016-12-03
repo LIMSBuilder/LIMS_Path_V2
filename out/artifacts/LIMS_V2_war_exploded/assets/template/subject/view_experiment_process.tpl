@@ -61,7 +61,7 @@
                         </td>
                         <td class="table-action">
                             <a class="btn btn-sm btn-default-alt"
-                               @click="showInfo(project)">清单</a>
+                               @click="showInfo(project)">查看详情</a>
                         </td>
                     </tr>
                 </template>
