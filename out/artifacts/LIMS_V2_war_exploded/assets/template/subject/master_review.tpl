@@ -4,49 +4,67 @@
             <div class="form-group">
                 <label class="col-sm-4 control-label">原始记录是否填写完整？</label>
                 <div class="col-sm-6">
-                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult1" value="0"> 是</label></div>
-                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult1" value="1"> 否</label></div>
-                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult1" value="2"> 纠正</label></div>
+                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult1" value="0"> 是</label>
+                    </div>
+                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult1" value="1"> 否</label>
+                    </div>
+                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult1" value="2"> 纠正</label>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label">监测数据有效位数是否规范？</label>
                 <div class="col-sm-6">
-                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult2" value="0"> 是</label></div>
-                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult2" value="1"> 否</label></div>
-                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult2" value="2"> 纠正</label></div>
+                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult2" value="0"> 是</label>
+                    </div>
+                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult2" value="1"> 否</label>
+                    </div>
+                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult2" value="2"> 纠正</label>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label">原始记录修改是否符合规范？</label>
                 <div class="col-sm-6">
-                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult3" value="0"> 是</label></div>
-                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult3" value="1"> 否</label></div>
-                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult3" value="2"> 纠正</label></div>
+                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult3" value="0"> 是</label>
+                    </div>
+                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult3" value="1"> 否</label>
+                    </div>
+                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult3" value="2"> 纠正</label>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label">送检单结果与记录是否一致？</label>
                 <div class="col-sm-6">
-                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult4" value="0"> 是</label></div>
-                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult4" value="1"> 否</label></div>
-                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult4" value="2"> 纠正</label></div>
+                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult4" value="0"> 是</label>
+                    </div>
+                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult4" value="1"> 否</label>
+                    </div>
+                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult4" value="2"> 纠正</label>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label">原始记录审核是否完整？</label>
                 <div class="col-sm-6">
-                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult5" value="0"> 是</label></div>
-                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult5" value="1"> 否</label></div>
-                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult5" value="2"> 纠正</label></div>
+                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult5" value="0"> 是</label>
+                    </div>
+                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult5" value="1"> 否</label>
+                    </div>
+                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult5" value="2"> 纠正</label>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label">标准曲线是否符合规范？</label>
                 <div class="col-sm-6">
-                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult6" value="0"> 是</label></div>
-                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult6" value="1"> 否</label></div>
-                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult6" value="2"> 纠正</label></div>
+                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult6" value="0"> 是</label>
+                    </div>
+                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult6" value="1"> 否</label>
+                    </div>
+                    <div class="radio col-sm-2"><label><input type="radio" v-model="firstResult6" value="2"> 纠正</label>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
