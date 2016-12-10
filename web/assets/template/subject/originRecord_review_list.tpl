@@ -7,6 +7,7 @@
                     <th class="text-center">编号</th>
                     <th class="text-center">审核人</th>
                     <th class="text-center">审核时间</th>
+                    <th class="text-center">状态</th>
                     <th class="text-center"></th>
                 </tr>
                 </thead>
@@ -16,6 +17,12 @@
                         <td>{{index+1}}</td>
                         <td>{{result.result_user.name}}</td>
                         <td>{{result.result_time}}</td>
+                        <td v-if="nowResult.id==result.id">
+                            <span class="label label-success">当 前</span>
+                        </td>
+                        <td v-else>
+                            <span class="label label-warning">历 史</span>
+                        </td>
                         <td class="table-action">
                             <a class="btn btn-sm btn-info-alt"
                                @click="showInfo(result)">查 看</a>
