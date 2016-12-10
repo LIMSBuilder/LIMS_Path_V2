@@ -227,6 +227,46 @@ public class FlowController extends Controller {
 
 
     /**
+     * 任务主任一审
+     * 1-审核通过
+     * 0-审核拒绝
+     */
+    public void receiveFirstFlow() {
+        try {
+            Boolean result = Db.tx(new IAtom() {
+                @Override
+                public boolean run() throws SQLException {
+                    int task_id = getParaToInt("task_id");
+                    int state = getParaToInt("state");
+                    Task task = Task.taskDao.findById(task_id);
+                    if (task != null) {
+                        Boolean result = true;
+                        if (state == 1) {
+                            //审核通过
+                            result = flow(Integer.parseInt(ParaUtils.flows.get("quality_review").toString()), task_id);
+                        } else {
+                            //审核拒绝
+                            result = flow(Integer.parseInt(ParaUtils.flows.get("task_dstribute").toString()), task_id);
+                            //将送检单的state变成-3(待修改)状态
+                            List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE task_id =" + task_id);
+                            for (Delivery delivery : deliveryList) {
+                                result = result && delivery.set("state", -3).update();
+                                if (!result) break;
+                            }
+                        }
+                        return result;
+                    }
+                    return false;
+                }
+            });
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+
+    /**
      * 实验分析及已经通过审核和复审,本方法功能是验证是否可以进入主任审核(主任一审-》主任二审)
      * 进入条件:所有当前task下的delivery的state都为6(复核流程走完)
      *
@@ -235,7 +275,8 @@ public class FlowController extends Controller {
     public static boolean deliveryCheck(int task_id) {
         List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE `db_delivery`.`task_id`=" + task_id + "  AND `db_delivery`.`state` != 6");
         if (deliveryList.size() == 0) {
-            return flow(Integer.parseInt(ParaUtils.flows.get("master_review").toString()), task_id);
+            Task task = Task.taskDao.findById(task_id);
+            return flow(Integer.parseInt(ParaUtils.flows.get("master_review").toString()), task_id) && task.set("experience_firstReview_record", null).update();
         }
         return true;
     }

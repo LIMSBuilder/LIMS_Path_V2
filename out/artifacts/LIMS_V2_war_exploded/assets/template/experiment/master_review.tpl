@@ -79,10 +79,14 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="btn-demo">
-                            <a class="btn btn-info-alt" @click="pending(id,identify)" data-toggle="modal"
-                               data-target=".bs-example-modal-lg">任务审核</a>
-                            <a class="btn btn-primary-alt" v-if="experience_firstReview">查 看</a>
-                            <a class="btn btn-success-alt" @click="frash">刷 新</a>
+                            <a class="btn btn-success-alt" @click="review(id,identify,1)">审核通过</a>
+                            <a class="btn btn-danger-alt" @click="review(id,identify,0)">审核拒绝</a>
+                            <a class="btn btn-info-alt" @click="pending(id)" data-toggle="modal"
+                               data-target=".bs-example-modal-lg">原始记录审核</a>
+                            <a class="btn btn-primary-alt" @click="viewReceiveInfo(id)" v-if="experience_firstReview"
+                               data-toggle="modal"
+                               data-target=".bs-example-modal-lg">查 看</a>
+                            <a class="btn btn-default-alt" @click="frash">刷 新</a>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-info mb30">
@@ -94,7 +98,6 @@
                                     <th class="text-center">原始记录</th>
                                     <th class="text-center">送检单</th>
                                     <th class="text-center">样品件数</th>
-                                    <th class="text-center">拒绝次数</th>
                                     <th class="text-center">操作</th>
                                 </tr>
                                 </thead>
@@ -111,36 +114,12 @@
                                                @click="originRecord(project)">列 表</a>
                                         </td>
                                         <td>
-                                            <a v-if="project.inspection_path == null"
-                                               href="/distribute/createInspection?delivery_id={{project.delivery.id}}"
-                                               target="_blank" class="btn btn-sm btn-info-alt">填 写</a>
-                                            <a v-if="project.inspection_path == null" class="btn btn-sm btn-info-alt"
-                                               @click="upload_inspection(project)">上 传</a>
-                                            <a v-if="project.inspection_path != null"
-                                               href="/distribute/viewInspection?delivery_id={{project.delivery.id}}"
+                                            <a href="/distribute/viewInspection?delivery_id={{project.delivery.id}}"
                                                target="_blank" class="btn btn-sm btn-success-alt">查 看</a>
-                                            <a v-if="project.inspection_path != null && (project.delivery.state==0||project.delivery.state==-3)"
-                                               href="/distribute/changeInspection?delivery_id={{project.delivery.id}}"
-                                               target="_blank" class="btn btn-sm btn-primary-alt">修 改</a>
-                                            <a v-if="project.inspection_path != null && (project.delivery.state==0||project.delivery.state==-3)"
-                                               class="btn btn-sm btn-danger-alt" @click="deleteInspection(project)">删
-                                                除</a>
                                         </td>
                                         <td>{{project.samples.length}}</td>
-                                        <td v-show="project.state==-3">
-                                            <span class="label label-warning">待完善</span>
-                                        </td>
-                                        <td v-show="project.state==0">
-                                            <span class="label label-info">待分析</span>
-                                        </td>
-                                        <td v-show="project.state==1">
-                                            <span class="label label-success">已分析</span>
-                                        </td>
                                         <td class="table-action">
-                                            <a v-show="project.state==0||project.delivery.state==-3"
-                                               class="btn btn-sm btn-success-alt"
-                                               @click="save(project)">完成</a>
-                                            <a class="btn btn-sm btn-danger-alt"
+                                            <a class="btn btn-sm btn-info-alt"
                                                @click="showInfo(project.samples)">清单</a>
                                         </td>
                                     </tr>
@@ -646,7 +625,46 @@
                     LIMS.dialog_lg.$set('title', project.name + '原始记录列表');
                     LIMS.dialog_lg.currentView = 'originRecord' + project.id + project.delivery.state;
                 },
-                pending: function (task_id, identify) {
+                review: function (task_id, identify, state) {
+                    var me = this;
+                    jQuery.fn.check_msg({
+                        msg: "您对任务【" + identify + "】的审核意见为【" + (state == 1 ? '审核通过' : '审核拒绝') + "】,是否继续?",
+                        success: function () {
+                            var data = {
+                                task_id: task_id
+                            };
+                            me.$http.post("/review/checkFirstOriginReview", data).then(function (response) {
+                                var data = response.data;
+                                jQuery.fn.codeState(data.code, {
+                                    200: function () {
+                                        me.$http.post("/flow/receiveFirstFlow", {
+                                            task_id: task_id,
+                                            state: state
+                                        }).then(function (response) {
+                                            var data = response.data;
+                                            jQuery.fn.codeState(data.code, {
+                                                200: function () {
+                                                    jQuery.fn.alert_msg("任务审核成功!");
+                                                    me.load_list("state=master_review", 1);
+                                                }
+                                            })
+                                        }, function (response) {
+                                            jQuery.fn.error_msg("数据异常,无法流转任务,请刷新后重新尝试!");
+                                        });
+                                    },
+                                    504: function () {
+                                        jQuery.fn.error_msg("当前任务的原始记录审核尚未完成,任务无法流转!");
+                                    }
+                                })
+                            }, function (response) {
+                                jQuery.fn.error_msg("数据异常,无法进行项目流转!");
+                            });
+
+
+                        }
+                    })
+                },
+                pending: function (task_id) {
                     var me = this;
                     var template = jQuery.fn.loadTemplate("/assets/template/subject/master_review.tpl");
                     Vue.component('master_review' + task_id, {
@@ -682,50 +700,61 @@
                         },
                         ready: function () {
                             var that = this;
-                            that.$http.get("")
+                            that.$http.get("/review/getFirstReviewInfo", {
+                                params: {
+                                    task_id: task_id
+                                }
+                            }).then(function (response) {
+                                var data = response.data;
+                                for (var key in data) {
+                                    if (that[key] != undefined) {
+                                        that.$set(key, data[key]);
+                                    }
+                                }
+                            }, function (response) {
+                                jQuery.fn.error_msg("数据异常,无法获取原始记录审核数据!");
+                            });
 
                         }
                     });
                     LIMS.dialog_lg.$set('title', '任务审核');
                     LIMS.dialog_lg.currentView = 'master_review' + task_id;
-
-
-//                    jQuery.fn.check_msg({
-//                        msg: "您即将进行任务编号为【" + identify + "】的进度流转,是否继续?",
-//                        success: function () {
-//                            var data = {
-//                                task_id: task_id
-//                            };
-//                            me.$http.post("/distribute/checkAnalyst", data).then(function (response) {
-//                                var data = response.data;
-//                                jQuery.fn.codeState(data.code, {
-//                                    200: function () {
-//                                        me.$http.post("/flow/experienceFlow", {id: task_id}).then(function (response) {
-//                                            var data = response.data;
-//                                            jQuery.fn.codeState(data.code, {
-//                                                200: function () {
-//                                                    jQuery.fn.alert_msg("任务流转成功!");
-//                                                    me.projectList = [];
-//                                                    me.sample_list = [];
-//                                                    //me.load_list("state=receive_delivery", 1);
-//                                                    me.load_list("", 1);
-//                                                }
-//                                            })
-//                                        }, function (response) {
-//                                            jQuery.fn.error_msg("数据异常,无法流转任务,请刷新后重新尝试!");
-//                                        });
-//                                    },
-//                                    504: function () {
-//                                        jQuery.fn.error_msg("当前任务书尚有未完成的监测项目,任务无法流转!");
-//                                    }
-//                                })
-//                            }, function (response) {
-//                                jQuery.fn.error_msg("数据异常,无法进行项目流转!");
-//                            });
-//
-//
-//                        }
-//                    })
+                },
+                viewReceiveInfo: function (task_id) {
+                    var me = this;
+                    var template = jQuery.fn.loadTemplate("/assets/template/subject/originRecord_review_list.tpl");
+                    Vue.component('originRecord_review_list' + task_id, {
+                        template: template,
+                        data: function () {
+                            return {
+                                result_list: [],
+                                isShow: false,
+                                record: {}
+                            };
+                        },
+                        methods: {
+                            showInfo: function (record) {
+                                var me = this;
+                                me.$set("isShow", true);
+                                me.$set("record", record);
+                            }
+                        },
+                        ready: function () {
+                            var that = this;
+                            that.$http.get("/review/getFirstList", {
+                                params: {
+                                    task_id: task_id
+                                }
+                            }).then(function (response) {
+                                var data = response.data;
+                                that.$set("result_list", data.results);
+                            }, function (response) {
+                                jQuery.fn.error_msg("数据异常,无法获取原始记录审核列表!");
+                            });
+                        }
+                    });
+                    LIMS.dialog_lg.$set('title', '查看审核记录列表');
+                    LIMS.dialog_lg.currentView = 'originRecord_review_list' + task_id;
                 }
             },
             ready: function () {
