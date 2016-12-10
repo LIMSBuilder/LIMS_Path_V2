@@ -9,6 +9,7 @@ import com.contact.controller.quality.QualityController;
 import com.contact.controller.sample.DeliveryController;
 import com.contact.controller.sample.SampleController;
 import com.contact.controller.system.*;
+import com.contact.controller.task.ReviewController;
 import com.contact.controller.task.TaskController;
 import com.contact.controller.template.TemplateController;
 import com.jfinal.config.Routes;
@@ -37,6 +38,7 @@ public class CommonRoutes extends Routes {
         add("/delivery", DeliveryController.class, "/");
         add("/distribute", DistributeController.class, "/");
         add("/export", ExportController.class, "/");
+        add("/review", ReviewController.class, "/");
 
         add("/mail", MailController.class, "/");
         add("/file", FileController.class, "/");

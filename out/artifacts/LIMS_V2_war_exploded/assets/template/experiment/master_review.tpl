@@ -79,8 +79,9 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="btn-demo">
-                            <a class="btn btn-info-alt" @click="flow(id,identify)" data-toggle="modal"
+                            <a class="btn btn-info-alt" @click="pending(id,identify)" data-toggle="modal"
                                data-target=".bs-example-modal-lg">任务审核</a>
+                            <a class="btn btn-primary-alt" v-if="experience_firstReview">查 看</a>
                             <a class="btn btn-success-alt" @click="frash">刷 新</a>
                         </div>
                         <div class="table-responsive">
@@ -210,6 +211,7 @@
                     isShow: false,
                     projectList: [],
                     sample_list: [],
+                    experience_firstReview: "",
                     originRecordTemplate: [],
                     history_list: []
                 }
@@ -457,6 +459,7 @@
                             }
                         }
                         me.$set("projectList", data.results);
+                        me.$set("experience_firstReview", data.experience_firstReview);
                     }, function (response) {
                         jQuery.fn.error_msg("样品数据请求异常,请刷新后重新尝试。");
                     });
@@ -643,18 +646,43 @@
                     LIMS.dialog_lg.$set('title', project.name + '原始记录列表');
                     LIMS.dialog_lg.currentView = 'originRecord' + project.id + project.delivery.state;
                 },
-                flow: function (task_id, identify) {
+                pending: function (task_id, identify) {
                     var me = this;
                     var template = jQuery.fn.loadTemplate("/assets/template/subject/master_review.tpl");
                     Vue.component('master_review' + task_id, {
                         template: template,
                         data: function () {
-                            var alert_info = jQuery.fn.loadTemplate("/assets/template/subject/alert_info.tpl");
-                            return {};
+                            return {
+                                task_id: task_id,
+                                firstResult1: 0,
+                                firstResult2: 0,
+                                firstResult3: 0,
+                                firstResult4: 0,
+                                firstResult5: 0,
+                                firstResult6: 0,
+                                other: ""
+                            };
                         },
-                        methods: {},
+                        methods: {
+                            addReview: function () {
+                                var that = this;
+                                that.$http.post("/review/addFirstReview", that._data).then(function (response) {
+                                    var data = response.data;
+                                    jQuery.fn.codeState(data.code, {
+                                        200: function () {
+                                            jQuery.fn.alert_msg("审核结果已经保存!");
+                                            me.load_projectlist(me.id);
+                                        }
+                                    });
+                                }, function (response) {
+                                    jQuery.fn.error_msg("数据异常,无法保存主任审核结果!");
+                                });
+
+                            }
+                        },
                         ready: function () {
                             var that = this;
+                            that.$http.get("")
 
                         }
                     });
