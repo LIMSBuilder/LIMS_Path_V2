@@ -27,6 +27,7 @@ public class ParaUtils extends Controller {
         put("create_quality", 3);//质量控制完成,进入样品接收环节
         put("receive_delivery", 4);//样品接收完成,进入实验人员分配
         put("task_dstribute", 5);//任务分配完成,进入实验分析环节
+        put("master_review",6);//实验分析-审核-复核完成,进入主任一审环节
     }};
 
 

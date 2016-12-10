@@ -1,9 +1,6 @@
 package com.contact.controller.common;
 
-import com.contact.model.Delivery;
-import com.contact.model.Delivery_Assess_Reject;
-import com.contact.model.Sample;
-import com.contact.model.Task;
+import com.contact.model.*;
 import com.contact.utils.ParaUtils;
 import com.contact.utils.RenderUtils;
 import com.jfinal.core.Controller;
@@ -19,9 +16,6 @@ import java.util.Map;
 
 /**
  * 业务流程控制
- * 任务书:
- * 0-任务书起草,转入样品登记环节
- * 1-样品登记完成,转入
  */
 public class FlowController extends Controller {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -189,6 +183,61 @@ public class FlowController extends Controller {
         } catch (Exception e) {
             renderError(500);
         }
+    }
+
+
+    /**
+     * 实验分析复核流转
+     * <p/>
+     * 如果是-2,则变成-3表示审核拒绝,需要修改
+     * 如果是5,则变成6,表示审核通过
+     */
+    public void reviewFlow() {
+        try {
+            Boolean result = Db.tx(new IAtom() {
+                @Override
+                public boolean run() throws SQLException {
+                    int task_id = getParaToInt("id");
+                    Task task = Task.taskDao.findById(task_id);
+                    if (task != null) {
+                        List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE state in (-2,5) AND task_id=" + task_id + " AND checker=" + ParaUtils.getCurrentUser(getRequest()).get("id"));
+                        Boolean result = true;
+                        for (Delivery delivery : deliveryList) {
+                            if (delivery.get("state") == -2) {
+                                result = delivery.set("state", -3).set("checker_time", sdf.format(new Date())).update();
+                                //Delivery_Assess_Reject reject = new Delivery_Assess_Reject();
+                                Delivery_Check_Reject reject = new Delivery_Check_Reject();
+                                result = result && reject.set("checker", ParaUtils.getCurrentUser(getRequest()).get("id")).set("checker_time", sdfMore.format(new Date())).set("delivery_id", delivery.get("id")).save();
+                            } else {
+                                if (delivery.get("state") == 5) {
+                                    result = delivery.set("state", 6).set("checker_time", sdf.format(new Date())).update();
+                                }
+                            }
+                            if (!result) break;
+                        }
+                        return result && deliveryCheck(task_id);
+                    } else return false;
+                }
+            });
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+
+    /**
+     * 实验分析及已经通过审核和复审,本方法功能是验证是否可以进入主任审核(主任一审-》主任二审)
+     * 进入条件:所有当前task下的delivery的state都为6(复核流程走完)
+     *
+     * @return
+     */
+    public static boolean deliveryCheck(int task_id) {
+        List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE `db_delivery`.`task_id`=" + task_id + "  AND `db_delivery`.`state` != 6");
+        if (deliveryList.size() == 0) {
+            return flow(Integer.parseInt(ParaUtils.flows.get("master_review").toString()), task_id);
+        }
+        return true;
     }
 
     public static Boolean flow(int state, int id) {

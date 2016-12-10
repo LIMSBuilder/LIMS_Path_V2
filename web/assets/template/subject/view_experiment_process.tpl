@@ -59,9 +59,15 @@
                         <td v-show="project.delivery.state==4">
                             <span class="label label-primary">待复核</span>
                         </td>
+                        <td v-show="project.delivery.state==5">
+                            <span class="label label-primary">复核通过</span>
+                        </td>
+                        <td v-show="project.delivery.state==6">
+                            <span class="label label-success">已完成</span>
+                        </td>
                         <td class="table-action">
                             <a class="btn btn-sm btn-default-alt"
-                               @click="showInfo(project)">清单</a>
+                               @click="showInfo(project)">查看详情</a>
                         </td>
                     </tr>
                 </template>

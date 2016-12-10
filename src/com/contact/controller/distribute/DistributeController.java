@@ -461,9 +461,11 @@ public class DistributeController extends Controller {
 
     /**
      * 实验分析结果进行审核和复核
-     * 0-审核拒绝,返回修改
+     * -2-复核拒绝,返回修改
+     * -1-审核拒绝,返回修改
      * 3-审核通过
-     * 4-复核通过
+     * 4-待复核
+     * 5-复核通过
      */
     public void reviewState() {
         try {
@@ -491,6 +493,30 @@ public class DistributeController extends Controller {
                     Task task = Task.taskDao.findById(task_id);
                     if (task != null) {
                         List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE state in (-1,2,3) AND task_id=" + task_id);
+                        Boolean result = true;
+                        for (Delivery delivery : deliveryList) {
+                            result = delivery.set("state", state).update();
+                            if (!result) break;
+                        }
+                        return result;
+                    } else return false;
+                }
+            });
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+    public void reviewCheckStateAll() {
+        try {
+            Boolean result = Db.tx(new IAtom() {
+                @Override
+                public boolean run() throws SQLException {
+                    int state = getParaToInt("state");
+                    int task_id = getParaToInt("task_id");
+                    Task task = Task.taskDao.findById(task_id);
+                    if (task != null) {
+                        List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE state in (-2,4,5) AND task_id=" + task_id);
                         Boolean result = true;
                         for (Delivery delivery : deliveryList) {
                             result = delivery.set("state", state).update();
