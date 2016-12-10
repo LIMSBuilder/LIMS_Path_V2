@@ -58,12 +58,13 @@ public class ReviewController extends Controller {
      *
      * @return
      */
-    public static Map toFirstsJSON(List<Experience_FirstReview> experience_firstReviewList) {
+    public static Map toFirstsJSON(List<Experience_FirstReview> experience_firstReviewList, Experience_FirstReview now) {
         Map result = new HashMap();
         List temp = new ArrayList();
         for (Experience_FirstReview experienceFirstReview : experience_firstReviewList) {
             temp.add(toFirstJSON(experienceFirstReview));
         }
+        result.put("nowResult", now);
         result.put("results", temp);
         return result;
     }
@@ -137,7 +138,8 @@ public class ReviewController extends Controller {
             Task task = Task.taskDao.findById(task_id);
             if (task != null) {
                 List<Experience_FirstReview> experienceFirstReviewList = Experience_FirstReview.experienceFirstReviewDao.find("SELECT * FROM `db_experience_first` WHERE task_id=" + task_id);
-                renderJson(toFirstsJSON(experienceFirstReviewList));
+                Experience_FirstReview experienceFirstReview = Experience_FirstReview.experienceFirstReviewDao.findById(task.getInt("experience_firstReview_record"));
+                renderJson(toFirstsJSON(experienceFirstReviewList, experienceFirstReview));
             } else {
                 renderJson(RenderUtils.CODE_EMPTY);
             }

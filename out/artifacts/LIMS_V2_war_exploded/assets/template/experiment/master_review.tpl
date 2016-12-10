@@ -728,6 +728,7 @@
                         data: function () {
                             return {
                                 result_list: [],
+                                nowResult:{},
                                 isShow: false,
                                 record: {}
                             };
@@ -748,6 +749,7 @@
                             }).then(function (response) {
                                 var data = response.data;
                                 that.$set("result_list", data.results);
+                                that.$set("nowResult",data.nowResult);
                             }, function (response) {
                                 jQuery.fn.error_msg("数据异常,无法获取原始记录审核列表!");
                             });
