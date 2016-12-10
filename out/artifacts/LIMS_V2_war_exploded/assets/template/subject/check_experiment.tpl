@@ -2,8 +2,8 @@
     <div class="col-sm-12">
         <div class="btn-demo">
             <a class="btn btn-warning-alt" @click="flow(id,identify)">业务流转</a>
-            <a class="btn btn-success-alt" @click="review_all(3)">全部通过</a>
-            <a class="btn btn-danger-alt" @click="review_all(-1)">全部拒绝</a>
+            <a class="btn btn-success-alt" @click="review_all(5)">全部通过</a>
+            <a class="btn btn-danger-alt" @click="review_all(-2)">全部拒绝</a>
             <a class="btn btn-default-alt" @click="load_list">刷 新</a>
         </div>
         <div class="table-responsive">
@@ -34,22 +34,22 @@
                                target="_blank" class="btn btn-sm btn-info-alt">查 看</a>
                         </td>
                         <td>{{project.samples.length}}</td>
-                        <td v-show="project.delivery.state==-1">
-                            <span class="label label-warning">审核拒绝</span>
+                        <td v-show="project.delivery.state==-2">
+                            <span class="label label-warning">复核拒绝</span>
                         </td>
-                        <td v-show="project.delivery.state==2">
-                            <span class="label label-info">待审核</span>
+                        <td v-show="project.delivery.state==4">
+                            <span class="label label-info">待复核</span>
                         </td>
-                        <td v-show="project.delivery.state==3">
-                            <span class="label label-success">审核通过</span>
+                        <td v-show="project.delivery.state==5">
+                            <span class="label label-success">复核通过</span>
                         </td>
                         <td class="table-action">
                             <a class="btn btn-sm btn-default-alt"
                                @click="showInfo(project.samples,project.originRecordList)">清单</a>
                             <a class="btn btn-sm btn-success-alt"
-                               @click="review(project,3)">通过</a>
+                               @click="review(project,5)">通过</a>
                             <a class="btn btn-sm btn-danger-alt"
-                               @click="review(project,-1)">拒绝</a>
+                               @click="review(project,-2)">拒绝</a>
                         </td>
                     </tr>
                 </template>

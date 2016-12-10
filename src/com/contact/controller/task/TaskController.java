@@ -192,6 +192,21 @@ public class TaskController extends Controller {
         renderJson(results);
     }
 
+
+//    /**
+//     * 主任审核Task列表
+//     *
+//     *
+//     */
+//    public void masterReviewList() {
+//        int rowCount = getParaToInt("rowCount");
+//        int currentPage = getParaToInt("currentPage");
+//        if (rowCount == 0) {
+//            rowCount = ParaUtils.getRowCount();
+//        }
+//        String params="FROM `db_task` WHERE state";
+//    }
+
     /**
      * 将查询结果生成JSON
      *

@@ -229,30 +229,30 @@
                                         var data = response.data;
                                         jQuery.fn.codeState(data.code, {
                                             200: function () {
-                                                jQuery.fn.alert_msg("审核结果保存成功!");
+                                                jQuery.fn.alert_msg("复核结果保存成功!");
                                                 //me.load_list();
                                                 project.delivery.state = state;
                                             }
                                         });
                                     }, function (response) {
-                                        jQuery.fn.error_msg("审核数据异常,无法完成审核!");
+                                        jQuery.fn.error_msg("复核数据异常,无法完成复核!");
                                     });
                                 },
                                 review_all: function (state) {
                                     var me = this;
-                                    me.$http.post("/distribute/reviewStateAll", {
+                                    me.$http.post("/distribute/reviewCheckStateAll", {
                                         task_id: task_id,
                                         state: state
                                     }).then(function (response) {
                                         var data = response.data;
                                         jQuery.fn.codeState(data.code, {
                                             200: function () {
-                                                jQuery.fn.alert_msg("实验分析纪录全部审核完成！");
+                                                jQuery.fn.alert_msg("实验分析纪录全部复核完成！");
                                                 me.load_list();
                                             }
                                         });
                                     }, function (response) {
-                                        jQuery.fn.error_msg("数据异常,无法完成实验分析记录审核!");
+                                        jQuery.fn.error_msg("数据异常,无法完成实验分析记录复核!");
                                     });
 
                                 },
@@ -269,7 +269,7 @@
                                                 var data = response.data;
                                                 jQuery.fn.codeState(data.code, {
                                                     200: function () {
-                                                        me.$http.post("/flow/assessorFlow", {id: task_id}).then(function (response) {
+                                                        me.$http.post("/flow/reviewFlow", {id: task_id}).then(function (response) {
                                                             var data = response.data;
                                                             jQuery.fn.codeState(data.code, {
                                                                 200: function () {
@@ -282,7 +282,7 @@
                                                         });
                                                     },
                                                     504: function () {
-                                                        jQuery.fn.error_msg("当前任务书尚有未审核的实验分析结果,任务无法流转!");
+                                                        jQuery.fn.error_msg("当前任务书尚有未复核的实验分析结果,任务无法流转!");
                                                     }
                                                 })
                                             }, function (response) {

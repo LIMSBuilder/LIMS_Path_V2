@@ -330,7 +330,7 @@
                                             rowCount: rowCount,
                                             currentPage: currentPage,
                                             condition: data.condition,
-                                            role_type: 'assessort'
+                                            role_type: 'assessor'
                                         }
                                     }).then(function (response) {
                                         var data = response.data;
