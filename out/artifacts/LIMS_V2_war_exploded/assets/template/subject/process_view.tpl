@@ -13,9 +13,11 @@
             </li>
             <li @click="state(5)" :class="state>=5?'active':''"><a>任务分配<span class="caret"></span></a>
             </li>
-            <li><a>实验分析<span class="caret"></span></a>
+            <li @click="state(6)" :class="state>=6?'active':''"><a>实验分析<span class="caret"></span></a>
             </li>
-            <li><a>结果审核<span class="caret"></span></a>
+            <li @click="state(7)" :class="state>=7?'active':''"><a>记录一审<span class="caret"></span></a>
+            </li>
+            <li @click="state(8)" :class="state>=8?'active':''"><a>记录二审<span class="caret"></span></a>
             </li>
             <li><a>报告编写<span class="caret"></span></a>
             </li>
