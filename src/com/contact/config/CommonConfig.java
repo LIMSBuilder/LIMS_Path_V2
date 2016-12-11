@@ -81,6 +81,7 @@ public class CommonConfig extends JFinalConfig {
         arp.addMapping("db_deliveryAssessReject", Delivery_Assess_Reject.class);
         arp.addMapping("db_deliveryCheckReject", Delivery_Check_Reject.class);
         arp.addMapping("db_experience_first", Experience_FirstReview.class);
+        arp.addMapping("db_experience_second", Experience_SecondReview.class);
     }
 
     @Override

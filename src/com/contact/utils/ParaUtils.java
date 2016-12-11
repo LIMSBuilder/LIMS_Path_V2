@@ -29,6 +29,7 @@ public class ParaUtils extends Controller {
         put("task_dstribute", 5);//任务分配完成,进入实验分析环节
         put("master_review", 6);//实验分析-审核-复核完成,进入主任一审环节
         put("quality_review", 7);//主任一审完成,进入质量控制二审
+        put("create_report", 8);//质量控制二审完成,进入报告编制环节
     }};
 
 

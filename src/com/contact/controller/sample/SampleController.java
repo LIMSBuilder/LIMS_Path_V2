@@ -209,6 +209,7 @@ public class SampleController extends Controller {
             temp.put("sample_create", task.get("sample_time"));
             temp.put("sample_user", User.userDao.findById(task.getInt("sample_user")));
             temp.put("experience_firstReview", task.get("experience_firstReview_record"));
+            temp.put("experience_secondReview", task.get("experience_secondReview_record"));
             renderJson(temp);
         } catch (Exception e) {
             renderError(500);
