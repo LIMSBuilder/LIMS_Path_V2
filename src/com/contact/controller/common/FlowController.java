@@ -265,6 +265,45 @@ public class FlowController extends Controller {
         }
     }
 
+    /**
+     * 任务主任二审
+     * 1-审核通过
+     * 0-审核拒绝
+     */
+    public void receiveSecondFlow() {
+        try {
+            Boolean result = Db.tx(new IAtom() {
+                @Override
+                public boolean run() throws SQLException {
+                    int task_id = getParaToInt("task_id");
+                    int state = getParaToInt("state");
+                    Task task = Task.taskDao.findById(task_id);
+                    if (task != null) {
+                        Boolean result = true;
+                        if (state == 1) {
+                            //审核通过
+                            result = flow(Integer.parseInt(ParaUtils.flows.get("create_report").toString()), task_id);
+                        } else {
+                            //审核拒绝
+                            result = flow(Integer.parseInt(ParaUtils.flows.get("task_dstribute").toString()), task_id);
+                            //将送检单的state变成-3(待修改)状态
+                            List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE task_id =" + task_id);
+                            for (Delivery delivery : deliveryList) {
+                                result = result && delivery.set("state", -3).update();
+                                if (!result) break;
+                            }
+                        }
+                        return result;
+                    }
+                    return false;
+                }
+            });
+            renderJson(result ? RenderUtils.CODE_SUCCESS : RenderUtils.CODE_ERROR);
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
 
     /**
      * 实验分析及已经通过审核和复审,本方法功能是验证是否可以进入主任审核(主任一审-》主任二审)
@@ -276,7 +315,7 @@ public class FlowController extends Controller {
         List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE `db_delivery`.`task_id`=" + task_id + "  AND `db_delivery`.`state` != 6");
         if (deliveryList.size() == 0) {
             Task task = Task.taskDao.findById(task_id);
-            return flow(Integer.parseInt(ParaUtils.flows.get("master_review").toString()), task_id) && task.set("experience_firstReview_record", null).update();
+            return flow(Integer.parseInt(ParaUtils.flows.get("master_review").toString()), task_id) && task.set("experience_firstReview_record", null).set("experience_secondReview_record", null).update();
         }
         return true;
     }

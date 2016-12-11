@@ -1,11 +1,9 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <ul class="nav nav-tabs">
-            <li id="tab_task_list" class="active"><a href="#home" data-toggle="tab"><strong>待您审核</strong></a></li>
-            <li><a href="#profile" data-toggle="tab"><strong>流程中</strong></a></li>
-            <li id="tab-task"><a href="#task" data-toggle="tab"><strong>项目清单</strong></a></li>
+            <li id="tab_task_list" class="active"><a href="#home" data-toggle="tab"><strong>审核项目</strong></a></li>
+            <li id="tab-task"><a href="#task" data-toggle="tab"><strong>项目详情</strong></a></li>
         </ul>
-
         <!-- Tab panes -->
         <div class="tab-content mb30">
             <div class="tab-pane active" id="home">
@@ -18,8 +16,8 @@
                                 </a>
                                 <div class="media-body">
                                     <div class="btn-demo pull-right">
-                                        <a class="btn btn-info-alt"
-                                           @click="review_task(result)">审核任务</a>
+                                        <a class="btn btn-primary-alt"
+                                           @click="review_task(result)">审核项目</a>
                                         <a class="btn btn-info-alt"
                                            @click="view_process(result)" data-toggle="modal"
                                            data-target=".bs-example-modal-lg">流程查询</a>
@@ -40,39 +38,6 @@
                         </template>
                     </div><!-- results-list -->
                     <div class="paging nomargin pull-right" id="currentPage"></div>
-                </div>
-            </div>
-            <div class="tab-pane" id="profile">
-                <div class="row">
-                    <div class="results-list">
-                        <template v-for="result in history_list">
-                            <div class="media">
-                                <a href="javascript:;" class="pull-left">
-                                    <img alt="" src="/assets/images/photos/contract.png" class="media-object">
-                                </a>
-                                <div class="media-body">
-                                    <div class="btn-demo pull-right">
-                                        <a class="btn btn-info-alt"
-                                           @click="view_process(result)" data-toggle="modal"
-                                           data-target=".bs-example-modal-lg">流程查询</a>
-                                        <a class="btn btn-default-alt" data-toggle="modal"
-                                           data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
-                                    </div>
-                                    <h4 class="filename text-primary">{{result.project_name}}</h4>
-                                    <small class="text-muted">合同编号: {{result.identify}}</small>
-                                    <br/>
-                                    <small class="text-muted">承接科室: {{result.receive_deparment.name}}</small>
-                                    <br/>
-                                    <small class="text-muted">创建时间: {{result.create_time}}</small>
-                                    <br/>
-                                    <small class="text-muted">客户单位: {{result.client_unit}}</small>
-                                </div>
-                            </div>
-
-                        </template>
-                    </div><!-- results-list -->
-                    <div class="paging nomargin pull-right" id="historyPage"></div>
-
                 </div>
             </div>
             <div class="tab-pane" id="task">
@@ -174,8 +139,6 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="/assets/js/toggles.min.js"></script>
-<script type="text/javascript" src="/assets/js/dropzone.min.js"></script>
 <script>
     jQuery(document).ready(function () {
         "use strict";
@@ -190,9 +153,7 @@
                     isShow: false,
                     projectList: [],
                     sample_list: [],
-                    experience_firstReview: "",
-                    originRecordTemplate: [],
-                    history_list: []
+                    experience_firstReview: ""
                 }
             },
             methods: {
@@ -292,54 +253,6 @@
                                     me.$set("result_list", data.results);
                                 }, function (response) {
                                     jQuery.fn.error_msg("无法获取任务书列表信息,请尝试刷新操作。");
-                                });
-                            }
-                        });
-                        jQuery.validator.setDefaults({
-                            submitHandler: function () {
-                            }
-                        });
-                    }, function (response) {
-                        jQuery.fn.error_msg("无法获取任务书列表信息,请尝试刷新操作。");
-                    });
-                },
-                load_history: function (condition, currentPage) {
-                    var me = this;
-                    var dom = jQuery(me.$el);
-                    var rowCount = localStorage.getItem("rowCount") || 0;
-                    me.$http.get("/task/getProcessList", {
-                        params: {
-                            rowCount: rowCount,
-                            currentPage: currentPage,
-                            condition: condition,
-                            role_type: 'analyst'
-                        }
-                    }).then(function (response) {
-                        var data = response.data;
-                        me.$set("history_list", data.results);
-                        //页码事件
-                        dom.find('#historyPage').pagination({
-                            pageCount: data.totalPage != 0 ? data.totalPage : 1,
-                            coping: true,
-                            homePage: '首页',
-                            endPage: '末页',
-                            prevContent: '上页',
-                            nextContent: '下页',
-                            current: data.currentPage,
-                            callback: function (page) {
-                                var currentPage = page.getCurrent();
-                                me.$http.get("/task/getProcessList", {
-                                    params: {
-                                        rowCount: rowCount,
-                                        currentPage: currentPage,
-                                        condition: data.condition,
-                                        role_type: 'analyst'
-                                    }
-                                }).then(function (response) {
-                                    var data = response.data;
-                                    me.$set("history_list", data.results);
-                                }, function (response) {
-                                    jQuery.fn.error_msg("无法获取流程中任务列表信息,请尝试刷新操作。");
                                 });
                             }
                         });
@@ -646,6 +559,9 @@
                                                 200: function () {
                                                     jQuery.fn.alert_msg("任务审核成功!");
                                                     me.load_list("state=master_review", 1);
+                                                    me.projectList = [];
+                                                    me.isShow = false;
+                                                    jQuery("#tab_task_list a").tab("show");
                                                 }
                                             })
                                         }, function (response) {
@@ -728,7 +644,7 @@
                         data: function () {
                             return {
                                 result_list: [],
-                                nowResult:{},
+                                nowResult: {},
                                 isShow: false,
                                 record: {}
                             };
@@ -749,7 +665,7 @@
                             }).then(function (response) {
                                 var data = response.data;
                                 that.$set("result_list", data.results);
-                                that.$set("nowResult",data.nowResult);
+                                that.$set("nowResult", data.nowResult);
                             }, function (response) {
                                 jQuery.fn.error_msg("数据异常,无法获取原始记录审核列表!");
                             });
@@ -762,10 +678,6 @@
             ready: function () {
                 var me = this;
                 me.load_list("state=master_review", 1);
-                me.load_history("", 1);
-                jQuery("#originRecord_template").select2({
-                    width: '100%'
-                });
             }
         });
     });
