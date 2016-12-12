@@ -9,6 +9,7 @@
         <div class="tab-content mb30">
             <div class="tab-pane active" id="home">
                 <div class="row">
+                    <p v-if="result_list.length==0">暂无待分析任务。</p>
                     <div class="results-list">
                         <template v-for="result in result_list">
                             <div class="media">
@@ -42,6 +43,12 @@
                     <div class="col-sm-12">
                         <div class="btn-demo">
                             <a class="btn btn-warning-alt" @click="flow(id,identify)">业务流转</a>
+                            <a class="btn btn-info-alt" data-toggle="modal"
+                               data-target=".bs-example-modal-lg"
+                               @click="view_record_review(id)">主任审核记录</a>
+                            <a class="btn btn-primary-alt" data-toggle="modal"
+                               data-target=".bs-example-modal-lg"
+                               @click="view_recordSecond_review(id)">质控审核记录</a>
                             <a class="btn btn-default-alt" @click="frash">刷 新</a>
                         </div>
                         <div class="table-responsive">
@@ -762,6 +769,82 @@
 
                         }
                     })
+                },
+                view_record_review: function (task_id) {
+                    var me = this;
+                    var template = jQuery.fn.loadTemplate("/assets/template/subject/originRecord_review_list.tpl");
+                    Vue.component('originRecord_review_list' + task_id, {
+                        template: template,
+                        data: function () {
+                            return {
+                                result_list: [],
+                                nowResult: {},
+                                isShow: false,
+                                record: {}
+                            };
+                        },
+                        methods: {
+                            showInfo: function (record) {
+                                var me = this;
+                                me.$set("isShow", true);
+                                me.$set("record", record);
+                            }
+                        },
+                        ready: function () {
+                            var that = this;
+                            that.$http.get("/review/getFirstList", {
+                                params: {
+                                    task_id: task_id
+                                }
+                            }).then(function (response) {
+                                var data = response.data;
+                                that.$set("result_list", data.results);
+                                that.$set("nowResult", data.nowResult);
+                            }, function (response) {
+                                jQuery.fn.error_msg("数据异常,无法获取原始记录审核列表!");
+                            });
+                        }
+                    });
+                    LIMS.dialog_lg.$set('title', '查看审核记录列表');
+                    LIMS.dialog_lg.currentView = 'originRecord_review_list' + task_id;
+                },
+                view_recordSecond_review: function (task_id) {
+                    var me = this;
+                    var template = jQuery.fn.loadTemplate("/assets/template/subject/originRecord_secondReview_list.tpl");
+                    Vue.component('originRecord_secondReview_list' + task_id, {
+                        template: template,
+                        data: function () {
+                            return {
+                                result_list: [],
+                                nowResult: {},
+                                isShow: false,
+                                record: {}
+                            };
+                        },
+                        methods: {
+                            showInfo: function (record) {
+                                var me = this;
+                                me.$set("isShow", true);
+                                me.$set("record", record);
+                            }
+                        },
+                        ready: function () {
+                            var that = this;
+                            that.$http.get("/review/getSecondList", {
+                                params: {
+                                    task_id: task_id
+                                }
+                            }).then(function (response) {
+                                var data = response.data;
+                                that.$set("result_list", data.results);
+                                that.$set("nowResult", data.nowResult);
+                            }, function (response) {
+                                jQuery.fn.error_msg("数据异常,无法获取原始记录审核列表!");
+                            });
+                        }
+                    });
+                    LIMS.dialog_lg.$set('title', '查看审核记录列表');
+                    LIMS.dialog_lg.currentView = 'originRecord_secondReview_list' + task_id;
                 }
             },
             ready: function () {
