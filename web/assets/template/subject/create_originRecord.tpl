@@ -16,7 +16,7 @@
                 <thead>
                 <tr>
                 <tr>
-                    <th class="text-center"></th>
+                    <th class="text-center" v-show="delivery.state==0||delivery.state==-3"></th>
                     <th class="text-center">编号</th>
                     <th class="text-center">原始记录名称</th>
                     <th class="text-center">操作</th>
@@ -26,7 +26,7 @@
                 <tbody>
                 <template v-for="(index,item) in originRecordList">
                     <tr>
-                        <td class="text-center">
+                        <td class="text-center" v-show="delivery.state==0||delivery.state==-3">
                             <input type="checkbox" data-value="{{item.name}}" value="{{item.id}}"
                                    name="record_select"></td>
                         <td class="text-center">{{index+1}}</td>
