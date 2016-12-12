@@ -300,6 +300,7 @@ public class DistributeController extends Controller {
             String name = getPara("name");
             String path = getPara("path");
             int delivery_id = getParaToInt("delivery_id");
+            System.out.println(delivery_id);
             Delivery delivery = Delivery.deliveryDao.findById(delivery_id);
             if (delivery != null) {
                 Delivery_OriginRecord delivery_originRecord = new Delivery_OriginRecord();

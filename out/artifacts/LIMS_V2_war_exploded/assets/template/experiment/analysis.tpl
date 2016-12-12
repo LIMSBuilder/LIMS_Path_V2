@@ -2,8 +2,7 @@
     <div class="panel-body">
         <ul class="nav nav-tabs">
             <li id="tab_task_list" class="active"><a href="#home" data-toggle="tab"><strong>待分析</strong></a></li>
-            <li><a href="#profile" data-toggle="tab"><strong>流程中</strong></a></li>
-            <li id="tab-task"><a href="#task" data-toggle="tab"><strong>项目清单</strong></a></li>
+            <li id="tab-task"><a href="#task" data-toggle="tab"><strong>{{identify==""?"任务详情":'当前:'+identify}}</strong></a>
         </ul>
 
         <!-- Tab panes -->
@@ -22,7 +21,6 @@
                                            @click="task_experience(result)">实验分析</a>
                                         <a class="btn btn-default-alt" data-toggle="modal"
                                            data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
-                                        <a class="btn btn-danger-alt" @click="flow(result.id,result.identify)">业务流转</a>
                                     </div>
                                     <h4 class="filename text-primary">{{result.project_name}}</h4>
                                     <small class="text-muted">合同编号: {{result.identify}}</small>
@@ -34,51 +32,17 @@
                                     <small class="text-muted">客户单位: {{result.client_unit}}</small>
                                 </div>
                             </div>
-
                         </template>
                     </div><!-- results-list -->
                     <div class="paging nomargin pull-right" id="currentPage"></div>
                 </div>
             </div>
-            <div class="tab-pane" id="profile">
-                <div class="row">
-                    <div class="results-list">
-                        <template v-for="result in history_list">
-                            <div class="media">
-                                <a href="javascript:;" class="pull-left">
-                                    <img alt="" src="/assets/images/photos/contract.png" class="media-object">
-                                </a>
-                                <div class="media-body">
-                                    <div class="btn-demo pull-right">
-                                        <a class="btn btn-info-alt"
-                                           @click="view_process(result)" data-toggle="modal"
-                                           data-target=".bs-example-modal-lg">流程查询</a>
-                                        <a class="btn btn-default-alt" data-toggle="modal"
-                                           data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
-                                    </div>
-                                    <h4 class="filename text-primary">{{result.project_name}}</h4>
-                                    <small class="text-muted">合同编号: {{result.identify}}</small>
-                                    <br/>
-                                    <small class="text-muted">承接科室: {{result.receive_deparment.name}}</small>
-                                    <br/>
-                                    <small class="text-muted">创建时间: {{result.create_time}}</small>
-                                    <br/>
-                                    <small class="text-muted">客户单位: {{result.client_unit}}</small>
-                                </div>
-                            </div>
-
-                        </template>
-                    </div><!-- results-list -->
-                    <div class="paging nomargin pull-right" id="historyPage"></div>
-
-                </div>
-            </div>
             <div class="tab-pane" id="task">
-                <div class="row">
+                <div class="row" v-if="showTab">
                     <div class="col-sm-12">
                         <div class="btn-demo">
-                            <a class="btn btn-danger-alt" @click="flow(id,identify)">业务流转</a>
-                            <a class="btn btn-success-alt" @click="frash">刷 新</a>
+                            <a class="btn btn-warning-alt" @click="flow(id,identify)">业务流转</a>
+                            <a class="btn btn-default-alt" @click="frash">刷 新</a>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-info mb30">
@@ -103,7 +67,7 @@
                                         <td>
                                             记录数:{{project.originRecond_count}}个&nbsp;
                                             <a data-toggle="modal"
-                                               data-target=".bs-example-modal-lg" class="btn btn-sm btn-warning-alt"
+                                               data-target=".bs-example-modal-lg" class="btn btn-sm btn-primary-alt"
                                                @click="originRecord(project)">列 表</a>
                                         </td>
                                         <td>
@@ -137,7 +101,7 @@
                                             <a v-show="project.state==0||project.delivery.state==-3"
                                                class="btn btn-sm btn-success-alt"
                                                @click="save(project)">完成</a>
-                                            <a class="btn btn-sm btn-danger-alt"
+                                            <a class="btn btn-sm btn-info-alt"
                                                @click="showInfo(project.samples)">清单</a>
                                         </td>
                                     </tr>
@@ -188,6 +152,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="row" v-else>
+                    <p>请先选择一个任务。</p>
+                </div>
             </div>
         </div>
     </div>
@@ -236,6 +203,7 @@
             el: '#contentpanel',
             data: function () {
                 return {
+                    showTab: false,
                     result_list: [],//结果集
                     id: "",
                     delivery_id: "",
@@ -252,6 +220,7 @@
                     var me = this;
                     var id = task.id;
                     me.isShow = false;
+                    me.showTab = true;
                     me.$set("id", id);
                     me.$set("identify", task.identify);
                     me.load_projectlist(id);
@@ -355,54 +324,6 @@
                         jQuery.fn.error_msg("无法获取任务书列表信息,请尝试刷新操作。");
                     });
                 },
-                load_history: function (condition, currentPage) {
-                    var me = this;
-                    var dom = jQuery(me.$el);
-                    var rowCount = localStorage.getItem("rowCount") || 0;
-                    me.$http.get("/task/getProcessList", {
-                        params: {
-                            rowCount: rowCount,
-                            currentPage: currentPage,
-                            condition: condition,
-                            role_type: 'analyst'
-                        }
-                    }).then(function (response) {
-                        var data = response.data;
-                        me.$set("history_list", data.results);
-                        //页码事件
-                        dom.find('#historyPage').pagination({
-                            pageCount: data.totalPage != 0 ? data.totalPage : 1,
-                            coping: true,
-                            homePage: '首页',
-                            endPage: '末页',
-                            prevContent: '上页',
-                            nextContent: '下页',
-                            current: data.currentPage,
-                            callback: function (page) {
-                                var currentPage = page.getCurrent();
-                                me.$http.get("/task/getProcessList", {
-                                    params: {
-                                        rowCount: rowCount,
-                                        currentPage: currentPage,
-                                        condition: data.condition,
-                                        role_type: 'analyst'
-                                    }
-                                }).then(function (response) {
-                                    var data = response.data;
-                                    me.$set("history_list", data.results);
-                                }, function (response) {
-                                    jQuery.fn.error_msg("无法获取流程中任务列表信息,请尝试刷新操作。");
-                                });
-                            }
-                        });
-                        jQuery.validator.setDefaults({
-                            submitHandler: function () {
-                            }
-                        });
-                    }, function (response) {
-                        jQuery.fn.error_msg("无法获取任务书列表信息,请尝试刷新操作。");
-                    });
-                },
                 view_process: function (task) {
                     var task_id = task.id;
                     var that = this;
@@ -424,7 +345,7 @@
                                 checker: {},
                                 checker_time: "",
                                 state: "",
-                                assess_reject:[]
+                                assess_reject: []
                             };
                         },
                         methods: {
@@ -458,7 +379,7 @@
                                 me.$set("checker", project.checker);
                                 me.$set("checker_time", project.checker_time);
                                 me.$set("state", project.delivery.state);
-                                me.$set("assess_reject",project.assess_reject);
+                                me.$set("assess_reject", project.assess_reject);
                             }
                         },
                         ready: function () {
@@ -502,8 +423,9 @@
                 originRecord: function (project) {
                     //填写原始记录表格
                     var me = this;
+                    var delivery_id = project.delivery.id;
                     var template = jQuery.fn.loadTemplate("/assets/template/subject/create_originRecord.tpl");
-                    Vue.component('originRecord' + project.id + project.delivery.state, {
+                    Vue.component('originRecord' + project.delivery.id + project.delivery.state, {
                         template: template,
                         data: function () {
                             return {
@@ -547,7 +469,7 @@
                             },
                             del_record: function (item) {
                                 //删除原始记录
-                                var me = this;
+                                var that = this;
                                 var oChecked = jQuery('input[name=record_select]:checked');
                                 var selected = [];
                                 var values = [];
@@ -577,7 +499,8 @@
                                             jQuery.fn.codeState(data.code, {
                                                 200: function () {
                                                     jQuery.fn.alert_msg("原始记录删除成功!");
-                                                    me.load_list();
+                                                    that.load_list();
+                                                    me.load_projectlist(me.id);
                                                     jQuery('#custom_lg_modal').modal("show");
                                                 }
                                             })
@@ -596,7 +519,7 @@
                                 jQuery("#custom_lg_modal").modal("hide");
                                 jQuery("#custom_modal").modal("show");
                                 var template = jQuery.fn.loadTemplate("/assets/template/subject/upload_originRecord.tpl");
-                                Vue.component('upload_self_originRecord', {
+                                Vue.component('upload_self_originRecord' + delivery_id, {
                                     template: template,
                                     data: function () {
                                         return {
@@ -664,8 +587,7 @@
                                     }
                                 });
                                 LIMS.dialog.$set('title', "上传自定义原始记录");
-                                LIMS.dialog.currentView = 'upload_self_originRecord';
-
+                                LIMS.dialog.currentView = 'upload_self_originRecord' + delivery_id;
                             }
                         },
                         ready: function () {
@@ -674,30 +596,38 @@
                         }
                     });
                     LIMS.dialog_lg.$set('title', project.name + '原始记录列表');
-                    LIMS.dialog_lg.currentView = 'originRecord' + project.id + project.delivery.state;
+                    LIMS.dialog_lg.currentView = 'originRecord' + project.delivery.id + project.delivery.state;
                 },
                 deleteInspection: function (project) {
                     var me = this;
                     var delivery_id = project.delivery.id;
-                    me.$http.post("/distribute/deleteInspection", {delivery_id: delivery_id}).then(function (response) {
-                        var data = response.data;
-                        jQuery.fn.codeState(data.code, {
-                            200: function () {
-                                jQuery.fn.alert_msg("当前送检单删除成功！");
-                                me.frash();
-                            }
-                        });
+                    jQuery.fn.check_msg({
+                        msg: "是否删除【" + project.name + "】的送检单?",
+                        success: function () {
+                            me.$http.post("/distribute/deleteInspection", {delivery_id: delivery_id}).then(function (response) {
+                                var data = response.data;
+                                jQuery.fn.codeState(data.code, {
+                                    200: function () {
+                                        jQuery.fn.alert_msg("当前送检单删除成功！");
+                                        me.frash();
+                                    }
+                                });
 
-                    }, function () {
-                        jQuery.fn.error_msg("服务器异常，无法删除送检单！");
-                    })
+                            }, function () {
+                                jQuery.fn.error_msg("服务器异常，无法删除送检单！");
+                            })
+                        }
+                    });
                 },
                 upload_inspection: function (project) {
+                    console.log(project.delivery.id);
                     //上传送检单
                     var me = this;
                     var delivery_id = project.delivery.id;
+                    console.log(delivery_id);
                     var template = jQuery.fn.loadTemplate("/assets/template/subject/upload_inspection.tpl");
                     jQuery("#custom_modal").modal("show");
+
                     Vue.component('upload_inspection' + delivery_id, {
                         template: template,
                         data: function () {
@@ -812,9 +742,8 @@
                                             jQuery.fn.codeState(data.code, {
                                                 200: function () {
                                                     jQuery.fn.alert_msg("任务流转成功!");
-                                                    me.projectList = [];
-                                                    me.sample_list = [];
-                                                    //me.load_list("state=receive_delivery", 1);
+                                                    me.identify = "";
+                                                    me.showTab = false;
                                                     me.load_list("", 1);
                                                 }
                                             })
@@ -838,7 +767,6 @@
             ready: function () {
                 var me = this;
                 me.load_list("", 1);
-                me.load_history("", 1);
                 jQuery("#originRecord_template").select2({
                     width: '100%'
                 });
