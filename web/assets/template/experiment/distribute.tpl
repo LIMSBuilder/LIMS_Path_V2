@@ -508,8 +508,8 @@
                                                 200: function () {
                                                     jQuery.fn.alert_msg("任务流转成功!");
                                                     me.load_list("state=receive_delivery", 1);
-                                                    me.projectList = [];
-                                                    me.sample_list = [];
+                                                    me.showTab = false;
+                                                    me.identify="";
                                                     jQuery("#tab_task_list a").tab("show");
                                                 }
                                             })
