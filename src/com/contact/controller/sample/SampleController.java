@@ -349,38 +349,41 @@ public class SampleController extends Controller {
     public static Map DeliverytoJson(Map<Delivery, List<Sample>> map) {
         List result = new ArrayList();
         int count = 0;
-        for (Delivery delivery : map.keySet()) {
+        //实现HashMap有序的排序
+        List<Delivery> arrayList = new ArrayList(map.keySet());
+        Collections.sort(arrayList, new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                Delivery d1 = (Delivery) o1;
+                Delivery d2 = (Delivery) o2;
+                return d1.getInt("id") - d2.getInt("id");
+            }
+        });
+        for (Delivery delivery : arrayList) {
             if (delivery != null) {
                 List<Sample> value = map.get(delivery);
                 Map temp = new HashMap();
                 int project_id = delivery.get("project_id");
                 Monitor_Project project = Monitor_Project.monitor_projectDao.findById(project_id);
-                temp.put("id", project.get("id"));
-                temp.put("name", project.get("name"));
-                temp.put("category", Monitor_Category.monitorCategoryDao.findById(project.getInt("category_id")));
-                temp.put("inspection", InspectionTemplate.inspectionTemplateDao.findById(Monitor_Category.monitorCategoryDao.findById(project.getInt("category_id")).get("inspection_template")));
-                temp.put("samples", value);
-                temp.put("character", delivery.get("character"));
-                temp.put("storage", delivery.get("storage"));
-
-                temp.put("delivery", delivery);
-
-                temp.put("originRecond_count", Delivery_OriginRecord.delivery_originRecordDao.find("SELECT * FROM `db_deliveryOriginRecord` WHERE delivery_id=" + delivery.get("id")).size());
-                temp.put("inspection_path", delivery.get("inspection_path"));
-
-
-                temp.put("originRecordList", Delivery_OriginRecord.delivery_originRecordDao.find("SELECT * FROM `db_deliveryOriginRecord` WHERE delivery_id=" + delivery.get("id")));
-
-                temp.put("assess_reject", assessorRejectToJson(Delivery_Assess_Reject.deliveryAssessRejectDao.find("SELECT * FROM `db_deliveryAssessReject` WHERE`db_deliveryAssessReject`.`delivery_id`=" + delivery.get("id"))));
-
-                temp.put("state", delivery.get("state"));
-                temp.put("analyst", delivery.get("analyst") != null ? User.userDao.findById(delivery.get("analyst")) : null);
-                temp.put("assessor", delivery.get("assessor") != null ? User.userDao.findById(delivery.get("assessor")) : null);
-                temp.put("checker", delivery.get("checker") != null ? User.userDao.findById(delivery.get("checker")) : null);
-
-                temp.put("analyst_time", delivery.get("analyst_time"));
-                temp.put("assessor_time", delivery.get("assessor_time"));
-                temp.put("checker_time", delivery.get("checker_time"));
+                temp.put("id", project.get("id")); //监测项目的id
+                temp.put("name", project.get("name"));//监测项目的名字
+                temp.put("category", Monitor_Category.monitorCategoryDao.findById(project.getInt("category_id")));//监测项目所属的分类
+                temp.put("inspection", InspectionTemplate.inspectionTemplateDao.findById(Monitor_Category.monitorCategoryDao.findById(project.getInt("category_id")).get("inspection_template"))); //监测项目的送检单模板
+                temp.put("samples", value);//进行该监测项目的样品
+                temp.put("character", delivery.get("character"));//特性
+                temp.put("storage", delivery.get("storage"));//存储方式
+                temp.put("delivery", delivery);//分析送检清单
+                temp.put("originRecond_count", Delivery_OriginRecord.delivery_originRecordDao.find("SELECT * FROM `db_deliveryOriginRecord` WHERE delivery_id=" + delivery.get("id")).size());//原始记录数量
+                temp.put("inspection_path", delivery.get("inspection_path"));//生成的送检单的地址
+                temp.put("originRecordList", Delivery_OriginRecord.delivery_originRecordDao.find("SELECT * FROM `db_deliveryOriginRecord` WHERE delivery_id=" + delivery.get("id")));//原始记录列表
+                temp.put("assess_reject", assessorRejectToJson(Delivery_Assess_Reject.deliveryAssessRejectDao.find("SELECT * FROM `db_deliveryAssessReject` WHERE`db_deliveryAssessReject`.`delivery_id`=" + delivery.get("id"))));//审核拒绝次数
+                temp.put("state", delivery.get("state"));//当前状态
+                temp.put("analyst", delivery.get("analyst") != null ? User.userDao.findById(delivery.get("analyst")) : null);//分析员
+                temp.put("assessor", delivery.get("assessor") != null ? User.userDao.findById(delivery.get("assessor")) : null);//审核员
+                temp.put("checker", delivery.get("checker") != null ? User.userDao.findById(delivery.get("checker")) : null);//复核员
+                temp.put("analyst_time", delivery.get("analyst_time"));//分析时间
+                temp.put("assessor_time", delivery.get("assessor_time"));//审核时间
+                temp.put("checker_time", delivery.get("checker_time"));//复核时间
                 count += value.size();
                 result.add(temp);
             }
