@@ -10,6 +10,7 @@
         <div class="tab-content mb30">
             <div class="tab-pane active" id="home">
                 <div class="row">
+                    <p v-if="result_list.length==0">暂无待下达任务。</p>
                     <div class="results-list">
                         <template v-for="result in result_list">
                             <div class="media">
@@ -35,8 +36,8 @@
                             </div>
 
                         </template>
-
                     </div><!-- results-list -->
+                    <div class="paging nomargin pull-right"></div>
                 </div>
             </div>
             <div class="tab-pane" id="task">
