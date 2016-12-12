@@ -2,8 +2,8 @@
     <div class="panel-body">
         <ul class="nav nav-tabs">
             <li id="tab_task_list" class="active"><a href="#home" data-toggle="tab"><strong>待下达清单</strong></a></li>
-            <li id="tab-task"><a href="#task" data-toggle="tab"><strong>下达列表</strong></a></li>
-            <li><a href="#profile" data-toggle="tab"><strong>已下达任务</strong></a></li>
+            <li id="tab-task"><a href="#task" data-toggle="tab"><strong>{{identify==""?"任务详情":'当前:'+identify}}</strong></a>
+            </li>
         </ul>
 
         <!-- Tab panes -->
@@ -22,7 +22,6 @@
                                            @click="task_distribute(result)">任务分派</a>
                                         <a class="btn btn-default-alt" data-toggle="modal"
                                            data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
-                                        <a class="btn btn-danger-alt" @click="flow(result)">业务流转</a>
                                     </div>
                                     <h4 class="filename text-primary">{{result.project_name}}</h4>
                                     <small class="text-muted">合同编号: {{result.identify}}</small>
@@ -41,25 +40,25 @@
                 </div>
             </div>
             <div class="tab-pane" id="task">
-                <div class="row">
+                <div class="row" v-if="showTab">
                     <div class="col-sm-12">
                         <div class="btn-demo">
-                            <a class="btn btn-default-alt" @click="select_all">全 选</a>
+                            <a class="btn btn-warning-alt" @click="flowItem">业务流转</a>
                             <a class="btn btn-info-alt" @click="user('analyst','分析员')">分析员</a>
                             <a class="btn btn-primary-alt" @click="user('assessor','审核员')">审核员</a>
                             <a class="btn btn-success-alt" @click="user('checker','复核员')">复核员</a>
-                            <a class="btn btn-warning-alt" @click="clearAll">清 空</a>
-                            <a class="btn btn-danger-alt" @click="flowItem">业务流转</a>
+                            <a class="btn btn-danger-alt" @click="clearAll">清 空</a>
+                            <a class="btn btn-default-alt" @click="select_all">全 选</a>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-info mb30">
                                 <thead>
                                 <tr>
-                                    <th class="text-center"></th>
+                                    <th class="text-center">选择</th>
                                     <th class="text-center">编号</th>
                                     <th class="text-center">样品类别</th>
                                     <th class="text-center">分析项目</th>
-                                    <th class="text-center">件数</th>
+                                    <th class="text-center">样品数</th>
                                     <th class="text-center">分析员</th>
                                     <th class="text-center">审核员</th>
                                     <th class="text-center">复核员</th>
@@ -75,30 +74,29 @@
                                         <td>{{project.category.name}}</td>
                                         <td>{{project.name}}</td>
                                         <td>{{project.samples.length}}</td>
-                                        <td v-if="project.analyst!=null">{{project.analyst.name}} <a href="javascript:;"
-                                                                                                     class="delete-row"
-                                                                                                     @click="delUser(project.id,'analyst','分析员')"><i
-                                                class="fa fa-trash-o"></i></a></td>
-                                        <td v-else><a href="javascript:;" class="delete-row"
-                                                      @click="addUser(project.id,'analyst','分析员')"><i
-                                                class="fa fa-gears"></i></a>
+                                        <td v-if="project.analyst!=null">{{project.analyst.name}}
+                                            <a class="btn btn-sm btn-danger-alt delete-row"
+                                               @click="delUser(project.id,'analyst','分析员')">删除</a>
                                         </td>
-                                        <td v-if="project.assessor!=null">{{project.assessor.name}} <a
-                                                href="javascript:;" class="delete-row"
-                                                @click="delUser(project.id,'assessor','审核员')"><i
-                                                class="fa fa-trash-o"></i></a>
+                                        <td v-else>
+                                            <a class="btn btn-sm btn-primary-alt delete-row"
+                                               @click="addUser(project.id,'analyst','分析员')">设置</a>
                                         </td>
-                                        <td v-else><a href="javascript:;" class="delete-row"
-                                                      @click="addUser(project.id,'assessor','审核员')"><i
-                                                class="fa fa-gears"></i></a>
+                                        <td v-if="project.assessor!=null">{{project.assessor.name}}
+                                            <a class="btn btn-sm btn-danger-alt delete-row"
+                                               @click="delUser(project.id,'assessor','审核员')">删除</a>
                                         </td>
-                                        <td v-if="project.checker!=null">{{project.checker.name}} <a href="javascript:;"
-                                                                                                     class="delete-row"
-                                                                                                     @click="delUser(project.id,'checker','复核员')"><i
-                                                class="fa fa-trash-o"></i></a></td>
-                                        <td v-else><a href="javascript:;" class="delete-row"
-                                                      @click="addUser(project.id,'checker','复核员')"><i
-                                                class="fa fa-gears"></i></a>
+                                        <td v-else>
+                                            <a class="btn btn-sm btn-primary-alt delete-row"
+                                               @click="addUser(project.id,'assessor','审核员')">设置</a>
+                                        </td>
+                                        <td v-if="project.checker!=null">{{project.checker.name}}
+                                            <a class="btn btn-sm btn-danger-alt delete-row"
+                                               @click="delUser(project.id,'checker','复核员')">删除</a>
+                                        </td>
+                                        <td v-else>
+                                            <a class="btn btn-sm btn-primary-alt delete-row"
+                                               @click="addUser(project.id,'checker','复核员')">设置</a>
                                         </td>
                                         <td class="table-action">
                                             <a class="btn btn-sm btn-info-alt" @click="showInfo(project.samples)">清单</a>
@@ -109,8 +107,8 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-sm-12">
-                        <div class="table-responsive" v-if="isShow">
+                    <div class="col-sm-12" v-if="isShow">
+                        <div class="table-responsive">
                             <div class="col-sm-4 mb10">
                                 <h4>样品详情</h4>
                             </div>
@@ -151,10 +149,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="tab-pane" id="profile">
-                <div class="row">
-
+                <div class="row" v-else>
+                    <p>请先选择一个任务。</p>
                 </div>
             </div>
         </div>
@@ -211,9 +207,9 @@
                     id: "",
                     identify: "",
                     isShow: false,
+                    showTab: false,
                     projectList: [],
                     sample_list: [],
-
                     roleList: [],//岗位列表
                     userList: []
                 }
@@ -223,6 +219,7 @@
                     var me = this;
                     var id = task.id;
                     me.isShow = false;
+                    me.showTab = true;
                     me.$set("id", id);
                     me.$set("identify", task.identify);
                     me.load_projectlist(id);
@@ -460,6 +457,7 @@
                     var me = this;
                     jQuery("#charge_user").modal("show");
                     jQuery("#saveOpt").off("click").on("click", function () {
+
                         var user_name = jQuery("#user_select").find('option:selected').html();
                         var user_id = jQuery("#user_select").val();
                         if (!user_id) {
@@ -467,6 +465,7 @@
                             return;
                         }
                         jQuery("#charge_user").modal("hide");
+
                         jQuery.fn.check_msg({
                             msg: "是否将【" + user_name + "】设置为当前检测项目的【" + name + "】?",
                             success: function () {
@@ -490,43 +489,6 @@
                             }
                         });
                     });
-                },
-                flow: function (task) {
-                    var me = this;
-                    jQuery.fn.check_msg({
-                        msg: "您即将进行任务编号为【" + task.identify + "】的进度流转,是否继续?",
-                        success: function () {
-                            var data = {
-                                task_id: task.id
-                            };
-                            me.$http.post("/distribute/checkUser", data).then(function (response) {
-                                var data = response.data;
-                                jQuery.fn.codeState(data.code, {
-                                    200: function () {
-                                        me.$http.post("/flow/distributeFlow", {id: task.id}).then(function (response) {
-                                            var data = response.data;
-                                            jQuery.fn.codeState(data.code, {
-                                                200: function () {
-                                                    jQuery.fn.alert_msg("任务流转成功!");
-                                                    me.projectList = [];
-                                                    me.sample_list = [];
-                                                    me.load_list("state=receive_delivery", 1);
-
-                                                }
-                                            })
-                                        }, function (response) {
-                                            jQuery.fn.error_msg("数据异常,无法流转任务,请刷新后重新尝试!");
-                                        });
-                                    },
-                                    504: function () {
-                                        jQuery.fn.error_msg("当前任务书尚有未分配监测项目,任务无法流转!");
-                                    }
-                                })
-                            }, function (response) {
-                                jQuery.fn.error_msg("数据异常,无法进行项目流转!");
-                            });
-                        }
-                    })
                 },
                 flowItem: function (task) {
                     var me = this;
