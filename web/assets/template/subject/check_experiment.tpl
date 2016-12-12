@@ -30,7 +30,7 @@
                             {{project.originRecond_count}}
                         </td>
                         <td>
-                            <a href="/distribute/createInspection?delivery_id={{project.delivery.id}}"
+                            <a href="/distribute/viewInspection?delivery_id={{project.delivery.id}}"
                                target="_blank" class="btn btn-sm btn-info-alt">查 看</a>
                         </td>
                         <td>{{project.samples.length}}</td>
