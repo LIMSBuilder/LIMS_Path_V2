@@ -64,7 +64,7 @@
                     }).then(function (response) {
                         var data = response.data;
                         var template = jQuery.fn.loadTemplate("/assets/template/subject/create_quality.tpl");
-                        Vue.component('connect_sample' + id, {
+                        Vue.component('create_quality' + id, {
                             template: template,
                             data: function () {
                                 return {
@@ -193,8 +193,8 @@
                                 me.load_list();
                             }
                         });
-                        LIMS.dialog_lg.$set('title', '样品交接联单');
-                        LIMS.dialog_lg.currentView = 'connect_sample' + id;
+                        LIMS.dialog_lg.$set('title', '质量控制');
+                        LIMS.dialog_lg.currentView = 'create_quality' + id;
                     }, function (response) {
                         jQuery.fn.error_msg("任务书数据请求异常,请刷新后重新尝试。");
                     });

@@ -49,7 +49,7 @@
                 <div class="form-group">
                     <div class="col-sm-3"></div>
                     <label class="col-sm-3 ">监测过程是否满足规范要求？</label>
-                    <label class="col-sm-1 control-labe text-successl" v-if="record.secondResult2==0"
+                    <label class="col-sm-1 control-label text-success" v-if="record.secondResult2==0"
                            style="text-align: left">是</label>
                     <label class="col-sm-1  text-danger" v-if="record.secondResult2==1"
                            style="text-align: left">否</label>

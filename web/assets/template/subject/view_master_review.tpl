@@ -12,7 +12,7 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-5 control-label">监测数据有效位数是否规范？</label>
-                <label class="col-sm-1 control-labe text-successl" v-if="firstResult2==0"
+                <label class="col-sm-1 control-labe text-success" v-if="firstResult2==0"
                        style="text-align: left">是</label>
                 <label class="col-sm-1 control-label text-danger" v-if="firstResult2==1"
                        style="text-align: left">否</label>
