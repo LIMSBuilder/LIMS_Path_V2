@@ -21,6 +21,7 @@ import java.util.Map;
 public class ParaUtils extends Controller {
     public final static Map flows = new HashMap() {{
         put("stop_task", -2);//中止任务书
+        put("finish_task", -1);//结束任务
         put("create_task", 0);//任务创建成功,进入样品登记环节
         put("create_sample", 1);//样品登记成功,进入交接联单环节
         put("connect_sample", 2);//交接联单生成完成,进入质量控制环节
