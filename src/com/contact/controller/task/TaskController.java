@@ -99,6 +99,82 @@ public class TaskController extends Controller {
     }
 
 
+    public void taskDelvieryList() {
+        int rowCount = getParaToInt("rowCount");
+        int currentPage = getParaToInt("currentPage");
+        String condition_temp = getPara("condition");
+        Map condition = ParaUtils.getSplitCondition(condition_temp);
+        if (rowCount == 0) {
+            rowCount = ParaUtils.getRowCount();
+        }
+        String paras = " WHERE state != -3";
+        Object[] keys = condition.keySet().toArray();
+        for (int i = 0; i < keys.length; i++) {
+            String key = (String) keys[i];
+            Object value = condition.get(key);
+            if (key.equals("identify") || key.equals("project_name") || key.equals("client_unit")) {
+                paras += (" AND " + key + " like \"%" + value + "%\"");
+            }
+            if (key.equals("delivery_type")) {
+                //查看实验分析相关的任务
+                String temp = "";
+                switch (Integer.parseInt(value.toString())) {
+                    case 1:
+                        //待我分析
+                        temp = "EXISTS(SELECT `db_delivery`.* FROM `db_delivery`,`db_task` m  WHERE `db_delivery`.`task_id`=t.`id`  AND `db_delivery`.`analyst`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + " )";
+                        break;
+                    case 2:
+                        //待我审核
+                        temp = "EXISTS(SELECT `db_delivery`.* FROM `db_delivery`,`db_task` m  WHERE `db_delivery`.`task_id`=t.`id`  AND `db_delivery`.`assessor`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + " )";
+                        break;
+                    case 3:
+                        //待我复核
+                        temp = "EXISTS(SELECT `db_delivery`.* FROM `db_delivery`,`db_task` m  WHERE `db_delivery`.`task_id`=t.`id`  AND `db_delivery`.`checker`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + " )";
+                        break;
+                    case 4:
+                        //主任审核
+                        temp = "EXISTS(SELECT `db_experience_first`.* FROM `db_experience_first`,`db_task` WHERE `db_experience_first`.`task_id`=t.`id` AND `db_experience_first`.`result_user`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + ")";
+                        break;
+                    case 5:
+                        //质控审核
+                        temp = "EXISTS(SELECT `db_experience_second`.* FROM `db_experience_second`,`db_task` WHERE `db_experience_second`.`task_id`=t.`id` AND `db_experience_second`.`result_user`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + ")";
+                        break;
+                }
+                if (temp != "")
+                    paras += (" AND " + temp);
+            }
+            if (key.equals("task_type")) {
+                String temp = "";
+                switch (Integer.parseInt(value.toString())) {
+                    case 0:
+                        //流程中
+                        temp = "state >= " + Integer.parseInt(ParaUtils.flows.get("receive_delivery").toString());
+                        break;
+                    case 1:
+                        //已结束
+                        temp = "state = " + Integer.parseInt(ParaUtils.flows.get("finish_task").toString());
+                        break;
+                    case 2:
+                        //已中止
+                        temp = "state = " + Integer.parseInt(ParaUtils.flows.get("stop_task").toString());
+                        break;
+                }
+                if (temp != "")
+                    paras += (" AND " + temp);
+            }
+        }
+        Page<Task> taskPage = Task.taskDao.paginate(currentPage, rowCount, "SELECT * ", " FROM `db_task` t" + paras);
+        List<Task> taskList = taskPage.getList();
+        Map results = toJson(taskList);
+        results.put("currentPage", currentPage);
+        results.put("totalPage", taskPage.getTotalPage());
+        results.put("rowCount", rowCount);
+        results.put("condition", condition_temp);
+        results.put("totalRowCount", taskPage.getTotalRow());
+        renderJson(results);
+
+    }
+
     /**
      * 获取在流程中的Task列表
      * role_type:角色类型:
@@ -181,7 +257,7 @@ public class TaskController extends Controller {
         if (rowCount == 0) {
             rowCount = ParaUtils.getRowCount();
         }
-        String paras = "FROM `db_task` t WHERE state=" + ParaUtils.flows.get("task_dstribute") + " AND  EXISTS(SELECT `db_delivery`.* FROM `db_delivery`,`db_task` m  WHERE `db_delivery`.`task_id`=t.`id` AND `db_delivery`.state in (-2,3,4) AND `db_delivery`.`assessor`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + " )";
+        String paras = "FROM `db_task` t WHERE state=" + ParaUtils.flows.get("task_dstribute") + " AND  EXISTS(SELECT `db_delivery`.* FROM `db_delivery`,`db_task` m  WHERE `db_delivery`.`task_id`=t.`id` AND `db_delivery`.state in (-2,4,5) AND `db_delivery`.`checker`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + " )";
         Page<Task> taskPage = Task.taskDao.paginate(currentPage, rowCount, "SELECT t.* ", paras);
         List<Task> taskList = taskPage.getList();
         Map results = toJson(taskList);
@@ -191,21 +267,6 @@ public class TaskController extends Controller {
         results.put("totalRowCount", taskPage.getTotalRow());
         renderJson(results);
     }
-
-
-//    /**
-//     * 主任审核Task列表
-//     *
-//     *
-//     */
-//    public void masterReviewList() {
-//        int rowCount = getParaToInt("rowCount");
-//        int currentPage = getParaToInt("currentPage");
-//        if (rowCount == 0) {
-//            rowCount = ParaUtils.getRowCount();
-//        }
-//        String params="FROM `db_task` WHERE state";
-//    }
 
     /**
      * 将查询结果生成JSON
