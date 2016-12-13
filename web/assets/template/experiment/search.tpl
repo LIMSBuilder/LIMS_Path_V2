@@ -80,8 +80,10 @@
                             </a>
                             <div class="media-body">
                                 <div class="btn-demo pull-right">
+                                    <a class="btn btn-primary-alt" data-toggle="modal"
+                                       data-target=".bs-example-modal-lg" @click="view_experience_info(result)">实验详情</a>
                                     <a class="btn btn-default-alt" data-toggle="modal"
-                                       data-target=".bs-example-modal-lg" @click="view_info(result)">查看详情</a>
+                                       data-target=".bs-example-modal-lg" @click="view_info(result)">任务书</a>
                                     <a class="btn btn-info-alt" data-toggle="modal"
                                        data-target=".bs-example-modal-lg" @click="view_process(result)">流程查询</a>
                                 </div>
@@ -218,6 +220,84 @@
                     });
 
 
+                },
+                view_experience_info: function (task) {
+                    var me = this;
+                    var id = task.id;
+                    me.$http.get("/task/experienceView", {
+                        params: {
+                            task_id: id
+                        }
+                    }).then(function (response) {
+                        var data = response.data;
+                        console.log(data);
+                        var template = jQuery.fn.loadTemplate("/assets/template/subject/experience_view.tpl");
+                        Vue.component('experience_view' + id, {
+                            template: template,
+                            data: function () {
+                                return {
+                                    deliveryList: data.results,
+                                    originRecordList: [],
+                                    optionUser: {},
+                                    assess_reject: [],
+                                    check_reject: [],
+                                    experience_first: [],
+                                    experience_second: [],
+                                    currentMasterReview: {},
+                                    currentQualityReview: {},
+                                    isShow: false,
+                                    isShowSecond: false,
+                                    originShow: false,
+                                    detailShow: false,
+                                    record: {},
+                                    recordSecond: {}
+                                };
+                            },
+                            methods: {
+                                viewOriginRecord: function (delivery) {
+                                    var me = this;
+                                    me.originRecordList = delivery.originRecod;
+                                    me.originShow = true;
+                                },
+                                viewDetail: function (delivery) {
+                                    var me = this;
+                                    var temp = {
+                                        analyst: delivery.analyst,
+                                        assessor: delivery.assessor,
+                                        checker: delivery.checker,
+                                        analyst_time: delivery.analyst_time,
+                                        assessor_time: delivery.assessor_time,
+                                        checker_time: delivery.checker_time
+                                    };
+                                    me.$set("optionUser", temp);
+                                    me.$set("assess_reject", delivery.assessReject);
+                                    me.$set("check_reject", delivery.checkReject);
+                                    me.$set("experience_first", delivery.masterReviewList);
+                                    me.$set("experience_second", delivery.qualityReviewList);
+                                    me.$set("detailShow", true);
+                                    me.$set("isShow", false);
+                                    me.$set("isShowSecond", false);
+                                },
+                                showInfo: function (record) {
+                                    var me = this;
+                                    me.$set("isShow", true);
+                                    me.$set("record", record);
+                                },
+                                showInfoSecond: function (record) {
+                                    var me = this;
+                                    me.$set("isShowSecond", true);
+                                    me.$set("recordSecond", record);
+                                }
+                            },
+                            ready: function () {
+                                var me = this;
+                            }
+                        });
+                        LIMS.dialog_lg.$set('title', '实验分析记录');
+                        LIMS.dialog_lg.currentView = 'experience_view' + id;
+                    }, function (response) {
+                        jQuery.fn.error_msg("数据异常,无法获取实验数据!");
+                    });
                 },
                 load_list: function (condition, currentPage) {
                     var me = this;

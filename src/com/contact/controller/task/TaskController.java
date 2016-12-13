@@ -2,6 +2,7 @@ package com.contact.controller.task;
 
 
 import com.contact.controller.common.FlowController;
+import com.contact.controller.sample.SampleController;
 import com.contact.model.*;
 import com.contact.model.Properties;
 import com.contact.utils.ParaUtils;
@@ -477,5 +478,55 @@ public class TaskController extends Controller {
             results.add(temp);
         }
         return results;
+    }
+
+    /**
+     * 查看实验分析流程
+     * 获取分配的各个人员 / 实验分析结果 / 实验审核/复核结果和次数 / 主任审核结果 / 质控审核结果
+     */
+    public void experienceView() {
+        try {
+            int task_id = getParaToInt("task_id");
+            Task task = Task.taskDao.findById(task_id);
+            if (task != null) {
+                List<Delivery> deliveryList = Delivery.deliveryDao.find("SELECT * FROM `db_delivery` WHERE task_id=" + task_id);
+                renderJson(toDeliveryJson(deliveryList));
+            }
+        } catch (Exception e) {
+            renderError(500);
+        }
+    }
+
+    public static Map toDeliveryJson(List<Delivery> deliveryList) {
+        Map result = new HashMap();
+        List<Map> maps = new ArrayList();
+        for (Delivery delivery : deliveryList) {
+            Task task = Task.taskDao.findById(delivery.get("task_id"));
+            Map temp = new HashMap();
+            temp.put("id", delivery.get("id"));
+            temp.put("project", Monitor_Project.monitor_projectDao.findById(delivery.get("project_id")));
+            temp.put("character", delivery.get("character"));
+            temp.put("storage", delivery.get("storage"));
+            temp.put("analyst", User.userDao.findById(delivery.get("analyst")).getUserInfo());
+            temp.put("assessor", User.userDao.findById(delivery.get("assessor")).getUserInfo());
+            temp.put("checker", User.userDao.findById(delivery.get("checker")).getUserInfo());
+            temp.put("analyst_time", delivery.get("analyst_time"));
+            temp.put("assessor_time", delivery.get("assessor_time"));
+            temp.put("checker_time", delivery.get("checker_time"));
+            temp.put("state", delivery.get("state"));
+            temp.put("inspection", delivery.get("inspection_path"));
+            temp.put("originRecod", Delivery_OriginRecord.delivery_originRecordDao.find("SELECT * FROM `db_deliveryoriginrecord` WHERE `db_deliveryoriginrecord`.`delivery_id`=" + delivery.get("id")));
+
+            temp.put("assessReject", SampleController.assessorRejectToJson(Delivery_Assess_Reject.deliveryAssessRejectDao.find("SELECT * FROM `db_deliveryAssessReject` WHERE `db_deliveryAssessReject`.`delivery_id`=" + delivery.get("id"))));
+            temp.put("checkReject", SampleController.checkerRejectToJson(Delivery_Check_Reject.deliveryCheckRejectDao.find("SELECT * FROM `db_deliveryCheckReject` WHERE `db_deliveryCheckReject`.`delivery_id`=" + delivery.get("id"))));
+
+            temp.put("currentMasterReview", Experience_FirstReview.experienceFirstReviewDao.findById(task.get("experience_firstReview_record")).getMoreInfo());
+            temp.put("currentQualityReview", Experience_SecondReview.experienceSecondReviewDao.findById(task.get("experience_secondReview_record")).getMoreInfo());
+            temp.put("masterReviewList", Experience_FirstReview.experienceFirstReviewDao.find("SELECT * FROM `db_experience_first` WHERE task_id=" + delivery.get("task_id")));
+            temp.put("qualityReviewList", Experience_SecondReview.experienceSecondReviewDao.find("SELECT * FROM `db_experience_second` WHERE task_id=" + delivery.get("task_id")));
+            maps.add(temp);
+        }
+        result.put("results", maps);
+        return result;
     }
 }

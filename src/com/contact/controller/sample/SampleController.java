@@ -435,6 +435,23 @@ public class SampleController extends Controller {
         }
         return results;
     }
+    /**
+     * 复核拒绝变成JSON
+     *
+     * @return
+     */
+    public static List checkerRejectToJson(List<Delivery_Check_Reject> delivery_check_rejectList) {
+        List<Map> results = new ArrayList<>();
+        for (Delivery_Check_Reject reject : delivery_check_rejectList) {
+            Map temp = new HashMap();
+            temp.put("id", reject.get("id"));
+            temp.put("checker_time", reject.get("checker_time"));
+            temp.put("reason", reject.get("reason"));
+            temp.put("checker", User.userDao.findById(reject.get("checker")).getUserInfo());
+            results.add(temp);
+        }
+        return results;
+    }
 
 
     /**
