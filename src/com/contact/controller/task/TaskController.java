@@ -181,7 +181,7 @@ public class TaskController extends Controller {
         if (rowCount == 0) {
             rowCount = ParaUtils.getRowCount();
         }
-        String paras = "FROM `db_task` t WHERE state=" + ParaUtils.flows.get("task_dstribute") + " AND  EXISTS(SELECT `db_delivery`.* FROM `db_delivery`,`db_task` m  WHERE `db_delivery`.`task_id`=t.`id` AND `db_delivery`.state in (-2,3,4) AND `db_delivery`.`assessor`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + " )";
+        String paras = "FROM `db_task` t WHERE state=" + ParaUtils.flows.get("task_dstribute") + " AND  EXISTS(SELECT `db_delivery`.* FROM `db_delivery`,`db_task` m  WHERE `db_delivery`.`task_id`=t.`id` AND `db_delivery`.state in (-2,4,5) AND `db_delivery`.`assessor`=" + ParaUtils.getCurrentUser(getRequest()).get("id") + " )";
         Page<Task> taskPage = Task.taskDao.paginate(currentPage, rowCount, "SELECT t.* ", paras);
         List<Task> taskList = taskPage.getList();
         Map results = toJson(taskList);
@@ -191,22 +191,6 @@ public class TaskController extends Controller {
         results.put("totalRowCount", taskPage.getTotalRow());
         renderJson(results);
     }
-
-
-//    /**
-//     * 主任审核Task列表
-//     *
-//     *
-//     */
-//    public void masterReviewList() {
-//        int rowCount = getParaToInt("rowCount");
-//        int currentPage = getParaToInt("currentPage");
-//        if (rowCount == 0) {
-//            rowCount = ParaUtils.getRowCount();
-//        }
-//        String params="FROM `db_task` WHERE state";
-//    }
-
     /**
      * 将查询结果生成JSON
      *

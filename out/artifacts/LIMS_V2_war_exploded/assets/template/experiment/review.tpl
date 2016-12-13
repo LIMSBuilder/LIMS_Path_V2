@@ -215,7 +215,8 @@
                                         jQuery.fn.codeState(data.code, {
                                             200: function () {
                                                 jQuery.fn.alert_msg("实验分析纪录全部复核完成！");
-                                                that.load_list();
+                                                //that.load_list();
+                                                me.load_list();
                                             }
                                         });
                                     }, function (response) {
@@ -241,8 +242,7 @@
                                                             jQuery.fn.codeState(data.code, {
                                                                 200: function () {
                                                                     jQuery.fn.alert_msg("任务流转成功!");
-                                                                    debugger
-                                                                    me.load_list("", 1);
+                                                                    that.load_list("", 1);
                                                                 }
                                                             })
                                                         }, function (response) {
@@ -289,7 +289,7 @@
                                     checker: {},
                                     checker_time: "",
                                     state: "",
-                                    assess_reject:[]
+                                    assess_reject: []
                                 };
                             },
                             methods: {
@@ -323,7 +323,7 @@
                                     me.$set("checker", project.checker);
                                     me.$set("checker_time", project.checker_time);
                                     me.$set("state", project.delivery.state);
-                                    me.$set("assess_reject",project.assess_reject);
+                                    me.$set("assess_reject", project.assess_reject);
                                 }
                             },
                             ready: function () {

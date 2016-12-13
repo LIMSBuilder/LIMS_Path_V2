@@ -2,12 +2,13 @@
     <div class="panel-body">
         <ul class="nav nav-tabs">
             <li id="tab_task_list" class="active"><a href="#home" data-toggle="tab"><strong>审核项目</strong></a></li>
-            <li id="tab-task"><a href="#task" data-toggle="tab"><strong>项目详情</strong></a></li>
+            <li id="tab-task"><a href="#task" data-toggle="tab"><strong>{{identify==""?"任务详情":'当前:'+identify}}</strong></a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content mb30">
             <div class="tab-pane active" id="home">
                 <div class="row">
+                    <p v-if="result_list.length==0">暂无待审核任务。</p>
                     <div class="results-list">
                         <template v-for="result in result_list">
                             <div class="media">
@@ -41,7 +42,7 @@
                 </div>
             </div>
             <div class="tab-pane" id="task">
-                <div class="row">
+                <div class="row" v-if="tabShow">
                     <div class="col-sm-12">
                         <div class="btn-demo">
                             <a class="btn btn-success-alt" @click="review(id,identify,1)">审核通过</a>
@@ -135,6 +136,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="row" v-else>
+                    <p>请先选择一个任务。</p>
+                </div>
             </div>
         </div>
     </div>
@@ -146,6 +150,7 @@
             el: '#contentpanel',
             data: function () {
                 return {
+                    tabShow: false,
                     result_list: [],//结果集
                     id: "",
                     delivery_id: "",
@@ -161,6 +166,7 @@
                     var me = this;
                     var id = task.id;
                     me.isShow = false;
+                    me.tabShow = true;
                     me.$set("id", id);
                     me.$set("identify", task.identify);
                     me.load_projectlist(id);
@@ -561,6 +567,8 @@
                                                     me.load_list("state=quality_review", 1);
                                                     me.projectList = [];
                                                     me.isShow = false;
+                                                    me.tabShow = false;
+                                                    me.identify="";
                                                     jQuery("#tab_task_list a").tab("show");
                                                 }
                                             })

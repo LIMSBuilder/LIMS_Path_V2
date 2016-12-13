@@ -2,7 +2,8 @@
     <div class="panel-body">
         <ul class="nav nav-tabs">
             <li id="tab_task_list" class="active"><a href="#home" data-toggle="tab"><strong>审核项目</strong></a></li>
-            <li id="tab-task"><a href="#task" data-toggle="tab"><strong>项目详情</strong></a></li>
+            <li id="tab-task"><a href="#task" data-toggle="tab"><strong>{{identify==""?"任务详情":'当前:'+identify}}</strong></a>
+            </li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content mb30">
@@ -566,6 +567,7 @@
                                                     jQuery.fn.alert_msg("任务审核成功!");
                                                     me.load_list("state=master_review", 1);
                                                     me.tabShow = false;
+                                                    me.identify = "";
                                                     me.projectList = [];
                                                     me.isShow = false;
                                                     jQuery("#tab_task_list a").tab("show");
