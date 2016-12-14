@@ -8,6 +8,7 @@
                         <h4 class="panel-title">待质控任务书</h4>
                     </div><!-- panel-heading -->
                     <div class="panel-body">
+                        <p v-if="result_list.length==0">暂无待质控的任务。</p>
                         <div class="results-list">
                             <template v-for="result in result_list">
                                 <div class="media">

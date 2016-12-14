@@ -1,7 +1,7 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <ul class="nav nav-tabs">
-            <li id="tab_task_list" class="active"><a href="#home" data-toggle="tab"><strong>待分析</strong></a></li>
+            <li id="tab_task_list" class="active"><a href="#home" data-toggle="tab"><strong>待我分析</strong></a></li>
             <li id="tab-task"><a href="#task" data-toggle="tab"><strong>{{identify==""?"任务详情":'当前:'+identify}}</strong></a>
         </ul>
 

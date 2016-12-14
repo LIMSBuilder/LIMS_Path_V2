@@ -9,6 +9,7 @@
                     </div><!-- panel-heading -->
                     <div class="panel-body">
                         <div class="results-list">
+                            <p v-if="result_list.length==0">暂无待登记样品的任务。</p>
                             <template v-for="result in result_list">
                                 <div class="media">
                                     <a href="javascript:;" class="pull-left">
