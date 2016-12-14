@@ -24,8 +24,11 @@ public class FileController extends Controller {
             Map result = RenderUtils.codeFactory(200);
 
             //result.put("path", saveDir);
+            //String path = PathKit.getWebRootPath() + "/upload\\" + uploadFile.getFileName();
+            String path = "/upload\\" + uploadFile.getFileName();
+            System.out.println(path);
             //将地址保存成绝对路径，通过磁盘访问的方式使用PageOffice调用，由于中文路径只支持绝对访问，因此只能通过调用硬盘的方式进行访问。
-            result.put("path", uploadFile.getUploadPath()+"\\"+uploadFile.getFileName());
+            result.put("path", path);
             renderJson(result);
         } catch (Exception e) {
             renderError(500);

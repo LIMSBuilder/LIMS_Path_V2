@@ -8,6 +8,7 @@
                         <h4 class="panel-title">待接收样品</h4>
                     </div><!-- panel-heading -->
                     <div class="panel-body">
+                        <p v-if="result_list.length==0">暂无待接收的任务。</p>
                         <div class="results-list">
                             <template v-for="result in result_list">
                                 <div class="media">
@@ -63,7 +64,7 @@
                     }).then(function (response) {
                         var data = response.data;
                         var template = jQuery.fn.loadTemplate("/assets/template/subject/receive_sample.tpl");
-                        Vue.component('connect_sample' + id, {
+                        Vue.component('sample_receive' + id, {
                             template: template,
                             data: function () {
                                 return {
@@ -202,8 +203,8 @@
                                 });
                             }
                         });
-                        LIMS.dialog_lg.$set('title', '样品交接联单');
-                        LIMS.dialog_lg.currentView = 'connect_sample' + id;
+                        LIMS.dialog_lg.$set('title', '样品接收');
+                        LIMS.dialog_lg.currentView = 'sample_receive' + id;
                     }, function (response) {
                         jQuery.fn.error_msg("任务书数据请求异常,请刷新后重新尝试。");
                     });

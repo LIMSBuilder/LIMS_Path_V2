@@ -89,7 +89,6 @@ public class ExportController extends Controller {
                         getRequest().setAttribute("fileName", fileName);
                         getRequest().setAttribute("delivery_id", delivery_id);
                         getRequest().setAttribute("isChange", false);
-                        System.out.println("执行了inspection");
                     }
                     break;
                 case "inspectionChange":

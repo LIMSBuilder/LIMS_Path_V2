@@ -14,8 +14,8 @@
     String path =delivery.getStr("inspection_path");
     //设置服务器页面
     poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-    poCtrl.setFileTitle(path.substring(path.lastIndexOf("\\")));
-    poCtrl.setCaption(path.substring(path.lastIndexOf("\\")));
+    //poCtrl.setFileTitle(path.substring(path.lastIndexOf("\\")+1));
+    //poCtrl.setCaption(path.substring(path.lastIndexOf("\\")+1));
     //添加自定义按钮
     poCtrl.addCustomToolButton("修改","Create",3);
     poCtrl.addCustomToolButton("保存","Save",1);
